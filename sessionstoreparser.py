@@ -28,8 +28,8 @@ class Main(object):
 
   def printopenurls(self, sessionstore):
     printer = OpenUrlGenerator()
-    for line in printer.generate(sessionstore):
-      self.stdout.write(line + '\n')
+    for url in printer.generate(sessionstore):
+      self.stdout.write(url + '\n')
 
   def main(self, argv):
     if len(argv) != 2:
