@@ -4,8 +4,8 @@ import json
 
 class OpenUrlPrinter(object):
 
-  def __init__(self, stdout):
-    self.stdout = stdout
+  def __init__(self):
+    pass
 
   def doprint(self, sessionstore):
     for windows in sessionstore['windows']:
@@ -27,7 +27,7 @@ class Main(object):
     return sessionstore
 
   def printopenurls(self, sessionstore):
-    printer = OpenUrlPrinter(self.stdout)
+    printer = OpenUrlPrinter()
     for line in printer.doprint(sessionstore):
       self.stdout.write(line + '\n')
 
