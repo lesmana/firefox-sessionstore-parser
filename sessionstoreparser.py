@@ -28,13 +28,15 @@ class Main(object):
   def main(self):
     if len(sys.argv) != 2:
       print 'need filename'
-      sys.exit(1)
+      return 1
     filename = sys.argv[1]
     fileob = open(filename)
     sessionstore = json.load(fileob)
     fileob.close()
     printopenurls(sessionstore)
+    return 0
 
 def main():
   main = Main()
-  main.main()
+  exitstatus = main.main()
+  sys.exit(exitstatus)
