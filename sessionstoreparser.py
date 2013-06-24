@@ -7,7 +7,7 @@ class OpenUrlGenerator(object):
   def __init__(self):
     pass
 
-  def doprint(self, sessionstore):
+  def generate(self, sessionstore):
     for windows in sessionstore['windows']:
       for tab in windows['tabs']:
         openindex = tab['index'] - 1
@@ -28,7 +28,7 @@ class Main(object):
 
   def printopenurls(self, sessionstore):
     printer = OpenUrlGenerator()
-    for line in printer.doprint(sessionstore):
+    for line in printer.generate(sessionstore):
       self.stdout.write(line + '\n')
 
   def main(self, argv):
