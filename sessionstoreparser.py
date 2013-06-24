@@ -22,9 +22,8 @@ class Main(object):
     self.openfunc = openfunc
 
   def getsessionstore(self, filename):
-    fileob = self.openfunc(filename)
-    sessionstore = json.load(fileob)
-    fileob.close()
+    with self.openfunc(filename) as fileob:
+      sessionstore = json.load(fileob)
     return sessionstore
 
   def printopenurls(self, sessionstore):
