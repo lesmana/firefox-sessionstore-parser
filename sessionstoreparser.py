@@ -21,6 +21,12 @@ class Main(object):
   def __init__(self):
     pass
 
+  def getsessionstore(self, filename):
+    fileob = open(filename)
+    sessionstore = json.load(fileob)
+    fileob.close()
+    return sessionstore
+
   def printopenurls(self, sessionstore):
     printer = OpenUrlPrinter(sys.stdout)
     printer.doprint(sessionstore)
@@ -30,9 +36,7 @@ class Main(object):
       print 'need filename'
       return 1
     filename = sys.argv[1]
-    fileob = open(filename)
-    sessionstore = json.load(fileob)
-    fileob.close()
+    sessionstore = self.getsessionstore(filename)
     self.printopenurls(sessionstore)
     return 0
 
