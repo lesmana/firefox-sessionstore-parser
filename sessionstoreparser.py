@@ -31,16 +31,16 @@ class Main(object):
     printer = OpenUrlPrinter(self.stdout)
     printer.doprint(sessionstore)
 
-  def main(self):
-    if len(sys.argv) != 2:
+  def main(self, argv):
+    if len(argv) != 2:
       print 'need filename'
       return 1
-    filename = sys.argv[1]
+    filename = argv[1]
     sessionstore = self.getsessionstore(filename)
     self.printopenurls(sessionstore)
     return 0
 
 def main():
   main = Main(sys.stdout)
-  exitstatus = main.main()
+  exitstatus = main.main(sys.argv)
   sys.exit(exitstatus)
