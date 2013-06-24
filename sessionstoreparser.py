@@ -27,8 +27,8 @@ class Main(object):
     return sessionstore
 
   def printopenurls(self, sessionstore):
-    printer = OpenUrlGenerator()
-    for url in printer.generate(sessionstore):
+    generator = OpenUrlGenerator()
+    for url in generator.generate(sessionstore):
       self.stdout.write(url + '\n')
 
   def main(self, argv):
