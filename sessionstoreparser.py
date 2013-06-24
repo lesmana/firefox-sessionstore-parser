@@ -20,12 +20,21 @@ def printopenurls(sessionstore):
   printer = OpenUrlPrinter(sys.stdout)
   printer.doprint(sessionstore)
 
+class Main(object):
+
+  def __init__(self):
+    pass
+
+  def main(self):
+    if len(sys.argv) != 2:
+      print 'need filename'
+      sys.exit(1)
+    filename = sys.argv[1]
+    fileob = open(filename)
+    sessionstore = json.load(fileob)
+    fileob.close()
+    printopenurls(sessionstore)
+
 def main():
-  if len(sys.argv) != 2:
-    print 'need filename'
-    sys.exit(1)
-  filename = sys.argv[1]
-  fileob = open(filename)
-  sessionstore = json.load(fileob)
-  fileob.close()
-  printopenurls(sessionstore)
+  main = Main()
+  main.main()
