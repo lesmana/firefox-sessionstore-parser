@@ -2,7 +2,7 @@
 
 import json
 
-class OpenUrlPrinter(object):
+class OpenUrlGenerator(object):
 
   def __init__(self):
     pass
@@ -27,7 +27,7 @@ class Main(object):
     return sessionstore
 
   def printopenurls(self, sessionstore):
-    printer = OpenUrlPrinter()
+    printer = OpenUrlGenerator()
     for line in printer.doprint(sessionstore):
       self.stdout.write(line + '\n')
 
