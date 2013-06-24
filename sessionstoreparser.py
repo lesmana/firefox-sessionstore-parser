@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import json
-import sys
 
 class OpenUrlPrinter(object):
 
@@ -41,6 +40,7 @@ class Main(object):
     return 0
 
 def main():
+  import sys
   main = Main(sys.stdout)
   exitstatus = main.main(sys.argv)
   sys.exit(exitstatus)
