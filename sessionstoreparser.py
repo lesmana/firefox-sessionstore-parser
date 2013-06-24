@@ -5,8 +5,8 @@ import sys
 
 class OpenUrlPrinter(object):
 
-  def __init__(self):
-    pass
+  def __init__(self, stdout):
+    self.stdout = stdout
 
   def doprint(self, sessionstore):
     for windows in sessionstore['windows']:
@@ -14,10 +14,10 @@ class OpenUrlPrinter(object):
         openindex = tab['index'] - 1
         openentry = tab['entries'][openindex]
         openurl = openentry['url']
-        sys.stdout.write(openurl + '\n')
+        self.stdout.write(openurl + '\n')
 
 def printopenurls(sessionstore):
-  printer = OpenUrlPrinter()
+  printer = OpenUrlPrinter(sys.stdout)
   printer.doprint(sessionstore)
 
 def main():
