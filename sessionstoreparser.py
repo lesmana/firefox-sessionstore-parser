@@ -18,8 +18,8 @@ class OpenUrlPrinter(object):
 
 class Main(object):
 
-  def __init__(self):
-    pass
+  def __init__(self, stdout):
+    self.stdout = stdout
 
   def getsessionstore(self, filename):
     fileob = open(filename)
@@ -28,7 +28,7 @@ class Main(object):
     return sessionstore
 
   def printopenurls(self, sessionstore):
-    printer = OpenUrlPrinter(sys.stdout)
+    printer = OpenUrlPrinter(self.stdout)
     printer.doprint(sessionstore)
 
   def main(self):
@@ -41,6 +41,6 @@ class Main(object):
     return 0
 
 def main():
-  main = Main()
+  main = Main(sys.stdout)
   exitstatus = main.main()
   sys.exit(exitstatus)
