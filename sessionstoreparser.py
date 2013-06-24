@@ -16,14 +16,14 @@ class OpenUrlPrinter(object):
         openurl = openentry['url']
         self.stdout.write(openurl + '\n')
 
-def printopenurls(sessionstore):
-  printer = OpenUrlPrinter(sys.stdout)
-  printer.doprint(sessionstore)
-
 class Main(object):
 
   def __init__(self):
     pass
+
+  def printopenurls(self, sessionstore):
+    printer = OpenUrlPrinter(sys.stdout)
+    printer.doprint(sessionstore)
 
   def main(self):
     if len(sys.argv) != 2:
@@ -33,7 +33,7 @@ class Main(object):
     fileob = open(filename)
     sessionstore = json.load(fileob)
     fileob.close()
-    printopenurls(sessionstore)
+    self.printopenurls(sessionstore)
     return 0
 
 def main():
