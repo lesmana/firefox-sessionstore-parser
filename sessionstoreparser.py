@@ -3,13 +3,22 @@
 import json
 import sys
 
+class OpenUrlPrinter(object):
+
+  def __init__(self):
+    pass
+
+  def doprint(self, sessionstore):
+    for windows in sessionstore['windows']:
+      for tab in windows['tabs']:
+        openindex = tab['index'] - 1
+        openentry = tab['entries'][openindex]
+        openurl = openentry['url']
+        print openurl
+
 def printopenurls(sessionstore):
-  for windows in sessionstore['windows']:
-    for tab in windows['tabs']:
-      openindex = tab['index'] - 1
-      openentry = tab['entries'][openindex]
-      openurl = openentry['url']
-      print openurl
+  printer = OpenUrlPrinter()
+  printer.doprint(sessionstore)
 
 def main():
   if len(sys.argv) != 2:
