@@ -13,7 +13,7 @@ class OpenUrlPrinter(object):
         openindex = tab['index'] - 1
         openentry = tab['entries'][openindex]
         openurl = openentry['url']
-        self.stdout.write(openurl + '\n')
+        yield openurl
 
 class Main(object):
 
@@ -28,7 +28,8 @@ class Main(object):
 
   def printopenurls(self, sessionstore):
     printer = OpenUrlPrinter(self.stdout)
-    printer.doprint(sessionstore)
+    for line in printer.doprint(sessionstore):
+      self.stdout.write(line + '\n')
 
   def main(self, argv):
     if len(argv) != 2:
