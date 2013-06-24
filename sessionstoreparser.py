@@ -17,11 +17,12 @@ class OpenUrlPrinter(object):
 
 class Main(object):
 
-  def __init__(self, stdout):
+  def __init__(self, stdout, openfunc):
     self.stdout = stdout
+    self.openfunc = openfunc
 
   def getsessionstore(self, filename):
-    fileob = open(filename)
+    fileob = self.openfunc(filename)
     sessionstore = json.load(fileob)
     fileob.close()
     return sessionstore
@@ -41,6 +42,6 @@ class Main(object):
 
 def main():
   import sys
-  main = Main(sys.stdout)
+  main = Main(sys.stdout, open)
   exitstatus = main.main(sys.argv)
   sys.exit(exitstatus)
