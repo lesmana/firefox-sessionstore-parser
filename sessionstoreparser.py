@@ -14,7 +14,7 @@ class OpenUrlPrinter(object):
         openindex = tab['index'] - 1
         openentry = tab['entries'][openindex]
         openurl = openentry['url']
-        print openurl
+        sys.stdout.write(openurl + '\n')
 
 def printopenurls(sessionstore):
   printer = OpenUrlPrinter()
