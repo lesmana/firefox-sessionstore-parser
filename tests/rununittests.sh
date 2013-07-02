@@ -1,6 +1,9 @@
 #! /bin/sh
 
-export PYTHONPATH=$PWD/..:$PWD/helper:$PWD:$PYTHONPATH
+SRCDIR="$PWD/.."
+HELPERDIR="$PWD/helper"
+
+export PYTHONPATH="$SRCDIR:$HELPERDIR:$PATH"
 
 cd unit
 ./rununittests.py
