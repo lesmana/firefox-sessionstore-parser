@@ -1,6 +1,6 @@
 #! /bin/sh
 
-PATH="$PWD:$PATH"
+PATH="$PWD/tests/helper:$PATH"
 
 cd tests/acceptance
 shut -r
