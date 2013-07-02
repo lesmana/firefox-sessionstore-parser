@@ -23,11 +23,9 @@ class TestMain(unittest.TestCase):
         return 'sessionstore'
       def printopenurls(self, sessionstore):
         report.append(('printopenurls', sessionstore))
-    stdout = StringIO.StringIO()
-    mainobject = PartFakeMain(stdout, None)
+    mainobject = PartFakeMain(None, None)
     argv = ['wat', 'filename']
     exitstatus = mainobject.main(argv)
-    self.assertEqual(stdout.getvalue(), '')
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('getsessionstore', 'filename'),
