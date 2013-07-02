@@ -2,5 +2,5 @@
 
 PATH="$PWD:$PATH"
 
-cd tests
-../shut -r
+cd tests/acceptance
+shut -r
