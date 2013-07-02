@@ -2,5 +2,5 @@
 
 export PYTHONPATH=$PWD:$PYTHONPATH
 
-cd unittests
+cd tests/unit
 ./rununittests.py
