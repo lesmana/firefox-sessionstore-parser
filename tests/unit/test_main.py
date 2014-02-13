@@ -17,13 +17,14 @@ class TestMain(unittest.TestCase):
 
   def test_filename(self):
     report = []
-    class PartFakeMain(p.Main):
-      def getsessionstore(self, filename):
-        report.append(('getsessionstore', filename))
-        return 'sessionstore'
-      def printopenurls(self, sessionstore):
-        report.append(('printopenurls', sessionstore))
-    mainobject = PartFakeMain(None, None)
+    def fakegetsessionstore(filename):
+      report.append(('getsessionstore', filename))
+      return 'sessionstore'
+    def fakeprintopenurls(sessionstore):
+      report.append(('printopenurls', sessionstore))
+    mainobject = p.Main(None, None)
+    mainobject.getsessionstore = fakegetsessionstore
+    mainobject.printopenurls = fakeprintopenurls
     argv = ['wat', 'filename']
     exitstatus = mainobject.main(argv)
     self.assertEqual(exitstatus, 0)
