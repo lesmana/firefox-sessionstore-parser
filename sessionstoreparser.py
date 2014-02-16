@@ -30,7 +30,7 @@ class Main(object):
     generator = OpenUrlGenerator()
     return generator
 
-  def printopenurls(self, generator, sessionstore):
+  def printurls(self, generator, sessionstore):
     for url in generator.generate(sessionstore):
       self.stdout.write(url + '\n')
 
@@ -41,7 +41,7 @@ class Main(object):
     filename = argv[1]
     sessionstore = self.getsessionstore(filename)
     generator = self.geturlgenerator()
-    self.printopenurls(generator, sessionstore)
+    self.printurls(generator, sessionstore)
     return 0
 
 def main():
