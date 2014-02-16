@@ -7,7 +7,7 @@ class Parser(object):
   def __init__(self):
     pass
 
-  def generate(self, sessionstore):
+  def parse(self, sessionstore):
     for windows in sessionstore['windows']:
       for tab in windows['tabs']:
         openindex = tab['index'] - 1
@@ -31,7 +31,7 @@ class Main(object):
     return parser
 
   def printurls(self, parser, sessionstore):
-    for url in parser.generate(sessionstore):
+    for url in parser.parse(sessionstore):
       self.stdout.write(url + '\n')
 
   def main(self, argv):
