@@ -64,7 +64,12 @@ class Main(object):
 
   def main(self, argv):
     if len(argv) != 2:
+      success = False
       errormessage = 'need filename\n'
+    else:
+      success = True
+      errormessage = None
+    if not success:
       self.stdout.write(errormessage)
       return 1
     filename = argv[1]
