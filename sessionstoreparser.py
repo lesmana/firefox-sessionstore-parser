@@ -29,7 +29,6 @@ class OpenUrlGenerator(object):
     yield openurl
 
 class Parser(object):
-
   def __init__(self):
     self.windowsgenerator = WindowsGenerator()
     self.tabgenerator = TabGenerator()
