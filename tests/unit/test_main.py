@@ -20,19 +20,19 @@ class TestMain(unittest.TestCase):
     def fakegetsessionstore(filename):
       report.append(('getsessionstore', filename))
       return 'sessionstore'
-    def fakegeturlgenerator():
-      report.append(('geturlgenerator', ))
+    def fakegetparser():
+      report.append(('getparser', ))
       return 'generator'
     def fakeprinturls(generator, sessionstore):
       report.append(('printurls', generator, sessionstore))
     mainobject = p.Main(None, None)
     mainobject.getsessionstore = fakegetsessionstore
-    mainobject.geturlgenerator = fakegeturlgenerator
+    mainobject.getparser = fakegetparser
     mainobject.printurls = fakeprinturls
     argv = ['wat', 'filename']
     exitstatus = mainobject.main(argv)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('getsessionstore', 'filename'),
-          ('geturlgenerator', ),
+          ('getparser', ),
           ('printurls', 'generator', 'sessionstore')])

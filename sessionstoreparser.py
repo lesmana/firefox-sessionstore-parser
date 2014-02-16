@@ -26,7 +26,7 @@ class Main(object):
       sessionstore = json.load(fileob)
     return sessionstore
 
-  def geturlgenerator(self):
+  def getparser(self):
     generator = OpenUrlGenerator()
     return generator
 
@@ -40,7 +40,7 @@ class Main(object):
       return 1
     filename = argv[1]
     sessionstore = self.getsessionstore(filename)
-    generator = self.geturlgenerator()
+    generator = self.getparser()
     self.printurls(generator, sessionstore)
     return 0
 
