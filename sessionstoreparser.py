@@ -34,12 +34,12 @@ class Parser(object):
     pass
 
   def parse(self, sessionstore):
-    windowsgenerator = WindowsGenerator()
-    tabgenerator = TabGenerator()
-    openurlgenerator = OpenUrlGenerator()
-    for windows in windowsgenerator.generate(sessionstore):
-      for tab in tabgenerator.generate(windows):
-        for url in openurlgenerator.generate(tab):
+    self.windowsgenerator = WindowsGenerator()
+    self.tabgenerator = TabGenerator()
+    self.openurlgenerator = OpenUrlGenerator()
+    for windows in self.windowsgenerator.generate(sessionstore):
+      for tab in self.tabgenerator.generate(windows):
+        for url in self.openurlgenerator.generate(tab):
           yield url
 
 class Main(object):
