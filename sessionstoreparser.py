@@ -27,11 +27,11 @@ class Main(object):
     return sessionstore
 
   def getparser(self):
-    generator = OpenUrlGenerator()
-    return generator
+    parser = OpenUrlGenerator()
+    return parser
 
-  def printurls(self, generator, sessionstore):
-    for url in generator.generate(sessionstore):
+  def printurls(self, parser, sessionstore):
+    for url in parser.generate(sessionstore):
       self.stdout.write(url + '\n')
 
   def main(self, argv):
@@ -40,8 +40,8 @@ class Main(object):
       return 1
     filename = argv[1]
     sessionstore = self.getsessionstore(filename)
-    generator = self.getparser()
-    self.printurls(generator, sessionstore)
+    parser = self.getparser()
+    self.printurls(parser, sessionstore)
     return 0
 
 def main():

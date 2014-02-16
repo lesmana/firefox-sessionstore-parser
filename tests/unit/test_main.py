@@ -22,9 +22,9 @@ class TestMain(unittest.TestCase):
       return 'sessionstore'
     def fakegetparser():
       report.append(('getparser', ))
-      return 'generator'
-    def fakeprinturls(generator, sessionstore):
-      report.append(('printurls', generator, sessionstore))
+      return 'parser'
+    def fakeprinturls(parser, sessionstore):
+      report.append(('printurls', parser, sessionstore))
     mainobject = p.Main(None, None)
     mainobject.getsessionstore = fakegetsessionstore
     mainobject.getparser = fakegetparser
@@ -35,4 +35,4 @@ class TestMain(unittest.TestCase):
     self.assertEqual(report, [
           ('getsessionstore', 'filename'),
           ('getparser', ),
-          ('printurls', 'generator', 'sessionstore')])
+          ('printurls', 'parser', 'sessionstore')])
