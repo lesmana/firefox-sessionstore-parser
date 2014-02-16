@@ -65,14 +65,15 @@ class Main(object):
   def main(self, argv):
     if len(argv) != 2:
       success = False
+      filename = None
       errormessage = 'need filename\n'
     else:
       success = True
+      filename = argv[1]
       errormessage = None
     if not success:
       self.stdout.write(errormessage)
       return 1
-    filename = argv[1]
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
     self.printurls(parser, sessionstore)
