@@ -62,7 +62,7 @@ class Main(object):
     for url in parser.parse(sessionstore):
       self.stdout.write(url + '\n')
 
-  def main(self, argv):
+  def handleargv(self, argv):
     if len(argv) != 2:
       success = False
       filename = None
@@ -71,6 +71,10 @@ class Main(object):
       success = True
       filename = argv[1]
       errormessage = None
+    return success, filename, errormessage
+
+  def main(self, argv):
+    success, filename, errormessage = self.handleargv(argv)
     if not success:
       self.stdout.write(errormessage)
       return 1
