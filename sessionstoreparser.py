@@ -26,8 +26,12 @@ class Main(object):
       sessionstore = json.load(fileob)
     return sessionstore
 
-  def printopenurls(self, sessionstore):
+  def geturlgenerator(self):
     generator = OpenUrlGenerator()
+    return generator
+
+  def printopenurls(self, sessionstore):
+    generator = self.geturlgenerator()
     for url in generator.generate(sessionstore):
       self.stdout.write(url + '\n')
 
