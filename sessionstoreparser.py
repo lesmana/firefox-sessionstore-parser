@@ -29,10 +29,10 @@ class OpenUrlGenerator(object):
     yield openurl
 
 class Parser(object):
-  def __init__(self):
-    self.windowsgenerator = WindowsGenerator()
-    self.tabgenerator = TabGenerator()
-    self.openurlgenerator = OpenUrlGenerator()
+  def __init__(self, windowsgenerator, tabgenerator, openurlgenerator):
+    self.windowsgenerator = windowsgenerator
+    self.tabgenerator = tabgenerator
+    self.openurlgenerator = openurlgenerator
 
   def parse(self, sessionstore):
     for windows in self.windowsgenerator.generate(sessionstore):
@@ -52,7 +52,10 @@ class Main(object):
     return sessionstore
 
   def getparser(self):
-    parser = Parser()
+    windowsgenerator = WindowsGenerator()
+    tabgenerator = TabGenerator()
+    openurlgenerator = OpenUrlGenerator()
+    parser = Parser(windowsgenerator, tabgenerator, openurlgenerator)
     return parser
 
   def printurls(self, parser, sessionstore):
