@@ -12,7 +12,7 @@ class TestMain(unittest.TestCase):
     mainobject = p.Main(stdout, None)
     argv = ['wat']
     exitstatus = mainobject.main(argv)
-    self.assertEqual(stdout.getvalue(), 'need filename')
+    self.assertEqual(stdout.getvalue(), 'need filename\n')
     self.assertEqual(exitstatus, 1)
 
   def test_filename(self):

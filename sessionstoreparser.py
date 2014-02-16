@@ -64,7 +64,7 @@ class Main(object):
 
   def main(self, argv):
     if len(argv) != 2:
-      self.stdout.write('need filename')
+      self.stdout.write('need filename\n')
       return 1
     filename = argv[1]
     sessionstore = self.getsessionstore(filename)
