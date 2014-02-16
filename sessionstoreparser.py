@@ -2,7 +2,7 @@
 
 import json
 
-class OpenUrlGenerator(object):
+class Parser(object):
 
   def __init__(self):
     pass
@@ -27,7 +27,7 @@ class Main(object):
     return sessionstore
 
   def getparser(self):
-    parser = OpenUrlGenerator()
+    parser = Parser()
     return parser
 
   def printurls(self, parser, sessionstore):
