@@ -31,12 +31,11 @@ class OpenUrlGenerator(object):
 class Parser(object):
 
   def __init__(self):
-    pass
-
-  def parse(self, sessionstore):
     self.windowsgenerator = WindowsGenerator()
     self.tabgenerator = TabGenerator()
     self.openurlgenerator = OpenUrlGenerator()
+
+  def parse(self, sessionstore):
     for windows in self.windowsgenerator.generate(sessionstore):
       for tab in self.tabgenerator.generate(windows):
         for url in self.openurlgenerator.generate(tab):
