@@ -64,6 +64,17 @@ class SessionStoreReader(object):
       sessionstore = json.load(fileob)
     return sessionstore
 
+class ParserFactory(object):
+  def __init__(self):
+    pass
+
+  def produce(self):
+    windowsgenerator = WindowsGenerator()
+    tabgenerator = TabGenerator()
+    urlgenerator = OpenUrlGenerator()
+    parser = Parser(windowsgenerator, tabgenerator, urlgenerator)
+    return parser
+
 class Main(object):
 
   def __init__(self, stdout, openfunc):
@@ -83,10 +94,8 @@ class Main(object):
     return sessionstore
 
   def getparser(self):
-    windowsgenerator = WindowsGenerator()
-    tabgenerator = TabGenerator()
-    urlgenerator = OpenUrlGenerator()
-    parser = Parser(windowsgenerator, tabgenerator, urlgenerator)
+    parserfactory = ParserFactory()
+    parser = parserfactory.produce()
     return parser
 
   def printurls(self, parser, sessionstore):
