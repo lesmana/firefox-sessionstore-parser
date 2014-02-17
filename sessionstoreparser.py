@@ -55,6 +55,15 @@ class ArgvHandler(object):
       errormessage = None
     return success, filename, errormessage
 
+class SessionStoreReader(object):
+  def __init__(self, openfunc):
+    self.openfunc = openfunc
+
+  def read(self, filename):
+    with self.openfunc(filename) as fileob:
+      sessionstore = json.load(fileob)
+    return sessionstore
+
 class Main(object):
 
   def __init__(self, stdout, openfunc):
@@ -69,8 +78,8 @@ class Main(object):
     return success, filename
 
   def getsessionstore(self, filename):
-    with self.openfunc(filename) as fileob:
-      sessionstore = json.load(fileob)
+    sessionstorereader = SessionStoreReader(self.openfunc)
+    sessionstore = sessionstorereader.read(filename)
     return sessionstore
 
   def getparser(self):
