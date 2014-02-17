@@ -80,12 +80,13 @@ class Main(object):
   def handleargv(self, argv):
     argvhandler = ArgvHandler()
     success, filename, errormessage = argvhandler.handle(argv)
-    return success, filename, errormessage
-
-  def main(self, argv):
-    success, filename, errormessage = self.handleargv(argv)
     if not success:
       self.stdout.write(errormessage)
+    return success, filename
+
+  def main(self, argv):
+    success, filename = self.handleargv(argv)
+    if not success:
       return 1
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
