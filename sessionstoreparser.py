@@ -40,6 +40,21 @@ class Parser(object):
         for url in self.urlgenerator.generate(tab):
           yield url
 
+class ArgvHandler(object):
+  def __init__(self):
+    pass
+
+  def handle(self, argv):
+    if len(argv) != 2:
+      success = False
+      filename = None
+      errormessage = 'need filename\n'
+    else:
+      success = True
+      filename = argv[1]
+      errormessage = None
+    return success, filename, errormessage
+
 class Main(object):
 
   def __init__(self, stdout, openfunc):
@@ -63,14 +78,8 @@ class Main(object):
       self.stdout.write(url + '\n')
 
   def handleargv(self, argv):
-    if len(argv) != 2:
-      success = False
-      filename = None
-      errormessage = 'need filename\n'
-    else:
-      success = True
-      filename = argv[1]
-      errormessage = None
+    argvhandler = ArgvHandler()
+    success, filename, errormessage = argvhandler.handle(argv)
     return success, filename, errormessage
 
   def main(self, argv):
