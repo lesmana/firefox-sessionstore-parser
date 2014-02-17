@@ -123,4 +123,4 @@ def main():
   import sys
   main = Main(sys.stdout, open)
   exitstatus = main.main(sys.argv)
-  sys.exit(exitstatus)
+  return exitstatus
