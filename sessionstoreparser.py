@@ -61,6 +61,13 @@ class Main(object):
     self.stdout = stdout
     self.openfunc = openfunc
 
+  def handleargv(self, argv):
+    argvhandler = ArgvHandler()
+    success, filename, errormessage = argvhandler.handle(argv)
+    if not success:
+      self.stdout.write(errormessage)
+    return success, filename
+
   def getsessionstore(self, filename):
     with self.openfunc(filename) as fileob:
       sessionstore = json.load(fileob)
@@ -76,13 +83,6 @@ class Main(object):
   def printurls(self, parser, sessionstore):
     for url in parser.parse(sessionstore):
       self.stdout.write(url + '\n')
-
-  def handleargv(self, argv):
-    argvhandler = ArgvHandler()
-    success, filename, errormessage = argvhandler.handle(argv)
-    if not success:
-      self.stdout.write(errormessage)
-    return success, filename
 
   def main(self, argv):
     success, filename = self.handleargv(argv)
