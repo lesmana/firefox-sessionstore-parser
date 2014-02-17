@@ -88,26 +88,26 @@ class Main(object):
   def __init__(self, stdout, openfunc):
     self.stdout = stdout
     self.openfunc = openfunc
+    self.argvhandler = ArgvHandler()
+    self.sessionstorereader = SessionStoreReader(self.openfunc)
+    self.parserfactory = ParserFactory()
+    self.writer = Writer(self.stdout)
 
   def handleargv(self, argv):
-    self.argvhandler = ArgvHandler()
     success, filename, errormessage = self.argvhandler.handle(argv)
     if not success:
       self.stdout.write(errormessage)
     return success, filename
 
   def getsessionstore(self, filename):
-    self.sessionstorereader = SessionStoreReader(self.openfunc)
     sessionstore = self.sessionstorereader.read(filename)
     return sessionstore
 
   def getparser(self):
-    self.parserfactory = ParserFactory()
     parser = self.parserfactory.produce()
     return parser
 
   def printurls(self, parser, sessionstore):
-    self.writer = Writer(self.stdout)
     self.writer.write(parser, sessionstore)
 
   def main(self, argv):
