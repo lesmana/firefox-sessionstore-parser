@@ -75,6 +75,14 @@ class ParserFactory(object):
     parser = Parser(windowsgenerator, tabgenerator, urlgenerator)
     return parser
 
+class Writer(object):
+  def __init__(self, stdout):
+    self.stdout = stdout
+
+  def write(self, parser, sessionstore):
+    for url in parser.parse(sessionstore):
+      self.stdout.write(url + '\n')
+
 class Main(object):
 
   def __init__(self, stdout, openfunc):
@@ -99,8 +107,8 @@ class Main(object):
     return parser
 
   def printurls(self, parser, sessionstore):
-    for url in parser.parse(sessionstore):
-      self.stdout.write(url + '\n')
+    writer = Writer(self.stdout)
+    writer.write(parser, sessionstore)
 
   def main(self, argv):
     success, filename = self.handleargv(argv)
