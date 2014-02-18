@@ -113,14 +113,17 @@ class Main(object):
   def trymain(self, argv):
     success, filename = self.handleargv(argv)
     if not success:
-      return 1
+      raise Exception()
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
     self.printurls(parser, sessionstore)
-    return 0
 
   def main(self, argv):
-    return self.trymain(argv)
+    try:
+      self.trymain(argv)
+      return 0
+    except Exception:
+      return 1
 
 def main():
   import sys
