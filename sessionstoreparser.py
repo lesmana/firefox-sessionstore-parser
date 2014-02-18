@@ -110,7 +110,7 @@ class Main(object):
   def printurls(self, parser, sessionstore):
     self.writer.write(parser, sessionstore)
 
-  def main(self, argv):
+  def trymain(self, argv):
     success, filename = self.handleargv(argv)
     if not success:
       return 1
@@ -118,6 +118,9 @@ class Main(object):
     parser = self.getparser()
     self.printurls(parser, sessionstore)
     return 0
+
+  def main(self, argv):
+    return self.trymain(argv)
 
 def main():
   import sys
