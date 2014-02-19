@@ -115,8 +115,12 @@ class Main(object):
     parser = self.parserfactory.produce()
     return parser
 
-  def printurls(self, parser, sessionstore):
+  def geturls(self, parser, sessionstore):
     urls = parser.parse(sessionstore)
+    return urls
+
+  def printurls(self, parser, sessionstore):
+    urls = self.geturls(parser, sessionstore)
     self.writer.write(urls)
 
   def trymain(self, argv):
