@@ -94,12 +94,10 @@ class MainError(Exception):
 class Main(object):
 
   def __init__(self, stdout, openfunc):
-    self.stdout = stdout
-    self.openfunc = openfunc
     self.argvhandler = ArgvHandler()
-    self.sessionstorereader = SessionStoreReader(self.openfunc)
+    self.sessionstorereader = SessionStoreReader(openfunc)
     self.parserfactory = ParserFactory()
-    self.writer = Writer(self.stdout)
+    self.writer = Writer(stdout)
 
   def handleargv(self, argv):
     try:
