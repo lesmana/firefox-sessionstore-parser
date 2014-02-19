@@ -56,7 +56,9 @@ class ArgvHandler(object):
       success = True
       filename = argv[1]
       errormessage = None
-    return success, filename, errormessage
+    if not success:
+      raise ArgvError(errormessage)
+    return filename
 
 class SessionStoreReader(object):
   def __init__(self, openfunc):
@@ -101,9 +103,7 @@ class Main(object):
 
   def handleargv(self, argv):
     try:
-      success, filename, errormessage = self.argvhandler.handle(argv)
-      if not success:
-        raise ArgvError(errormessage)
+      filename = self.argvhandler.handle(argv)
       return filename
     except ArgvError as ae:
       errormessage = str(ae)
