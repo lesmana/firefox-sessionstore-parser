@@ -84,8 +84,8 @@ class Writer(object):
   def __init__(self, stdout):
     self.stdout = stdout
 
-  def write(self, parser, sessionstore):
-    for url in parser.parse(sessionstore):
+  def write(self, urls):
+    for url in urls:
       self.stdout.write(url + '\n')
 
 class MainError(Exception):
@@ -116,7 +116,8 @@ class Main(object):
     return parser
 
   def printurls(self, parser, sessionstore):
-    self.writer.write(parser, sessionstore)
+    urls = parser.parse(sessionstore)
+    self.writer.write(urls)
 
   def trymain(self, argv):
     filename = self.handleargv(argv)
