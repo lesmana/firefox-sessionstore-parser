@@ -129,13 +129,14 @@ class Main(object):
   def main(self, argv):
     try:
       self.trymain(argv)
-      return 0
+      return 0, None
     except MainError as me:
-      self.stdout.write(str(me))
-      return 1
+      return 1, str(me)
 
 def main():
   import sys
   main = Main(sys.stdout, open)
-  exitstatus = main.main(sys.argv)
+  exitstatus, errormessage = main.main(sys.argv)
+  if errormessage is not None:
+    sys.stderr.write(errormessage)
   return exitstatus

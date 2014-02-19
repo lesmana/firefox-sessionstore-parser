@@ -8,11 +8,10 @@ import sessionstoreparser as p
 class TestMain(unittest.TestCase):
 
   def test_nofilename(self):
-    stdout = StringIO.StringIO()
-    mainobject = p.Main(stdout, None)
+    mainobject = p.Main(None, None)
     argv = ['wat']
-    exitstatus = mainobject.main(argv)
-    self.assertEqual(stdout.getvalue(), 'need filename\n')
+    exitstatus, errormessage = mainobject.main(argv)
+    self.assertEqual(errormessage, 'need filename\n')
     self.assertEqual(exitstatus, 1)
 
   def test_filename(self):
@@ -30,8 +29,9 @@ class TestMain(unittest.TestCase):
     mainobject.getparser = fakegetparser
     mainobject.printurls = fakeprinturls
     argv = ['wat', 'filename']
-    exitstatus = mainobject.main(argv)
+    exitstatus, errormessage = mainobject.main(argv)
     self.assertEqual(exitstatus, 0)
+    self.assertEqual(errormessage, None)
     self.assertEqual(report, [
           ('getsessionstore', 'filename'),
           ('getparser', ),
