@@ -119,15 +119,15 @@ class Main(object):
     urls = parser.parse(sessionstore)
     return urls
 
-  def printurls(self, parser, sessionstore):
-    urls = self.geturls(parser, sessionstore)
+  def printurls(self, urls):
     self.writer.write(urls)
 
   def trymain(self, argv):
     filename = self.handleargv(argv)
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
-    self.printurls(parser, sessionstore)
+    urls = self.geturls(parser, sessionstore)
+    self.printurls(urls)
 
   def main(self, argv):
     try:
