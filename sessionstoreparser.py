@@ -40,6 +40,9 @@ class Parser(object):
         for url in self.urlgenerator.generate(tab):
           yield url
 
+class ArgvError(Exception):
+  pass
+
 class ArgvHandler(object):
   def __init__(self):
     pass
@@ -97,10 +100,14 @@ class Main(object):
     self.writer = Writer(self.stdout)
 
   def handleargv(self, argv):
-    success, filename, errormessage = self.argvhandler.handle(argv)
-    if not success:
+    try:
+      success, filename, errormessage = self.argvhandler.handle(argv)
+      if not success:
+        raise ArgvError(errormessage)
+      return filename
+    except ArgvError as ae:
+      errormessage = str(ae)
       raise MainError(errormessage)
-    return filename
 
   def getsessionstore(self, filename):
     sessionstore = self.sessionstorereader.read(filename)
