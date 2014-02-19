@@ -60,7 +60,7 @@ class ArgvHandler(object):
       raise ArgvError(errormessage)
     return filename
 
-class SessionStoreReader(object):
+class JsonReader(object):
   def __init__(self, openfunc):
     self.openfunc = openfunc
 
@@ -95,7 +95,7 @@ class Main(object):
 
   def __init__(self, stdout, openfunc):
     self.argvhandler = ArgvHandler()
-    self.sessionstorereader = SessionStoreReader(openfunc)
+    self.jsonreader = JsonReader(openfunc)
     self.parserfactory = ParserFactory()
     self.writer = Writer(stdout)
 
@@ -108,7 +108,7 @@ class Main(object):
       raise MainError(errormessage)
 
   def getsessionstore(self, filename):
-    sessionstore = self.sessionstorereader.read(filename)
+    sessionstore = self.jsonreader.read(filename)
     return sessionstore
 
   def getparser(self):
