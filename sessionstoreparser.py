@@ -96,8 +96,8 @@ class Main(object):
   def handleargv(self, argv):
     success, filename, errormessage = self.argvhandler.handle(argv)
     if not success:
-      self.stdout.write(errormessage)
-    return success, filename
+      raise Exception(errormessage)
+    return filename
 
   def getsessionstore(self, filename):
     sessionstore = self.sessionstorereader.read(filename)
@@ -111,9 +111,7 @@ class Main(object):
     self.writer.write(parser, sessionstore)
 
   def trymain(self, argv):
-    success, filename = self.handleargv(argv)
-    if not success:
-      raise Exception()
+    filename = self.handleargv(argv)
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
     self.printurls(parser, sessionstore)
@@ -122,7 +120,8 @@ class Main(object):
     try:
       self.trymain(argv)
       return 0
-    except Exception:
+    except Exception as e:
+      self.stdout.write(str(e))
       return 1
 
 def main():
