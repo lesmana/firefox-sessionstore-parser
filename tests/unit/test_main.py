@@ -11,7 +11,7 @@ class TestMain(unittest.TestCase):
     mainobject = p.Main(None, None)
     argv = ['wat']
     exitstatus, errormessage = mainobject.main(argv)
-    self.assertEqual(errormessage, 'need filename\n')
+    self.assertEqual(errormessage, 'need filename')
     self.assertEqual(exitstatus, 1)
 
   def test_filename(self):

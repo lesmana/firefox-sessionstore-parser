@@ -51,7 +51,7 @@ class ArgvHandler(object):
     if len(argv) != 2:
       success = False
       filename = None
-      errormessage = 'need filename\n'
+      errormessage = 'need filename'
     else:
       success = True
       filename = argv[1]
@@ -138,5 +138,5 @@ def main():
   main = Main(sys.stdout, open)
   exitstatus, errormessage = main.main(sys.argv)
   if errormessage is not None:
-    sys.stderr.write(errormessage)
+    sys.stderr.write(errormessage + '\n')
   return exitstatus
