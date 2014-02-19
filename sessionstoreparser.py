@@ -83,6 +83,9 @@ class Writer(object):
     for url in parser.parse(sessionstore):
       self.stdout.write(url + '\n')
 
+class MainError(Exception):
+  pass
+
 class Main(object):
 
   def __init__(self, stdout, openfunc):
@@ -96,7 +99,7 @@ class Main(object):
   def handleargv(self, argv):
     success, filename, errormessage = self.argvhandler.handle(argv)
     if not success:
-      raise Exception(errormessage)
+      raise MainError(errormessage)
     return filename
 
   def getsessionstore(self, filename):
@@ -120,8 +123,8 @@ class Main(object):
     try:
       self.trymain(argv)
       return 0
-    except Exception as e:
-      self.stdout.write(str(e))
+    except MainError as me:
+      self.stdout.write(str(me))
       return 1
 
 def main():
