@@ -1,1 +1,69 @@
-{"windows":[{"tabs":[{"entries":[{"url":"http://url1/","ID":0,"docshellID":5,"docIdentifier":0,"scroll":"0,0"}],"index":1,"hidden":false,"attributes":{"image":"chrome://global/skin/icons/warning-16.png"}}],"selected":1,"_closedTabs":[],"busy":false,"width":994,"height":728,"screenX":0,"screenY":1,"sizemode":"normal"},{"tabs":[{"entries":[{"url":"http://url2/","ID":1,"docshellID":9,"docIdentifier":1,"scroll":"0,0"}],"index":1,"hidden":false,"attributes":{"image":"chrome://global/skin/icons/warning-16.png"}}],"selected":1,"_closedTabs":[],"busy":false,"width":994,"height":728,"screenX":0,"screenY":1,"sizemode":"normal"}],"selectedWindow":2,"_closedWindows":[],"session":{"state":"stopped","lastUpdate":1368818643783,"startTime":1368818622550,"recentCrashes":0},"scratchpads":[]}
+{
+    "_closedWindows": [], 
+    "scratchpads": [], 
+    "selectedWindow": 2, 
+    "session": {
+        "lastUpdate": 1368818643783, 
+        "recentCrashes": 0, 
+        "startTime": 1368818622550, 
+        "state": "stopped"
+    }, 
+    "windows": [
+        {
+            "_closedTabs": [], 
+            "busy": false, 
+            "height": 728, 
+            "screenX": 0, 
+            "screenY": 1, 
+            "selected": 1, 
+            "sizemode": "normal", 
+            "tabs": [
+                {
+                    "attributes": {
+                        "image": "chrome://global/skin/icons/warning-16.png"
+                    }, 
+                    "entries": [
+                        {
+                            "ID": 0, 
+                            "docIdentifier": 0, 
+                            "docshellID": 5, 
+                            "scroll": "0,0", 
+                            "url": "http://url1/"
+                        }
+                    ], 
+                    "hidden": false, 
+                    "index": 1
+                }
+            ], 
+            "width": 994
+        }, 
+        {
+            "_closedTabs": [], 
+            "busy": false, 
+            "height": 728, 
+            "screenX": 0, 
+            "screenY": 1, 
+            "selected": 1, 
+            "sizemode": "normal", 
+            "tabs": [
+                {
+                    "attributes": {
+                        "image": "chrome://global/skin/icons/warning-16.png"
+                    }, 
+                    "entries": [
+                        {
+                            "ID": 1, 
+                            "docIdentifier": 1, 
+                            "docshellID": 9, 
+                            "scroll": "0,0", 
+                            "url": "http://url2/"
+                        }
+                    ], 
+                    "hidden": false, 
+                    "index": 1
+                }
+            ], 
+            "width": 994
+        }
+    ]
+}

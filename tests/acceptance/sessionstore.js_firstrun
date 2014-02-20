@@ -1,1 +1,42 @@
-{"windows":[{"tabs":[{"entries":[{"url":"about:startpage","ID":0,"docshellID":5,"docIdentifier":0,"scroll":"0,0"}],"index":1,"hidden":false,"attributes":{"image":"chrome://global/skin/icons/warning-16.png"}}],"selected":1,"_closedTabs":[],"width":994,"height":728,"screenX":0,"screenY":1,"sizemode":"normal","title":"Problem loading page","_shouldRestore":true}],"selectedWindow":0,"_closedWindows":[],"session":{"state":"stopped","lastUpdate":1368818376458,"startTime":1368818370296,"recentCrashes":0},"scratchpads":[]}
+{
+    "_closedWindows": [], 
+    "scratchpads": [], 
+    "selectedWindow": 0, 
+    "session": {
+        "lastUpdate": 1368818376458, 
+        "recentCrashes": 0, 
+        "startTime": 1368818370296, 
+        "state": "stopped"
+    }, 
+    "windows": [
+        {
+            "_closedTabs": [], 
+            "_shouldRestore": true, 
+            "height": 728, 
+            "screenX": 0, 
+            "screenY": 1, 
+            "selected": 1, 
+            "sizemode": "normal", 
+            "tabs": [
+                {
+                    "attributes": {
+                        "image": "chrome://global/skin/icons/warning-16.png"
+                    }, 
+                    "entries": [
+                        {
+                            "ID": 0, 
+                            "docIdentifier": 0, 
+                            "docshellID": 5, 
+                            "scroll": "0,0", 
+                            "url": "about:startpage"
+                        }
+                    ], 
+                    "hidden": false, 
+                    "index": 1
+                }
+            ], 
+            "title": "Problem loading page", 
+            "width": 994
+        }
+    ]
+}
