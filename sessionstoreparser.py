@@ -119,7 +119,7 @@ class Main(object):
     urls = parser.parse(sessionstore)
     return urls
 
-  def printurls(self, urls):
+  def writeurls(self, urls):
     self.writer.write(urls)
 
   def trymain(self, argv):
@@ -127,7 +127,7 @@ class Main(object):
     sessionstore = self.getsessionstore(filename)
     parser = self.getparser()
     urls = self.geturls(parser, sessionstore)
-    self.printurls(urls)
+    self.writeurls(urls)
 
   def main(self, argv):
     try:
