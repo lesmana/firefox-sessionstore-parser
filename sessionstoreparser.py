@@ -59,7 +59,7 @@ class JsonReader(object):
       sessionstore = json.load(fileob)
     return sessionstore
 
-class ParserFactory(object):
+class UrlGeneratorFactory(object):
   def __init__(self):
     pass
 
@@ -85,7 +85,7 @@ class Main(object):
   def __init__(self, stdout, openfunc):
     self.argvhandler = ArgvHandler()
     self.jsonreader = JsonReader(openfunc)
-    self.parserfactory = ParserFactory()
+    self.urlgeneratorfactory = UrlGeneratorFactory()
     self.urlwriter = UrlWriter(stdout)
 
   def handleargv(self, argv):
@@ -100,12 +100,12 @@ class Main(object):
     sessionstore = self.jsonreader.read(filename)
     return sessionstore
 
-  def getparser(self):
-    parser = self.parserfactory.produce()
-    return parser
+  def geturlgenerator(self):
+    urlgenerator = self.urlgeneratorfactory.produce()
+    return urlgenerator
 
-  def geturls(self, parser, sessionstore):
-    urls = parser.generate(sessionstore)
+  def geturls(self, urlgenerator, sessionstore):
+    urls = urlgenerator.generate(sessionstore)
     return urls
 
   def writeurls(self, urls):
@@ -114,8 +114,8 @@ class Main(object):
   def trymain(self, argv):
     filename = self.handleargv(argv)
     sessionstore = self.getsessionstore(filename)
-    parser = self.getparser()
-    urls = self.geturls(parser, sessionstore)
+    urlgenerator = self.geturlgenerator()
+    urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
 
   def main(self, argv):
