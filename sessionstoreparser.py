@@ -2,21 +2,21 @@
 
 import json
 
-class WindowsGenerator(object):
+class WindowGenerator(object):
   def __init__(self):
     pass
 
   def generate(self, sessionstore):
-    for windows in sessionstore['windows']:
-      yield windows
+    for window in sessionstore['windows']:
+      yield window
 
 class TabGenerator(object):
-  def __init__(self, windowsgenerator):
-    self.windowsgenerator = windowsgenerator
+  def __init__(self, windowgenerator):
+    self.windowgenerator = windowgenerator
 
   def generate(self, sessionstore):
-    for windows in self.windowsgenerator.generate(sessionstore):
-      for tab in windows['tabs']:
+    for window in self.windowgenerator.generate(sessionstore):
+      for tab in window['tabs']:
         yield tab
 
 class OpenUrlGenerator(object):
@@ -64,8 +64,8 @@ class UrlGeneratorFactory(object):
     pass
 
   def produce(self):
-    windowsgenerator = WindowsGenerator()
-    tabgenerator = TabGenerator(windowsgenerator)
+    windowgenerator = WindowGenerator()
+    tabgenerator = TabGenerator(windowgenerator)
     urlgenerator = OpenUrlGenerator(tabgenerator)
     return urlgenerator
 
