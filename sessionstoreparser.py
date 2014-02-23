@@ -80,7 +80,7 @@ class ParserFactory(object):
     parser = Parser(windowsgenerator, tabgenerator, urlgenerator)
     return parser
 
-class Writer(object):
+class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
 
@@ -97,7 +97,7 @@ class Main(object):
     self.argvhandler = ArgvHandler()
     self.jsonreader = JsonReader(openfunc)
     self.parserfactory = ParserFactory()
-    self.writer = Writer(stdout)
+    self.urlwriter = UrlWriter(stdout)
 
   def handleargv(self, argv):
     try:
@@ -120,7 +120,7 @@ class Main(object):
     return urls
 
   def writeurls(self, urls):
-    self.writer.write(urls)
+    self.urlwriter.write(urls)
 
   def trymain(self, argv):
     filename = self.handleargv(argv)
