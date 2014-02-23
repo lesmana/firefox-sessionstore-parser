@@ -11,12 +11,13 @@ class WindowsGenerator(object):
       yield windows
 
 class TabGenerator(object):
-  def __init__(self):
-    pass
+  def __init__(self, windowsgenerator):
+    self.windowsgenerator = windowsgenerator
 
-  def generate(self, windows):
-    for tab in windows['tabs']:
-      yield tab
+  def generate(self, sessionstore):
+    for windows in self.windowsgenerator.generate(sessionstore):
+      for tab in windows['tabs']:
+        yield tab
 
 class OpenUrlGenerator(object):
   def __init__(self):
@@ -29,16 +30,14 @@ class OpenUrlGenerator(object):
     yield openurl
 
 class Parser(object):
-  def __init__(self, windowsgenerator, tabgenerator, urlgenerator):
-    self.windowsgenerator = windowsgenerator
+  def __init__(self, tabgenerator, urlgenerator):
     self.tabgenerator = tabgenerator
     self.urlgenerator = urlgenerator
 
   def parse(self, sessionstore):
-    for windows in self.windowsgenerator.generate(sessionstore):
-      for tab in self.tabgenerator.generate(windows):
-        for url in self.urlgenerator.generate(tab):
-          yield url
+    for tab in self.tabgenerator.generate(sessionstore):
+      for url in self.urlgenerator.generate(tab):
+        yield url
 
 class ArgvError(Exception):
   pass
@@ -75,9 +74,9 @@ class ParserFactory(object):
 
   def produce(self):
     windowsgenerator = WindowsGenerator()
-    tabgenerator = TabGenerator()
+    tabgenerator = TabGenerator(windowsgenerator)
     urlgenerator = OpenUrlGenerator()
-    parser = Parser(windowsgenerator, tabgenerator, urlgenerator)
+    parser = Parser(tabgenerator, urlgenerator)
     return parser
 
 class UrlWriter(object):
