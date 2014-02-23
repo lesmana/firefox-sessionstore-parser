@@ -30,14 +30,6 @@ class OpenUrlGenerator(object):
       openurl = openentry['url']
       yield openurl
 
-class Parser(object):
-  def __init__(self, urlgenerator):
-    self.urlgenerator = urlgenerator
-
-  def parse(self, sessionstore):
-    for url in self.urlgenerator.generate(sessionstore):
-      yield url
-
 class ArgvError(Exception):
   pass
 
@@ -75,8 +67,7 @@ class ParserFactory(object):
     windowsgenerator = WindowsGenerator()
     tabgenerator = TabGenerator(windowsgenerator)
     urlgenerator = OpenUrlGenerator(tabgenerator)
-    parser = Parser(urlgenerator)
-    return parser
+    return urlgenerator
 
 class UrlWriter(object):
   def __init__(self, stdout):
@@ -114,7 +105,7 @@ class Main(object):
     return parser
 
   def geturls(self, parser, sessionstore):
-    urls = parser.parse(sessionstore)
+    urls = parser.generate(sessionstore)
     return urls
 
   def writeurls(self, urls):
