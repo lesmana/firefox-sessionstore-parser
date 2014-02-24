@@ -13,8 +13,8 @@ class TestMain(unittest.TestCase):
       def trymain(self, argv):
         report.append(('trymain', argv))
         raise p.MainError('need filename')
-    mainobject = FakeMain()
+    fakemain = FakeMain()
     argv = ['wat']
-    exitstatus, errormessage = p.Main.main.__func__(mainobject, argv)
+    exitstatus, errormessage = p.Main.main.__func__(fakemain, argv)
     self.assertEqual(errormessage, 'need filename')
     self.assertEqual(exitstatus, 1)
