@@ -5,6 +5,21 @@ import StringIO
 
 import sessionstoreparser as p
 
+class TestHandleArgv(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeArgvHandler(object):
+      def handle(self, argv):
+        report.append(('handle', argv))
+        return 'filename'
+    mainobject = p.Main(FakeArgvHandler(), None, None, None)
+    argv = ['wat']
+    filename = mainobject.handleargv(argv)
+    self.assertEqual(filename, 'filename')
+    self.assertEqual(report, [
+          ('handle', ['wat'])])
+
 class TestGetSessionStore(unittest.TestCase):
 
   def test_noerror(self):
