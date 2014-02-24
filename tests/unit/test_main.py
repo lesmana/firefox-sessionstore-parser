@@ -8,8 +8,13 @@ import sessionstoreparser as p
 class TestMain(unittest.TestCase):
 
   def test_nofilename(self):
-    mainobject = p.Main(None, None)
+    report = []
+    class FakeMain(object):
+      def trymain(self, argv):
+        report.append(('trymain', argv))
+        raise p.MainError('need filename')
+    mainobject = FakeMain()
     argv = ['wat']
-    exitstatus, errormessage = mainobject.main(argv)
+    exitstatus, errormessage = p.Main.main.__func__(mainobject, argv)
     self.assertEqual(errormessage, 'need filename')
     self.assertEqual(exitstatus, 1)
