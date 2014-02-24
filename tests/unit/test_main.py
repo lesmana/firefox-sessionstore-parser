@@ -5,6 +5,20 @@ import StringIO
 
 import sessionstoreparser as p
 
+class TestGetUrlGenerator(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeUrlGeneratorFactory(object):
+      def produce(self):
+        report.append(('produce', ))
+        return 'urlgenerator'
+    mainobject = p.Main(None, None, FakeUrlGeneratorFactory(), None)
+    urlgenerator = mainobject.geturlgenerator()
+    self.assertEqual(urlgenerator, 'urlgenerator')
+    self.assertEqual(report, [
+          ('produce', )])
+
 class TestGetUrls(unittest.TestCase):
 
   def test_noerror(self):
