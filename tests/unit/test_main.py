@@ -14,11 +14,10 @@ class TestHandleArgv(unittest.TestCase):
         report.append(('handle', argv))
         return 'filename'
     mainobject = p.Main(FakeArgvHandler(), None, None, None)
-    argv = ['wat']
-    filename = mainobject.handleargv(argv)
+    filename = mainobject.handleargv('argv')
     self.assertEqual(filename, 'filename')
     self.assertEqual(report, [
-          ('handle', ['wat'])])
+          ('handle', 'argv')])
 
   def test_error(self):
     report = []
@@ -27,15 +26,14 @@ class TestHandleArgv(unittest.TestCase):
         report.append(('handle', argv))
         raise p.ArgvError('silly error')
     mainobject = p.Main(FakeArgvHandler(), None, None, None)
-    argv = ['wat']
     try:
-      _ = mainobject.handleargv(argv)
+      _ = mainobject.handleargv('argv')
     except p.MainError as me:
       self.assertEqual(str(me), 'silly error')
     except Exception as e:
       self.fail('another exception expected')
     self.assertEqual(report, [
-          ('handle', ['wat'])])
+          ('handle', 'argv')])
 
 class TestGetSessionStore(unittest.TestCase):
 
@@ -46,8 +44,7 @@ class TestGetSessionStore(unittest.TestCase):
         report.append(('read', filename))
         return 'jsonobject'
     mainobject = p.Main(None, FakeJsonReader(), None, None)
-    filename = 'filename'
-    sessionstore = mainobject.getsessionstore(filename)
+    sessionstore = mainobject.getsessionstore('filename')
     self.assertEqual(sessionstore, 'jsonobject')
     self.assertEqual(report, [
           ('read', 'filename')])
@@ -75,8 +72,7 @@ class TestGetUrls(unittest.TestCase):
         report.append(('generate', sessionstore))
         return 'urls'
     mainobject = p.Main(None, None, None, None)
-    sessionstore = 'sessionstore'
-    urls = mainobject.geturls(FakeUrlGenerator(), sessionstore)
+    urls = mainobject.geturls(FakeUrlGenerator(), 'sessionstore')
     self.assertEqual(urls, 'urls')
     self.assertEqual(report, [
           ('generate', 'sessionstore')])
@@ -89,10 +85,9 @@ class TestWriteUrls(unittest.TestCase):
       def write(self, urls):
         report.append(('write', urls))
     mainobject = p.Main(None, None, None, FakeUrlWriter())
-    urls = ['urls']
-    mainobject.writeurls(urls)
+    mainobject.writeurls('urls')
     self.assertEqual(report, [
-          ('write', ['urls'])])
+          ('write', 'urls')])
 
 class TestTryMain(unittest.TestCase):
 
@@ -114,10 +109,9 @@ class TestTryMain(unittest.TestCase):
       def writeurls(self, urls):
         report.append(('writeurls', urls))
     fakemain = FakeMain()
-    argv = ['wat']
-    p.Main.trymain.__func__(fakemain, argv)
+    p.Main.trymain.__func__(fakemain, 'argv')
     self.assertEqual(report, [
-          ('handleargv', ['wat']),
+          ('handleargv', 'argv'),
           ('getsessionstore', 'filename'),
           ('geturlgenerator', ),
           ('geturls', 'urlgenerator', 'sessionstore'),
@@ -131,12 +125,11 @@ class TestMain(unittest.TestCase):
       def trymain(self, argv):
         report.append(('trymain', argv))
     fakemain = FakeMain()
-    argv = ['wat']
-    exitstatus, errormessage = p.Main.main.__func__(fakemain, argv)
+    exitstatus, errormessage = p.Main.main.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, None)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
-          ('trymain', ['wat'])])
+          ('trymain', 'argv')])
 
   def test_error(self):
     report = []
@@ -145,9 +138,8 @@ class TestMain(unittest.TestCase):
         report.append(('trymain', argv))
         raise p.MainError('silly error')
     fakemain = FakeMain()
-    argv = ['wat']
-    exitstatus, errormessage = p.Main.main.__func__(fakemain, argv)
+    exitstatus, errormessage = p.Main.main.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, 'silly error')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
-          ('trymain', ['wat'])])
+          ('trymain', 'argv')])
