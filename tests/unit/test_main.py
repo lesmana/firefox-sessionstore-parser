@@ -5,6 +5,19 @@ import StringIO
 
 import sessionstoreparser as p
 
+class TestWriteUrls(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeUrlWriter(object):
+      def write(self, urls):
+        report.append(('write', urls))
+    mainobject = p.Main(None, None, None, FakeUrlWriter())
+    urls = ['urls']
+    mainobject.writeurls(urls)
+    self.assertEqual(report, [
+          ('write', ['urls'])])
+
 class TestTryMain(unittest.TestCase):
 
   def test_noerror(self):
