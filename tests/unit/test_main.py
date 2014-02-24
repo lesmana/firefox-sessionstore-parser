@@ -5,6 +5,21 @@ import StringIO
 
 import sessionstoreparser as p
 
+class TestGetSessionStore(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeJsonReader(object):
+      def read(self, filename):
+        report.append(('read', filename))
+        return 'jsonobject'
+    mainobject = p.Main(None, FakeJsonReader(), None, None)
+    filename = 'filename'
+    sessionstore = mainobject.getsessionstore(filename)
+    self.assertEqual(sessionstore, 'jsonobject')
+    self.assertEqual(report, [
+          ('read', 'filename')])
+
 class TestGetUrlGenerator(unittest.TestCase):
 
   def test_noerror(self):
