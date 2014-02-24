@@ -18,3 +18,5 @@ class TestMain(unittest.TestCase):
     exitstatus, errormessage = p.Main.main.__func__(fakemain, argv)
     self.assertEqual(errormessage, 'silly error')
     self.assertEqual(exitstatus, 1)
+    self.assertEqual(report, [
+          ('trymain', ['wat'])])
