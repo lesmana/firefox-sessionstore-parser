@@ -82,11 +82,11 @@ class MainError(Exception):
 
 class Main(object):
 
-  def __init__(self, stdout, openfunc):
-    self.argvhandler = ArgvHandler()
-    self.jsonreader = JsonReader(openfunc)
-    self.urlgeneratorfactory = UrlGeneratorFactory()
-    self.urlwriter = UrlWriter(stdout)
+  def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
+    self.argvhandler = argvhandler
+    self.jsonreader = jsonreader
+    self.urlgeneratorfactory = urlgeneratorfactory
+    self.urlwriter = urlwriter
 
   def handleargv(self, argv):
     try:
@@ -127,7 +127,11 @@ class Main(object):
 
 def main():
   import sys
-  main = Main(sys.stdout, open)
+  argvhandler = ArgvHandler()
+  jsonreader = JsonReader(open)
+  urlgeneratorfactory = UrlGeneratorFactory()
+  urlwriter = UrlWriter(sys.stdout)
+  main = Main(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
   exitstatus, errormessage = main.main(sys.argv)
   if errormessage is not None:
     sys.stderr.write(errormessage + '\n')
