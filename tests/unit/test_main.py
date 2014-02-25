@@ -1,8 +1,6 @@
 
 import unittest
 
-import StringIO
-
 import sessionstoreparser as p
 
 class TestHandleArgv(unittest.TestCase):
