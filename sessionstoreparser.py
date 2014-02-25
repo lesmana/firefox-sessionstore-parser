@@ -71,10 +71,14 @@ class UrlGeneratorFactory(object):
     tabgenerator = TabGenerator(windowgenerator)
     return tabgenerator
 
+  def geturlgenerator(self, tabgenerator):
+    urlgenerator = OpenUrlGenerator(tabgenerator)
+    return urlgenerator
+
   def produce(self):
     windowgenerator = self.getwindowgenerator()
     tabgenerator = self.gettabgenerator(windowgenerator)
-    urlgenerator = OpenUrlGenerator(tabgenerator)
+    urlgenerator = self.geturlgenerator(tabgenerator)
     return urlgenerator
 
 class UrlWriter(object):
