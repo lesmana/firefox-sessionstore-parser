@@ -2,6 +2,7 @@
 
 import unittestchooser
 
+import test_urlwriter
 import test_main
 
 if __name__ == '__main__':
