@@ -61,20 +61,20 @@ class JsonReader(object):
 
 class UrlGeneratorFactory(object):
   def __init__(self):
-    pass
+    self.classes = {
+          'windowgenerator': WindowGenerator,
+          'tabgenerator': TabGenerator,
+          'urlgenerator': OpenUrlGenerator}
 
   def getwindowgeneratorclass(self):
-    self.classes = {'windowgenerator': WindowGenerator}
     windowgeneratorclass = self.classes['windowgenerator']
     return windowgeneratorclass
 
   def gettabgeneratorclass(self):
-    self.classes = {'tabgenerator': TabGenerator}
     tabgeneratorclass = self.classes['tabgenerator']
     return tabgeneratorclass
 
   def geturlgeneratorclass(self):
-    self.classes = {'urlgenerator': OpenUrlGenerator}
     urlgeneratorclass = self.classes['urlgenerator']
     return urlgeneratorclass
 
