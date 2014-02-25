@@ -63,8 +63,12 @@ class UrlGeneratorFactory(object):
   def __init__(self):
     pass
 
-  def produce(self):
+  def getwindowgenerator(self):
     windowgenerator = WindowGenerator()
+    return windowgenerator
+
+  def produce(self):
+    windowgenerator = self.getwindowgenerator()
     tabgenerator = TabGenerator(windowgenerator)
     urlgenerator = OpenUrlGenerator(tabgenerator)
     return urlgenerator
