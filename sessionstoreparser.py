@@ -67,13 +67,17 @@ class UrlGeneratorFactory(object):
     windowgeneratorclass = WindowGenerator
     return windowgeneratorclass
 
+  def gettabgeneratorclass(self):
+    tabgeneratorclass = TabGenerator
+    return tabgeneratorclass
+
   def getwindowgenerator(self):
     windowgeneratorclass = self.getwindowgeneratorclass()
     windowgenerator = windowgeneratorclass()
     return windowgenerator
 
   def gettabgenerator(self, windowgenerator):
-    tabgeneratorclass = TabGenerator
+    tabgeneratorclass = self.gettabgeneratorclass()
     tabgenerator = tabgeneratorclass(windowgenerator)
     return tabgenerator
 
