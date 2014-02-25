@@ -63,8 +63,12 @@ class UrlGeneratorFactory(object):
   def __init__(self):
     pass
 
-  def getwindowgenerator(self):
+  def getwindowgeneratorclass(self):
     windowgeneratorclass = WindowGenerator
+    return windowgeneratorclass
+
+  def getwindowgenerator(self):
+    windowgeneratorclass = self.getwindowgeneratorclass()
     windowgenerator = windowgeneratorclass()
     return windowgenerator
 
