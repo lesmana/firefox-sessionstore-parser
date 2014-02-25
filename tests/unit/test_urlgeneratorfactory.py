@@ -3,6 +3,30 @@ import unittest
 
 import sessionstoreparser as p
 
+class TestGetWindowGeneratorClass(unittest.TestCase):
+
+  def test_default(self):
+    windowgeneratorfactory = p.UrlGeneratorFactory({
+          'windowgenerator': 'windowgeneratorclass'})
+    windowgeneratorclass = windowgeneratorfactory.getwindowgeneratorclass()
+    self.assertEqual(windowgeneratorclass, 'windowgeneratorclass')
+
+class TestGetTabGeneratorClass(unittest.TestCase):
+
+  def test_default(self):
+    tabgeneratorfactory = p.UrlGeneratorFactory({
+          'tabgenerator': 'tabgeneratorclass'})
+    tabgeneratorclass = tabgeneratorfactory.gettabgeneratorclass()
+    self.assertEqual(tabgeneratorclass, 'tabgeneratorclass')
+
+class TestGetUrlGeneratorClass(unittest.TestCase):
+
+  def test_default(self):
+    urlgeneratorfactory = p.UrlGeneratorFactory({
+          'urlgenerator': 'urlgeneratorclass'})
+    urlgeneratorclass = urlgeneratorfactory.geturlgeneratorclass()
+    self.assertEqual(urlgeneratorclass, 'urlgeneratorclass')
+
 class TestGetWindowGenerator(unittest.TestCase):
 
   def test_default(self):
