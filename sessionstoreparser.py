@@ -53,9 +53,10 @@ class ArgvHandler(object):
 class JsonReader(object):
   def __init__(self, openfunc):
     self.openfunc = openfunc
+    self.jsonloadfunc = json.load
 
   def jsonload(self, fileob):
-    sessionstore = json.load(fileob)
+    sessionstore = self.jsonloadfunc(fileob)
     return sessionstore
 
   def read(self, filename):
