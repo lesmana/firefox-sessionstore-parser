@@ -3,6 +3,25 @@ import unittest
 
 import sessionstoreparser as p
 
+class TestGetUrlGenerator(unittest.TestCase):
+
+  def test_default(self):
+    report = []
+    class FakeUrlGenerator(object):
+      def __new__(self, tabgenerator):
+        report.append(('__init__', tabgenerator))
+        return 'fakeurlgenerator'
+    class FakeUrlGeneratorFactory(object):
+      def geturlgeneratorclass(self):
+        report.append(('geturlgeneratorclass', ))
+        return FakeUrlGenerator
+    urlgenerator = p.UrlGeneratorFactory.geturlgenerator.__func__(
+          FakeUrlGeneratorFactory(), 'tabgenerator')
+    self.assertEqual(urlgenerator, 'fakeurlgenerator')
+    self.assertEqual(report, [
+          ('geturlgeneratorclass', ),
+          ('__init__', 'tabgenerator')])
+
 class TestProduce(unittest.TestCase):
 
   def test_default(self):
