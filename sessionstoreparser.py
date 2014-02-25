@@ -60,11 +60,8 @@ class JsonReader(object):
     return sessionstore
 
 class UrlGeneratorFactory(object):
-  def __init__(self):
-    self.classes = {
-          'windowgenerator': WindowGenerator,
-          'tabgenerator': TabGenerator,
-          'urlgenerator': OpenUrlGenerator}
+  def __init__(self, classes):
+    self.classes = classes
 
   def getwindowgeneratorclass(self):
     windowgeneratorclass = self.classes['windowgenerator']
@@ -159,7 +156,10 @@ def main():
   import sys
   argvhandler = ArgvHandler()
   jsonreader = JsonReader(open)
-  urlgeneratorfactory = UrlGeneratorFactory()
+  urlgeneratorfactory = UrlGeneratorFactory({
+        'windowgenerator': WindowGenerator,
+        'tabgenerator': TabGenerator,
+        'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(sys.stdout)
   main = Main(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
   exitstatus, errormessage = main.main(sys.argv)
