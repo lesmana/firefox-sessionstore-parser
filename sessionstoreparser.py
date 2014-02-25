@@ -54,9 +54,13 @@ class JsonReader(object):
   def __init__(self, openfunc):
     self.openfunc = openfunc
 
+  def jsonload(self, fileob):
+    sessionstore = json.load(fileob)
+    return sessionstore
+
   def read(self, filename):
     with self.openfunc(filename) as fileob:
-      sessionstore = json.load(fileob)
+      sessionstore = self.jsonload(fileob)
     return sessionstore
 
 class UrlGeneratorFactory(object):
