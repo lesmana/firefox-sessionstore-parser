@@ -3,6 +3,25 @@ import unittest
 
 import sessionstoreparser as p
 
+class TestGetWindowGenerator(unittest.TestCase):
+
+  def test_default(self):
+    report = []
+    class FakeWindowGenerator(object):
+      def __new__(self):
+        report.append(('__init__', ))
+        return 'fakewindowgenerator'
+    class FakeUrlGeneratorFactory(object):
+      def getwindowgeneratorclass(self):
+        report.append(('getwindowgeneratorclass', ))
+        return FakeWindowGenerator
+    windowgenerator = p.UrlGeneratorFactory.getwindowgenerator.__func__(
+          FakeUrlGeneratorFactory())
+    self.assertEqual(windowgenerator, 'fakewindowgenerator')
+    self.assertEqual(report, [
+          ('getwindowgeneratorclass', ),
+          ('__init__', )])
+
 class TestGetTabGenerator(unittest.TestCase):
 
   def test_default(self):
