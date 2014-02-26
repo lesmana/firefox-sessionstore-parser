@@ -51,9 +51,9 @@ class ArgvHandler(object):
     return filename
 
 class JsonReader(object):
-  def __init__(self, openfunc):
+  def __init__(self, openfunc, jsonloadfunc):
     self.openfunc = openfunc
-    self.jsonloadfunc = json.load
+    self.jsonloadfunc = jsonloadfunc
 
   def jsonload(self, fileob):
     sessionstore = self.jsonloadfunc(fileob)
@@ -160,7 +160,7 @@ class Main(object):
 def main():
   import sys
   argvhandler = ArgvHandler()
-  jsonreader = JsonReader(open)
+  jsonreader = JsonReader(open, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
         'tabgenerator': TabGenerator,
