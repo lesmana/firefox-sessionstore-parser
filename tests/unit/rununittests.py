@@ -2,6 +2,7 @@
 
 import unittestchooser
 
+import test_jsonreader
 import test_urlgeneratorfactory
 import test_urlwriter
 import test_main
