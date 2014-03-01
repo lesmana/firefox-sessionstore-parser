@@ -3,7 +3,7 @@
 SRCDIR="$PWD/.."
 HELPERDIR="$PWD/helper"
 
-export PYTHONPATH="$SRCDIR:$HELPERDIR:$PATH"
+export PYTHONPATH="$SRCDIR:$HELPERDIR:$PYTHONPATH"
 
 cd unit
 ./rununittests.py
