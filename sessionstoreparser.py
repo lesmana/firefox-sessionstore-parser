@@ -161,17 +161,21 @@ class Main(object):
     except MainError as me:
       return 1, str(me)
 
-def main():
-  import sys
+def mainsecluded(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler()
-  jsonreader = JsonReader(open, json.load)
+  jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
         'tabgenerator': TabGenerator,
         'urlgenerator': OpenUrlGenerator})
-  urlwriter = UrlWriter(sys.stdout)
+  urlwriter = UrlWriter(stdout)
   main = Main(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
-  exitstatus, errormessage = main.main(sys.argv)
+  exitstatus, errormessage = main.main(argv)
   if errormessage is not None:
-    sys.stderr.write(errormessage + '\n')
+    stderr.write(errormessage + '\n')
+  return exitstatus
+
+def main():
+  import sys
+  exitstatus = mainsecluded(open, sys.stdout, sys.stderr, sys.argv)
   return exitstatus
