@@ -44,6 +44,21 @@ class TestJsonLoad(unittest.TestCase):
     self.assertEqual(report, [
           ('jsonload', 'fileob')])
 
+  def test_error(self):
+    report = []
+    def jsonload(fileob):
+      report.append(('jsonload', fileob))
+      raise ValueError('silly error')
+    jsonreader = p.JsonReader(None, jsonload)
+    try:
+      _ = jsonreader.jsonload('fileob')
+    except p.JsonReaderError as jre:
+      self.assertEqual(str(jre), 'silly error')
+    else:
+      self.fail('expected exception')
+    self.assertEqual(report, [
+          ('jsonload', 'fileob')])
+
 class TestRead(unittest.TestCase):
 
   def test_default(self):
