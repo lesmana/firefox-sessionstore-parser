@@ -50,14 +50,20 @@ class ArgvHandler(object):
       raise ArgvError(errormessage)
     return filename
 
+class JsonReaderError(Exception):
+  pass
+
 class JsonReader(object):
   def __init__(self, openfunc, jsonloadfunc):
     self.openfunc = openfunc
     self.jsonloadfunc = jsonloadfunc
 
   def openfile(self, filename):
-    fileob = self.openfunc(filename)
-    return fileob
+    try:
+      fileob = self.openfunc(filename)
+      return fileob
+    except IOError as ioe:
+      raise JsonReaderError(str(ioe))
 
   def jsonload(self, fileob):
     sessionstore = self.jsonloadfunc(fileob)

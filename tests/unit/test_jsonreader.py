@@ -16,6 +16,21 @@ class TestOpenFile(unittest.TestCase):
     self.assertEqual(report, [
           ('openfunc', 'filename')])
 
+  def test_error(self):
+    report = []
+    def openfunc(filename):
+      report.append(('openfunc', filename))
+      raise IOError('silly error')
+    jsonreader = p.JsonReader(openfunc, None)
+    try:
+      _ = jsonreader.openfile('filename')
+    except p.JsonReaderError as jre:
+      self.assertEqual(str(jre), 'silly error')
+    else:
+      self.fail('expected exception')
+    self.assertEqual(report, [
+          ('openfunc', 'filename')])
+
 class TestJsonLoad(unittest.TestCase):
 
   def test_default(self):
