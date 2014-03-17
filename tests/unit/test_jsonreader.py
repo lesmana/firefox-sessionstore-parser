@@ -3,7 +3,7 @@ import unittest
 
 import sessionstoreparser as p
 
-class TestGetContextManageable(unittest.TestCase):
+class TestOpenFile(unittest.TestCase):
 
   def test_default(self):
     report = []
@@ -11,7 +11,7 @@ class TestGetContextManageable(unittest.TestCase):
       report.append(('openfunc', filename))
       return 'fileob'
     jsonreader = p.JsonReader(openfunc, None)
-    fileob = jsonreader.getcontextmanageable('filename')
+    fileob = jsonreader.openfile('filename')
     self.assertEqual(fileob, 'fileob')
     self.assertEqual(report, [
           ('openfunc', 'filename')])
@@ -40,8 +40,8 @@ class TestRead(unittest.TestCase):
       def __exit__(self, exc_type, exc_value, traceback):
         report.append(('exit', exc_type, exc_value, traceback))
     class FakeJsonReader(object):
-      def getcontextmanageable(self, filename):
-        report.append(('getcontextmanageable', filename))
+      def openfile(self, filename):
+        report.append(('openfile', filename))
         return ContextManageable()
       def jsonload(self, fileob):
         report.append(('jsonload', fileob))
@@ -49,7 +49,7 @@ class TestRead(unittest.TestCase):
     sessionstore = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
     self.assertEqual(sessionstore, 'sessionstore')
     self.assertEqual(report, [
-          ('getcontextmanageable', 'filename'),
+          ('openfile', 'filename'),
           ('enter', ),
           ('jsonload', 'fileob'),
           ('exit', None, None, None)])

@@ -55,7 +55,7 @@ class JsonReader(object):
     self.openfunc = openfunc
     self.jsonloadfunc = jsonloadfunc
 
-  def getcontextmanageable(self, filename):
+  def openfile(self, filename):
     fileob = self.openfunc(filename)
     return fileob
 
@@ -64,7 +64,7 @@ class JsonReader(object):
     return sessionstore
 
   def read(self, filename):
-    with self.getcontextmanageable(filename) as fileob:
+    with self.openfile(filename) as fileob:
       sessionstore = self.jsonload(fileob)
     return sessionstore
 
