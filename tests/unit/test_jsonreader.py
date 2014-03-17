@@ -33,7 +33,7 @@ class TestRead(unittest.TestCase):
 
   def test_default(self):
     report = []
-    class ContextManageable(object):
+    class OpenFileContext(object):
       def __enter__(self):
         report.append(('enter', ))
         return 'fileob'
@@ -42,7 +42,7 @@ class TestRead(unittest.TestCase):
     class FakeJsonReader(object):
       def openfile(self, filename):
         report.append(('openfile', filename))
-        return ContextManageable()
+        return OpenFileContext()
       def jsonload(self, fileob):
         report.append(('jsonload', fileob))
         return 'sessionstore'
