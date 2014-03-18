@@ -134,12 +134,8 @@ class Main(object):
     self.urlwriter = urlwriter
 
   def handleargv(self, argv):
-    try:
-      filename = self.argvhandler.handle(argv)
-      return filename
-    except ArgvError as ae:
-      errormessage = str(ae)
-      raise Error(errormessage)
+    filename = self.argvhandler.handle(argv)
+    return filename
 
   def getsessionstore(self, filename):
     sessionstore = self.jsonreader.read(filename)
