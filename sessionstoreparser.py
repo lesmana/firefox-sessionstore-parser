@@ -125,7 +125,7 @@ class UrlWriter(object):
     for url in urls:
       self.stdout.write(url + '\n')
 
-class Main(object):
+class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
     self.argvhandler = argvhandler
@@ -176,7 +176,7 @@ def mainsecluded(openfunc, stdout, stderr, argv):
         'tabgenerator': TabGenerator,
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
-  main = Main(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
+  main = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
   exitstatus, errormessage = main.main(argv)
   if errormessage is not None:
     stderr.write(errormessage + '\n')
