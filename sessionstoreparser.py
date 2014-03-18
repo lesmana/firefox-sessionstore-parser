@@ -176,8 +176,8 @@ def mainsecluded(openfunc, stdout, stderr, argv):
         'tabgenerator': TabGenerator,
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
-  main = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
-  exitstatus, errormessage = main.run(argv)
+  app = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
+  exitstatus, errormessage = app.run(argv)
   if errormessage is not None:
     stderr.write(errormessage + '\n')
   return exitstatus
