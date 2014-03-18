@@ -2,8 +2,7 @@
 
 import unittestchooser
 
-import unit
-import integration
+import pytests
 
 if __name__ == '__main__':
   unittestchooser.main()
