@@ -1,5 +1,9 @@
 #! /usr/bin/env python
 
+import os
+import sys
+sys.path.extend([os.getcwd(), os.path.join(os.getcwd(), 'testhelpers')])
+
 import unittestchooser
 
 import pytests
