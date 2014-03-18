@@ -33,7 +33,7 @@ class OpenUrlGenerator(object):
       openurl = openentry['url']
       yield openurl
 
-class ArgvError(Exception):
+class ArgvError(Error):
   pass
 
 class ArgvHandler(object):
@@ -53,7 +53,7 @@ class ArgvHandler(object):
       raise ArgvError(errormessage)
     return filename
 
-class JsonReaderError(Exception):
+class JsonReaderError(Error):
   pass
 
 class JsonReader(object):
