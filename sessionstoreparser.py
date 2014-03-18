@@ -163,8 +163,8 @@ class Main(object):
     try:
       self.trymain(argv)
       return 0, None
-    except Error as me:
-      return 1, str(me)
+    except Error as e:
+      return 1, str(e)
 
 def mainsecluded(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler()
