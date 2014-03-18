@@ -34,3 +34,22 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(report, [
           ('fakeopen', 'filename')])
+
+  def test_notjson(self):
+    report = []
+    fakefilecontent = textwrap.dedent('''\
+          what is this i don't even''')
+    fakefile = StringIO.StringIO(fakefilecontent)
+    def fakeopen(filename):
+      report.append(('fakeopen', filename))
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', 'filename']
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 1)
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(fakestderr.getvalue(),
+          'No JSON object could be decoded\n')
+    self.assertEqual(report, [
+          ('fakeopen', 'filename')])
