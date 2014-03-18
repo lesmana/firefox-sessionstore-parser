@@ -2,4 +2,6 @@
 
 cd tests
 ./rununittests.sh
+
+cd ..
 ./runshelltests.sh
