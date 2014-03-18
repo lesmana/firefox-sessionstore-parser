@@ -113,15 +113,15 @@ class TestMain(unittest.TestCase):
     self.assertEqual(report, [
           ('trymain', 'argv')])
 
-  def test_error(self):
+  def test_genericerror(self):
     report = []
     class FakeMain(object):
       def trymain(self, argv):
         report.append(('trymain', argv))
-        raise p.Error('silly error')
+        raise p.Error('generic error')
     fakemain = FakeMain()
     exitstatus, errormessage = p.Main.main.__func__(fakemain, 'argv')
-    self.assertEqual(errormessage, 'silly error')
+    self.assertEqual(errormessage, 'generic error')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('trymain', 'argv')])
