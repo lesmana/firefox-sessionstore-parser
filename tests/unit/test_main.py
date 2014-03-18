@@ -17,22 +17,6 @@ class TestHandleArgv(unittest.TestCase):
     self.assertEqual(report, [
           ('handle', 'argv')])
 
-  def test_error(self):
-    report = []
-    class FakeArgvHandler(object):
-      def handle(self, argv):
-        report.append(('handle', argv))
-        raise p.ArgvError('silly error')
-    mainobject = p.Main(FakeArgvHandler(), None, None, None)
-    try:
-      _ = mainobject.handleargv('argv')
-    except p.Error as e:
-      self.assertEqual(str(e), 'silly error')
-    except Exception as e:
-      self.fail('another exception expected')
-    self.assertEqual(report, [
-          ('handle', 'argv')])
-
 class TestGetSessionStore(unittest.TestCase):
 
   def test_noerror(self):
