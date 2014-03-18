@@ -10,6 +10,7 @@ import sessionstoreparser as p
 class TestMain(unittest.TestCase):
 
   def test_default(self):
+    report = []
     fakefilecontent = textwrap.dedent('''\
           {
             "windows": [{
@@ -22,10 +23,8 @@ class TestMain(unittest.TestCase):
             "_closedWindows": []}''')
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(filename):
-      if filename == 'filename':
-        return contextlib.closing(fakefile)
-      else:
-        self.fail('unexpected filename: ' + filename)
+      report.append(('fakeopen', filename))
+      return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
@@ -33,3 +32,5 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
     self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(report, [
+          ('fakeopen', 'filename')])
