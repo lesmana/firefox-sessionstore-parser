@@ -26,8 +26,8 @@ class TestHandleArgv(unittest.TestCase):
     mainobject = p.Main(FakeArgvHandler(), None, None, None)
     try:
       _ = mainobject.handleargv('argv')
-    except p.MainError as me:
-      self.assertEqual(str(me), 'silly error')
+    except p.Error as e:
+      self.assertEqual(str(e), 'silly error')
     except Exception as e:
       self.fail('another exception expected')
     self.assertEqual(report, [
@@ -134,7 +134,7 @@ class TestMain(unittest.TestCase):
     class FakeMain(object):
       def trymain(self, argv):
         report.append(('trymain', argv))
-        raise p.MainError('silly error')
+        raise p.Error('silly error')
     fakemain = FakeMain()
     exitstatus, errormessage = p.Main.main.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, 'silly error')

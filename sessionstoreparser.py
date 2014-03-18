@@ -122,7 +122,7 @@ class UrlWriter(object):
     for url in urls:
       self.stdout.write(url + '\n')
 
-class MainError(Exception):
+class Error(Exception):
   pass
 
 class Main(object):
@@ -139,7 +139,7 @@ class Main(object):
       return filename
     except ArgvError as ae:
       errormessage = str(ae)
-      raise MainError(errormessage)
+      raise Error(errormessage)
 
   def getsessionstore(self, filename):
     sessionstore = self.jsonreader.read(filename)
@@ -167,7 +167,7 @@ class Main(object):
     try:
       self.trymain(argv)
       return 0, None
-    except MainError as me:
+    except Error as me:
       return 1, str(me)
 
 def mainsecluded(openfunc, stdout, stderr, argv):
