@@ -2,6 +2,9 @@
 
 import json
 
+class Error(Exception):
+  pass
+
 class WindowGenerator(object):
   def __init__(self):
     pass
@@ -121,9 +124,6 @@ class UrlWriter(object):
   def write(self, urls):
     for url in urls:
       self.stdout.write(url + '\n')
-
-class Error(Exception):
-  pass
 
 class Main(object):
 
