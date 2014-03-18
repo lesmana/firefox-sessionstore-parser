@@ -8,5 +8,12 @@ clean() {
 
 trap clean EXIT
 
-coverage run --branch runpythontests.py &&
-  coverage report --show-missing --omit="testhelpers/*"
+coverage run --branch runpythontests.py || exit 1
+
+coverage report --show-missing --omit="testhelpers/*"
+
+if [ "$1" = "html" ]; then
+  coverage html
+  echo "coverage html done"
+  echo "point browser to htmlcov/index.html"
+fi
