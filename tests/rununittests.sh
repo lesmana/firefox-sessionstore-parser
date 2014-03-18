@@ -1,7 +1,7 @@
 #! /bin/sh
 
 SRCDIR="$PWD/.."
-HELPERDIR="$PWD/helper"
+HELPERDIR="$PWD/../testhelpers"
 
 export PYTHONPATH="$SRCDIR:$HELPERDIR:$PYTHONPATH"
 
