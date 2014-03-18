@@ -163,6 +163,8 @@ class Main(object):
     try:
       self.trymain(argv)
       return 0, None
+    except ArgvError as ae:
+      return 2, str(ae)
     except Error as e:
       return 1, str(e)
 
