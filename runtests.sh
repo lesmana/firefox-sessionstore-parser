@@ -1,5 +1,5 @@
 #! /bin/sh
 
-./runpythontests.sh
+./runpythontests.py
 
 ./runshelltests.sh
