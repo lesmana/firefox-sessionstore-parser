@@ -1,7 +1,7 @@
 #! /bin/sh
 
 cd tests
-./rununittests.sh
+./runpythontests.sh
 
 cd ..
 ./runshelltests.sh
