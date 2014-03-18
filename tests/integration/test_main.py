@@ -29,7 +29,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
-    exitstatus = p.mainsecluded(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
     self.assertEqual(fakestderr.getvalue(), '')

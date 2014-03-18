@@ -168,7 +168,7 @@ class Application(object):
     except Error as e:
       return 1, str(e)
 
-def mainsecluded(openfunc, stdout, stderr, argv):
+def secludedmain(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler()
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
@@ -184,5 +184,5 @@ def mainsecluded(openfunc, stdout, stderr, argv):
 
 def main():
   import sys
-  exitstatus = mainsecluded(open, sys.stdout, sys.stderr, sys.argv)
+  exitstatus = secludedmain(open, sys.stdout, sys.stderr, sys.argv)
   return exitstatus
