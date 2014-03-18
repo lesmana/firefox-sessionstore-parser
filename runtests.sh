@@ -2,4 +2,4 @@
 
 cd tests
 ./rununittests.sh
-./runacceptancetests.sh
+./runshelltests.sh
