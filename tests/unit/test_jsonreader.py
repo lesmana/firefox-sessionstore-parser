@@ -83,3 +83,46 @@ class TestRead(unittest.TestCase):
           ('enter', ),
           ('jsonload', 'fileob'),
           ('exit', None, None, None)])
+
+  def test_openfileerror(self):
+    report = []
+    class FakeJsonReader(object):
+      def openfile(self, filename):
+        report.append(('openfile', filename))
+        raise p.JsonReaderError('silly error')
+    try:
+      _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
+    except p.JsonReaderError as jre:
+      self.assertEqual(str(jre), 'silly error')
+    else:
+      self.fail('expected exception')
+    self.assertEqual(report, [
+          ('openfile', 'filename')])
+
+  def test_jsonloaderror(self):
+    report = []
+    error = p.JsonReaderError('silly error')
+    class OpenFileContext(object):
+      def __enter__(self):
+        report.append(('enter', ))
+        return 'fileob'
+      def __exit__(self, exc_type, exc_value, traceback):
+        report.append(('exit', exc_type, exc_value, 'traceback'))
+    class FakeJsonReader(object):
+      def openfile(self, filename):
+        report.append(('openfile', filename))
+        return OpenFileContext()
+      def jsonload(self, fileob):
+        report.append(('jsonload', fileob))
+        raise error
+    try:
+      _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
+    except p.JsonReaderError as jre:
+      self.assertEqual(str(jre), 'silly error')
+    else:
+      self.fail('expected exception')
+    self.assertEqual(report, [
+          ('openfile', 'filename'),
+          ('enter', ),
+          ('jsonload', 'fileob'),
+          ('exit', p.JsonReaderError, error, 'traceback')])
