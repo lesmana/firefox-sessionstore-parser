@@ -152,16 +152,16 @@ class Application(object):
   def writeurls(self, urls):
     self.urlwriter.write(urls)
 
-  def trymain(self, argv):
+  def tryrun(self, argv):
     filename = self.handleargv(argv)
     sessionstore = self.getsessionstore(filename)
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
 
-  def main(self, argv):
+  def run(self, argv):
     try:
-      self.trymain(argv)
+      self.tryrun(argv)
       return 0, None
     except ArgvError as ae:
       return 2, str(ae)
@@ -177,7 +177,7 @@ def mainsecluded(openfunc, stdout, stderr, argv):
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
   main = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
-  exitstatus, errormessage = main.main(argv)
+  exitstatus, errormessage = main.run(argv)
   if errormessage is not None:
     stderr.write(errormessage + '\n')
   return exitstatus

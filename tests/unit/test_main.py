@@ -71,7 +71,7 @@ class TestWriteUrls(unittest.TestCase):
     self.assertEqual(report, [
           ('write', 'urls')])
 
-class TestTryMain(unittest.TestCase):
+class TestTryRun(unittest.TestCase):
 
   def test_noerror(self):
     report = []
@@ -91,7 +91,7 @@ class TestTryMain(unittest.TestCase):
       def writeurls(self, urls):
         report.append(('writeurls', urls))
     fakemain = FakeApplication()
-    p.Application.trymain.__func__(fakemain, 'argv')
+    p.Application.tryrun.__func__(fakemain, 'argv')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
           ('getsessionstore', 'filename'),
@@ -99,42 +99,42 @@ class TestTryMain(unittest.TestCase):
           ('geturls', 'urlgenerator', 'sessionstore'),
           ('writeurls', 'urls')])
 
-class TestMain(unittest.TestCase):
+class TestRun(unittest.TestCase):
 
   def test_noerror(self):
     report = []
     class FakeApplication(object):
-      def trymain(self, argv):
-        report.append(('trymain', argv))
+      def tryrun(self, argv):
+        report.append(('tryrun', argv))
     fakemain = FakeApplication()
-    exitstatus, errormessage = p.Application.main.__func__(fakemain, 'argv')
+    exitstatus, errormessage = p.Application.run.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, None)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
-          ('trymain', 'argv')])
+          ('tryrun', 'argv')])
 
   def test_argverror(self):
     report = []
     class FakeApplication(object):
-      def trymain(self, argv):
-        report.append(('trymain', argv))
+      def tryrun(self, argv):
+        report.append(('tryrun', argv))
         raise p.ArgvError('argv error')
     fakemain = FakeApplication()
-    exitstatus, errormessage = p.Application.main.__func__(fakemain, 'argv')
+    exitstatus, errormessage = p.Application.run.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, 'argv error')
     self.assertEqual(exitstatus, 2)
     self.assertEqual(report, [
-          ('trymain', 'argv')])
+          ('tryrun', 'argv')])
 
   def test_genericerror(self):
     report = []
     class FakeApplication(object):
-      def trymain(self, argv):
-        report.append(('trymain', argv))
+      def tryrun(self, argv):
+        report.append(('tryrun', argv))
         raise p.Error('generic error')
     fakemain = FakeApplication()
-    exitstatus, errormessage = p.Application.main.__func__(fakemain, 'argv')
+    exitstatus, errormessage = p.Application.run.__func__(fakemain, 'argv')
     self.assertEqual(errormessage, 'generic error')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
-          ('trymain', 'argv')])
+          ('tryrun', 'argv')])
