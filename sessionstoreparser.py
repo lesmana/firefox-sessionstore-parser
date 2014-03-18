@@ -182,7 +182,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
     stderr.write(errormessage + '\n')
   return exitstatus
 
-def main():
+def main(): # pragma: no cover
   import sys
   exitstatus = secludedmain(open, sys.stdout, sys.stderr, sys.argv)
   return exitstatus
