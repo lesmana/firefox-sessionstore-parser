@@ -24,8 +24,8 @@ class TestOpenFile(unittest.TestCase):
     jsonreader = p.JsonReader(openfunc, None)
     try:
       _ = jsonreader.openfile('filename')
-    except p.JsonReaderError as jre:
-      self.assertEqual(str(jre), 'silly error')
+    except p.JsonReaderError as err:
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception')
     self.assertEqual(report, [
@@ -52,8 +52,8 @@ class TestJsonLoad(unittest.TestCase):
     jsonreader = p.JsonReader(None, jsonload)
     try:
       _ = jsonreader.jsonload('fileob')
-    except p.JsonReaderError as jre:
-      self.assertEqual(str(jre), 'silly error')
+    except p.JsonReaderError as err:
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception')
     self.assertEqual(report, [
@@ -92,8 +92,8 @@ class TestRead(unittest.TestCase):
         raise p.JsonReaderError('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
-    except p.JsonReaderError as jre:
-      self.assertEqual(str(jre), 'silly error')
+    except p.JsonReaderError as err:
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception')
     self.assertEqual(report, [
@@ -117,8 +117,8 @@ class TestRead(unittest.TestCase):
         raise error
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
-    except p.JsonReaderError as jre:
-      self.assertEqual(str(jre), 'silly error')
+    except p.JsonReaderError as err:
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception')
     self.assertEqual(report, [
