@@ -1,6 +1,6 @@
 #! /bin/sh
 
-cd tests
+cd pytests
 ./runpythontests.sh
 
 cd ..
