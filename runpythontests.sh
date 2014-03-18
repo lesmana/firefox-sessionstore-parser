@@ -3,7 +3,6 @@
 SRCDIR="$PWD"
 HELPERDIR="$PWD/testhelpers"
 
-export PYTHONPATH="$SRCDIR:$HELPERDIR:$PYTHONPATH"
+export PYTHONPATH="pytests:$SRCDIR:$HELPERDIR:$PYTHONPATH"
 
-cd pytests
 ./runpythontests.py
