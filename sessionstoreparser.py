@@ -65,15 +65,15 @@ class JsonReader(object):
     try:
       fileob = self.openfunc(filename)
       return fileob
-    except IOError as ioe:
-      raise JsonReaderError(str(ioe))
+    except IOError as err:
+      raise JsonReaderError(str(err))
 
   def jsonload(self, fileob):
     try:
       sessionstore = self.jsonloadfunc(fileob)
       return sessionstore
-    except ValueError as ve:
-      raise JsonReaderError(str(ve))
+    except ValueError as err:
+      raise JsonReaderError(str(err))
 
   def read(self, filename):
     with self.openfile(filename) as fileob:
@@ -163,10 +163,10 @@ class Application(object):
     try:
       self.tryrun(argv)
       return 0, None
-    except ArgvError as ae:
-      return 2, str(ae)
-    except Error as e:
-      return 1, str(e)
+    except ArgvError as err:
+      return 2, str(err)
+    except Error as err:
+      return 1, str(err)
 
 def secludedmain(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler()
