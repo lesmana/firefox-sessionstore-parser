@@ -32,7 +32,7 @@ class TestGetWindowGenerator(unittest.TestCase):
   def test_default(self):
     report = []
     class FakeWindowGenerator(object):
-      def __new__(self):
+      def __new__(cls):
         report.append(('__init__', ))
         return 'fakewindowgenerator'
     class FakeUrlGeneratorFactory(object):
@@ -51,7 +51,7 @@ class TestGetTabGenerator(unittest.TestCase):
   def test_default(self):
     report = []
     class FakeTabGenerator(object):
-      def __new__(self, windowgenerator):
+      def __new__(cls, windowgenerator):
         report.append(('__init__', windowgenerator))
         return 'faketabgenerator'
     class FakeUrlGeneratorFactory(object):
@@ -70,7 +70,7 @@ class TestGetUrlGenerator(unittest.TestCase):
   def test_default(self):
     report = []
     class FakeUrlGenerator(object):
-      def __new__(self, tabgenerator):
+      def __new__(cls, tabgenerator):
         report.append(('__init__', tabgenerator))
         return 'fakeurlgenerator'
     class FakeUrlGeneratorFactory(object):
