@@ -1,4 +1,6 @@
 
+import contextlib
+
 import unittest
 
 import sessionstoreparser as p
@@ -101,20 +103,22 @@ class TestRead(unittest.TestCase):
 
   def test_jsonloaderror(self):
     report = []
-    error = p.JsonReaderError('silly error')
-    class OpenFileContext(object):
-      def __enter__(self):
-        report.append(('enter', ))
-        return 'fileob'
-      def __exit__(self, exc_type, exc_value, traceback):
-        report.append(('exit', exc_type, exc_value, 'traceback'))
+    @contextlib.contextmanager
+    def openfilecontext():
+      report.append(('enter', ))
+      try:
+        yield 'fileob'
+      except p.JsonReaderError:
+        raise
+      else:
+        self.fail('expected exception') # pragma: no cover
     class FakeJsonReader(object):
       def openfile(self, filename):
         report.append(('openfile', filename))
-        return OpenFileContext()
+        return openfilecontext()
       def jsonload(self, fileob):
         report.append(('jsonload', fileob))
-        raise error
+        raise p.JsonReaderError('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
     except p.JsonReaderError as err:
@@ -124,5 +128,4 @@ class TestRead(unittest.TestCase):
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
-          ('jsonload', 'fileob'),
-          ('exit', p.JsonReaderError, error, 'traceback')])
+          ('jsonload', 'fileob')])
