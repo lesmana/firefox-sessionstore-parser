@@ -27,7 +27,7 @@ class TestOpenFile(unittest.TestCase):
     except p.JsonReaderError as err:
       self.assertEqual(str(err), 'silly error')
     else:
-      self.fail('expected exception')
+      self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
           ('openfunc', 'filename')])
 
@@ -55,7 +55,7 @@ class TestJsonLoad(unittest.TestCase):
     except p.JsonReaderError as err:
       self.assertEqual(str(err), 'silly error')
     else:
-      self.fail('expected exception')
+      self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
           ('jsonload', 'fileob')])
 
@@ -95,7 +95,7 @@ class TestRead(unittest.TestCase):
     except p.JsonReaderError as err:
       self.assertEqual(str(err), 'silly error')
     else:
-      self.fail('expected exception')
+      self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
           ('openfile', 'filename')])
 
@@ -120,7 +120,7 @@ class TestRead(unittest.TestCase):
     except p.JsonReaderError as err:
       self.assertEqual(str(err), 'silly error')
     else:
-      self.fail('expected exception')
+      self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
