@@ -65,7 +65,7 @@ class JsonReader(object):
     try:
       fileob = self.openfunc(filename)
       return fileob
-    except IOError as err:
+    except IOError:
       raise JsonReaderError('error: cannot open file %s.' % filename)
 
   def jsonload(self, fileob):
@@ -76,7 +76,7 @@ class JsonReader(object):
     with self.openfile(filename) as fileob:
       try:
         sessionstore = self.jsonload(fileob)
-      except ValueError as err:
+      except ValueError:
         raise JsonReaderError(
               'error: cannot read session store from file %s.' % filename)
     return sessionstore
