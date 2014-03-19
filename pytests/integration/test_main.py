@@ -50,6 +50,6 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 1)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
-          'No JSON object could be decoded\n')
+          'error: cannot read session store from file filename.\n')
     self.assertEqual(report, [
           ('fakeopen', 'filename')])
