@@ -35,6 +35,16 @@ class TestMain(unittest.TestCase):
     self.assertEqual(report, [
           ('fakeopen', 'filename')])
 
+  def test_noargv(self):
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname']
+    exitstatus = p.secludedmain(None, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 2)
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(fakestderr.getvalue(),
+          'need filename\n')
+
   def test_notfile(self):
     report = []
     def fakeopen(filename):
