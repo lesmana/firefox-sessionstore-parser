@@ -94,6 +94,7 @@ class TestRead(unittest.TestCase):
       try:
         yield 'fileob'
       except p.JsonReaderError:
+        report.append(('error', ))
         raise
       else:
         self.fail('expected exception') # pragma: no cover
@@ -113,4 +114,5 @@ class TestRead(unittest.TestCase):
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
-          ('jsonload', 'fileob')])
+          ('jsonload', 'fileob'),
+          ('error', )])
