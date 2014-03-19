@@ -35,6 +35,22 @@ class TestMain(unittest.TestCase):
     self.assertEqual(report, [
           ('fakeopen', 'filename')])
 
+  def test_notfile(self):
+    report = []
+    def fakeopen(filename):
+      report.append(('fakeopen', filename))
+      raise IOError('ignored error message')
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', 'filename']
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 1)
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(fakestderr.getvalue(),
+          'error: cannot open file filename.\n')
+    self.assertEqual(report, [
+          ('fakeopen', 'filename')])
+
   def test_notjson(self):
     report = []
     fakefilecontent = textwrap.dedent('''\
