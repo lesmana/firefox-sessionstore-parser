@@ -22,12 +22,12 @@ class TestOpenFile(unittest.TestCase):
     report = []
     def openfunc(filename):
       report.append(('openfunc', filename))
-      raise IOError('silly error')
+      raise IOError('ignored error message')
     jsonreader = p.JsonReader(openfunc, None)
     try:
       _ = jsonreader.openfile('filename')
     except p.JsonReaderError as err:
-      self.assertEqual(str(err), 'silly error')
+      self.assertEqual(str(err), 'error: cannot open file filename.')
     else:
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
