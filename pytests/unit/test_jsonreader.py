@@ -46,21 +46,6 @@ class TestJsonLoad(unittest.TestCase):
     self.assertEqual(report, [
           ('jsonload', 'fileob')])
 
-  def test_error(self):
-    report = []
-    def jsonload(fileob):
-      report.append(('jsonload', fileob))
-      raise ValueError('silly error')
-    jsonreader = p.JsonReader(None, jsonload)
-    try:
-      _ = jsonreader.jsonload('fileob')
-    except p.JsonReaderError as err:
-      self.assertEqual(str(err), 'silly error')
-    else:
-      self.fail('expected exception') # pragma: no cover
-    self.assertEqual(report, [
-          ('jsonload', 'fileob')])
-
 class TestRead(unittest.TestCase):
 
   def test_default(self):
@@ -118,7 +103,7 @@ class TestRead(unittest.TestCase):
         return openfilecontext()
       def jsonload(self, fileob):
         report.append(('jsonload', fileob))
-        raise p.JsonReaderError('silly error')
+        raise ValueError('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
     except p.JsonReaderError as err:
