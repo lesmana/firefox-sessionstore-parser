@@ -42,15 +42,9 @@ class ArgvHandler(object):
 
   def handle(self, argv):
     if len(argv) != 2:
-      success = False
-      filename = None
       errormessage = 'need filename'
-    else:
-      success = True
-      filename = argv[1]
-      errormessage = None
-    if not success:
       raise ArgvError(errormessage)
+    filename = argv[1]
     return filename
 
 class JsonReaderError(Error):
