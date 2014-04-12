@@ -50,16 +50,15 @@ class TestRead(unittest.TestCase):
 
   def test_default(self):
     report = []
-    class OpenFileContext(object):
-      def __enter__(self):
-        report.append(('enter', ))
-        return 'fileob'
-      def __exit__(self, exc_type, exc_value, traceback):
-        report.append(('exit', exc_type, exc_value, traceback))
+    @contextlib.contextmanager
+    def openfilecontext():
+      report.append(('enter', ))
+      yield 'fileob'
+      report.append(('exit', ))
     class FakeJsonReader(object):
       def openfile(self, filename):
         report.append(('openfile', filename))
-        return OpenFileContext()
+        return openfilecontext()
       def jsonload(self, fileob):
         report.append(('jsonload', fileob))
         return 'sessionstore'
@@ -69,7 +68,7 @@ class TestRead(unittest.TestCase):
           ('openfile', 'filename'),
           ('enter', ),
           ('jsonload', 'fileob'),
-          ('exit', None, None, None)])
+          ('exit', )])
 
   def test_openfileerror(self):
     report = []
@@ -91,13 +90,7 @@ class TestRead(unittest.TestCase):
     @contextlib.contextmanager
     def openfilecontext():
       report.append(('enter', ))
-      try:
-        yield 'fileob'
-      except p.JsonReaderError:
-        report.append(('error', ))
-        raise
-      else:
-        self.fail('expected exception') # pragma: no cover
+      yield 'fileob'
     class FakeJsonReader(object):
       def openfile(self, filename):
         report.append(('openfile', filename))
@@ -115,5 +108,4 @@ class TestRead(unittest.TestCase):
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
-          ('jsonload', 'fileob'),
-          ('error', )])
+          ('jsonload', 'fileob')])
