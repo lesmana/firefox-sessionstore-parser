@@ -97,12 +97,11 @@ class TestRead(unittest.TestCase):
         return openfilecontext()
       def jsonload(self, fileob, filename):
         report.append(('jsonload', fileob, filename))
-        raise ValueError('ignored error message')
+        raise p.JsonReaderError('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
     except p.JsonReaderError as err:
-      self.assertEqual(str(err),
-            'error: cannot read session store from file filename.')
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [

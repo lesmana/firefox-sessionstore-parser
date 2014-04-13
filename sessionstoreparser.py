@@ -67,15 +67,12 @@ class JsonReader(object):
       sessionstore = self.jsonloadfunc(fileob)
       return sessionstore
     except ValueError:
-      raise
+      raise JsonReaderError(
+            'error: cannot read session store from file %s.' % filename)
 
   def read(self, filename):
     with self.openfile(filename) as fileob:
-      try:
-        sessionstore = self.jsonload(fileob, filename)
-      except ValueError:
-        raise JsonReaderError(
-              'error: cannot read session store from file %s.' % filename)
+      sessionstore = self.jsonload(fileob, filename)
     return sessionstore
 
 class UrlGeneratorFactory(object):
