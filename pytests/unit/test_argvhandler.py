@@ -7,8 +7,8 @@ class TestHandle(unittest.TestCase):
 
   def test_filename(self):
     argvhandler = p.ArgvHandler()
-    filename = argvhandler.handle(['progname', 'filename'])
-    self.assertEqual(filename, 'filename')
+    options = argvhandler.handle(['progname', 'filename'])
+    self.assertEqual(options, {'filename': 'filename'})
 
   def test_nofilename(self):
     argvhandler = p.ArgvHandler()

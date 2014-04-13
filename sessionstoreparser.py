@@ -49,7 +49,8 @@ class ArgvHandler(object):
       errormessage = 'need filename'
       raise ArgvError(errormessage)
     filename = args[0]
-    return filename
+    options = {'filename': filename}
+    return options
 
 class JsonReaderError(Error):
   pass
@@ -133,8 +134,7 @@ class Application(object):
     self.urlwriter = urlwriter
 
   def handleargv(self, argv):
-    filename = self.argvhandler.handle(argv)
-    options = {'filename': filename}
+    options = self.argvhandler.handle(argv)
     return options
 
   def getsessionstore(self, options):

@@ -10,10 +10,10 @@ class TestHandleArgv(unittest.TestCase):
     class FakeArgvHandler(object):
       def handle(self, argv):
         report.append(('handle', argv))
-        return 'filename'
+        return 'options'
     app = p.Application(FakeArgvHandler(), None, None, None)
     options = app.handleargv('argv')
-    self.assertEqual(options, {'filename': 'filename'})
+    self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('handle', 'argv')])
 
