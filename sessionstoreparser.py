@@ -41,10 +41,11 @@ class ArgvHandler(object):
     pass
 
   def handle(self, argv):
-    if len(argv) != 2:
+    args = argv[1:]
+    if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
-    filename = argv[1]
+    filename = args[0]
     return filename
 
 class JsonReaderError(Error):
