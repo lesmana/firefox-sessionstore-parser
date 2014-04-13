@@ -153,7 +153,8 @@ class Application(object):
 
   def tryrun(self, argv):
     filename = self.handleargv(argv)
-    sessionstore = self.getsessionstore(filename)
+    options = {'filename': filename}
+    sessionstore = self.getsessionstore(options['filename'])
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
