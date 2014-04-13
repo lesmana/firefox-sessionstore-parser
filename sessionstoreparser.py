@@ -134,7 +134,8 @@ class Application(object):
 
   def handleargv(self, argv):
     filename = self.argvhandler.handle(argv)
-    return filename
+    options = {'filename': filename}
+    return options
 
   def getsessionstore(self, options):
     filename = options['filename']
@@ -153,8 +154,7 @@ class Application(object):
     self.urlwriter.write(urls)
 
   def tryrun(self, argv):
-    filename = self.handleargv(argv)
-    options = {'filename': filename}
+    options = self.handleargv(argv)
     sessionstore = self.getsessionstore(options)
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)

@@ -12,8 +12,8 @@ class TestHandleArgv(unittest.TestCase):
         report.append(('handle', argv))
         return 'filename'
     app = p.Application(FakeArgvHandler(), None, None, None)
-    filename = app.handleargv('argv')
-    self.assertEqual(filename, 'filename')
+    options = app.handleargv('argv')
+    self.assertEqual(options, {'filename': 'filename'})
     self.assertEqual(report, [
           ('handle', 'argv')])
 
@@ -78,7 +78,7 @@ class TestTryRun(unittest.TestCase):
     class FakeApplication(object):
       def handleargv(self, argv):
         report.append(('handleargv', argv))
-        return 'filename'
+        return 'options'
       def getsessionstore(self, options):
         report.append(('getsessionstore', options))
         return 'sessionstore'
@@ -94,7 +94,7 @@ class TestTryRun(unittest.TestCase):
     p.Application.tryrun.__func__(fakeapp, 'argv')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
-          ('getsessionstore', {'filename': 'filename'}),
+          ('getsessionstore', 'options'),
           ('geturlgenerator', ),
           ('geturls', 'urlgenerator', 'sessionstore'),
           ('writeurls', 'urls')])
