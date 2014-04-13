@@ -26,7 +26,7 @@ class TestGetSessionStore(unittest.TestCase):
         report.append(('read', filename))
         return 'jsonobject'
     app = p.Application(None, FakeJsonReader(), None, None)
-    sessionstore = app.getsessionstore('filename')
+    sessionstore = app.getsessionstore({'filename': 'filename'})
     self.assertEqual(sessionstore, 'jsonobject')
     self.assertEqual(report, [
           ('read', 'filename')])
@@ -79,8 +79,8 @@ class TestTryRun(unittest.TestCase):
       def handleargv(self, argv):
         report.append(('handleargv', argv))
         return 'filename'
-      def getsessionstore(self, filename):
-        report.append(('getsessionstore', filename))
+      def getsessionstore(self, options):
+        report.append(('getsessionstore', options))
         return 'sessionstore'
       def geturlgenerator(self):
         report.append(('geturlgenerator', ))
@@ -94,7 +94,7 @@ class TestTryRun(unittest.TestCase):
     p.Application.tryrun.__func__(fakeapp, 'argv')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
-          ('getsessionstore', 'filename'),
+          ('getsessionstore', {'filename': 'filename'}),
           ('geturlgenerator', ),
           ('geturls', 'urlgenerator', 'sessionstore'),
           ('writeurls', 'urls')])

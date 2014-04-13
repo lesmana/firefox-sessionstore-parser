@@ -136,7 +136,8 @@ class Application(object):
     filename = self.argvhandler.handle(argv)
     return filename
 
-  def getsessionstore(self, filename):
+  def getsessionstore(self, options):
+    filename = options['filename']
     sessionstore = self.jsonreader.read(filename)
     return sessionstore
 
@@ -154,7 +155,7 @@ class Application(object):
   def tryrun(self, argv):
     filename = self.handleargv(argv)
     options = {'filename': filename}
-    sessionstore = self.getsessionstore(options['filename'])
+    sessionstore = self.getsessionstore(options)
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
