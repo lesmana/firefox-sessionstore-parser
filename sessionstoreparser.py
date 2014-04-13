@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+import getopt
 import json
 
 class Error(Exception):
@@ -41,7 +42,9 @@ class ArgvHandler(object):
     pass
 
   def handle(self, argv):
-    args = argv[1:]
+    shortopts = ''
+    longopts = []
+    opts, args = getopt.getopt(argv[1:], shortopts, longopts)
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
