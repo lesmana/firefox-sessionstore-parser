@@ -46,6 +46,22 @@ class TestJsonLoad(unittest.TestCase):
     self.assertEqual(report, [
           ('jsonloadfunc', 'fileob')])
 
+  def test_error(self):
+    report = []
+    def jsonloadfunc(fileob):
+      report.append(('jsonloadfunc', fileob))
+      raise ValueError('ignored error message')
+    jsonreader = p.JsonReader(None, jsonloadfunc)
+    try:
+      _ = jsonreader.jsonload('fileob', 'filename')
+    except p.JsonReaderError as err:
+      self.assertEqual(str(err),
+            'error: cannot read session store from file filename.')
+    else:
+      self.fail('expected exception') # pragma: no cover
+    self.assertEqual(report, [
+          ('jsonloadfunc', 'fileob')])
+
 class TestRead(unittest.TestCase):
 
   def test_default(self):
