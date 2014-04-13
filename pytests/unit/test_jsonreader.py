@@ -37,14 +37,14 @@ class TestJsonLoad(unittest.TestCase):
 
   def test_default(self):
     report = []
-    def jsonload(fileob):
-      report.append(('jsonload', fileob))
+    def jsonloadfunc(fileob):
+      report.append(('jsonloadfunc', fileob))
       return 'sessionstore'
-    jsonreader = p.JsonReader(None, jsonload)
+    jsonreader = p.JsonReader(None, jsonloadfunc)
     sessionstore = jsonreader.jsonload('fileob')
     self.assertEqual(sessionstore, 'sessionstore')
     self.assertEqual(report, [
-          ('jsonload', 'fileob')])
+          ('jsonloadfunc', 'fileob')])
 
 class TestRead(unittest.TestCase):
 
