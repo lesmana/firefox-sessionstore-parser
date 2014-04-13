@@ -41,7 +41,7 @@ class TestJsonLoad(unittest.TestCase):
       report.append(('jsonloadfunc', fileob))
       return 'sessionstore'
     jsonreader = p.JsonReader(None, jsonloadfunc)
-    sessionstore = jsonreader.jsonload('fileob')
+    sessionstore = jsonreader.jsonload('fileob', 'filename')
     self.assertEqual(sessionstore, 'sessionstore')
     self.assertEqual(report, [
           ('jsonloadfunc', 'fileob')])
@@ -59,15 +59,15 @@ class TestRead(unittest.TestCase):
       def openfile(self, filename):
         report.append(('openfile', filename))
         return openfilecontext()
-      def jsonload(self, fileob):
-        report.append(('jsonload', fileob))
+      def jsonload(self, fileob, filename):
+        report.append(('jsonload', fileob, filename))
         return 'sessionstore'
     sessionstore = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
     self.assertEqual(sessionstore, 'sessionstore')
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
-          ('jsonload', 'fileob'),
+          ('jsonload', 'fileob', 'filename'),
           ('exit', )])
 
   def test_openfileerror(self):
@@ -95,8 +95,8 @@ class TestRead(unittest.TestCase):
       def openfile(self, filename):
         report.append(('openfile', filename))
         return openfilecontext()
-      def jsonload(self, fileob):
-        report.append(('jsonload', fileob))
+      def jsonload(self, fileob, filename):
+        report.append(('jsonload', fileob, filename))
         raise ValueError('ignored error message')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
@@ -108,4 +108,4 @@ class TestRead(unittest.TestCase):
     self.assertEqual(report, [
           ('openfile', 'filename'),
           ('enter', ),
-          ('jsonload', 'fileob')])
+          ('jsonload', 'fileob', 'filename')])
