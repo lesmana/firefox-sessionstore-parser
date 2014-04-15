@@ -41,10 +41,14 @@ class ArgvHandler(object):
   def __init__(self):
     pass
 
-  def handle(self, argv):
+  def getopt(self, argv):
     shortopts = ''
     longopts = []
     opts, args = getopt.getopt(argv[1:], shortopts, longopts)
+    return opts, args
+
+  def handle(self, argv):
+    opts, args = self.getopt(argv)
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
