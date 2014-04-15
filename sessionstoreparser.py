@@ -54,17 +54,28 @@ class ArgvHandler(object):
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
 
-  def dictify(self, opts, args):
+  def dictifyopts(self, opts):
     optsdict = {}
-    argsdict = {}
+    return optsdict
+
+  def dictifyargs(self, args):
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
     filename = args[0]
     argsdict = {'filename': filename}
+    return argsdict
+
+  def mergedicts(self, optsdict, argsdict):
     options = {}
     options.update(optsdict)
     options.update(argsdict)
+    return options
+
+  def dictify(self, opts, args):
+    optsdict = self.dictifyopts(opts)
+    argsdict = self.dictifyargs(args)
+    options = self.mergedicts(optsdict, argsdict)
     return options
 
   def handle(self, argv):
