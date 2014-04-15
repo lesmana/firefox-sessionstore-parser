@@ -55,11 +55,16 @@ class ArgvHandler(object):
       raise ArgvError(str(err))
 
   def dictify(self, opts, args):
+    optsdict = {}
+    argsdict = {}
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
     filename = args[0]
-    options = {'filename': filename}
+    argsdict = {'filename': filename}
+    options = {}
+    options.update(optsdict)
+    options.update(argsdict)
     return options
 
   def handle(self, argv):
