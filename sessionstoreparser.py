@@ -43,7 +43,7 @@ class ArgvHandler(object):
     self.longopts = []
 
   def trygetopt(self, argv):
-    opts, args = getopt.getopt(argv[1:], self.shortopts, self.longopts)
+    opts, args = getopt.getopt(argv, self.shortopts, self.longopts)
     return opts, args
 
   def getopt(self, argv):
@@ -78,7 +78,7 @@ class ArgvHandler(object):
     return options
 
   def handle(self, argv):
-    opts, args = self.getopt(argv)
+    opts, args = self.getopt(argv[1:])
     options = self.dictify(opts, args)
     return options
 
