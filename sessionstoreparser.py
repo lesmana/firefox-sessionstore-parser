@@ -41,10 +41,14 @@ class ArgvHandler(object):
   def __init__(self):
     pass
 
-  def getopt(self, argv):
+  def trygetopt(self, argv):
     shortopts = ''
     longopts = []
     opts, args = getopt.getopt(argv[1:], shortopts, longopts)
+    return opts, args
+
+  def getopt(self, argv):
+    opts, args = self.trygetopt(argv)
     return opts, args
 
   def handle(self, argv):
