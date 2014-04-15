@@ -39,12 +39,11 @@ class ArgvError(Error):
 
 class ArgvHandler(object):
   def __init__(self):
-    pass
+    self.shortopts = ''
+    self.longopts = []
 
   def trygetopt(self, argv):
-    shortopts = ''
-    longopts = []
-    opts, args = getopt.getopt(argv[1:], shortopts, longopts)
+    opts, args = getopt.getopt(argv[1:], self.shortopts, self.longopts)
     return opts, args
 
   def getopt(self, argv):
