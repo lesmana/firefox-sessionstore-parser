@@ -54,13 +54,17 @@ class ArgvHandler(object):
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
 
-  def handle(self, argv):
-    opts, args = self.getopt(argv)
+  def dictify(self, opts, args):
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
     filename = args[0]
     options = {'filename': filename}
+    return options
+
+  def handle(self, argv):
+    opts, args = self.getopt(argv)
+    options = self.dictify(opts, args)
     return options
 
 class JsonReaderError(Error):
