@@ -48,8 +48,11 @@ class ArgvHandler(object):
     return opts, args
 
   def getopt(self, argv):
-    opts, args = self.trygetopt(argv)
-    return opts, args
+    try:
+      opts, args = self.trygetopt(argv)
+      return opts, args
+    except getopt.GetoptError as err:
+      raise ArgvError(str(err))
 
   def handle(self, argv):
     opts, args = self.getopt(argv)
