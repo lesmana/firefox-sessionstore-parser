@@ -12,10 +12,10 @@ class TestHandleArgv(unittest.TestCase):
         report.append(('handle', argv))
         return 'options'
     app = p.Application(FakeArgvHandler(), None, None, None)
-    options = app.handleargv('argv')
+    options = app.handleargv(['progname', 'argv'])
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
-          ('handle', 'argv')])
+          ('handle', ['argv'])])
 
 class TestGetSessionStore(unittest.TestCase):
 

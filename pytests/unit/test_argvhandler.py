@@ -40,13 +40,13 @@ class TestHandle(unittest.TestCase):
 
   def test_filename(self):
     argvhandler = p.ArgvHandler()
-    options = argvhandler.handle(['progname', 'filename'])
+    options = argvhandler.handle(['filename'])
     self.assertEqual(options, {'filename': 'filename'})
 
   def test_nofilename(self):
     argvhandler = p.ArgvHandler()
     try:
-      _ = argvhandler.handle(['progname'])
+      _ = argvhandler.handle([])
     except p.ArgvError as err:
       self.assertEqual(str(err), 'need filename')
     else:

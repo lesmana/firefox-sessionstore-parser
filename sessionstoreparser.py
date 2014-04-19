@@ -78,7 +78,7 @@ class ArgvHandler(object):
     return options
 
   def handle(self, argv):
-    opts, args = self.getopt(argv[1:])
+    opts, args = self.getopt(argv)
     options = self.dictify(opts, args)
     return options
 
@@ -164,7 +164,7 @@ class Application(object):
     self.urlwriter = urlwriter
 
   def handleargv(self, argv):
-    options = self.argvhandler.handle(argv)
+    options = self.argvhandler.handle(argv[1:])
     return options
 
   def getsessionstore(self, options):
