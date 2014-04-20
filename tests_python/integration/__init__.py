@@ -1,2 +1,2 @@
 
-from . import test_main
+from . import main
