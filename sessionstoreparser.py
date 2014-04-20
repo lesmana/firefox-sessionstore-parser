@@ -38,9 +38,10 @@ class ArgvError(Error):
   pass
 
 class ArgvHandler(object):
-  def __init__(self, shortopts, longopts):
+  def __init__(self, shortopts, longopts, optnametable):
     self.shortopts = shortopts
     self.longopts = longopts
+    self.optnametable = optnametable
 
   def trygetopt(self, argv):
     opts, args = getopt.getopt(argv, self.shortopts, self.longopts)
@@ -55,6 +56,9 @@ class ArgvHandler(object):
 
   def dictifyopts(self, opts):
     optsdict = {}
+    for opt, val in opts:
+      name = self.optnametable[opt]
+      optsdict[name] = val
     return optsdict
 
   def dictifyargs(self, args):
@@ -200,7 +204,7 @@ class Application(object):
       return 1, str(err)
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  argvhandler = ArgvHandler('', [])
+  argvhandler = ArgvHandler('', [], {})
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,

@@ -36,6 +36,13 @@ class TestGetopt(unittest.TestCase):
     self.assertEqual(report, [
           ('trygetopt', 'argv')])
 
+class TestDictifyOpts(unittest.TestCase):
+
+  def test_empty(self):
+    argvhandler = p.ArgvHandler(None, None, {})
+    optsdict = argvhandler.dictifyopts([])
+    self.assertEqual(optsdict, {})
+
 class TestHandle(unittest.TestCase):
 
   def test_noerror(self):
