@@ -43,6 +43,16 @@ class TestDictifyOpts(unittest.TestCase):
     optsdict = argvhandler.dictifyopts([])
     self.assertEqual(optsdict, {})
 
+  def test_trueifemptyval(self):
+    argvhandler = p.ArgvHandler(None, None, {'-f': 'foo'})
+    optsdict = argvhandler.dictifyopts([('-f', '')])
+    self.assertEqual(optsdict, {'foo': True})
+
+  def test_valifnotemptyval(self):
+    argvhandler = p.ArgvHandler(None, None, {'-f': 'foo'})
+    optsdict = argvhandler.dictifyopts([('-f', 'whatfoo')])
+    self.assertEqual(optsdict, {'foo': 'whatfoo'})
+
 class TestHandle(unittest.TestCase):
 
   def test_noerror(self):

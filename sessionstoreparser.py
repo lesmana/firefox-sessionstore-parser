@@ -58,7 +58,11 @@ class ArgvHandler(object):
     optsdict = {}
     for opt, val in opts:
       name = self.optnametable[opt]
-      optsdict[name] = val
+      if val == '':
+        outval = True
+      else:
+        outval = val
+      optsdict[name] = outval
     return optsdict
 
   def dictifyargs(self, args):
