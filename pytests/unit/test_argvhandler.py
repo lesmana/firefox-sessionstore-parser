@@ -38,16 +38,34 @@ class TestGetopt(unittest.TestCase):
 
 class TestHandle(unittest.TestCase):
 
-  def test_filename(self):
-    argvhandler = p.ArgvHandler('', [])
-    options = argvhandler.handle(['filename'])
-    self.assertEqual(options, {'filename': 'filename'})
+  def test_noerror(self):
+    report = []
+    class FakeArgvHandler(object):
+      def getopt(self, argv):
+        report.append(('getopt', argv))
+        return 'opts', 'args'
+      def dictify(self, opts, args):
+        report.append(('dictify', opts, args))
+        return 'options'
+    fakeargvhandler = FakeArgvHandler()
+    options = p.ArgvHandler.handle.__func__(fakeargvhandler, 'argv')
+    self.assertEqual(options, 'options')
+    self.assertEqual(report, [
+          ('getopt', 'argv'),
+          ('dictify', 'opts', 'args')])
 
-  def test_nofilename(self):
-    argvhandler = p.ArgvHandler('', [])
+  def test_getopterror(self):
+    report = []
+    class FakeArgvHandler(object):
+      def getopt(self, argv):
+        report.append(('getopt', argv))
+        raise p.ArgvError('silly error')
+    fakeargvhandler = FakeArgvHandler()
     try:
-      _ = argvhandler.handle([])
+      _ = p.ArgvHandler.handle.__func__(fakeargvhandler, 'argv')
     except p.ArgvError as err:
-      self.assertEqual(str(err), 'need filename')
+      self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
+    self.assertEqual(report, [
+          ('getopt', 'argv')])
