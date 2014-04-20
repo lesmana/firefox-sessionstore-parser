@@ -38,9 +38,9 @@ class ArgvError(Error):
   pass
 
 class ArgvHandler(object):
-  def __init__(self):
-    self.shortopts = ''
-    self.longopts = []
+  def __init__(self, shortopts, longopts):
+    self.shortopts = shortopts
+    self.longopts = longopts
 
   def trygetopt(self, argv):
     opts, args = getopt.getopt(argv, self.shortopts, self.longopts)
@@ -200,7 +200,7 @@ class Application(object):
       return 1, str(err)
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  argvhandler = ArgvHandler()
+  argvhandler = ArgvHandler('', [])
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,

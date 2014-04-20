@@ -39,12 +39,12 @@ class TestGetopt(unittest.TestCase):
 class TestHandle(unittest.TestCase):
 
   def test_filename(self):
-    argvhandler = p.ArgvHandler()
+    argvhandler = p.ArgvHandler('', [])
     options = argvhandler.handle(['filename'])
     self.assertEqual(options, {'filename': 'filename'})
 
   def test_nofilename(self):
-    argvhandler = p.ArgvHandler()
+    argvhandler = p.ArgvHandler('', [])
     try:
       _ = argvhandler.handle([])
     except p.ArgvError as err:
