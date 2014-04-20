@@ -2,7 +2,7 @@
 
 import os
 import sys
-sys.path.append(os.path.join(os.getcwd(), 'testhelpers'))
+sys.path.append(os.path.join(os.getcwd(), 'helpers'))
 
 import unittestchooser
 

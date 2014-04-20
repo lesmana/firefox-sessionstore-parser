@@ -1,7 +1,7 @@
 #! /bin/sh
 
 SRCDIR="$PWD"
-HELPERDIR="$PWD/testhelpers"
+HELPERDIR="$PWD/helpers"
 
 export PATH="$SRCDIR:$HELPERDIR:$PATH"
 
