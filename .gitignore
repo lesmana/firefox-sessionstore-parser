@@ -1,2 +1,2 @@
 *.pyc
-shtests/*.d
+tests_shell/*.d

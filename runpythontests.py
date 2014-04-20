@@ -6,7 +6,7 @@ sys.path.append(os.path.join(os.getcwd(), 'testhelpers'))
 
 import unittestchooser
 
-import pytests
+import tests_python
 
 if __name__ == '__main__': # pragma: no cover
   unittestchooser.main()

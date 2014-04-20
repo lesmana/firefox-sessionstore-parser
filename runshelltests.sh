@@ -5,5 +5,5 @@ HELPERDIR="$PWD/testhelpers"
 
 export PATH="$SRCDIR:$HELPERDIR:$PATH"
 
-cd shtests
+cd tests_shell
 shut -r
