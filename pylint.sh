@@ -11,8 +11,6 @@ pylint \
   --disable=too-many-public-methods \
   --disable=star-args \
   --output-format=colorized \
-  --include-ids=y \
-  --symbols=y \
   --reports=n \
   --indent-string='  ' \
   sessionstoreparser.py \
