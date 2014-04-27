@@ -2,12 +2,40 @@
 import unittest
 
 import contextlib
+import json
 import StringIO
 import textwrap
+import yaml
 
 import sessionstoreparser as p
 
 class TestMain(unittest.TestCase):
+
+  def test_yamlequaljson(self):
+    ''' for the humans to remember that yaml is a superset of json '''
+    inyaml = textwrap.dedent('''\
+          windows:
+            - selected: 1
+              tabs:
+                - index: 1
+                  entries:
+                    - url: http://window1tab1url1
+              _closedTabs: []
+          _closedWindows: []
+          ''')
+    injson = textwrap.dedent('''\
+          {
+            "windows": [{
+              "selected": 1,
+              "tabs": [{
+                "index": 1,
+                "entries": [{
+                  "url": "http://window1tab1url1"}]}],
+              "_closedTabs": []}],
+            "_closedWindows": []}''')
+    fromyaml = yaml.load(inyaml)
+    fromjson = json.loads(injson)
+    self.assertEqual(fromyaml, fromjson)
 
   def test_default(self):
     report = []
