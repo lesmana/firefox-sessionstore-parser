@@ -10,7 +10,7 @@ trap clean EXIT
 
 coverage run --branch runpythontests.py || exit 1
 
-coverage report --show-missing --omit="testhelpers/*"
+coverage report --show-missing --omit="helpers/*,*/yaml/*"
 
 if [ "$1" = "html" ]; then
   coverage html
