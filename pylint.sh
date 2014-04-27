@@ -15,5 +15,5 @@ pylint \
   --symbols=y \
   --reports=n \
   --indent-string='  ' \
-  sessionstoreparser \
+  sessionstoreparser.py \
   tests_python
