@@ -8,9 +8,9 @@ clean() {
 
 trap clean EXIT
 
-coverage run --branch runpythontests.py || exit 1
+coverage run --branch --omit="helpers/*,*/yaml/*" runpythontests.py || exit 1
 
-coverage report --show-missing --omit="helpers/*,*/yaml/*"
+coverage report --show-missing
 
 if [ "$1" = "html" ]; then
   coverage html
