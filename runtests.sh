@@ -1,4 +1,4 @@
 #! /bin/sh
 
-./runpythontests.py &&
-  ./runshelltests.sh
+./runtests_python.py &&
+  ./runtests_shell.sh
