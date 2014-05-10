@@ -1,2 +1,4 @@
 *.pyc
 tests_shell/*.d
+coveragedatafile
+coveragehtmlreport
