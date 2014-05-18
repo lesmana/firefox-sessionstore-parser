@@ -1,6 +1,8 @@
 
 import unittest
 
+import StringIO
+
 import sessionstoreparser as p
 
 class TestHandleArgv(unittest.TestCase):
@@ -107,8 +109,10 @@ class TestRun(unittest.TestCase):
       def tryrun(self, argv):
         report.append(('tryrun', argv))
     fakeapp = FakeApplication()
-    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv')
+    stderr = StringIO.StringIO()
+    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(errormessage, None)
+    self.assertEqual(stderr.getvalue(), '')
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('tryrun', 'argv')])
@@ -120,8 +124,10 @@ class TestRun(unittest.TestCase):
         report.append(('tryrun', argv))
         raise p.ArgvError('argv error')
     fakeapp = FakeApplication()
-    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv')
+    stderr = StringIO.StringIO()
+    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(errormessage, 'argv error\n')
+    self.assertEqual(stderr.getvalue(), '')
     self.assertEqual(exitstatus, 2)
     self.assertEqual(report, [
           ('tryrun', 'argv')])
@@ -133,8 +139,10 @@ class TestRun(unittest.TestCase):
         report.append(('tryrun', argv))
         raise p.Error('generic error')
     fakeapp = FakeApplication()
-    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv')
+    stderr = StringIO.StringIO()
+    exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(errormessage, 'generic error\n')
+    self.assertEqual(stderr.getvalue(), '')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('tryrun', 'argv')])

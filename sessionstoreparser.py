@@ -198,7 +198,7 @@ class Application(object):
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
 
-  def run(self, argv):
+  def run(self, argv, stderr):
     try:
       self.tryrun(argv)
       return 0, None
@@ -216,7 +216,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
   app = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
-  exitstatus, errormessage = app.run(argv)
+  exitstatus, errormessage = app.run(argv, stderr)
   if errormessage is not None:
     stderr.write(errormessage)
   return exitstatus
