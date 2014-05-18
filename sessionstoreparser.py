@@ -201,13 +201,13 @@ class Application(object):
   def run(self, argv, stderr):
     try:
       self.tryrun(argv)
-      return 0, None
+      return 0
     except ArgvError as err:
       stderr.write(str(err) + '\n')
-      return 2, str(err) + '\n'
+      return 2
     except Error as err:
       stderr.write(str(err) + '\n')
-      return 1, str(err) + '\n'
+      return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler('', [], {})
@@ -218,7 +218,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
   app = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
-  exitstatus, errormessage = app.run(argv, stderr)
+  exitstatus = app.run(argv, stderr)
   return exitstatus
 
 def main(): # pragma: no cover
