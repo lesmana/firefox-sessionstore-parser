@@ -121,7 +121,7 @@ class TestRun(unittest.TestCase):
         raise p.ArgvError('argv error')
     fakeapp = FakeApplication()
     exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv')
-    self.assertEqual(errormessage, 'argv error')
+    self.assertEqual(errormessage, 'argv error\n')
     self.assertEqual(exitstatus, 2)
     self.assertEqual(report, [
           ('tryrun', 'argv')])
@@ -134,7 +134,7 @@ class TestRun(unittest.TestCase):
         raise p.Error('generic error')
     fakeapp = FakeApplication()
     exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv')
-    self.assertEqual(errormessage, 'generic error')
+    self.assertEqual(errormessage, 'generic error\n')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('tryrun', 'argv')])

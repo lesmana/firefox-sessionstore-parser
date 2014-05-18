@@ -203,9 +203,9 @@ class Application(object):
       self.tryrun(argv)
       return 0, None
     except ArgvError as err:
-      return 2, str(err)
+      return 2, str(err) + '\n'
     except Error as err:
-      return 1, str(err)
+      return 1, str(err) + '\n'
 
 def secludedmain(openfunc, stdout, stderr, argv):
   argvhandler = ArgvHandler('', [], {})
@@ -218,7 +218,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   app = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
   exitstatus, errormessage = app.run(argv)
   if errormessage is not None:
-    stderr.write(errormessage + '\n')
+    stderr.write(errormessage)
   return exitstatus
 
 def main(): # pragma: no cover
