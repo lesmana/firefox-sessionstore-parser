@@ -127,7 +127,7 @@ class TestRun(unittest.TestCase):
     stderr = StringIO.StringIO()
     exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(errormessage, 'argv error\n')
-    self.assertEqual(stderr.getvalue(), '')
+    self.assertEqual(stderr.getvalue(), 'argv error\n')
     self.assertEqual(exitstatus, 2)
     self.assertEqual(report, [
           ('tryrun', 'argv')])
@@ -142,7 +142,7 @@ class TestRun(unittest.TestCase):
     stderr = StringIO.StringIO()
     exitstatus, errormessage = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(errormessage, 'generic error\n')
-    self.assertEqual(stderr.getvalue(), '')
+    self.assertEqual(stderr.getvalue(), 'generic error\n')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('tryrun', 'argv')])
