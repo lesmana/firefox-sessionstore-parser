@@ -163,6 +163,10 @@ class UrlWriter(object):
     for url in urls:
       self.stdout.write(url + '\n')
 
+class SessionStoreParser(object):
+  def __init__(self):
+    pass
+
 class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
@@ -170,6 +174,7 @@ class Application(object):
     self.jsonreader = jsonreader
     self.urlgeneratorfactory = urlgeneratorfactory
     self.urlwriter = urlwriter
+    self.sessionstoreparser = SessionStoreParser()
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
