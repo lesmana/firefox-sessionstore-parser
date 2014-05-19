@@ -164,7 +164,8 @@ class UrlWriter(object):
       self.stdout.write(url + '\n')
 
 class SessionStoreParser(object):
-  def __init__(self, urlgeneratorfactory, urlwriter):
+  def __init__(self, jsonreader, urlgeneratorfactory, urlwriter):
+    self.jsonreader = jsonreader
     self.urlgeneratorfactory = urlgeneratorfactory
     self.urlwriter = urlwriter
 
@@ -172,8 +173,8 @@ class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
     self.argvhandler = argvhandler
-    self.jsonreader = jsonreader
-    self.sessionstoreparser = SessionStoreParser(urlgeneratorfactory, urlwriter)
+    self.sessionstoreparser = SessionStoreParser(
+          jsonreader, urlgeneratorfactory, urlwriter)
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
@@ -181,7 +182,7 @@ class Application(object):
 
   def getsessionstore(self, options):
     filename = options['filename']
-    sessionstore = self.jsonreader.read(filename)
+    sessionstore = self.sessionstoreparser.jsonreader.read(filename)
     return sessionstore
 
   def geturlgenerator(self):
