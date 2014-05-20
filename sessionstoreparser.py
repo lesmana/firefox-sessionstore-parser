@@ -178,6 +178,10 @@ class SessionStoreParser(object):
     urlgenerator = self.urlgeneratorfactory.produce()
     return urlgenerator
 
+  def geturls(self, urlgenerator, sessionstore):
+    urls = urlgenerator.generate(sessionstore)
+    return urls
+
 class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
@@ -198,7 +202,7 @@ class Application(object):
     return urlgenerator
 
   def geturls(self, urlgenerator, sessionstore):
-    urls = urlgenerator.generate(sessionstore)
+    urls = self.sessionstoreparser.geturls(urlgenerator, sessionstore)
     return urls
 
   def writeurls(self, urls):
