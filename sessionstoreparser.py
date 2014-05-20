@@ -169,6 +169,11 @@ class SessionStoreParser(object):
     self.urlgeneratorfactory = urlgeneratorfactory
     self.urlwriter = urlwriter
 
+  def getsessionstore(self, options):
+    filename = options['filename']
+    sessionstore = self.jsonreader.read(filename)
+    return sessionstore
+
 class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
@@ -181,8 +186,7 @@ class Application(object):
     return options
 
   def getsessionstore(self, options):
-    filename = options['filename']
-    sessionstore = self.sessionstoreparser.jsonreader.read(filename)
+    sessionstore = self.sessionstoreparser.getsessionstore(options)
     return sessionstore
 
   def geturlgenerator(self):
