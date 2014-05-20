@@ -29,8 +29,8 @@ class TestGetUrlGenerator(unittest.TestCase):
       def produce(self):
         report.append(('produce', ))
         return 'urlgenerator'
-    app = p.Application(None, None, FakeUrlGeneratorFactory(), None)
-    urlgenerator = app.geturlgenerator()
+    parser = p.SessionStoreParser(None, FakeUrlGeneratorFactory(), None)
+    urlgenerator = parser.geturlgenerator()
     self.assertEqual(urlgenerator, 'urlgenerator')
     self.assertEqual(report, [
           ('produce', )])
