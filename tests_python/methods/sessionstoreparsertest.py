@@ -56,7 +56,7 @@ class TestWriteUrls(unittest.TestCase):
     class FakeUrlWriter(object):
       def write(self, urls):
         report.append(('write', urls))
-    app = p.Application(None, None, None, FakeUrlWriter())
-    app.writeurls('urls')
+    parser = p.SessionStoreParser(None, None, FakeUrlWriter())
+    parser.writeurls('urls')
     self.assertEqual(report, [
           ('write', 'urls')])

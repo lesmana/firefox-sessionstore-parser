@@ -182,6 +182,9 @@ class SessionStoreParser(object):
     urls = urlgenerator.generate(sessionstore)
     return urls
 
+  def writeurls(self, urls):
+    self.urlwriter.write(urls)
+
 class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
@@ -206,7 +209,7 @@ class Application(object):
     return urls
 
   def writeurls(self, urls):
-    self.sessionstoreparser.urlwriter.write(urls)
+    self.sessionstoreparser.writeurls(urls)
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
