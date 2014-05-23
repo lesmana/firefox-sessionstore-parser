@@ -27,30 +27,13 @@ class TestTryRun(unittest.TestCase):
       def handleargv(self, argv):
         report.append(('handleargv', argv))
         return 'options'
-      def getsessionstore(self, options):
-        report.append(('getsessionstore', options))
-        return 'sessionstore'
-      def geturlgenerator(self):
-        report.append(('geturlgenerator', ))
-        return 'urlgenerator'
-      def geturls(self, urlgenerator, sessionstore):
-        report.append(('geturls', urlgenerator, sessionstore))
-        return 'urls'
-      def writeurls(self, urls):
-        report.append(('writeurls', urls))
       def dowork(self, options):
-        sessionstore = self.getsessionstore(options)
-        urlgenerator = self.geturlgenerator()
-        urls = self.geturls(urlgenerator, sessionstore)
-        self.writeurls(urls)
+        report.append(('dowork', options))
     fakeapp = FakeApplication()
     p.Application.tryrun.__func__(fakeapp, 'argv')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
-          ('getsessionstore', 'options'),
-          ('geturlgenerator', ),
-          ('geturls', 'urlgenerator', 'sessionstore'),
-          ('writeurls', 'urls')])
+          ('dowork', 'options')])
 
 class TestRun(unittest.TestCase):
 
