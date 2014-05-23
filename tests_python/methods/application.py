@@ -38,6 +38,11 @@ class TestTryRun(unittest.TestCase):
         return 'urls'
       def writeurls(self, urls):
         report.append(('writeurls', urls))
+      def dowork(self, options):
+        sessionstore = self.getsessionstore(options)
+        urlgenerator = self.geturlgenerator()
+        urls = self.geturls(urlgenerator, sessionstore)
+        self.writeurls(urls)
     fakeapp = FakeApplication()
     p.Application.tryrun.__func__(fakeapp, 'argv')
     self.assertEqual(report, [

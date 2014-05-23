@@ -211,12 +211,15 @@ class Application(object):
   def writeurls(self, urls):
     self.sessionstoreparser.writeurls(urls)
 
-  def tryrun(self, argv):
-    options = self.handleargv(argv)
+  def dowork(self, options):
     sessionstore = self.getsessionstore(options)
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
+
+  def tryrun(self, argv):
+    options = self.handleargv(argv)
+    self.dowork(options)
 
   def run(self, argv, stderr):
     try:
