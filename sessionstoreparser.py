@@ -196,26 +196,11 @@ class Application(object):
     options = self.argvhandler.handle(argv[1:])
     return options
 
-  def getsessionstore(self, options):
-    sessionstore = self.sessionstoreparser.getsessionstore(options)
-    return sessionstore
-
-  def geturlgenerator(self):
-    urlgenerator = self.sessionstoreparser.geturlgenerator()
-    return urlgenerator
-
-  def geturls(self, urlgenerator, sessionstore):
-    urls = self.sessionstoreparser.geturls(urlgenerator, sessionstore)
-    return urls
-
-  def writeurls(self, urls):
-    self.sessionstoreparser.writeurls(urls)
-
   def dowork(self, options):
-    sessionstore = self.getsessionstore(options)
-    urlgenerator = self.geturlgenerator()
-    urls = self.geturls(urlgenerator, sessionstore)
-    self.writeurls(urls)
+    sessionstore = self.sessionstoreparser.getsessionstore(options)
+    urlgenerator = self.sessionstoreparser.geturlgenerator()
+    urls = self.sessionstoreparser.geturls(urlgenerator, sessionstore)
+    self.sessionstoreparser.writeurls(urls)
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
