@@ -185,6 +185,12 @@ class SessionStoreParser(object):
   def writeurls(self, urls):
     self.urlwriter.write(urls)
 
+  def parse(self, options):
+    sessionstore = self.getsessionstore(options)
+    urlgenerator = self.geturlgenerator()
+    urls = self.geturls(urlgenerator, sessionstore)
+    self.writeurls(urls)
+
 class Application(object):
 
   def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
@@ -197,10 +203,7 @@ class Application(object):
     return options
 
   def dowork(self, options):
-    sessionstore = self.sessionstoreparser.getsessionstore(options)
-    urlgenerator = self.sessionstoreparser.geturlgenerator()
-    urls = self.sessionstoreparser.geturls(urlgenerator, sessionstore)
-    self.sessionstoreparser.writeurls(urls)
+    self.sessionstoreparser.parse(options)
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
