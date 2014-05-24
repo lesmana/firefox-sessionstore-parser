@@ -3,8 +3,6 @@
 
 import unittest
 
-import StringIO
-
 import sessionstoreparser as p
 
 class TestGetSessionStore(unittest.TestCase):
