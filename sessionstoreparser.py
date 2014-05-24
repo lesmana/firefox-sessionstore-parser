@@ -207,11 +207,12 @@ class Application(object):
   def tryrun(self, argv):
     options = self.handleargv(argv)
     self.dowork(options)
+    return 0
 
   def run(self, argv, stderr):
     try:
-      self.tryrun(argv)
-      return 0
+      exitstatus = self.tryrun(argv)
+      return exitstatus
     except ArgvError as err:
       stderr.write(str(err) + '\n')
       return 2

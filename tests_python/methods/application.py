@@ -42,7 +42,8 @@ class TestTryRun(unittest.TestCase):
       def dowork(self, options):
         report.append(('dowork', options))
     fakeapp = FakeApplication()
-    p.Application.tryrun.__func__(fakeapp, 'argv')
+    exitstatus = p.Application.tryrun.__func__(fakeapp, 'argv')
+    self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('handleargv', 'argv'),
           ('dowork', 'options')])
@@ -54,11 +55,12 @@ class TestRun(unittest.TestCase):
     class FakeApplication(object):
       def tryrun(self, argv):
         report.append(('tryrun', argv))
+        return 'exitstatus'
     fakeapp = FakeApplication()
     stderr = StringIO.StringIO()
     exitstatus = p.Application.run.__func__(fakeapp, 'argv', stderr)
     self.assertEqual(stderr.getvalue(), '')
-    self.assertEqual(exitstatus, 0)
+    self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
           ('tryrun', 'argv')])
 
