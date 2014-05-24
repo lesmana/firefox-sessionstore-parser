@@ -193,10 +193,9 @@ class SessionStoreParser(object):
 
 class Application(object):
 
-  def __init__(self, argvhandler, jsonreader, urlgeneratorfactory, urlwriter):
+  def __init__(self, argvhandler, sessionstoreparser):
     self.argvhandler = argvhandler
-    self.sessionstoreparser = SessionStoreParser(
-          jsonreader, urlgeneratorfactory, urlwriter)
+    self.sessionstoreparser = sessionstoreparser
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
@@ -228,7 +227,9 @@ def secludedmain(openfunc, stdout, stderr, argv):
         'tabgenerator': TabGenerator,
         'urlgenerator': OpenUrlGenerator})
   urlwriter = UrlWriter(stdout)
-  app = Application(argvhandler, jsonreader, urlgeneratorfactory, urlwriter)
+  sessionstoreparser = SessionStoreParser(
+        jsonreader, urlgeneratorfactory, urlwriter)
+  app = Application(argvhandler, sessionstoreparser)
   exitstatus = app.run(argv, stderr)
   return exitstatus
 

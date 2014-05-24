@@ -13,7 +13,7 @@ class TestHandleArgv(unittest.TestCase):
       def handle(self, argv):
         report.append(('handle', argv))
         return 'options'
-    app = p.Application(FakeArgvHandler(), None, None, None)
+    app = p.Application(FakeArgvHandler(), None)
     options = app.handleargv(['progname', 'argv'])
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
