@@ -27,7 +27,8 @@ class TestDoWork(unittest.TestCase):
       def parse(self, options):
         report.append(('work', options))
     app = p.Application(None, FakeSessionStoreParser())
-    app.dowork('options')
+    exitstatus = app.dowork('options')
+    self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('work', 'options')])
 
@@ -41,9 +42,10 @@ class TestTryRun(unittest.TestCase):
         return 'options'
       def dowork(self, options):
         report.append(('dowork', options))
+        return 'exitstatus'
     fakeapp = FakeApplication()
     exitstatus = p.Application.tryrun.__func__(fakeapp, 'argv')
-    self.assertEqual(exitstatus, 0)
+    self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
           ('dowork', 'options')])

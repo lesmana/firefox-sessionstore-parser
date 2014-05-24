@@ -203,11 +203,12 @@ class Application(object):
 
   def dowork(self, options):
     self.sessionstoreparser.parse(options)
+    return 0
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
-    self.dowork(options)
-    return 0
+    exitstatus = self.dowork(options)
+    return exitstatus
 
   def run(self, argv, stderr):
     try:
