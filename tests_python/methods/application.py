@@ -19,6 +19,18 @@ class TestHandleArgv(unittest.TestCase):
     self.assertEqual(report, [
           ('handle', ['argv'])])
 
+class TestDoWork(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeSessionStoreParser(object):
+      def parse(self, options):
+        report.append(('work', options))
+    app = p.Application(None, FakeSessionStoreParser())
+    app.dowork('options')
+    self.assertEqual(report, [
+          ('work', 'options')])
+
 class TestTryRun(unittest.TestCase):
 
   def test_noerror(self):
