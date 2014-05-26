@@ -38,12 +38,9 @@ class TestParse(unittest.TestCase):
     def fakegetopt(argv, shortopts, longopts):
       raise getopt.GetoptError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
-    try:
-      _ = argvparser.parse('argv')
-    except p.ArgvError as err:
-      self.assertEqual(str(err), 'silly error')
-    else:
-      self.fail('expected exception') # pragma: no cover
+    options, argvunknown = argvparser.parse('argv')
+    self.assertEqual(options, {})
+    self.assertEqual(argvunknown, ['silly error'])
 
   def test_foo(self):
     shortopts = 'hf:b'
