@@ -85,7 +85,7 @@ class ArgvParser(object):
     options = self.mergedicts(optsdict, argsdict)
     return options
 
-  def handle(self, argv):
+  def parse(self, argv):
     opts, args = self.getopt(argv)
     options = self.dictify(opts, args)
     return options
@@ -215,7 +215,7 @@ class Application(object):
     self.workerfactory = workerfactory
 
   def parseargv(self, argv):
-    options = self.argvparser.handle(argv[1:])
+    options = self.argvparser.parse(argv[1:])
     return options
 
   def createworker(self, options):

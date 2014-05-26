@@ -10,14 +10,14 @@ class TestParseArgv(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeArgvParser(object):
-      def handle(self, argv):
-        report.append(('handle', argv))
+      def parse(self, argv):
+        report.append(('parse', argv))
         return 'options'
     app = p.Application(FakeArgvParser(), None)
     options = app.parseargv(['progname', 'argv'])
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
-          ('handle', ['argv'])])
+          ('parse', ['argv'])])
 
 class TestCreateWorker(unittest.TestCase):
 

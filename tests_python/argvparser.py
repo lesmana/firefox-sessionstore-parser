@@ -51,7 +51,7 @@ class TestDictifyOpts(unittest.TestCase):
     optsdict = argvparser.dictifyopts([('-f', 'whatfoo')])
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
-class TestHandle(unittest.TestCase):
+class TestParse(unittest.TestCase):
 
   def test_noerror(self):
     report = []
@@ -62,7 +62,7 @@ class TestHandle(unittest.TestCase):
       def dictify(self, opts, args):
         report.append(('dictify', opts, args))
         return 'options'
-    options = p.ArgvParser.handle.__func__(FakeArgvParser(), 'argv')
+    options = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('getopt', 'argv'),
@@ -75,7 +75,7 @@ class TestHandle(unittest.TestCase):
         report.append(('getopt', argv))
         raise p.ArgvError('silly error')
     try:
-      _ = p.ArgvParser.handle.__func__(FakeArgvParser(), 'argv')
+      _ = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
@@ -96,7 +96,7 @@ class TestArgvParser(unittest.TestCase):
           '-b': 'bar',
           '--bar': 'bar'}
     argvparser = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvparser.handle(['-f', 'somefoo', 'filename'])
+    options = argvparser.parse(['-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
           'filename': 'filename'})
@@ -112,7 +112,7 @@ class TestArgvParser(unittest.TestCase):
           '-b': 'bar',
           '--bar': 'bar'}
     argvparser = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvparser.handle(['--bar', 'filename'])
+    options = argvparser.parse(['--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
           'filename': 'filename'})
@@ -128,7 +128,7 @@ class TestArgvParser(unittest.TestCase):
           '-b': 'bar',
           '--bar': 'bar'}
     argvparser = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvparser.handle(['--bar', '--foo', 'somefoo', 'filename'])
+    options = argvparser.parse(['--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,
           'foo': 'somefoo',
