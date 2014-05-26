@@ -53,25 +53,6 @@ class TestDictifyOpts(unittest.TestCase):
 
 class TestParse(unittest.TestCase):
 
-  def test_noerror(self):
-    report = []
-    class FakeArgvParser(object):
-      def splitprogname(self, argv):
-        report.append(('splitprogname', argv))
-        return 'progname', 'argv1e'
-      def getopt(self, argv1e):
-        report.append(('getopt', argv1e))
-        return 'opts', 'args'
-      def dictify(self, opts, args):
-        report.append(('dictify', opts, args))
-        return 'options'
-    options = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
-    self.assertEqual(options, 'options')
-    self.assertEqual(report, [
-          ('splitprogname', 'argv'),
-          ('getopt', 'argv1e'),
-          ('dictify', 'opts', 'args')])
-
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
       raise p.ArgvError('silly error')
