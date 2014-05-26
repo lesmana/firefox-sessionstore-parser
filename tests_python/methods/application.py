@@ -28,11 +28,13 @@ class TestCreateWorker(unittest.TestCase):
         self.sessionstoreparser = sessionstoreparser
     class FakeWorkerFactory(object):
       def produce(self, options):
+        report.append(('produce', options))
         return FakeWorker('parser')
     app = p.Application(None, FakeWorkerFactory())
     worker = app.createworker('options')
     self.assertEqual(worker.sessionstoreparser, 'parser')
-    self.assertEqual(report, [])
+    self.assertEqual(report, [
+          ('produce', 'options')])
 
 class TestDoWork(unittest.TestCase):
 
