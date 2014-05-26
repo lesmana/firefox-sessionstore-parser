@@ -212,8 +212,7 @@ class Application(object):
 
   def __init__(self, argvhandler, sessionstoreparser):
     self.argvhandler = argvhandler
-    self.sessionstoreparser = sessionstoreparser
-    self.factory = WorkerFactory(self.sessionstoreparser)
+    self.factory = WorkerFactory(sessionstoreparser)
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
