@@ -213,14 +213,14 @@ class Application(object):
   def __init__(self, argvhandler, sessionstoreparser):
     self.argvhandler = argvhandler
     self.sessionstoreparser = sessionstoreparser
+    self.factory = WorkerFactory(self.sessionstoreparser)
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
     return options
 
   def createworker(self, options):
-    factory = WorkerFactory(self.sessionstoreparser)
-    worker = factory.produce(options)
+    worker = self.factory.produce(options)
     return worker
 
   def dowork(self, options):
