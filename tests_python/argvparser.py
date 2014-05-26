@@ -5,13 +5,13 @@ import getopt
 
 import sessionstoreparser as p
 
-class TestGetopt(unittest.TestCase):
+class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
     def fakegetopt(argv, shortopts, longopts):
       return 'opts', 'args'
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
-    opts, args = argvparser.getopt('argv1e')
+    opts, args = argvparser.splitopts('argv1e')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
 
@@ -20,7 +20,7 @@ class TestGetopt(unittest.TestCase):
       raise getopt.GetoptError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
-      _ = argvparser.getopt('argv1e')
+      _ = argvparser.splitopts('argv1e')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:

@@ -53,7 +53,7 @@ class ArgvParser(object):
     opts, args = self.getoptfunc(argv1e, self.shortopts, self.longopts)
     return opts, args
 
-  def getopt(self, argv1e):
+  def splitopts(self, argv1e):
     try:
       opts, args = self.trygetopt(argv1e)
       return opts, args
@@ -93,7 +93,7 @@ class ArgvParser(object):
 
   def parse(self, argv):
     progname, argv1e = self.splitprogname(argv)
-    opts, args = self.getopt(argv1e)
+    opts, args = self.splitopts(argv1e)
     options = self.dictify(opts, args)
     return options
 
