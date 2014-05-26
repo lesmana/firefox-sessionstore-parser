@@ -10,7 +10,8 @@ class TestParseArgv(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeArgvParser(object):
-      def parse(self, argv):
+      def parse1(self, argv):
+        argv = argv[1:]
         report.append(('parse', argv))
         return 'options'
     app = p.Application(FakeArgvParser(), None)

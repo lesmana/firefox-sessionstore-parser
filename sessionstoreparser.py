@@ -90,6 +90,9 @@ class ArgvParser(object):
     options = self.dictify(opts, args)
     return options
 
+  def parse1(self, argv):
+    return self.parse(argv[1:])
+
 class JsonReaderError(Error):
   pass
 
@@ -215,7 +218,7 @@ class Application(object):
     self.workerfactory = workerfactory
 
   def parseargv(self, argv):
-    options = self.argvparser.parse(argv[1:])
+    options = self.argvparser.parse1(argv)
     return options
 
   def createworker(self, options):
