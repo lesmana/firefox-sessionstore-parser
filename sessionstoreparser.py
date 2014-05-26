@@ -214,7 +214,7 @@ class Application(object):
     self.argvhandler = argvhandler
     self.workerfactory = workerfactory
 
-  def handleargv(self, argv):
+  def parseargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
     return options
 
@@ -227,7 +227,7 @@ class Application(object):
     return exitstatus
 
   def tryrun(self, argv):
-    options = self.handleargv(argv)
+    options = self.parseargv(argv)
     worker = self.createworker(options)
     exitstatus = self.dowork(worker)
     return exitstatus

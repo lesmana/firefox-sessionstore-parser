@@ -5,7 +5,7 @@ import StringIO
 
 import sessionstoreparser as p
 
-class TestHandleArgv(unittest.TestCase):
+class TestParseArgv(unittest.TestCase):
 
   def test_noerror(self):
     report = []
@@ -14,7 +14,7 @@ class TestHandleArgv(unittest.TestCase):
         report.append(('handle', argv))
         return 'options'
     app = p.Application(FakeArgvHandler(), None)
-    options = app.handleargv(['progname', 'argv'])
+    options = app.parseargv(['progname', 'argv'])
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('handle', ['argv'])])
@@ -52,8 +52,8 @@ class TestTryRun(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeApplication(object):
-      def handleargv(self, argv):
-        report.append(('handleargv', argv))
+      def parseargv(self, argv):
+        report.append(('parseargv', argv))
         return 'options'
       def createworker(self, options):
         report.append(('createworker', options))
@@ -65,7 +65,7 @@ class TestTryRun(unittest.TestCase):
     exitstatus = p.Application.tryrun.__func__(fakeapp, 'argv')
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
-          ('handleargv', 'argv'),
+          ('parseargv', 'argv'),
           ('createworker', 'options'),
           ('dowork', 'worker')])
 
