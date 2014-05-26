@@ -40,10 +40,10 @@ class TestDoWork(unittest.TestCase):
     class FakeSessionStoreParserWorker(object):
       def work(self):
         report.append(('work', ))
-        return 0
+        return 'exitstatus'
     app = p.Application(None, None)
     exitstatus = app.dowork(FakeSessionStoreParserWorker())
-    self.assertEqual(exitstatus, 0)
+    self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
           ('work', )])
 
