@@ -48,13 +48,13 @@ class ArgvParser(object):
     argv1 = argv[1:]
     return progname, argv1
 
-  def trygetopt(self, argv):
-    opts, args = getopt.getopt(argv, self.shortopts, self.longopts)
+  def trygetopt(self, argv1):
+    opts, args = getopt.getopt(argv1, self.shortopts, self.longopts)
     return opts, args
 
-  def getopt(self, argv):
+  def getopt(self, argv1):
     try:
-      opts, args = self.trygetopt(argv)
+      opts, args = self.trygetopt(argv1)
       return opts, args
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
@@ -90,8 +90,8 @@ class ArgvParser(object):
     options = self.mergedicts(optsdict, argsdict)
     return options
 
-  def parse(self, argv):
-    opts, args = self.getopt(argv)
+  def parse(self, argv1):
+    opts, args = self.getopt(argv1)
     options = self.dictify(opts, args)
     return options
 
