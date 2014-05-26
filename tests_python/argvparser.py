@@ -74,15 +74,13 @@ class TestParse(unittest.TestCase):
 
   def test_getopterror(self):
     report = []
-    class FakeArgvParser(object):
-      def splitprogname(self, argv):
-        report.append(('splitprogname', argv))
-        return 'progname', 'argv1e'
-      def getopt(self, argv1e):
-        report.append(('getopt', argv1e))
-        raise p.ArgvError('silly error')
+    def fakegetopt(argv, shortopts, longopts):
+      report.append(('splitprogname', 'argv'))
+      report.append(('getopt', 'argv1e'))
+      raise p.ArgvError('silly error')
+    argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
-      _ = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
+      _ = argvparser.parse('argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
