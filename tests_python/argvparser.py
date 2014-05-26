@@ -57,6 +57,7 @@ class TestParse(unittest.TestCase):
     report = []
     class FakeArgvParser(object):
       def splitprogname(self, argv):
+        report.append(('splitprogname', argv))
         return 'progname', argv
       def getopt(self, argv):
         report.append(('getopt', argv))
@@ -67,6 +68,7 @@ class TestParse(unittest.TestCase):
     options = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
+          ('splitprogname', 'argv'),
           ('getopt', 'argv'),
           ('dictify', 'opts', 'args')])
 
@@ -74,6 +76,7 @@ class TestParse(unittest.TestCase):
     report = []
     class FakeArgvParser(object):
       def splitprogname(self, argv):
+        report.append(('splitprogname', argv))
         return 'progname', argv
       def getopt(self, argv):
         report.append(('getopt', argv))
@@ -85,6 +88,7 @@ class TestParse(unittest.TestCase):
     else:
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
+          ('splitprogname', 'argv'),
           ('getopt', 'argv')])
 
 class TestArgvParser(unittest.TestCase):
