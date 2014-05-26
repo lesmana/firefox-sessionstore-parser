@@ -232,7 +232,7 @@ class Application(object):
     options, argvunknown = self.argvparser.parse(argv)
     return options, argvunknown
 
-  def createworker(self, options):
+  def createworker(self, options, argvunknown):
     worker = self.workerfactory.produce(options)
     return worker
 
@@ -244,7 +244,7 @@ class Application(object):
     options, argvunknown = self.parseargv(argv)
     if len(argvunknown) != 0:
       raise ArgvError(argvunknown[0])
-    worker = self.createworker(options)
+    worker = self.createworker(options, argvunknown)
     exitstatus = self.dowork(worker)
     return exitstatus
 
