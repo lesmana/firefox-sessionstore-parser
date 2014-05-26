@@ -233,6 +233,8 @@ class Application(object):
     return options, argvunknown
 
   def createworker(self, options, argvunknown):
+    if len(argvunknown) != 0:
+      raise ArgvError(argvunknown[0])
     worker = self.workerfactory.produce(options)
     return worker
 
@@ -242,8 +244,6 @@ class Application(object):
 
   def tryrun(self, argv):
     options, argvunknown = self.parseargv(argv)
-    if len(argvunknown) != 0:
-      raise ArgvError(argvunknown[0])
     worker = self.createworker(options, argvunknown)
     exitstatus = self.dowork(worker)
     return exitstatus

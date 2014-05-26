@@ -29,7 +29,7 @@ class TestCreateWorker(unittest.TestCase):
         report.append(('produce', options))
         return 'worker'
     app = p.Application(None, FakeWorkerFactory())
-    worker = app.createworker('options', 'argvunknown')
+    worker = app.createworker('options', [])
     self.assertEqual(worker, 'worker')
     self.assertEqual(report, [
           ('produce', 'options')])
