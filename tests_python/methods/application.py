@@ -19,6 +19,15 @@ class TestHandleArgv(unittest.TestCase):
     self.assertEqual(report, [
           ('handle', ['argv'])])
 
+class TestCreateWorker(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    app = p.Application(None, 'parser')
+    worker = app.createworker('options')
+    self.assertEqual(worker.sessionstoreparser, 'parser')
+    self.assertEqual(report, [])
+
 class TestDoWork(unittest.TestCase):
 
   def test_noerror(self):
