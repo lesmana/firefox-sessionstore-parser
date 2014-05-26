@@ -10,29 +10,29 @@ class TestGetopt(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeArgvParser(object):
-      def trygetopt(self, argv1):
-        report.append(('trygetopt', argv1))
+      def trygetopt(self, argv1e):
+        report.append(('trygetopt', argv1e))
         return 'opts', 'args'
-    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1')
+    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1e')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
     self.assertEqual(report, [
-          ('trygetopt', 'argv1')])
+          ('trygetopt', 'argv1e')])
 
   def test_error(self):
     report = []
     class FakeArgvParser(object):
-      def trygetopt(self, argv1):
-        report.append(('trygetopt', argv1))
+      def trygetopt(self, argv1e):
+        report.append(('trygetopt', argv1e))
         raise getopt.GetoptError('silly error')
     try:
-      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1')
+      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1e')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
-          ('trygetopt', 'argv1')])
+          ('trygetopt', 'argv1e')])
 
 class TestDictifyOpts(unittest.TestCase):
 
@@ -58,9 +58,9 @@ class TestParse(unittest.TestCase):
     class FakeArgvParser(object):
       def splitprogname(self, argv):
         report.append(('splitprogname', argv))
-        return 'progname', 'argv1'
-      def getopt(self, argv1):
-        report.append(('getopt', argv1))
+        return 'progname', 'argv1e'
+      def getopt(self, argv1e):
+        report.append(('getopt', argv1e))
         return 'opts', 'args'
       def dictify(self, opts, args):
         report.append(('dictify', opts, args))
@@ -69,7 +69,7 @@ class TestParse(unittest.TestCase):
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('splitprogname', 'argv'),
-          ('getopt', 'argv1'),
+          ('getopt', 'argv1e'),
           ('dictify', 'opts', 'args')])
 
   def test_getopterror(self):
@@ -77,9 +77,9 @@ class TestParse(unittest.TestCase):
     class FakeArgvParser(object):
       def splitprogname(self, argv):
         report.append(('splitprogname', argv))
-        return 'progname', 'argv1'
-      def getopt(self, argv1):
-        report.append(('getopt', argv1))
+        return 'progname', 'argv1e'
+      def getopt(self, argv1e):
+        report.append(('getopt', argv1e))
         raise p.ArgvError('silly error')
     try:
       _ = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
@@ -89,7 +89,7 @@ class TestParse(unittest.TestCase):
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
           ('splitprogname', 'argv'),
-          ('getopt', 'argv1')])
+          ('getopt', 'argv1e')])
 
 class TestArgvParser(unittest.TestCase):
 
