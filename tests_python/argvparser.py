@@ -8,21 +8,15 @@ import sessionstoreparser as p
 class TestGetopt(unittest.TestCase):
 
   def test_noerror(self):
-    report = []
     def fakegetopt(argv, shortopts, longopts):
-      report.append(('trygetopt', 'argv1e'))
       return 'opts', 'args'
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     opts, args = argvparser.getopt('argv1e')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
-    self.assertEqual(report, [
-          ('trygetopt', 'argv1e')])
 
   def test_error(self):
-    report = []
     def fakegetopt(argv, shortopts, longopts):
-      report.append(('trygetopt', 'argv1e'))
       raise getopt.GetoptError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
@@ -31,8 +25,6 @@ class TestGetopt(unittest.TestCase):
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
-    self.assertEqual(report, [
-          ('trygetopt', 'argv1e')])
 
 class TestDictifyOpts(unittest.TestCase):
 
