@@ -10,29 +10,29 @@ class TestGetopt(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeArgvParser(object):
-      def trygetopt(self, argv):
-        report.append(('trygetopt', argv))
+      def trygetopt(self, argv1):
+        report.append(('trygetopt', argv1))
         return 'opts', 'args'
-    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv')
+    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
     self.assertEqual(report, [
-          ('trygetopt', 'argv')])
+          ('trygetopt', 'argv1')])
 
   def test_error(self):
     report = []
     class FakeArgvParser(object):
-      def trygetopt(self, argv):
-        report.append(('trygetopt', argv))
+      def trygetopt(self, argv1):
+        report.append(('trygetopt', argv1))
         raise getopt.GetoptError('silly error')
     try:
-      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv')
+      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
     self.assertEqual(report, [
-          ('trygetopt', 'argv')])
+          ('trygetopt', 'argv1')])
 
 class TestDictifyOpts(unittest.TestCase):
 
