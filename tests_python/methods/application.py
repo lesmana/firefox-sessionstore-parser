@@ -41,6 +41,7 @@ class TestTryRun(unittest.TestCase):
         report.append(('handleargv', argv))
         return 'options'
       def createworker(self, options):
+        report.append(('createworker', options))
         return 'worker'
       def dowork(self, options):
         report.append(('dowork', options))
@@ -50,6 +51,7 @@ class TestTryRun(unittest.TestCase):
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
           ('handleargv', 'argv'),
+          ('createworker', 'options'),
           ('dowork', 'options')])
 
 class TestRun(unittest.TestCase):
