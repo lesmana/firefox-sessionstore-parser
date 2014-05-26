@@ -14,8 +14,9 @@ class TestParseArgv(unittest.TestCase):
         report.append(('parse', argv))
         return 'options', []
     app = p.Application(FakeArgvParser(), None)
-    options = app.parseargv('argv')
+    options, argvunknown = app.parseargv('argv')
     self.assertEqual(options, 'options')
+    self.assertEqual(argvunknown, [])
     self.assertEqual(report, [
           ('parse', 'argv')])
 
