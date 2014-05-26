@@ -46,16 +46,16 @@ class ArgvParser(object):
 
   def splitprogname(self, argv):
     progname = argv[0]
-    argv1e = argv[1:]
-    return progname, argv1e
+    argvoptsargs = argv[1:]
+    return progname, argvoptsargs
 
-  def trygetopt(self, argv1e):
-    opts, args = self.getoptfunc(argv1e, self.shortopts, self.longopts)
+  def trygetopt(self, argvoptsargs):
+    opts, args = self.getoptfunc(argvoptsargs, self.shortopts, self.longopts)
     return opts, args
 
-  def splitopts(self, argv1e):
+  def splitopts(self, argvoptsargs):
     try:
-      opts, args = self.trygetopt(argv1e)
+      opts, args = self.trygetopt(argvoptsargs)
       return opts, args
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
@@ -92,8 +92,8 @@ class ArgvParser(object):
     return options
 
   def parse(self, argv):
-    progname, argv1e = self.splitprogname(argv)
-    opts, args = self.splitopts(argv1e)
+    progname, argvoptsargs = self.splitprogname(argv)
+    opts, args = self.splitopts(argvoptsargs)
     options = self.dictify(opts, args)
     return options
 

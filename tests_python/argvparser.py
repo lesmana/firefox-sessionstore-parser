@@ -11,7 +11,7 @@ class TestSplitOpts(unittest.TestCase):
     def fakegetopt(argv, shortopts, longopts):
       return 'opts', 'args'
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
-    opts, args = argvparser.splitopts('argv1e')
+    opts, args = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
 
@@ -20,7 +20,7 @@ class TestSplitOpts(unittest.TestCase):
       raise getopt.GetoptError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
-      _ = argvparser.splitopts('argv1e')
+      _ = argvparser.splitopts('argvoptsargs')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
