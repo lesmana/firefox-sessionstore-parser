@@ -59,8 +59,8 @@ class TestParse(unittest.TestCase):
       def splitprogname(self, argv):
         report.append(('splitprogname', argv))
         return 'progname', 'argv1'
-      def getopt(self, argv):
-        report.append(('getopt', argv))
+      def getopt(self, argv1):
+        report.append(('getopt', argv1))
         return 'opts', 'args'
       def dictify(self, opts, args):
         report.append(('dictify', opts, args))
@@ -78,8 +78,8 @@ class TestParse(unittest.TestCase):
       def splitprogname(self, argv):
         report.append(('splitprogname', argv))
         return 'progname', 'argv1'
-      def getopt(self, argv):
-        report.append(('getopt', argv))
+      def getopt(self, argv1):
+        report.append(('getopt', argv1))
         raise p.ArgvError('silly error')
     try:
       _ = p.ArgvParser.parse.__func__(FakeArgvParser(), 'argv')
