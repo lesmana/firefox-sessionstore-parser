@@ -91,8 +91,6 @@ class TestParse(unittest.TestCase):
           ('splitprogname', 'argv'),
           ('getopt', 'argv1e')])
 
-class TestArgvParser(unittest.TestCase):
-
   def test_foo(self):
     shortopts = 'hf:b'
     longopts = ['help', 'foo=', 'bar']
