@@ -191,6 +191,15 @@ class SessionStoreParser(object):
     urls = self.geturls(urlgenerator, sessionstore)
     self.writeurls(urls)
 
+class SessionStoreParserWorker(object):
+  def __init__(self, sessionstoreparser, options):
+    self.sessionstoreparser = sessionstoreparser
+    self.options = options
+
+  def work(self):
+    self.sessionstoreparser.parse(self.options)
+    return 0
+
 class Application(object):
 
   def __init__(self, argvhandler, sessionstoreparser):
@@ -202,8 +211,9 @@ class Application(object):
     return options
 
   def dowork(self, options):
-    self.sessionstoreparser.parse(options)
-    return 0
+    worker = SessionStoreParserWorker(self.sessionstoreparser, options)
+    exitstatus = worker.work()
+    return exitstatus
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
