@@ -230,8 +230,6 @@ class Application(object):
 
   def parseargv(self, argv):
     options, argvunknown = self.argvparser.parse(argv)
-    if len(argvunknown) != 0:
-      raise ArgvError(argvunknown[0])
     return options, argvunknown
 
   def createworker(self, options):
@@ -243,7 +241,9 @@ class Application(object):
     return exitstatus
 
   def tryrun(self, argv):
-    options, _ = self.parseargv(argv)
+    options, argvunknown = self.parseargv(argv)
+    if len(argvunknown) != 0:
+      raise ArgvError(argvunknown[0])
     worker = self.createworker(options)
     exitstatus = self.dowork(worker)
     return exitstatus
