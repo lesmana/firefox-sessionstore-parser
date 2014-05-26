@@ -210,12 +210,12 @@ class WorkerFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvhandler, workerfactory):
-    self.argvhandler = argvhandler
+  def __init__(self, argvparser, workerfactory):
+    self.argvparser = argvparser
     self.workerfactory = workerfactory
 
   def parseargv(self, argv):
-    options = self.argvhandler.handle(argv[1:])
+    options = self.argvparser.handle(argv[1:])
     return options
 
   def createworker(self, options):
@@ -244,7 +244,7 @@ class Application(object):
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  argvhandler = ArgvParser('', [], {})
+  argvparser = ArgvParser('', [], {})
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
@@ -254,7 +254,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
   workerfactory = WorkerFactory(sessionstoreparser)
-  app = Application(argvhandler, workerfactory)
+  app = Application(argvparser, workerfactory)
   exitstatus = app.run(argv, stderr)
   return exitstatus
 

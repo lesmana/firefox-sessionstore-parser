@@ -37,18 +37,18 @@ class TestGetopt(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvhandler = p.ArgvParser(None, None, {})
-    optsdict = argvhandler.dictifyopts([])
+    argvparser = p.ArgvParser(None, None, {})
+    optsdict = argvparser.dictifyopts([])
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
-    argvhandler = p.ArgvParser(None, None, {'-f': 'foo'})
-    optsdict = argvhandler.dictifyopts([('-f', '')])
+    argvparser = p.ArgvParser(None, None, {'-f': 'foo'})
+    optsdict = argvparser.dictifyopts([('-f', '')])
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
-    argvhandler = p.ArgvParser(None, None, {'-f': 'foo'})
-    optsdict = argvhandler.dictifyopts([('-f', 'whatfoo')])
+    argvparser = p.ArgvParser(None, None, {'-f': 'foo'})
+    optsdict = argvparser.dictifyopts([('-f', 'whatfoo')])
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
 class TestHandle(unittest.TestCase):
@@ -95,8 +95,8 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvhandler.handle(['-f', 'somefoo', 'filename'])
+    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    options = argvparser.handle(['-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
           'filename': 'filename'})
@@ -111,8 +111,8 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvhandler.handle(['--bar', 'filename'])
+    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    options = argvparser.handle(['--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
           'filename': 'filename'})
@@ -127,8 +127,8 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
-    options = argvhandler.handle(['--bar', '--foo', 'somefoo', 'filename'])
+    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    options = argvparser.handle(['--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,
           'foo': 'somefoo',
