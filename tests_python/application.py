@@ -26,13 +26,13 @@ class TestCreateWorker(unittest.TestCase):
     report = []
     class FakeWorkerFactory(object):
       def produce(self, options, argvunknown):
-        report.append(('produce', options))
+        report.append(('produce', options, argvunknown))
         return 'worker'
     app = p.Application(None, FakeWorkerFactory())
-    worker = app.createworker('options', [])
+    worker = app.createworker('options', 'argvunknown')
     self.assertEqual(worker, 'worker')
     self.assertEqual(report, [
-          ('produce', 'options')])
+          ('produce', 'options', 'argvunknown')])
 
 class TestDoWork(unittest.TestCase):
 
@@ -55,7 +55,7 @@ class TestTryRun(unittest.TestCase):
     class FakeArgvParser(object):
       def parse(self, argv):
         report.append(('parseargv', argv))
-        return 'options', []
+        return 'options', 'argvunknown'
     class FakeWorkerFactory(object):
       def produce(self, options, argvunknown):
         report.append(('createworker', options))
