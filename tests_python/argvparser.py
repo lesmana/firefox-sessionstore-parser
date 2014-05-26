@@ -73,10 +73,7 @@ class TestParse(unittest.TestCase):
           ('dictify', 'opts', 'args')])
 
   def test_getopterror(self):
-    report = []
     def fakegetopt(argv, shortopts, longopts):
-      report.append(('splitprogname', 'argv'))
-      report.append(('getopt', 'argv1e'))
       raise p.ArgvError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
@@ -85,9 +82,6 @@ class TestParse(unittest.TestCase):
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
-    self.assertEqual(report, [
-          ('splitprogname', 'argv'),
-          ('getopt', 'argv1e')])
 
   def test_foo(self):
     shortopts = 'hf:b'
