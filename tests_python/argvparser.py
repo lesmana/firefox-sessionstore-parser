@@ -13,8 +13,7 @@ class TestGetopt(unittest.TestCase):
       def trygetopt(self, argv):
         report.append(('trygetopt', argv))
         return 'opts', 'args'
-    fakeargvhandler = FakeArgvHandler()
-    opts, args = p.ArgvHandler.getopt.__func__(fakeargvhandler, 'argv')
+    opts, args = p.ArgvHandler.getopt.__func__(FakeArgvHandler(), 'argv')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
     self.assertEqual(report, [
@@ -26,9 +25,8 @@ class TestGetopt(unittest.TestCase):
       def trygetopt(self, argv):
         report.append(('trygetopt', argv))
         raise getopt.GetoptError('silly error')
-    fakeargvhandler = FakeArgvHandler()
     try:
-      _ = p.ArgvHandler.getopt.__func__(fakeargvhandler, 'argv')
+      _ = p.ArgvHandler.getopt.__func__(FakeArgvHandler(), 'argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
@@ -64,8 +62,7 @@ class TestHandle(unittest.TestCase):
       def dictify(self, opts, args):
         report.append(('dictify', opts, args))
         return 'options'
-    fakeargvhandler = FakeArgvHandler()
-    options = p.ArgvHandler.handle.__func__(fakeargvhandler, 'argv')
+    options = p.ArgvHandler.handle.__func__(FakeArgvHandler(), 'argv')
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('getopt', 'argv'),
@@ -77,9 +74,8 @@ class TestHandle(unittest.TestCase):
       def getopt(self, argv):
         report.append(('getopt', argv))
         raise p.ArgvError('silly error')
-    fakeargvhandler = FakeArgvHandler()
     try:
-      _ = p.ArgvHandler.handle.__func__(fakeargvhandler, 'argv')
+      _ = p.ArgvHandler.handle.__func__(FakeArgvHandler(), 'argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
