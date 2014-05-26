@@ -37,12 +37,12 @@ class TestDoWork(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    class FakeSessionStoreParserWorker(object):
+    class FakeWorker(object):
       def work(self):
         report.append(('work', ))
         return 'exitstatus'
     app = p.Application(None, None)
-    exitstatus = app.dowork(FakeSessionStoreParserWorker())
+    exitstatus = app.dowork(FakeWorker())
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
           ('work', )])
