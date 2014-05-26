@@ -40,6 +40,8 @@ class TestTryRun(unittest.TestCase):
       def handleargv(self, argv):
         report.append(('handleargv', argv))
         return 'options'
+      def createworker(self, options):
+        return 'worker'
       def dowork(self, options):
         report.append(('dowork', options))
         return 'exitstatus'

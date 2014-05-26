@@ -221,6 +221,7 @@ class Application(object):
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
+    worker = self.createworker(options)
     exitstatus = self.dowork(options)
     return exitstatus
 
