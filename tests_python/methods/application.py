@@ -58,8 +58,8 @@ class TestTryRun(unittest.TestCase):
       def createworker(self, options):
         report.append(('createworker', options))
         return 'worker'
-      def dowork(self, options):
-        report.append(('dowork', 'worker'))
+      def dowork(self, worker):
+        report.append(('dowork', worker))
         return 'exitstatus'
     fakeapp = FakeApplication()
     exitstatus = p.Application.tryrun.__func__(fakeapp, 'argv')
