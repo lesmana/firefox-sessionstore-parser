@@ -15,17 +15,6 @@ class TestSplitOpts(unittest.TestCase):
     self.assertEqual(opts, 'opts')
     self.assertEqual(argvargs, 'argvargs')
 
-  def test_error(self):
-    def fakegetopt(argv, shortopts, longopts):
-      raise getopt.GetoptError('silly error')
-    argvparser = p.ArgvParser(fakegetopt, '', [], {})
-    try:
-      _ = argvparser.splitopts('argvoptsargs')
-    except p.ArgvError as err:
-      self.assertEqual(str(err), 'silly error')
-    else:
-      self.fail('expected exception') # pragma: no cover
-
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
