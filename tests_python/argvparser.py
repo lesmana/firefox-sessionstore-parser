@@ -9,11 +9,11 @@ class TestGetopt(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    class FakeArgvParser(object):
-      def trygetopt(self, argv1e):
-        report.append(('trygetopt', argv1e))
-        return 'opts', 'args'
-    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1e')
+    def fakegetopt(argv, shortopts, longopts):
+      report.append(('trygetopt', 'argv1e'))
+      return 'opts', 'args'
+    argvparser = p.ArgvParser(fakegetopt, '', [], {})
+    opts, args = argvparser.getopt('argv1e')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
     self.assertEqual(report, [
@@ -21,12 +21,12 @@ class TestGetopt(unittest.TestCase):
 
   def test_error(self):
     report = []
-    class FakeArgvParser(object):
-      def trygetopt(self, argv1e):
-        report.append(('trygetopt', argv1e))
-        raise getopt.GetoptError('silly error')
+    def fakegetopt(argv, shortopts, longopts):
+      report.append(('trygetopt', 'argv1e'))
+      raise getopt.GetoptError('silly error')
+    argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
-      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv1e')
+      _ = argvparser.getopt('argv1e')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
