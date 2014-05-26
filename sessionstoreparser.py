@@ -94,11 +94,14 @@ class ArgvParser(object):
     options = self.mergedicts(optsdict, argsdict)
     return options
 
+  def combine(self, progname, opts, args):
+    return self.dictify(opts, args)
+
   def parse(self, argv):
     progname, argvoptsargs = self.splitprogname(argv)
     opts, argvargs = self.splitopts(argvoptsargs)
     args, argvunknown = self.splitargs(argvargs)
-    options = self.dictify(opts, args)
+    options = self.combine(progname, opts, args)
     return options
 
 class JsonReaderError(Error):
