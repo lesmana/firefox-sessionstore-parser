@@ -47,7 +47,7 @@ class TestParse(unittest.TestCase):
 
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
-      raise p.ArgvError('silly error')
+      raise getopt.GetoptError('silly error')
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     try:
       _ = argvparser.parse('argv')
