@@ -9,11 +9,11 @@ class TestGetopt(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    class FakeArgvHandler(object):
+    class FakeArgvParser(object):
       def trygetopt(self, argv):
         report.append(('trygetopt', argv))
         return 'opts', 'args'
-    opts, args = p.ArgvHandler.getopt.__func__(FakeArgvHandler(), 'argv')
+    opts, args = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv')
     self.assertEqual(opts, 'opts')
     self.assertEqual(args, 'args')
     self.assertEqual(report, [
@@ -21,12 +21,12 @@ class TestGetopt(unittest.TestCase):
 
   def test_error(self):
     report = []
-    class FakeArgvHandler(object):
+    class FakeArgvParser(object):
       def trygetopt(self, argv):
         report.append(('trygetopt', argv))
         raise getopt.GetoptError('silly error')
     try:
-      _ = p.ArgvHandler.getopt.__func__(FakeArgvHandler(), 'argv')
+      _ = p.ArgvParser.getopt.__func__(FakeArgvParser(), 'argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
@@ -37,17 +37,17 @@ class TestGetopt(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvhandler = p.ArgvHandler(None, None, {})
+    argvhandler = p.ArgvParser(None, None, {})
     optsdict = argvhandler.dictifyopts([])
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
-    argvhandler = p.ArgvHandler(None, None, {'-f': 'foo'})
+    argvhandler = p.ArgvParser(None, None, {'-f': 'foo'})
     optsdict = argvhandler.dictifyopts([('-f', '')])
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
-    argvhandler = p.ArgvHandler(None, None, {'-f': 'foo'})
+    argvhandler = p.ArgvParser(None, None, {'-f': 'foo'})
     optsdict = argvhandler.dictifyopts([('-f', 'whatfoo')])
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
@@ -55,14 +55,14 @@ class TestHandle(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    class FakeArgvHandler(object):
+    class FakeArgvParser(object):
       def getopt(self, argv):
         report.append(('getopt', argv))
         return 'opts', 'args'
       def dictify(self, opts, args):
         report.append(('dictify', opts, args))
         return 'options'
-    options = p.ArgvHandler.handle.__func__(FakeArgvHandler(), 'argv')
+    options = p.ArgvParser.handle.__func__(FakeArgvParser(), 'argv')
     self.assertEqual(options, 'options')
     self.assertEqual(report, [
           ('getopt', 'argv'),
@@ -70,12 +70,12 @@ class TestHandle(unittest.TestCase):
 
   def test_getopterror(self):
     report = []
-    class FakeArgvHandler(object):
+    class FakeArgvParser(object):
       def getopt(self, argv):
         report.append(('getopt', argv))
         raise p.ArgvError('silly error')
     try:
-      _ = p.ArgvHandler.handle.__func__(FakeArgvHandler(), 'argv')
+      _ = p.ArgvParser.handle.__func__(FakeArgvParser(), 'argv')
     except p.ArgvError as err:
       self.assertEqual(str(err), 'silly error')
     else:
@@ -83,7 +83,7 @@ class TestHandle(unittest.TestCase):
     self.assertEqual(report, [
           ('getopt', 'argv')])
 
-class TestArgvHandler(unittest.TestCase):
+class TestArgvParser(unittest.TestCase):
 
   def test_foo(self):
     shortopts = 'hf:b'
@@ -95,7 +95,7 @@ class TestArgvHandler(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvHandler(shortopts, longopts, optnametable)
+    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
     options = argvhandler.handle(['-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
@@ -111,7 +111,7 @@ class TestArgvHandler(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvHandler(shortopts, longopts, optnametable)
+    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
     options = argvhandler.handle(['--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
@@ -127,7 +127,7 @@ class TestArgvHandler(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvhandler = p.ArgvHandler(shortopts, longopts, optnametable)
+    argvhandler = p.ArgvParser(shortopts, longopts, optnametable)
     options = argvhandler.handle(['--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,

@@ -37,7 +37,7 @@ class OpenUrlGenerator(object):
 class ArgvError(Error):
   pass
 
-class ArgvHandler(object):
+class ArgvParser(object):
   def __init__(self, shortopts, longopts, optnametable):
     self.shortopts = shortopts
     self.longopts = longopts
@@ -244,7 +244,7 @@ class Application(object):
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  argvhandler = ArgvHandler('', [], {})
+  argvhandler = ArgvParser('', [], {})
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
