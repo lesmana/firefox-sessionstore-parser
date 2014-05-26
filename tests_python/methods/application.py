@@ -39,13 +39,13 @@ class TestDoWork(unittest.TestCase):
     report = []
     class FakeSessionStoreParserWorker(object):
       def work(self):
-        report.append(('work', 'options'))
+        report.append(('work', ))
         return 0
     app = p.Application(None, None)
     exitstatus = app.dowork(FakeSessionStoreParserWorker())
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
-          ('work', 'options')])
+          ('work', )])
 
 class TestTryRun(unittest.TestCase):
 
