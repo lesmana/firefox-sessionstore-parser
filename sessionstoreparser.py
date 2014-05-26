@@ -210,9 +210,9 @@ class WorkerFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvhandler, sessionstoreparser):
+  def __init__(self, argvhandler, factory):
     self.argvhandler = argvhandler
-    self.factory = WorkerFactory(sessionstoreparser)
+    self.factory = factory
 
   def handleargv(self, argv):
     options = self.argvhandler.handle(argv[1:])
@@ -254,7 +254,8 @@ def secludedmain(openfunc, stdout, stderr, argv):
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
-  app = Application(argvhandler, sessionstoreparser)
+  factory = WorkerFactory(sessionstoreparser)
+  app = Application(argvhandler, factory)
   exitstatus = app.run(argv, stderr)
   return exitstatus
 

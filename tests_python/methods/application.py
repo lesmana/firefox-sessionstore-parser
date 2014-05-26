@@ -23,7 +23,13 @@ class TestCreateWorker(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    app = p.Application(None, 'parser')
+    class FakeWorker(object):
+      def __init__(self, sessionstoreparser):
+        self.sessionstoreparser = sessionstoreparser
+    class FakeWorkerFactory(object):
+      def produce(self, options):
+        return FakeWorker('parser')
+    app = p.Application(None, FakeWorkerFactory())
     worker = app.createworker('options')
     self.assertEqual(worker.sessionstoreparser, 'parser')
     self.assertEqual(report, [])
@@ -32,10 +38,14 @@ class TestDoWork(unittest.TestCase):
 
   def test_noerror(self):
     report = []
-    class FakeSessionStoreParser(object):
-      def parse(self, options):
-        report.append(('work', options))
-    app = p.Application(None, FakeSessionStoreParser())
+    class FakeSessionStoreParserWorker(object):
+      def work(self):
+        report.append(('work', 'options'))
+        return 0
+    class FakeWorkerFactory(object):
+      def produce(self, options):
+        return FakeSessionStoreParserWorker()
+    app = p.Application(None, FakeWorkerFactory())
     exitstatus = app.dowork('options')
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
