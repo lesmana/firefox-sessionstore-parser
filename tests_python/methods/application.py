@@ -42,11 +42,8 @@ class TestDoWork(unittest.TestCase):
       def work(self):
         report.append(('work', 'options'))
         return 0
-    class FakeWorkerFactory(object):
-      def produce(self, options):
-        return FakeSessionStoreParserWorker()
-    app = p.Application(None, FakeWorkerFactory())
-    exitstatus = app.dowork('options')
+    app = p.Application(None, None)
+    exitstatus = app.dowork(FakeSessionStoreParserWorker())
     self.assertEqual(exitstatus, 0)
     self.assertEqual(report, [
           ('work', 'options')])

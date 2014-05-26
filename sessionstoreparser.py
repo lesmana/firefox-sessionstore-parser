@@ -222,15 +222,14 @@ class Application(object):
     worker = self.factory.produce(options)
     return worker
 
-  def dowork(self, options):
-    worker = self.createworker(options)
+  def dowork(self, worker):
     exitstatus = worker.work()
     return exitstatus
 
   def tryrun(self, argv):
     options = self.handleargv(argv)
     worker = self.createworker(options)
-    exitstatus = self.dowork(options)
+    exitstatus = self.dowork(worker)
     return exitstatus
 
   def run(self, argv, stderr):
