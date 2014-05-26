@@ -44,7 +44,7 @@ class TestTryRun(unittest.TestCase):
         report.append(('createworker', options))
         return 'worker'
       def dowork(self, options):
-        report.append(('dowork', options))
+        report.append(('dowork', 'worker'))
         return 'exitstatus'
     fakeapp = FakeApplication()
     exitstatus = p.Application.tryrun.__func__(fakeapp, 'argv')
@@ -52,7 +52,7 @@ class TestTryRun(unittest.TestCase):
     self.assertEqual(report, [
           ('handleargv', 'argv'),
           ('createworker', 'options'),
-          ('dowork', 'options')])
+          ('dowork', 'worker')])
 
 class TestRun(unittest.TestCase):
 
