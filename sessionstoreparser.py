@@ -43,6 +43,11 @@ class ArgvParser(object):
     self.longopts = longopts
     self.optnametable = optnametable
 
+  def splitprogname(self, argv):
+    progname = argv[0]
+    argv1 = argv[1:]
+    return progname, argv1
+
   def trygetopt(self, argv):
     opts, args = getopt.getopt(argv, self.shortopts, self.longopts)
     return opts, args
@@ -91,7 +96,8 @@ class ArgvParser(object):
     return options
 
   def parse1(self, argv):
-    return self.parse(argv[1:])
+    progname, argv1 = self.splitprogname(argv)
+    return self.parse(argv1)
 
 class JsonReaderError(Error):
   pass
