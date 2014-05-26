@@ -210,8 +210,12 @@ class Application(object):
     options = self.argvhandler.handle(argv[1:])
     return options
 
-  def dowork(self, options):
+  def createworker(self, options):
     worker = SessionStoreParserWorker(self.sessionstoreparser, options)
+    return worker
+
+  def dowork(self, options):
+    worker = self.createworker(options)
     exitstatus = worker.work()
     return exitstatus
 
