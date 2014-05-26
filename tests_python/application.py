@@ -54,24 +54,23 @@ class TestTryRun(unittest.TestCase):
     report = []
     class FakeArgvParser(object):
       def parse(self, argv):
-        report.append(('parseargv', argv))
+        report.append(('parse', argv))
         return 'options', 'argvunknown'
     class FakeWorkerFactory(object):
       def produce(self, options, argvunknown):
-        report.append(('createworker', options))
+        report.append(('produce', options, argvunknown))
         return FakeWorker()
     class FakeWorker(object):
       def work(self):
-        worker = 'worker'
-        report.append(('dowork', worker))
+        report.append(('work', ))
         return 'exitstatus'
     app = p.Application(FakeArgvParser(), FakeWorkerFactory())
     exitstatus = app.tryrun('argv')
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
-          ('parseargv', 'argv'),
-          ('createworker', 'options'),
-          ('dowork', 'worker')])
+          ('parse', 'argv'),
+          ('produce', 'options', 'argvunknown'),
+          ('work', )])
 
 class TestRun(unittest.TestCase):
 
