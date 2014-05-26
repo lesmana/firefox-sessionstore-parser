@@ -200,6 +200,14 @@ class SessionStoreParserWorker(object):
     self.sessionstoreparser.parse(self.options)
     return 0
 
+class WorkerFactory(object):
+  def __init__(self, sessionstoreparser):
+    self.sessionstoreparser = sessionstoreparser
+
+  def produce(self, options):
+    worker = SessionStoreParserWorker(self.sessionstoreparser, options)
+    return worker
+
 class Application(object):
 
   def __init__(self, argvhandler, sessionstoreparser):
@@ -211,7 +219,8 @@ class Application(object):
     return options
 
   def createworker(self, options):
-    worker = SessionStoreParserWorker(self.sessionstoreparser, options)
+    factory = WorkerFactory(self.sessionstoreparser)
+    worker = factory.produce(options)
     return worker
 
   def dowork(self, options):
