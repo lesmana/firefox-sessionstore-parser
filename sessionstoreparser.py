@@ -49,12 +49,8 @@ class ArgvParser(object):
     argvoptsargs = argv[1:]
     return progname, argvoptsargs
 
-  def trygetopt(self, argvoptsargs):
-    opts, argvargs = self.getoptfunc(argvoptsargs, self.shortopts, self.longopts)
-    return opts, argvargs
-
   def splitopts(self, argvoptsargs):
-    opts, argvargs = self.trygetopt(argvoptsargs)
+    opts, argvargs = self.getoptfunc(argvoptsargs, self.shortopts, self.longopts)
     return opts, argvargs
 
   def splitargs(self, argvargs):
