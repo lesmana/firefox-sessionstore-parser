@@ -12,7 +12,7 @@ class TestParseArgv(unittest.TestCase):
     class FakeArgvParser(object):
       def parse(self, argv):
         report.append(('parse', argv))
-        return 'options'
+        return 'options', 'argvunknown'
     app = p.Application(FakeArgvParser(), None)
     options = app.parseargv('argv')
     self.assertEqual(options, 'options')

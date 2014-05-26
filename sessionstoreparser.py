@@ -100,7 +100,7 @@ class ArgvParser(object):
   def parse(self, argv):
     try:
       options, argvunknown = self.tryparse(argv)
-      return options
+      return options, argvunknown
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
 
@@ -229,7 +229,7 @@ class Application(object):
     self.workerfactory = workerfactory
 
   def parseargv(self, argv):
-    options = self.argvparser.parse(argv)
+    options, _ = self.argvparser.parse(argv)
     return options
 
   def createworker(self, options):
