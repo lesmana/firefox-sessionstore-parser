@@ -54,11 +54,8 @@ class ArgvParser(object):
     return opts, argvargs
 
   def splitopts(self, argvoptsargs):
-    try:
-      opts, argvargs = self.trygetopt(argvoptsargs)
-      return opts, argvargs
-    except getopt.GetoptError as err:
-      raise ArgvError(str(err))
+    opts, argvargs = self.trygetopt(argvoptsargs)
+    return opts, argvargs
 
   def splitargs(self, argvargs):
     return argvargs, []
@@ -105,8 +102,11 @@ class ArgvParser(object):
     return options, argvunknown
 
   def parse(self, argv):
-    options, argvunknown = self.tryparse(argv)
-    return options
+    try:
+      options, argvunknown = self.tryparse(argv)
+      return options
+    except getopt.GetoptError as err:
+      raise ArgvError(str(err))
 
 class JsonReaderError(Error):
   pass
