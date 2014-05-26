@@ -102,10 +102,11 @@ class ArgvParser(object):
     opts, argvargs = self.splitopts(argvoptsargs)
     args, argvunknown = self.splitargs(argvargs)
     options = self.combine(progname, opts, args)
-    return options
+    return options, argvunknown
 
   def parse(self, argv):
-    return self.tryparse(argv)
+    options, argvunknown = self.tryparse(argv)
+    return options
 
 class JsonReaderError(Error):
   pass
