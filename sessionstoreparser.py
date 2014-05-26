@@ -39,6 +39,7 @@ class ArgvError(Error):
 
 class ArgvParser(object):
   def __init__(self, shortopts, longopts, optnametable):
+    self.getoptfunc = getopt.getopt
     self.shortopts = shortopts
     self.longopts = longopts
     self.optnametable = optnametable
@@ -49,7 +50,7 @@ class ArgvParser(object):
     return progname, argv1e
 
   def trygetopt(self, argv1e):
-    opts, args = getopt.getopt(argv1e, self.shortopts, self.longopts)
+    opts, args = self.getoptfunc(argv1e, self.shortopts, self.longopts)
     return opts, args
 
   def getopt(self, argv1e):
