@@ -56,6 +56,8 @@ class TestParse(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeArgvParser(object):
+      def splitprogname(self, argv):
+        return 'progname', argv
       def getopt(self, argv):
         report.append(('getopt', argv))
         return 'opts', 'args'
@@ -71,6 +73,8 @@ class TestParse(unittest.TestCase):
   def test_getopterror(self):
     report = []
     class FakeArgvParser(object):
+      def splitprogname(self, argv):
+        return 'progname', argv
       def getopt(self, argv):
         report.append(('getopt', argv))
         raise p.ArgvError('silly error')
