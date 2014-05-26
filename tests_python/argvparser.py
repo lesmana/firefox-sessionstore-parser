@@ -37,17 +37,17 @@ class TestGetopt(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvparser = p.ArgvParser(None, None, {})
+    argvparser = p.ArgvParser(None, None, None, {})
     optsdict = argvparser.dictifyopts([])
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
-    argvparser = p.ArgvParser(None, None, {'-f': 'foo'})
+    argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
     optsdict = argvparser.dictifyopts([('-f', '')])
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
-    argvparser = p.ArgvParser(None, None, {'-f': 'foo'})
+    argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
     optsdict = argvparser.dictifyopts([('-f', 'whatfoo')])
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
@@ -103,7 +103,7 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
     options = argvparser.parse(['progname', '-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
@@ -119,7 +119,7 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
     options = argvparser.parse(['progname', '--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
@@ -135,7 +135,7 @@ class TestArgvParser(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
     options = argvparser.parse(['progname', '--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,

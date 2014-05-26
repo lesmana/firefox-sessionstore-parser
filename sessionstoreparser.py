@@ -38,8 +38,8 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
-  def __init__(self, shortopts, longopts, optnametable):
-    self.getoptfunc = getopt.getopt
+  def __init__(self, getoptfunc, shortopts, longopts, optnametable):
+    self.getoptfunc = getoptfunc
     self.shortopts = shortopts
     self.longopts = longopts
     self.optnametable = optnametable
@@ -251,7 +251,7 @@ class Application(object):
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  argvparser = ArgvParser('', [], {})
+  argvparser = ArgvParser(getopt.getopt, '', [], {})
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
