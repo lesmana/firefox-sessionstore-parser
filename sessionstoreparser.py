@@ -60,6 +60,9 @@ class ArgvParser(object):
     except getopt.GetoptError as err:
       raise ArgvError(str(err))
 
+  def splitargs(self, argvargs):
+    return argvargs, []
+
   def dictifyopts(self, opts):
     optsdict = {}
     for opt, val in opts:
@@ -94,7 +97,8 @@ class ArgvParser(object):
   def parse(self, argv):
     progname, argvoptsargs = self.splitprogname(argv)
     opts, argvargs = self.splitopts(argvoptsargs)
-    options = self.dictify(opts, argvargs)
+    args, argvunknown = self.splitargs(argvargs)
+    options = self.dictify(opts, args)
     return options
 
 class JsonReaderError(Error):
