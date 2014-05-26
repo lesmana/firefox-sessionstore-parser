@@ -25,7 +25,7 @@ class TestCreateWorker(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeWorkerFactory(object):
-      def produce(self, options):
+      def produce(self, options, argvunknown):
         report.append(('produce', options))
         return 'worker'
     app = p.Application(None, FakeWorkerFactory())
@@ -57,7 +57,7 @@ class TestTryRun(unittest.TestCase):
         report.append(('parseargv', argv))
         return 'options', []
     class FakeWorkerFactory(object):
-      def produce(self, options):
+      def produce(self, options, argvunknown):
         report.append(('createworker', options))
         return FakeWorker()
     class FakeWorker(object):
