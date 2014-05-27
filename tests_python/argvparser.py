@@ -23,17 +23,17 @@ class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
     argvparser = p.ArgvParser(None, None, None, {})
-    optsdict = argvparser.dictifyopts([])
+    optsdict = argvparser.dictifyopts([], {})
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
     argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
-    optsdict = argvparser.dictifyopts([('-f', '')])
+    optsdict = argvparser.dictifyopts([('-f', '')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
     argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
-    optsdict = argvparser.dictifyopts([('-f', 'whatfoo')])
+    optsdict = argvparser.dictifyopts([('-f', 'whatfoo')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
 class TestParse(unittest.TestCase):

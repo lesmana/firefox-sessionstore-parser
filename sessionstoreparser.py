@@ -65,8 +65,7 @@ class ArgvParser(object):
   def splitargs(self, argvargs):
     return argvargs, []
 
-  def dictifyopts(self, opts):
-    shortopts, longopts, optnames = self.forgetopt(self.optionsdata)
+  def dictifyopts(self, opts, optnames):
     optsdict = {}
     for opt, val in opts:
       name = optnames[opt]
@@ -95,7 +94,8 @@ class ArgvParser(object):
     progname, argvoptsargs = self.splitprogname(argv)
     opts, argvargs = self.splitopts(argvoptsargs)
     args, argvunknown = self.splitargs(argvargs)
-    optsdict = self.dictifyopts(opts)
+    shortopts, longopts, optnames = self.forgetopt(self.optionsdata)
+    optsdict = self.dictifyopts(opts, optnames)
     argsdict = self.dictifyargs(args)
     options = self.combine(progname, optsdict, argsdict)
     return options, argvunknown
