@@ -42,7 +42,7 @@ class ArgvParser(object):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
 
-  def newsplitoptionsdata(self, optionsdata):
+  def splitoptionsdata(self, optionsdata):
     shortoptslist = []
     longopts = []
     optnames = {}
@@ -70,12 +70,6 @@ class ArgvParser(object):
         else:
           raise Exception('illegal option: %s for name: %s' % (possibleopt, name))
     shortopts = ''.join(shortoptslist)
-    return shortopts, longopts, optnames
-
-  def splitoptionsdata(self, optionsdata):
-    shortopts = optionsdata['shortopts']
-    longopts = optionsdata['longopts']
-    optnames = optionsdata['optnames']
     return shortopts, longopts, optnames
 
   def splitprogname(self, argv):
@@ -290,10 +284,7 @@ class Application(object):
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  optionsdata = {
-        'shortopts': '',
-        'longopts': [],
-        'optnames': {}}
+  optionsdata = []
   argvparser = ArgvParser(getopt.getopt, optionsdata)
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
