@@ -22,17 +22,17 @@ class TestSplitOpts(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvparser = p.ArgvParser(None, None, None, {})
+    argvparser = p.ArgvParser(None, None, None, None)
     optsdict = argvparser.dictifyopts([], {})
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
-    argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
+    argvparser = p.ArgvParser(None, None, None, None)
     optsdict = argvparser.dictifyopts([('-f', '')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
-    argvparser = p.ArgvParser(None, None, None, {'-f': 'foo'})
+    argvparser = p.ArgvParser(None, None, None, None)
     optsdict = argvparser.dictifyopts([('-f', 'whatfoo')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
