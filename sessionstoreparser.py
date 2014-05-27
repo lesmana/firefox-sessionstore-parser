@@ -98,8 +98,9 @@ class ArgvParser(object):
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
-    filename = args[0]
-    argsdict = {'filename': filename}
+    else:
+      filename = args[0]
+      argsdict = {'filename': filename}
     return argsdict, argvunknown
 
   def combine(self, progname, optsdict, argsdict):
