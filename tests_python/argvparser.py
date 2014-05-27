@@ -11,10 +11,10 @@ class TestSplitOpts(unittest.TestCase):
     report = []
     def fakegetopt(argv, shortopts, longopts):
       report.append(('fakegetopt', argv, shortopts, longopts))
-      return [('optname', 'optarg')], ['args']
+      return [('--opt', 'optarg')], ['args']
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     opts, argvargs = argvparser.splitopts('argvoptsargs')
-    self.assertEqual(opts, [('optname', 'optarg')])
+    self.assertEqual(opts, [('--opt', 'optarg')])
     self.assertEqual(argvargs, ['args'])
     self.assertEqual(report, [
           ('fakegetopt', 'argvoptsargs', '', [])])
