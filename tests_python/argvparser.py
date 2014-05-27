@@ -42,6 +42,10 @@ class TestSplitOpts(unittest.TestCase):
     argvparser = p.ArgvParser(fakegetopt, optionsdata)
     opts, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, [('--opt', 'optarg')])
+    _, _, optnames = argvparser.splitoptionsdata(optionsdata)
+    optsdict = argvparser.dictifyopts(opts, optnames)
+    self.assertEqual(optsdict, {
+          'optname': 'optarg'})
     self.assertEqual(argvargs, ['args'])
 
 class TestDictifyOpts(unittest.TestCase):
