@@ -15,6 +15,45 @@ class TestSplitOptionsData(unittest.TestCase):
     self.assertEqual(longopts, [])
     self.assertEqual(optnames, {})
 
+  def test_someoptions(self):
+    optionsdata = [
+          ('foo', ['-f', '--foo'], 0),
+          ('bar', ['-b', '--bar'], 1),
+          ('help', ['-h', '--help'], 0)]
+    argvparser = p.ArgvParser(None, None)
+    shortopts, longopts, optnames = argvparser.newsplitoptionsdata(optionsdata)
+    self.assertEqual(shortopts, 'fb:h')
+    self.assertEqual(longopts, ['foo', 'bar=', 'help'])
+    self.assertEqual(optnames, {
+          '-f': 'foo',
+          '--foo': 'foo',
+          '-b': 'bar',
+          '--bar': 'bar',
+          '-h': 'help',
+          '--help': 'help'})
+
+  def test_nodash(self):
+    optionsdata = [
+          ('error', ['e'], 0)]
+    argvparser = p.ArgvParser(None, None)
+    try:
+      _ = argvparser.newsplitoptionsdata(optionsdata)
+    except:
+      pass
+    else:
+      self.fail('exception expected') # pragma: no cover
+
+  def test_toomuchdash(self):
+    optionsdata = [
+          ('error', ['---erroer'], 0)]
+    argvparser = p.ArgvParser(None, None)
+    try:
+      _ = argvparser.newsplitoptionsdata(optionsdata)
+    except:
+      pass
+    else:
+      self.fail('exception expected') # pragma: no cover
+
 class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
