@@ -45,7 +45,6 @@ class ArgvParser(object):
           'longopts': longopts,
           'optnames': optnames}
     self.optionsdata = optionsdata
-    self.optnames = optnames
 
   def forgetopt(self, optionsdata):
     shortopts = optionsdata['shortopts']
@@ -67,9 +66,10 @@ class ArgvParser(object):
     return argvargs, []
 
   def dictifyopts(self, opts):
+    shortopts, longopts, optnames = self.forgetopt(self.optionsdata)
     optsdict = {}
     for opt, val in opts:
-      name = self.optnames[opt]
+      name = optnames[opt]
       if val == '':
         outval = True
       else:
