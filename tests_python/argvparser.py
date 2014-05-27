@@ -12,7 +12,11 @@ class TestSplitOpts(unittest.TestCase):
     def fakegetopt(argv, shortopts, longopts):
       report.append(('fakegetopt', argv, shortopts, longopts))
       return [('--opt', 'optarg')], ['args']
-    argvparser = p.ArgvParser(fakegetopt, '', [], {})
+    optionsdata = {
+          'shortopts': '',
+          'longopts': [],
+          'optnames': {}}
+    argvparser = p.ArgvParser(fakegetopt, optionsdata)
     opts, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, [('--opt', 'optarg')])
     self.assertEqual(argvargs, ['args'])
@@ -22,17 +26,17 @@ class TestSplitOpts(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvparser = p.ArgvParser(None, None, None, None)
+    argvparser = p.ArgvParser(None, None)
     optsdict = argvparser.dictifyopts([], {})
     self.assertEqual(optsdict, {})
 
   def test_trueifemptyval(self):
-    argvparser = p.ArgvParser(None, None, None, None)
+    argvparser = p.ArgvParser(None, None)
     optsdict = argvparser.dictifyopts([('-f', '')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': True})
 
   def test_valifnotemptyval(self):
-    argvparser = p.ArgvParser(None, None, None, None)
+    argvparser = p.ArgvParser(None, None)
     optsdict = argvparser.dictifyopts([('-f', 'whatfoo')], {'-f': 'foo'})
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
@@ -41,7 +45,11 @@ class TestParse(unittest.TestCase):
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
       raise getopt.GetoptError('silly error')
-    argvparser = p.ArgvParser(fakegetopt, '', [], {})
+    optionsdata = {
+          'shortopts': '',
+          'longopts': [],
+          'optnames': {}}
+    argvparser = p.ArgvParser(fakegetopt, optionsdata)
     options, argvunknown = argvparser.parse('argv')
     self.assertEqual(options, {})
     self.assertEqual(argvunknown, ['silly error'])
@@ -56,7 +64,11 @@ class TestParse(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
+    optionsdata = {
+          'shortopts': shortopts,
+          'longopts': longopts,
+          'optnames': optnames}
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata)
     options, argvunknown = argvparser.parse(['progname', '-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
@@ -73,7 +85,11 @@ class TestParse(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
+    optionsdata = {
+          'shortopts': shortopts,
+          'longopts': longopts,
+          'optnames': optnames}
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata)
     options, argvunknown = argvparser.parse(['progname', '--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
@@ -90,7 +106,11 @@ class TestParse(unittest.TestCase):
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
+    optionsdata = {
+          'shortopts': shortopts,
+          'longopts': longopts,
+          'optnames': optnames}
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata)
     options, argvunknown = argvparser.parse(['progname', '--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,
