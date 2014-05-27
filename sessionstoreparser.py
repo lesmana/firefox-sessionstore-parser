@@ -240,6 +240,7 @@ class HelpWriterWorker(object):
     self.message = message
 
   def __call__(self):
+    self.stream.write(self.message + '\n')
     raise ArgvError(self.message)
 
 class WorkerFactory(object):
@@ -284,7 +285,6 @@ class Application(object):
       exitstatus = self.tryrun(argv)
       return exitstatus
     except ArgvError as err:
-      stderr.write(str(err) + '\n')
       return 2
     except Error as err:
       stderr.write(str(err) + '\n')
