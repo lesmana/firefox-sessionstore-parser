@@ -286,8 +286,6 @@ class Application(object):
     try:
       exitstatus = self.tryrun(argv)
       return exitstatus
-    except ArgvError as err:
-      return 2
     except Error as err:
       stderr.write(str(err) + '\n')
       return 1
