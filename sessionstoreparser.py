@@ -96,8 +96,9 @@ class ArgvParser(object):
     args = argvargs
     argvunknown = []
     if len(args) != 1:
+      argsdict = {}
       errormessage = 'need filename'
-      raise ArgvError(errormessage)
+      argvunknown = [errormessage]
     else:
       filename = args[0]
       argsdict = {'filename': filename}
