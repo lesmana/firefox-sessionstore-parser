@@ -75,14 +75,10 @@ class ArgvParser(object):
     argsdict = {'filename': filename}
     return argsdict
 
-  def mergedicts(self, optsdict, argsdict):
+  def combine(self, progname, optsdict, argsdict):
     options = {}
     options.update(optsdict)
     options.update(argsdict)
-    return options
-
-  def combine(self, progname, optsdict, argsdict):
-    options = self.mergedicts(optsdict, argsdict)
     return options
 
   def tryparse(self, argv):
