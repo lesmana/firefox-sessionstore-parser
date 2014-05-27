@@ -42,6 +42,11 @@ class ArgvParser(object):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
 
+  def splitprogname(self, argv):
+    progname = argv[0]
+    argvoptsargs = argv[1:]
+    return progname, argvoptsargs
+
   def splitoptionsdata(self, optionsdata):
     # no error checking
     # let's assume everyone is sane
@@ -70,23 +75,6 @@ class ArgvParser(object):
     shortopts = ''.join(shortoptslist)
     return shortopts, longopts, optnames
 
-  def splitprogname(self, argv):
-    progname = argv[0]
-    argvoptsargs = argv[1:]
-    return progname, argvoptsargs
-
-  def splitopts(self, argvoptsargs):
-    shortopts, longopts, optnames = self.splitoptionsdata(self.optionsdata)
-    opts, argvargs = self.getoptfunc(argvoptsargs, shortopts, longopts)
-    optsdict = self.dictifyopts(opts, optnames)
-    return optsdict, argvargs
-
-  def splitargs(self, argvargs):
-    args = argvargs
-    argvunknown = []
-    argsdict = self.dictifyargs(args)
-    return argsdict, argvunknown
-
   def dictifyopts(self, opts, optnames):
     optsdict = {}
     for opt, val in opts:
@@ -98,6 +86,12 @@ class ArgvParser(object):
       optsdict[name] = outval
     return optsdict
 
+  def splitopts(self, argvoptsargs):
+    shortopts, longopts, optnames = self.splitoptionsdata(self.optionsdata)
+    opts, argvargs = self.getoptfunc(argvoptsargs, shortopts, longopts)
+    optsdict = self.dictifyopts(opts, optnames)
+    return optsdict, argvargs
+
   def dictifyargs(self, args):
     if len(args) != 1:
       errormessage = 'need filename'
@@ -105,6 +99,12 @@ class ArgvParser(object):
     filename = args[0]
     argsdict = {'filename': filename}
     return argsdict
+
+  def splitargs(self, argvargs):
+    args = argvargs
+    argvunknown = []
+    argsdict = self.dictifyargs(args)
+    return argsdict, argvunknown
 
   def combine(self, progname, optsdict, argsdict):
     options = {}
