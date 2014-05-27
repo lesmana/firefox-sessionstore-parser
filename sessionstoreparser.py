@@ -82,7 +82,9 @@ class ArgvParser(object):
     return optsdict, argvargs
 
   def splitargs(self, argvargs):
-    return argvargs, []
+    args = argvargs
+    argvunknown = []
+    return args, argvunknown
 
   def dictifyopts(self, opts, optnames):
     optsdict = {}
