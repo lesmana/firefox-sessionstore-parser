@@ -235,20 +235,22 @@ class SessionStoreParserWorker(object):
     return 0
 
 class HelpWriterWorker(object):
-  def __init__(self, message):
+  def __init__(self, stream, message):
+    self.stream = stream
     self.message = message
 
   def __call__(self):
     raise ArgvError(self.message)
 
 class WorkerFactory(object):
-  def __init__(self, sessionstoreparser, sessionstoreparserworkerclass):
+  def __init__(self, sessionstoreparser, sessionstoreparserworkerclass, stderr):
     self.sessionstoreparser = sessionstoreparser
     self.sessionstoreparserworkerclass = sessionstoreparserworkerclass
+    self.stderr = stderr
 
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
-      worker = HelpWriterWorker(argvunknown[0])
+      worker = HelpWriterWorker(self.stderr, argvunknown[0])
     else:
       worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
     return worker
@@ -299,7 +301,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
-  workerfactory = WorkerFactory(sessionstoreparser, SessionStoreParserWorker)
+  workerfactory = WorkerFactory(sessionstoreparser, SessionStoreParserWorker, stderr)
   app = Application(argvparser, workerfactory)
   exitstatus = app.run(argv, stderr)
   return exitstatus
