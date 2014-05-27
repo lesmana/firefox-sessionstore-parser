@@ -88,20 +88,6 @@ class TestRun(unittest.TestCase):
     self.assertEqual(report, [
           ('tryrun', 'argv')])
 
-  def test_argverror(self):
-    report = []
-    class FakeApplication(object):
-      def tryrun(self, argv):
-        report.append(('tryrun', argv))
-        raise p.ArgvError('argv error')
-    fakeapp = FakeApplication()
-    stderr = StringIO.StringIO()
-    exitstatus = p.Application.run.__func__(fakeapp, 'argv', stderr)
-    self.assertEqual(stderr.getvalue(), 'argv error\n')
-    self.assertEqual(exitstatus, 2)
-    self.assertEqual(report, [
-          ('tryrun', 'argv')])
-
   def test_genericerror(self):
     report = []
     class FakeApplication(object):
