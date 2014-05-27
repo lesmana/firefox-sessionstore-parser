@@ -37,7 +37,8 @@ class TestSplitOpts(unittest.TestCase):
   def test_noerror(self):
     def fakegetopt(argv, shortopts, longopts):
       return [('--opt', 'optarg')], ['args']
-    optionsdata = []
+    optionsdata = [
+          ('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata)
     opts, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, [('--opt', 'optarg')])
