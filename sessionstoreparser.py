@@ -42,6 +42,9 @@ class ArgvParser(object):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
 
+  def newsplitoptionsdata(self, optionsdata):
+    return '', [], {}
+
   def splitoptionsdata(self, optionsdata):
     shortopts = optionsdata['shortopts']
     longopts = optionsdata['longopts']

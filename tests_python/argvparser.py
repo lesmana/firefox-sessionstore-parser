@@ -5,6 +5,16 @@ import getopt
 
 import sessionstoreparser as p
 
+class TestSplitOptionsData(unittest.TestCase):
+
+  def test_empty(self):
+    optionsdata = []
+    argvparser = p.ArgvParser(None, None)
+    shortopts, longopts, optnames = argvparser.newsplitoptionsdata(optionsdata)
+    self.assertEqual(shortopts, '')
+    self.assertEqual(longopts, [])
+    self.assertEqual(optnames, {})
+
 class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
