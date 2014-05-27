@@ -35,17 +35,13 @@ class TestSplitOptionsData(unittest.TestCase):
 class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
-    report = []
     def fakegetopt(argv, shortopts, longopts):
-      report.append(('fakegetopt', argv, shortopts, longopts))
       return [('--opt', 'optarg')], ['args']
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata)
     opts, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, [('--opt', 'optarg')])
     self.assertEqual(argvargs, ['args'])
-    self.assertEqual(report, [
-          ('fakegetopt', 'argvoptsargs', '', [])])
 
 class TestDictifyOpts(unittest.TestCase):
 
