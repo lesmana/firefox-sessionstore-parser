@@ -43,15 +43,15 @@ class ArgvParser(object):
     self.optionsdata = optionsdata
 
   def splitoptionsdata(self, optionsdata):
+    # no error checking
+    # let's assume everyone is sane
     shortoptslist = []
     longopts = []
     optnames = {}
     for optiondata in optionsdata:
       name, possibleopts, argcount = optiondata
       for possibleopt in possibleopts:
-        if possibleopt.startswith('---'):
-          raise Exception('illegal option: %s for name: %s' % (possibleopt, name))
-        elif possibleopt.startswith('--'):
+        if possibleopt.startswith('--'):
           # handle long opt
           strippedopt = possibleopt.lstrip('-')
           if argcount == 0:
@@ -59,7 +59,7 @@ class ArgvParser(object):
           else:
             longopts.append(strippedopt + '=')
           optnames[possibleopt] = name
-        elif possibleopt.startswith('-'):
+        else:
           # handle short opt
           strippedopt = possibleopt.lstrip('-')
           if argcount == 0:
@@ -67,8 +67,6 @@ class ArgvParser(object):
           else:
             shortoptslist.append(strippedopt + ':')
           optnames[possibleopt] = name
-        else:
-          raise Exception('illegal option: %s for name: %s' % (possibleopt, name))
     shortopts = ''.join(shortoptslist)
     return shortopts, longopts, optnames
 

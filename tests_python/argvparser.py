@@ -32,28 +32,6 @@ class TestSplitOptionsData(unittest.TestCase):
           '-h': 'help',
           '--help': 'help'})
 
-  def test_nodash(self):
-    optionsdata = [
-          ('error', ['e'], 0)]
-    argvparser = p.ArgvParser(None, None)
-    try:
-      _ = argvparser.splitoptionsdata(optionsdata)
-    except:
-      pass
-    else:
-      self.fail('exception expected') # pragma: no cover
-
-  def test_toomuchdash(self):
-    optionsdata = [
-          ('error', ['---erroer'], 0)]
-    argvparser = p.ArgvParser(None, None)
-    try:
-      _ = argvparser.splitoptionsdata(optionsdata)
-    except:
-      pass
-    else:
-      self.fail('exception expected') # pragma: no cover
-
 class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
