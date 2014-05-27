@@ -235,13 +235,14 @@ class SessionStoreParserWorker(object):
     return 0
 
 class HelpWriterWorker(object):
-  def __init__(self, stream, message):
+  def __init__(self, stream, message, exitstatus):
     self.stream = stream
     self.message = message
+    self.exitstatus = exitstatus
 
   def __call__(self):
     self.stream.write(self.message + '\n')
-    raise ArgvError(self.message)
+    return self.exitstatus
 
 class WorkerFactory(object):
   def __init__(self, sessionstoreparser, sessionstoreparserworkerclass, stderr):
@@ -251,7 +252,8 @@ class WorkerFactory(object):
 
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
-      worker = HelpWriterWorker(self.stderr, argvunknown[0])
+      exitstatus = 2
+      worker = HelpWriterWorker(self.stderr, argvunknown[0], exitstatus)
     else:
       worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
     return worker
