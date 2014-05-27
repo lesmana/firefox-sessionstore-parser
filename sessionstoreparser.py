@@ -81,14 +81,11 @@ class ArgvParser(object):
     options.update(argsdict)
     return options
 
-  def dictify(self, opts, args):
+  def combine(self, progname, opts, args):
     optsdict = self.dictifyopts(opts)
     argsdict = self.dictifyargs(args)
     options = self.mergedicts(optsdict, argsdict)
     return options
-
-  def combine(self, progname, opts, args):
-    return self.dictify(opts, args)
 
   def tryparse(self, argv):
     progname, argvoptsargs = self.splitprogname(argv)
