@@ -234,6 +234,13 @@ class SessionStoreParserWorker(object):
     self.sessionstoreparser.parse(self.options)
     return 0
 
+class HelpWriterWorker(object):
+  def __init__(self, message):
+    self.message = message
+
+  def __call__(self):
+    raise ArgvError(self.message)
+
 class WorkerFactory(object):
   def __init__(self, sessionstoreparser, sessionstoreparserworkerclass):
     self.sessionstoreparser = sessionstoreparser
@@ -241,7 +248,7 @@ class WorkerFactory(object):
 
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
-      raise ArgvError(argvunknown[0])
+      worker = HelpWriterWorker(argvunknown[0])
     else:
       worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
     return worker
