@@ -44,9 +44,7 @@ class ArgvParser(object):
           'shortopts': shortopts,
           'longopts': longopts,
           'optnames': optnames}
-    shortopts, longopts, optnames = self.forgetopt(optionsdata)
-    self.shortopts = shortopts
-    self.longopts = longopts
+    self.optionsdata = optionsdata
     self.optnames = optnames
 
   def forgetopt(self, optionsdata):
@@ -61,7 +59,8 @@ class ArgvParser(object):
     return progname, argvoptsargs
 
   def splitopts(self, argvoptsargs):
-    opts, argvargs = self.getoptfunc(argvoptsargs, self.shortopts, self.longopts)
+    shortopts, longopts, optnames = self.forgetopt(self.optionsdata)
+    opts, argvargs = self.getoptfunc(argvoptsargs, shortopts, longopts)
     return opts, argvargs
 
   def splitargs(self, argvargs):
