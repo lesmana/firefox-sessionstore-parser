@@ -92,18 +92,14 @@ class ArgvParser(object):
     optsdict = self.dictifyopts(opts, optnames)
     return optsdict, argvargs
 
-  def dictifyargs(self, args):
+  def splitargs(self, argvargs):
+    args = argvargs
+    argvunknown = []
     if len(args) != 1:
       errormessage = 'need filename'
       raise ArgvError(errormessage)
     filename = args[0]
     argsdict = {'filename': filename}
-    return argsdict
-
-  def splitargs(self, argvargs):
-    args = argvargs
-    argvunknown = []
-    argsdict = self.dictifyargs(args)
     return argsdict, argvunknown
 
   def combine(self, progname, optsdict, argsdict):
