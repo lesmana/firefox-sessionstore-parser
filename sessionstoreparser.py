@@ -210,7 +210,7 @@ class SessionStoreParserWorker(object):
     self.sessionstoreparser = sessionstoreparser
     self.options = options
 
-  def work(self):
+  def __call__(self):
     self.sessionstoreparser.parse(self.options)
     return 0
 
@@ -240,7 +240,7 @@ class Application(object):
     return worker
 
   def dowork(self, worker):
-    exitstatus = worker.work()
+    exitstatus = worker()
     return exitstatus
 
   def tryrun(self, argv):

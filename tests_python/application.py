@@ -39,7 +39,7 @@ class TestDoWork(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeWorker(object):
-      def work(self):
+      def __call__(self):
         report.append(('work', ))
         return 'exitstatus'
     app = p.Application(None, None)
@@ -61,7 +61,7 @@ class TestTryRun(unittest.TestCase):
         report.append(('produce', options, argvunknown))
         return FakeWorker()
     class FakeWorker(object):
-      def work(self):
+      def __call__(self):
         report.append(('work', ))
         return 'exitstatus'
     app = p.Application(FakeArgvParser(), FakeWorkerFactory())
