@@ -49,14 +49,14 @@ class TestParse(unittest.TestCase):
   def test_foo(self):
     shortopts = 'hf:b'
     longopts = ['help', 'foo=', 'bar']
-    optnametable = {
+    optnames = {
           '-h': 'help',
           '--help': 'help',
           '-f': 'foo',
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
     options, argvunknown = argvparser.parse(['progname', '-f', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'foo': 'somefoo',
@@ -66,14 +66,14 @@ class TestParse(unittest.TestCase):
   def test_bar(self):
     shortopts = 'hf:b'
     longopts = ['help', 'foo=', 'bar']
-    optnametable = {
+    optnames = {
           '-h': 'help',
           '--help': 'help',
           '-f': 'foo',
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
     options, argvunknown = argvparser.parse(['progname', '--bar', 'filename'])
     self.assertEqual(options, {
           'bar': True,
@@ -83,14 +83,14 @@ class TestParse(unittest.TestCase):
   def test_foobar(self):
     shortopts = 'hf:b'
     longopts = ['help', 'foo=', 'bar']
-    optnametable = {
+    optnames = {
           '-h': 'help',
           '--help': 'help',
           '-f': 'foo',
           '--foo': 'foo',
           '-b': 'bar',
           '--bar': 'bar'}
-    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnametable)
+    argvparser = p.ArgvParser(getopt.getopt, shortopts, longopts, optnames)
     options, argvunknown = argvparser.parse(['progname', '--bar', '--foo', 'somefoo', 'filename'])
     self.assertEqual(options, {
           'bar': True,

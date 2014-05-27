@@ -38,11 +38,11 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
-  def __init__(self, getoptfunc, shortopts, longopts, optnametable):
+  def __init__(self, getoptfunc, shortopts, longopts, optnames):
     self.getoptfunc = getoptfunc
     self.shortopts = shortopts
     self.longopts = longopts
-    self.optnametable = optnametable
+    self.optnames = optnames
 
   def splitprogname(self, argv):
     progname = argv[0]
@@ -59,7 +59,7 @@ class ArgvParser(object):
   def dictifyopts(self, opts):
     optsdict = {}
     for opt, val in opts:
-      name = self.optnametable[opt]
+      name = self.optnames[opt]
       if val == '':
         outval = True
       else:
