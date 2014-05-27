@@ -242,7 +242,8 @@ class WorkerFactory(object):
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
       raise ArgvError(argvunknown[0])
-    worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
+    else:
+      worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
     return worker
 
 class Application(object):
