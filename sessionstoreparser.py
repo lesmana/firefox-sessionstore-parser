@@ -40,9 +40,20 @@ class ArgvError(Error):
 class ArgvParser(object):
   def __init__(self, getoptfunc, shortopts, longopts, optnames):
     self.getoptfunc = getoptfunc
+    optionsdata = {
+          'shortopts': shortopts,
+          'longopts': longopts,
+          'optnames': optnames}
+    shortopts, longopts, optnames = self.forgetopt(optionsdata)
     self.shortopts = shortopts
     self.longopts = longopts
     self.optnames = optnames
+
+  def forgetopt(self, optionsdata):
+    shortopts = optionsdata['shortopts']
+    longopts = optionsdata['longopts']
+    optnames = optionsdata['optnames']
+    return shortopts, longopts, optnames
 
   def splitprogname(self, argv):
     progname = argv[0]
