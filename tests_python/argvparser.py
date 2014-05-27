@@ -8,12 +8,16 @@ import sessionstoreparser as p
 class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
+    report = []
     def fakegetopt(argv, shortopts, longopts):
+      report.append(('fakegetopt', argv, shortopts, longopts))
       return [('optname', 'optarg')], ['args']
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     opts, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(opts, [('optname', 'optarg')])
     self.assertEqual(argvargs, ['args'])
+    self.assertEqual(report, [
+          ('fakegetopt', 'argvoptsargs', '', [])])
 
 class TestDictifyOpts(unittest.TestCase):
 
