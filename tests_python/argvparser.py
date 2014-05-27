@@ -9,11 +9,11 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
     def fakegetopt(argv, shortopts, longopts):
-      return 'opts', 'argvargs'
+      return [('optname', 'optarg')], ['args']
     argvparser = p.ArgvParser(fakegetopt, '', [], {})
     opts, argvargs = argvparser.splitopts('argvoptsargs')
-    self.assertEqual(opts, 'opts')
-    self.assertEqual(argvargs, 'argvargs')
+    self.assertEqual(opts, [('optname', 'optarg')])
+    self.assertEqual(argvargs, ['args'])
 
 class TestDictifyOpts(unittest.TestCase):
 
