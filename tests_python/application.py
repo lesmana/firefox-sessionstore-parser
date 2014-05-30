@@ -13,7 +13,7 @@ class TestParseArgv(unittest.TestCase):
       def parse(self, argv):
         report.append(('parse', argv))
         return 'options', 'argvunknown'
-    app = p.Application(FakeArgvParser(), None)
+    app = p.Application(FakeArgvParser(), None, None)
     options, argvunknown = app.parseargv('argv')
     self.assertEqual(options, 'options')
     self.assertEqual(argvunknown, 'argvunknown')
@@ -28,7 +28,7 @@ class TestCreateWorker(unittest.TestCase):
       def produce(self, options, argvunknown):
         report.append(('produce', options, argvunknown))
         return 'worker'
-    app = p.Application(None, FakeWorkerFactory())
+    app = p.Application(None, FakeWorkerFactory(), None)
     worker = app.createworker('options', 'argvunknown')
     self.assertEqual(worker, 'worker')
     self.assertEqual(report, [
@@ -42,7 +42,7 @@ class TestDoWork(unittest.TestCase):
       def __call__(self):
         report.append(('work', ))
         return 'exitstatus'
-    app = p.Application(None, None)
+    app = p.Application(None, None, None)
     exitstatus = app.dowork(FakeWorker())
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
@@ -64,7 +64,7 @@ class TestTryRun(unittest.TestCase):
       def __call__(self):
         report.append(('work', ))
         return 'exitstatus'
-    app = p.Application(FakeArgvParser(), FakeWorkerFactory())
+    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), None)
     exitstatus = app.tryrun('argv')
     self.assertEqual(exitstatus, 'exitstatus')
     self.assertEqual(report, [
@@ -84,9 +84,9 @@ class TestRun(unittest.TestCase):
     class FakeWorker(object):
       def __call__(self):
         return 'exitstatus'
-    app = p.Application(FakeArgvParser(), FakeWorkerFactory())
     stderr = StringIO.StringIO()
-    exitstatus = app.run('argv', stderr)
+    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), stderr)
+    exitstatus = app.run('argv')
     self.assertEqual(stderr.getvalue(), '')
     self.assertEqual(exitstatus, 'exitstatus')
 
@@ -100,8 +100,8 @@ class TestRun(unittest.TestCase):
     class FakeWorker(object):
       def __call__(self):
         raise p.Error('generic error')
-    app = p.Application(FakeArgvParser(), FakeWorkerFactory())
     stderr = StringIO.StringIO()
-    exitstatus = app.run('argv', stderr)
+    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), stderr)
+    exitstatus = app.run('argv')
     self.assertEqual(stderr.getvalue(), 'generic error\n')
     self.assertEqual(exitstatus, 1)

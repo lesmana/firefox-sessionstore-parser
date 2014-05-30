@@ -260,9 +260,10 @@ class WorkerFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvparser, workerfactory):
+  def __init__(self, argvparser, workerfactory, stderr):
     self.argvparser = argvparser
     self.workerfactory = workerfactory
+    self.stderr = stderr
 
   def parseargv(self, argv):
     options, argvunknown = self.argvparser.parse(argv)
@@ -282,12 +283,12 @@ class Application(object):
     exitstatus = self.dowork(worker)
     return exitstatus
 
-  def run(self, argv, stderr):
+  def run(self, argv):
     try:
       exitstatus = self.tryrun(argv)
       return exitstatus
     except Error as err:
-      stderr.write(str(err) + '\n')
+      self.stderr.write(str(err) + '\n')
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
@@ -302,8 +303,8 @@ def secludedmain(openfunc, stdout, stderr, argv):
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
   workerfactory = WorkerFactory(sessionstoreparser, SessionStoreParserWorker, stderr)
-  app = Application(argvparser, workerfactory)
-  exitstatus = app.run(argv, stderr)
+  app = Application(argvparser, workerfactory, stderr)
+  exitstatus = app.run(argv)
   return exitstatus
 
 def main(): # pragma: no cover
