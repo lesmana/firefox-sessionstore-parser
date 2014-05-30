@@ -75,10 +75,8 @@ class TestTryRun(unittest.TestCase):
 class TestRun(unittest.TestCase):
 
   def test_noerror(self):
-    report = []
     class FakeArgvParser(object):
       def parse(self, argv):
-        report.append(('tryrun', argv))
         return 'options', 'argvunknown'
     class FakeWorkerFactory(object):
       def produce(self, options, argvunknown):
@@ -91,14 +89,10 @@ class TestRun(unittest.TestCase):
     exitstatus = app.run('argv', stderr)
     self.assertEqual(stderr.getvalue(), '')
     self.assertEqual(exitstatus, 'exitstatus')
-    self.assertEqual(report, [
-          ('tryrun', 'argv')])
 
   def test_genericerror(self):
-    report = []
     class FakeArgvParser(object):
       def parse(self, argv):
-        report.append(('tryrun', argv))
         return 'options', 'argvunknown'
     class FakeWorkerFactory(object):
       def produce(self, options, argvunknown):
@@ -111,5 +105,3 @@ class TestRun(unittest.TestCase):
     exitstatus = app.run('argv', stderr)
     self.assertEqual(stderr.getvalue(), 'generic error\n')
     self.assertEqual(exitstatus, 1)
-    self.assertEqual(report, [
-          ('tryrun', 'argv')])
