@@ -47,7 +47,7 @@ class ArgvParser(object):
     argvoptsargs = argv[1:]
     return progname, argvoptsargs
 
-  def splitoptionsdata(self, optionsdata):
+  def prepareoptionsdata(self, optionsdata):
     # no error checking
     # let's assume everyone is sane
     shortoptslist = []
@@ -87,7 +87,7 @@ class ArgvParser(object):
     return optsdict
 
   def splitopts(self, argvoptsargs):
-    shortopts, longopts, optnames = self.splitoptionsdata(self.optionsdata)
+    shortopts, longopts, optnames = self.prepareoptionsdata(self.optionsdata)
     opts, argvargs = self.getoptfunc(argvoptsargs, shortopts, longopts)
     optsdict = self.dictifyopts(opts, optnames)
     return optsdict, argvargs
