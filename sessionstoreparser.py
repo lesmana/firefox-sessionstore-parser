@@ -63,10 +63,14 @@ class ArgvParser(object):
       # handle short opt
       self.prepareopt(name, possibleopt, argcount, shortoptslist, ':', optnames)
 
-  def prepareoptiondata(self, optiondata, shortoptslist, longopts, optnames):
+  def prepareoptiondata(self, optiondata):
+    shortoptslist = []
+    longopts = []
+    optnames = {}
     name, possibleopts, argcount = optiondata
     for possibleopt in possibleopts:
       self.preparepossibleopt(name, possibleopt, argcount, shortoptslist, longopts, optnames)
+    return shortoptslist, longopts, optnames
 
   def prepareoptionsdata(self, optionsdata):
     # no error checking
@@ -75,7 +79,10 @@ class ArgvParser(object):
     longopts = []
     optnames = {}
     for optiondata in optionsdata:
-      self.prepareoptiondata(optiondata, shortoptslist, longopts, optnames)
+      short, long, names = self.prepareoptiondata(optiondata)
+      shortoptslist.extend(short)
+      longopts.extend(long)
+      optnames.update(names)
     shortopts = ''.join(shortoptslist)
     return shortopts, longopts, optnames
 
