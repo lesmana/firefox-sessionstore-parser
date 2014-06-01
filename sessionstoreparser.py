@@ -48,25 +48,25 @@ class ArgvParser(object):
     return progname, argvoptsargs
 
   def prepareopt(self, name, possibleopt, argcount, optslist, argmod, optnames):
-          strippedopt = possibleopt.lstrip('-')
-          if argcount == 0:
-            optslist.append(strippedopt)
-          else:
-            optslist.append(strippedopt + argmod)
-          optnames[possibleopt] = name
+    strippedopt = possibleopt.lstrip('-')
+    if argcount == 0:
+      optslist.append(strippedopt)
+    else:
+      optslist.append(strippedopt + argmod)
+    optnames[possibleopt] = name
 
   def preparepossibleopt(self, name, possibleopt, argcount, shortoptslist, longopts, optnames):
-        if possibleopt.startswith('--'):
-          # handle long opt
-          self.prepareopt(name, possibleopt, argcount, longopts, '=', optnames)
-        else:
-          # handle short opt
-          self.prepareopt(name, possibleopt, argcount, shortoptslist, ':', optnames)
+    if possibleopt.startswith('--'):
+      # handle long opt
+      self.prepareopt(name, possibleopt, argcount, longopts, '=', optnames)
+    else:
+      # handle short opt
+      self.prepareopt(name, possibleopt, argcount, shortoptslist, ':', optnames)
 
   def prepareoptiondata(self, optiondata, shortoptslist, longopts, optnames):
-      name, possibleopts, argcount = optiondata
-      for possibleopt in possibleopts:
-        self.preparepossibleopt(name, possibleopt, argcount, shortoptslist, longopts, optnames)
+    name, possibleopts, argcount = optiondata
+    for possibleopt in possibleopts:
+      self.preparepossibleopt(name, possibleopt, argcount, shortoptslist, longopts, optnames)
 
   def prepareoptionsdata(self, optionsdata):
     # no error checking
