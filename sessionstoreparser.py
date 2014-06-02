@@ -235,8 +235,7 @@ class SessionStoreParser(object):
   def writeurls(self, urls):
     self.urlwriter.write(urls)
 
-  def parse(self, options):
-    filename = options['filename']
+  def parse(self, filename):
     sessionstore = self.getsessionstore(filename)
     urlgenerator = self.geturlgenerator()
     urls = self.geturls(urlgenerator, sessionstore)
@@ -248,7 +247,8 @@ class SessionStoreParserWorker(object):
     self.options = options
 
   def __call__(self):
-    self.sessionstoreparser.parse(self.options)
+    filename = self.options['filename']
+    self.sessionstoreparser.parse(filename)
     return 0
 
 class HelpWriterWorker(object):
