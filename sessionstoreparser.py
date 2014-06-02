@@ -269,7 +269,8 @@ class WorkerFactory(object):
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
       exitstatus = 2
-      worker = HelpWriterWorker(self.stderr, argvunknown[0], exitstatus)
+      message = argvunknown[0]
+      worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = options['filename']
       worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, filename)
