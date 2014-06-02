@@ -114,8 +114,6 @@ class ArgvParser(object):
     argvunknown = []
     if len(args) != 1:
       argsdict = {}
-      errormessage = 'need filename'
-      argvunknown = [errormessage]
     else:
       filename = args[0]
       argsdict = {'filename': filename}
@@ -131,6 +129,9 @@ class ArgvParser(object):
     progname, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvunknown = self.splitargs(argvargs)
+    if 'filename' not in argsdict:
+      errormessage = 'need filename'
+      argvunknown = [errormessage]
     options = self.combine(progname, optsdict, argsdict)
     return options, argvunknown
 
