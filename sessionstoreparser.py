@@ -47,7 +47,7 @@ class ArgvParser(object):
     argvoptsargs = argv[1:]
     return progname, argvoptsargs
 
-  def prepareopt(self, possibleopt, argcount, argmod):
+  def prepareoptstring(self, possibleopt, argcount, argmod):
     strippedopt = possibleopt.lstrip('-')
     if argcount == 0:
       optstring = strippedopt
@@ -60,11 +60,11 @@ class ArgvParser(object):
     longopts = []
     if possibleopt.startswith('--'):
       # handle long opt
-      optstring = self.prepareopt(possibleopt, argcount, '=')
+      optstring = self.prepareoptstring(possibleopt, argcount, '=')
       longopts.append(optstring)
     else:
       # handle short opt
-      optstring = self.prepareopt(possibleopt, argcount, ':')
+      optstring = self.prepareoptstring(possibleopt, argcount, ':')
       shortoptslist.append(optstring)
     return shortoptslist, longopts
 
