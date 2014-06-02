@@ -135,9 +135,6 @@ class ArgvParser(object):
   def parse(self, argv):
     try:
       options, argvunknown = self.tryparse(argv)
-      if 'filename' not in options:
-        errormessage = 'need filename'
-        argvunknown = [errormessage]
       return options, argvunknown
     except getopt.GetoptError as err:
       return {}, [str(err)]
@@ -268,6 +265,9 @@ class WorkerFactory(object):
     self.stderr = stderr
 
   def produce(self, options, argvunknown):
+    if 'filename' not in options:
+      errormessage = 'need filename'
+      argvunknown = [errormessage]
     if len(argvunknown) != 0:
       exitstatus = 2
       message = argvunknown[0]
