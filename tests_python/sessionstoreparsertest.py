@@ -14,7 +14,7 @@ class TestGetSessionStore(unittest.TestCase):
         report.append(('read', filename))
         return 'jsonobject'
     parser = p.SessionStoreParser(FakeJsonReader(), None, None)
-    sessionstore = parser.getsessionstore({'filename': 'filename'})
+    sessionstore = parser.getsessionstore('filename')
     self.assertEqual(sessionstore, 'jsonobject')
     self.assertEqual(report, [
           ('read', 'filename')])
