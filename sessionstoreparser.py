@@ -75,9 +75,9 @@ class ArgvParser(object):
     optnames = {}
     name, possibleopts, argcount = optiondata
     for possibleopt in possibleopts:
-      short, long = self.preparepossibleopt(possibleopt, argcount)
-      shortoptslist.extend(short)
-      longopts.extend(long)
+      shorts, longs = self.preparepossibleopt(possibleopt, argcount)
+      shortoptslist.extend(shorts)
+      longopts.extend(longs)
       optnames[possibleopt] = name
     return shortoptslist, longopts, optnames
 
@@ -88,9 +88,9 @@ class ArgvParser(object):
     longopts = []
     optnames = {}
     for optiondata in optionsdata:
-      short, long, names = self.prepareoptiondata(optiondata)
-      shortoptslist.extend(short)
-      longopts.extend(long)
+      shorts, longs, names = self.prepareoptiondata(optiondata)
+      shortoptslist.extend(shorts)
+      longopts.extend(longs)
       optnames.update(names)
     shortopts = ''.join(shortoptslist)
     return shortopts, longopts, optnames
