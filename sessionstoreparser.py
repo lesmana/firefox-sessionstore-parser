@@ -129,10 +129,10 @@ class ArgvParser(object):
     progname, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvunknown = self.splitargs(argvargs)
-    if 'filename' not in argsdict:
+    options = self.combine(progname, optsdict, argsdict)
+    if 'filename' not in options:
       errormessage = 'need filename'
       argvunknown = [errormessage]
-    options = self.combine(progname, optsdict, argsdict)
     return options, argvunknown
 
   def parse(self, argv):
