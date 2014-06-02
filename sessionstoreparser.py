@@ -276,7 +276,8 @@ class WorkerFactory(object):
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = options['filename']
-      worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, filename)
+      worker = self.sessionstoreparserworkerclass(
+            self.sessionstoreparser, filename)
     return worker
 
 class Application(object):
@@ -324,7 +325,8 @@ def secludedmain(openfunc, stdout, stderr, argv):
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
-  workerfactory = WorkerFactory(sessionstoreparser, SessionStoreParserWorker, stderr)
+  workerfactory = WorkerFactory(
+        sessionstoreparser, SessionStoreParserWorker, stderr)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
