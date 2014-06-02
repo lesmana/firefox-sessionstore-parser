@@ -1,12 +1,6 @@
 here be todos
 
 ----
-def tryrun(self, argv):
-  options, restargv = self.parseargv(argv)
-  worker = self.buildworker(options, restargv)
-  exitstatus = worker.work()
-
-----
 implement command line options
 --window = [open, closed, all, selected] (default: open)
 --tab = [open, closed, all, selected] (default: open)
