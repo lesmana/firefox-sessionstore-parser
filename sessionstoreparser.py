@@ -266,6 +266,8 @@ class WorkerFactory(object):
 
   def produce(self, options, argvunknown):
     if len(argvunknown) != 0:
+      options['unknown'] = argvunknown
+    if 'unknown' in options:
       exitstatus = 2
       message = argvunknown[0]
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
