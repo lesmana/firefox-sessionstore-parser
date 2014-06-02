@@ -53,6 +53,7 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_noerror(self):
     def fakegetopt(argv, shortopts, longopts):
+      #pylint: disable=unused-argument
       return [('--opt', 'optarg')], ['args']
     optionsdata = [
           ('optname', ['--opt'], 1)]
@@ -66,6 +67,7 @@ class TestParse(unittest.TestCase):
 
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
+      #pylint: disable=unused-argument
       raise getopt.GetoptError('silly error')
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)

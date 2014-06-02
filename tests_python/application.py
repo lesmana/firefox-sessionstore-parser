@@ -75,6 +75,7 @@ class TestTryRun(unittest.TestCase):
 class TestRun(unittest.TestCase):
 
   def test_noerror(self):
+    #pylint: disable=unused-argument
     class FakeArgvParser(object):
       def parse(self, argv):
         return 'options', 'argvunknown'
@@ -91,6 +92,7 @@ class TestRun(unittest.TestCase):
     self.assertEqual(exitstatus, 'exitstatus')
 
   def test_genericerror(self):
+    #pylint: disable=unused-argument
     class FakeArgvParser(object):
       def parse(self, argv):
         return 'options', 'argvunknown'
