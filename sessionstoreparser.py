@@ -265,13 +265,13 @@ class WorkerFactory(object):
     self.stderr = stderr
 
   def produce(self, options, argvunknown):
-    if 'filename' not in options:
-      exitstatus = 2
-      message = 'need filename'
-      worker = HelpWriterWorker(self.stderr, message, exitstatus)
-    elif len(argvunknown) != 0:
+    if len(argvunknown) != 0:
       exitstatus = 2
       message = argvunknown[0]
+      worker = HelpWriterWorker(self.stderr, message, exitstatus)
+    elif 'filename' not in options:
+      exitstatus = 2
+      message = 'need filename'
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = options['filename']
