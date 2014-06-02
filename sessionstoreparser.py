@@ -38,9 +38,10 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
-  def __init__(self, getoptfunc, optionsdata):
+  def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
+    self.argumentsdata = argumentsdata
 
   def splitprogname(self, argv):
     progname = argv[0]
@@ -313,7 +314,8 @@ class Application(object):
 
 def secludedmain(openfunc, stdout, stderr, argv):
   optionsdata = []
-  argvparser = ArgvParser(getopt.getopt, optionsdata)
+  argumentsdata = []
+  argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
         'windowgenerator': WindowGenerator,
