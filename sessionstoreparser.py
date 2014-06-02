@@ -120,6 +120,7 @@ class ArgvParser(object):
 
   def combine(self, prognamedict, optsdict, argsdict):
     options = {}
+    options.update(prognamedict)
     options.update(optsdict)
     options.update(argsdict)
     return options

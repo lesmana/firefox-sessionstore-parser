@@ -84,6 +84,7 @@ class TestParse(unittest.TestCase):
     argv = ['progname', '-f', 'somefoo', 'filename']
     options, argvunknown = argvparser.parse(argv)
     self.assertEqual(options, {
+          'progname': 'progname',
           'foo': 'somefoo',
           'filename': 'filename'})
     self.assertEqual(argvunknown, [])
@@ -97,6 +98,7 @@ class TestParse(unittest.TestCase):
     argv = ['progname', '--bar', 'filename']
     options, argvunknown = argvparser.parse(argv)
     self.assertEqual(options, {
+          'progname': 'progname',
           'bar': True,
           'filename': 'filename'})
     self.assertEqual(argvunknown, [])
@@ -110,6 +112,7 @@ class TestParse(unittest.TestCase):
     argv = ['progname', '--bar', '--foo', 'somefoo', 'filename']
     options, argvunknown = argvparser.parse(argv)
     self.assertEqual(options, {
+          'progname': 'progname',
           'bar': True,
           'foo': 'somefoo',
           'filename': 'filename'})
