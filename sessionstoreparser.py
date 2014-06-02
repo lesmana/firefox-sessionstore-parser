@@ -59,11 +59,9 @@ class ArgvParser(object):
     shortoptslist = []
     longopts = []
     if opt.startswith('--'):
-      # handle long opt
       optstring = self.prepareoptstring(opt, argcount, '=')
       longopts.append(optstring)
     else:
-      # handle short opt
       optstring = self.prepareoptstring(opt, argcount, ':')
       shortoptslist.append(optstring)
     return shortoptslist, longopts
