@@ -49,14 +49,12 @@ class ArgvParser(object):
 
   def prepareopt(self, name, possibleopt, argcount, argmod):
     optslist = []
-    optnames = {}
     strippedopt = possibleopt.lstrip('-')
     if argcount == 0:
       optslist.append(strippedopt)
     else:
       optslist.append(strippedopt + argmod)
-    optnames[possibleopt] = name
-    return optslist, optnames
+    return optslist
 
   def preparepossibleopt(self, name, possibleopt, argcount):
     shortoptslist = []
@@ -64,14 +62,13 @@ class ArgvParser(object):
     optnames = {}
     if possibleopt.startswith('--'):
       # handle long opt
-      opts, names = self.prepareopt(name, possibleopt, argcount, '=')
+      opts = self.prepareopt(name, possibleopt, argcount, '=')
       longopts.extend(opts)
-      optnames.update(names)
     else:
       # handle short opt
-      opts, names = self.prepareopt(name, possibleopt, argcount, ':')
+      opts = self.prepareopt(name, possibleopt, argcount, ':')
       shortoptslist.extend(opts)
-      optnames.update(names)
+    optnames[possibleopt] = name
     return shortoptslist, longopts, optnames
 
   def prepareoptiondata(self, optiondata):
