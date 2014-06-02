@@ -242,9 +242,8 @@ class SessionStoreParser(object):
     self.writeurls(urls)
 
 class SessionStoreParserWorker(object):
-  def __init__(self, sessionstoreparser, options):
+  def __init__(self, sessionstoreparser, filename):
     self.sessionstoreparser = sessionstoreparser
-    filename = options['filename']
     self.filename = filename
 
   def __call__(self):
@@ -272,7 +271,8 @@ class WorkerFactory(object):
       exitstatus = 2
       worker = HelpWriterWorker(self.stderr, argvunknown[0], exitstatus)
     else:
-      worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, options)
+      filename = options['filename']
+      worker = self.sessionstoreparserworkerclass(self.sessionstoreparser, filename)
     return worker
 
 class Application(object):
