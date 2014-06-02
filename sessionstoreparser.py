@@ -244,11 +244,11 @@ class SessionStoreParser(object):
 class SessionStoreParserWorker(object):
   def __init__(self, sessionstoreparser, options):
     self.sessionstoreparser = sessionstoreparser
-    self.options = options
+    filename = options['filename']
+    self.filename = filename
 
   def __call__(self):
-    filename = self.options['filename']
-    self.sessionstoreparser.parse(filename)
+    self.sessionstoreparser.parse(self.filename)
     return 0
 
 class HelpWriterWorker(object):
