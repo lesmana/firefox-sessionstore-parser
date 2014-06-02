@@ -34,9 +34,6 @@ class OpenUrlGenerator(object):
       openurl = openentry['url']
       yield openurl
 
-class ArgvError(Error):
-  pass
-
 class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
