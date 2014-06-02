@@ -266,9 +266,10 @@ class WorkerFactory(object):
 
   def produce(self, options, argvunknown):
     if 'filename' not in options:
-      errormessage = 'need filename'
-      argvunknown = [errormessage]
-    if len(argvunknown) != 0:
+      exitstatus = 2
+      message = 'need filename'
+      worker = HelpWriterWorker(self.stderr, message, exitstatus)
+    elif len(argvunknown) != 0:
       exitstatus = 2
       message = argvunknown[0]
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
