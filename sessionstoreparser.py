@@ -42,9 +42,8 @@ class ArgvParser(object):
 
   def splitprogname(self, argv):
     progname = argv[0]
-    prognamedict = {'progname': progname}
     argvoptsargs = argv[1:]
-    return prognamedict, argvoptsargs
+    return progname, argvoptsargs
 
   def prepareoptstring(self, opt, argcount, argmod):
     strippedopt = opt.lstrip('-')
@@ -118,9 +117,9 @@ class ArgvParser(object):
       argsdict = {'filename': filename}
     return argsdict, argvrest
 
-  def combine(self, prognamedict, optsdict, argsdict, argvrest):
+  def combine(self, progname, optsdict, argsdict, argvrest):
     parsedargv = {}
-    parsedargv.update(prognamedict)
+    parsedargv['progname'] = progname
     parsedargv.update(optsdict)
     parsedargv.update(argsdict)
     if len(argvrest) != 0:
@@ -128,10 +127,10 @@ class ArgvParser(object):
     return parsedargv
 
   def tryparse(self, argv):
-    prognamedict, argvoptsargs = self.splitprogname(argv)
+    progname, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvrest = self.splitargs(argvargs)
-    parsedargv = self.combine(prognamedict, optsdict, argsdict, argvrest)
+    parsedargv = self.combine(progname, optsdict, argsdict, argvrest)
     return parsedargv
 
   def parse(self, argv):
