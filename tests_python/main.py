@@ -81,7 +81,7 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 2)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
-          'option --wrong not recognized\n')
+          'unknown option: --wrong\n')
 
   def test_notfile(self):
     report = []

@@ -271,7 +271,7 @@ class WorkerFactory(object):
     if 'unknown' in parsedargv:
       exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
-      message = 'option %s not recognized' % (unknownoption)
+      message = 'unknown option: %s' % (unknownoption)
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:
       exitstatus = 2
