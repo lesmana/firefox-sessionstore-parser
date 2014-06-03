@@ -269,7 +269,8 @@ class WorkerFactory(object):
       options['unknown'] = argvunknown
     if 'unknown' in options:
       exitstatus = 2
-      message = argvunknown[0]
+      messagelist = options['unknown']
+      message = ','.join(messagelist)
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     elif 'filename' not in options:
       exitstatus = 2
