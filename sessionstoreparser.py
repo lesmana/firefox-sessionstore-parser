@@ -264,9 +264,7 @@ class WorkerFactory(object):
     self.sessionstoreparserworkerclass = sessionstoreparserworkerclass
     self.stderr = stderr
 
-  def produce(self, options, argvunknown):
-    if len(argvunknown) != 0:
-      options['unknown'] = argvunknown
+  def produce(self, options):
     if 'unknown' in options:
       exitstatus = 2
       messagelist = options['unknown']
@@ -294,7 +292,9 @@ class Application(object):
     return options, argvunknown
 
   def createworker(self, options, argvunknown):
-    worker = self.workerfactory.produce(options, argvunknown)
+    if len(argvunknown) != 0:
+      options['unknown'] = argvunknown
+    worker = self.workerfactory.produce(options)
     return worker
 
   def dowork(self, worker):

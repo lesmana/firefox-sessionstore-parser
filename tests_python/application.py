@@ -13,7 +13,7 @@ class TestRun(unittest.TestCase):
       def parse(self, argv):
         return {'options': 'options'}, ['argvunknown']
     class FakeWorkerFactory(object):
-      def produce(self, options, argvunknown):
+      def produce(self, options):
         return FakeWorker()
     class FakeWorker(object):
       def __call__(self):
@@ -30,7 +30,7 @@ class TestRun(unittest.TestCase):
       def parse(self, argv):
         return {'options': 'options'}, ['argvunknown']
     class FakeWorkerFactory(object):
-      def produce(self, options, argvunknown):
+      def produce(self, options):
         return FakeWorker()
     class FakeWorker(object):
       def __call__(self):
