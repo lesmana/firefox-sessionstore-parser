@@ -291,9 +291,7 @@ class Application(object):
     options, argvunknown = self.argvparser.parse(argv)
     return options, argvunknown
 
-  def createworker(self, options, argvunknown):
-    if len(argvunknown) != 0:
-      options['unknown'] = argvunknown
+  def createworker(self, options):
     worker = self.workerfactory.produce(options)
     return worker
 
@@ -303,7 +301,9 @@ class Application(object):
 
   def tryrun(self, argv):
     options, argvunknown = self.parseargv(argv)
-    worker = self.createworker(options, argvunknown)
+    if len(argvunknown) != 0:
+      options['unknown'] = argvunknown
+    worker = self.createworker(options)
     exitstatus = self.dowork(worker)
     return exitstatus
 
