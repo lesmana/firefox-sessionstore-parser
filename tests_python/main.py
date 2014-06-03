@@ -71,7 +71,7 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 2)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
-          'need filename\n')
+          'missing argument: filename\n')
 
   def test_wrongargv(self):
     fakestdout = StringIO.StringIO()

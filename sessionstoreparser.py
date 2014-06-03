@@ -275,7 +275,7 @@ class WorkerFactory(object):
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:
       exitstatus = 2
-      message = 'need filename'
+      message = 'missing argument: filename'
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = parsedargv['filename']
