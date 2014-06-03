@@ -139,7 +139,8 @@ class ArgvParser(object):
       return parsedargv
     except getopt.GetoptError as err:
       unknownoption = str(err).split()[1]
-      return {'unknown': [unknownoption]}
+      parsedargv = {'unknown': [unknownoption]}
+      return parsedargv
 
 class JsonReaderError(Error):
   pass
