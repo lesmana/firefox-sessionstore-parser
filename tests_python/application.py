@@ -11,7 +11,7 @@ class TestRun(unittest.TestCase):
     #pylint: disable=unused-argument
     class FakeArgvParser(object):
       def parse(self, argv):
-        return {'options': 'options'}, ['argvunknown']
+        return {'options': 'options'}
     class FakeWorkerFactory(object):
       def produce(self, options):
         return FakeWorker()
@@ -28,7 +28,7 @@ class TestRun(unittest.TestCase):
     #pylint: disable=unused-argument
     class FakeArgvParser(object):
       def parse(self, argv):
-        return {'options': 'options'}, ['argvunknown']
+        return {'options': 'options'}
     class FakeWorkerFactory(object):
       def produce(self, options):
         return FakeWorker()

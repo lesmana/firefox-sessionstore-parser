@@ -135,9 +135,11 @@ class ArgvParser(object):
   def parse(self, argv):
     try:
       options, argvunknown = self.tryparse(argv)
-      return options, argvunknown
+      if len(argvunknown) != 0:
+        options['unknown'] = argvunknown
+      return options
     except getopt.GetoptError as err:
-      return {}, [str(err)]
+      return {'unknown': [str(err)]}
 
 class JsonReaderError(Error):
   pass
@@ -288,9 +290,7 @@ class Application(object):
     self.stderr = stderr
 
   def parseargv(self, argv):
-    options, argvunknown = self.argvparser.parse(argv)
-    if len(argvunknown) != 0:
-      options['unknown'] = argvunknown
+    options = self.argvparser.parse(argv)
     return options
 
   def createworker(self, options):
