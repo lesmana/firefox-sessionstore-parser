@@ -268,8 +268,8 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     if 'unknown' in parsedargv:
       exitstatus = 2
-      messagelist = parsedargv['unknown']
-      message = ','.join(messagelist)
+      unknownoption = parsedargv['unknown'][0].split()[1]
+      message = 'option %s not recognized' % (unknownoption)
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:
       exitstatus = 2
