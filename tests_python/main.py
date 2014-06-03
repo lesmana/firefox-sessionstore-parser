@@ -73,6 +73,16 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestderr.getvalue(),
           'need filename\n')
 
+  def test_wrongargv(self):
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--wrong']
+    exitstatus = p.secludedmain(None, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 2)
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(fakestderr.getvalue(),
+          'option --wrong not recognized\n')
+
   def test_notfile(self):
     report = []
     def fakeopen(filename):
