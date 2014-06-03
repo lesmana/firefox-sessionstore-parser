@@ -130,13 +130,13 @@ class ArgvParser(object):
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvunknown = self.splitargs(argvargs)
     options = self.combine(prognamedict, optsdict, argsdict)
-    return options, argvunknown
+    if len(argvunknown) != 0:
+      options['unknown'] = argvunknown
+    return options
 
   def parse(self, argv):
     try:
-      options, argvunknown = self.tryparse(argv)
-      if len(argvunknown) != 0:
-        options['unknown'] = argvunknown
+      options = self.tryparse(argv)
       return options
     except getopt.GetoptError as err:
       return {'unknown': [str(err)]}
