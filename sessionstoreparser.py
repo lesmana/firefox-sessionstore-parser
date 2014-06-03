@@ -119,25 +119,25 @@ class ArgvParser(object):
     return argsdict, argvunknown
 
   def combine(self, prognamedict, optsdict, argsdict, argvunknown):
-    options = {}
-    options.update(prognamedict)
-    options.update(optsdict)
-    options.update(argsdict)
+    parsedargv = {}
+    parsedargv.update(prognamedict)
+    parsedargv.update(optsdict)
+    parsedargv.update(argsdict)
     if len(argvunknown) != 0:
-      options['unknown'] = argvunknown
-    return options
+      parsedargv['unknown'] = argvunknown
+    return parsedargv
 
   def tryparse(self, argv):
     prognamedict, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvunknown = self.splitargs(argvargs)
-    options = self.combine(prognamedict, optsdict, argsdict, argvunknown)
-    return options
+    parsedargv = self.combine(prognamedict, optsdict, argsdict, argvunknown)
+    return parsedargv
 
   def parse(self, argv):
     try:
-      options = self.tryparse(argv)
-      return options
+      parsedargv = self.tryparse(argv)
+      return parsedargv
     except getopt.GetoptError as err:
       return {'unknown': [str(err)]}
 
@@ -266,18 +266,18 @@ class WorkerFactory(object):
     self.sessionstoreparserworkerclass = sessionstoreparserworkerclass
     self.stderr = stderr
 
-  def produce(self, options):
-    if 'unknown' in options:
+  def produce(self, parsedargv):
+    if 'unknown' in parsedargv:
       exitstatus = 2
-      messagelist = options['unknown']
+      messagelist = parsedargv['unknown']
       message = ','.join(messagelist)
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
-    elif 'filename' not in options:
+    elif 'filename' not in parsedargv:
       exitstatus = 2
       message = 'need filename'
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
-      filename = options['filename']
+      filename = parsedargv['filename']
       worker = self.sessionstoreparserworkerclass(
             self.sessionstoreparser, filename)
     return worker
@@ -290,11 +290,11 @@ class Application(object):
     self.stderr = stderr
 
   def parseargv(self, argv):
-    options = self.argvparser.parse(argv)
-    return options
+    parsedargv = self.argvparser.parse(argv)
+    return parsedargv
 
-  def createworker(self, options):
-    worker = self.workerfactory.produce(options)
+  def createworker(self, parsedargv):
+    worker = self.workerfactory.produce(parsedargv)
     return worker
 
   def dowork(self, worker):
@@ -302,8 +302,8 @@ class Application(object):
     return exitstatus
 
   def tryrun(self, argv):
-    options = self.parseargv(argv)
-    worker = self.createworker(options)
+    parsedargv = self.parseargv(argv)
+    worker = self.createworker(parsedargv)
     exitstatus = self.dowork(worker)
     return exitstatus
 

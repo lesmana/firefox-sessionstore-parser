@@ -71,8 +71,8 @@ class TestParse(unittest.TestCase):
       raise getopt.GetoptError('silly error')
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    options = argvparser.parse('argv')
-    self.assertEqual(options, {'unknown': ['silly error']})
+    parsedargv = argvparser.parse('argv')
+    self.assertEqual(parsedargv, {'unknown': ['silly error']})
 
   def test_foo(self):
     optionsdata = [
@@ -81,8 +81,8 @@ class TestParse(unittest.TestCase):
           ('bar', ['-b', '--bar'], 0)]
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
     argv = ['progname', '-f', 'somefoo', 'filename']
-    options = argvparser.parse(argv)
-    self.assertEqual(options, {
+    parsedargv = argvparser.parse(argv)
+    self.assertEqual(parsedargv, {
           'progname': 'progname',
           'foo': 'somefoo',
           'filename': 'filename'})
@@ -94,8 +94,8 @@ class TestParse(unittest.TestCase):
           ('bar', ['-b', '--bar'], 0)]
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
     argv = ['progname', '--bar', 'filename']
-    options = argvparser.parse(argv)
-    self.assertEqual(options, {
+    parsedargv = argvparser.parse(argv)
+    self.assertEqual(parsedargv, {
           'progname': 'progname',
           'bar': True,
           'filename': 'filename'})
@@ -107,8 +107,8 @@ class TestParse(unittest.TestCase):
           ('bar', ['-b', '--bar'], 0)]
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
     argv = ['progname', '--bar', '--foo', 'somefoo', 'filename']
-    options = argvparser.parse(argv)
-    self.assertEqual(options, {
+    parsedargv = argvparser.parse(argv)
+    self.assertEqual(parsedargv, {
           'progname': 'progname',
           'bar': True,
           'foo': 'somefoo',
