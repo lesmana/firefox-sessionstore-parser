@@ -110,28 +110,28 @@ class ArgvParser(object):
 
   def splitargs(self, argvargs):
     args = argvargs
-    argvunknown = []
+    argvrest = []
     if len(args) != 1:
       argsdict = {}
     else:
       filename = args[0]
       argsdict = {'filename': filename}
-    return argsdict, argvunknown
+    return argsdict, argvrest
 
-  def combine(self, prognamedict, optsdict, argsdict, argvunknown):
+  def combine(self, prognamedict, optsdict, argsdict, argvrest):
     parsedargv = {}
     parsedargv.update(prognamedict)
     parsedargv.update(optsdict)
     parsedargv.update(argsdict)
-    if len(argvunknown) != 0:
-      parsedargv['unknown'] = argvunknown
+    if len(argvrest) != 0:
+      parsedargv['unknown'] = argvrest
     return parsedargv
 
   def tryparse(self, argv):
     prognamedict, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
-    argsdict, argvunknown = self.splitargs(argvargs)
-    parsedargv = self.combine(prognamedict, optsdict, argsdict, argvunknown)
+    argsdict, argvrest = self.splitargs(argvargs)
+    parsedargv = self.combine(prognamedict, optsdict, argsdict, argvrest)
     return parsedargv
 
   def parse(self, argv):
