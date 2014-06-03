@@ -138,7 +138,8 @@ class ArgvParser(object):
       parsedargv = self.tryparse(argv)
       return parsedargv
     except getopt.GetoptError as err:
-      return {'unknown': [str(err)]}
+      unknownoption = str(err).split()[1]
+      return {'unknown': [unknownoption]}
 
 class JsonReaderError(Error):
   pass
@@ -268,7 +269,7 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     if 'unknown' in parsedargv:
       exitstatus = 2
-      unknownoption = parsedargv['unknown'][0].split()[1]
+      unknownoption = parsedargv['unknown'][0]
       message = 'option %s not recognized' % (unknownoption)
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:

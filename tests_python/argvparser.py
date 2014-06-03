@@ -72,7 +72,7 @@ class TestParse(unittest.TestCase):
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     parsedargv = argvparser.parse('argv')
-    self.assertEqual(parsedargv, {'unknown': ['silly error']})
+    self.assertEqual(parsedargv, {'unknown': ['error']})
 
   def test_foo(self):
     optionsdata = [
