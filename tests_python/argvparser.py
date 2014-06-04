@@ -63,6 +63,31 @@ class TestSplitOpts(unittest.TestCase):
           'optname': 'optarg'})
     self.assertEqual(argvargs, ['args'])
 
+class TestSplitArgs(unittest.TestCase):
+
+  def test_empty(self):
+    argumentsdata = []
+    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argsdict, argvrest = argvparser.splitargs([])
+    self.assertEqual(argsdict, {})
+    self.assertEqual(argvrest, [])
+
+  def test_someargs(self):
+    argumentsdata = ['foo', 'bar']
+    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argsdict, argvrest = argvparser.splitargs(['argfoo', 'argbar', 'rest'])
+    self.assertEqual(argsdict, {
+          'foo': 'argfoo',
+          'bar': 'argbar'})
+    self.assertEqual(argvrest, ['rest'])
+
+  def test_noargs(self):
+    argumentsdata = ['foo', 'bar']
+    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argsdict, argvrest = argvparser.splitargs([])
+    self.assertEqual(argsdict, {})
+    self.assertEqual(argvrest, [])
+
 class TestParse(unittest.TestCase):
 
   def test_getopterror(self):
