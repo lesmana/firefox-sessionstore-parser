@@ -106,7 +106,7 @@ class ArgvParser(object):
   def splitargs(self, argvargs):
     argsdict = {}
     argvrest = argvargs
-    if len(argvrest) >= 1:
+    if len(argvrest) > 0:
       filename = argvrest[0]
       argvrest = argvrest[1:]
       argsdict['filename'] = filename
@@ -117,7 +117,7 @@ class ArgvParser(object):
     parsedargv['progname'] = progname
     parsedargv.update(optsdict)
     parsedargv.update(argsdict)
-    if len(argvrest) != 0:
+    if len(argvrest) > 0:
       parsedargv['unknown'] = argvrest
     return parsedargv
 
