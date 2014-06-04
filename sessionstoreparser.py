@@ -38,6 +38,7 @@ class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
+    argumentsdata = ['filename']
     self.argumentsdata = argumentsdata
 
   def splitprogname(self, argv):
@@ -106,8 +107,7 @@ class ArgvParser(object):
   def splitargs(self, argvargs):
     argsdict = {}
     argvrest = argvargs
-    argumentsdata = ['filename']
-    for name in argumentsdata:
+    for name in self.argumentsdata:
       if len(argvrest) > 0:
         arg = argvrest[0]
         argvrest = argvrest[1:]
