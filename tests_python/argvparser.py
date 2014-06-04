@@ -51,9 +51,10 @@ class TestDictifyOpts(unittest.TestCase):
 
 class TestSplitOpts(unittest.TestCase):
 
+  #pylint: disable=unused-argument
+
   def test_empty(self):
     def fakegetopt(argv, shortopts, longopts):
-      #pylint: disable=unused-argument
       return [], ['args']
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
@@ -63,7 +64,6 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_someopts(self):
     def fakegetopt(argv, shortopts, longopts):
-      #pylint: disable=unused-argument
       return [('--opt', 'optarg')], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
@@ -73,7 +73,6 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_noopts(self):
     def fakegetopt(argv, shortopts, longopts):
-      #pylint: disable=unused-argument
       return [], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
