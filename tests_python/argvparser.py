@@ -65,20 +65,17 @@ class TestSplitOpts(unittest.TestCase):
     def fakegetopt(argv, shortopts, longopts):
       #pylint: disable=unused-argument
       return [('--opt', 'optarg')], ['args']
-    optionsdata = [
-          ('optname', ['--opt'], 1)]
+    optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     optsdict, argvargs = argvparser.splitopts('argvoptsargs')
-    self.assertEqual(optsdict, {
-          'optname': 'optarg'})
+    self.assertEqual(optsdict, {'optname': 'optarg'})
     self.assertEqual(argvargs, ['args'])
 
   def test_noopts(self):
     def fakegetopt(argv, shortopts, longopts):
       #pylint: disable=unused-argument
       return [], ['args']
-    optionsdata = [
-          ('optname', ['--opt'], 1)]
+    optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     optsdict, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(optsdict, {})
