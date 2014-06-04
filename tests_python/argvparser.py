@@ -79,7 +79,8 @@ class TestParse(unittest.TestCase):
           ('help', ['-h', '--help'], 0),
           ('foo', ['-f', '--foo'], 1),
           ('bar', ['-b', '--bar'], 0)]
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argumentsdata = ['filename']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     argv = ['progname', '-f', 'somefoo', 'filename']
     parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
@@ -92,7 +93,8 @@ class TestParse(unittest.TestCase):
           ('help', ['-h', '--help'], 0),
           ('foo', ['-f', '--foo'], 1),
           ('bar', ['-b', '--bar'], 0)]
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argumentsdata = ['filename']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     argv = ['progname', '--bar', 'filename']
     parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
@@ -105,7 +107,8 @@ class TestParse(unittest.TestCase):
           ('help', ['-h', '--help'], 0),
           ('foo', ['-f', '--foo'], 1),
           ('bar', ['-b', '--bar'], 0)]
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argumentsdata = ['filename']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     argv = ['progname', '--bar', '--foo', 'somefoo', 'filename']
     parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {

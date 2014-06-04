@@ -38,7 +38,6 @@ class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
-    argumentsdata = ['filename']
     self.argumentsdata = argumentsdata
 
   def splitprogname(self, argv):
@@ -317,7 +316,7 @@ class Application(object):
 
 def secludedmain(openfunc, stdout, stderr, argv):
   optionsdata = []
-  argumentsdata = []
+  argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
   urlgeneratorfactory = UrlGeneratorFactory({
