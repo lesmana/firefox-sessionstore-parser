@@ -158,3 +158,19 @@ class TestParse(unittest.TestCase):
           'bar': '',
           'foo': 'somefoo',
           'filename': 'filename'})
+
+  def test_rest(self):
+    optionsdata = [
+          ('help', ['-h', '--help'], 0),
+          ('foo', ['-f', '--foo'], 1),
+          ('bar', ['-b', '--bar'], 0)]
+    argumentsdata = ['filename']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argv = ['progname', '--bar', '--foo', 'somefoo', 'filename', 'rest']
+    parsedargv = argvparser.parse(argv)
+    self.assertEqual(parsedargv, {
+          'progname': 'progname',
+          'bar': '',
+          'foo': 'somefoo',
+          'filename': 'filename',
+          'unknown': ['rest']})
