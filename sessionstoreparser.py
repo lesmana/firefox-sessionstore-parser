@@ -106,10 +106,11 @@ class ArgvParser(object):
   def splitargs(self, argvargs):
     argsdict = {}
     argvrest = argvargs
+    name = 'filename'
     if len(argvrest) > 0:
-      filename = argvrest[0]
+      arg = argvrest[0]
       argvrest = argvrest[1:]
-      argsdict['filename'] = filename
+      argsdict[name] = arg
     return argsdict, argvrest
 
   def combine(self, progname, optsdict, argsdict, argvrest):
