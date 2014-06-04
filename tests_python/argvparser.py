@@ -42,7 +42,7 @@ class TestDictifyOpts(unittest.TestCase):
   def test_trueifemptyval(self):
     argvparser = p.ArgvParser(None, None, None)
     optsdict = argvparser.dictifyopts([('-f', '')], {'-f': 'foo'})
-    self.assertEqual(optsdict, {'foo': True})
+    self.assertEqual(optsdict, {'foo': ''})
 
   def test_valifnotemptyval(self):
     argvparser = p.ArgvParser(None, None, None)
@@ -97,7 +97,7 @@ class TestParse(unittest.TestCase):
     parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
           'progname': 'progname',
-          'bar': True,
+          'bar': '',
           'filename': 'filename'})
 
   def test_foobar(self):
@@ -110,6 +110,6 @@ class TestParse(unittest.TestCase):
     parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
           'progname': 'progname',
-          'bar': True,
+          'bar': '',
           'foo': 'somefoo',
           'filename': 'filename'})

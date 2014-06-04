@@ -94,11 +94,7 @@ class ArgvParser(object):
     optsdict = {}
     for opt, val in opts:
       name = optnames[opt]
-      if val == '':
-        outval = True
-      else:
-        outval = val
-      optsdict[name] = outval
+      optsdict[name] = val
     return optsdict
 
   def splitopts(self, argvoptsargs):
