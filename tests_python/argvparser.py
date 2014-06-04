@@ -51,7 +51,17 @@ class TestDictifyOpts(unittest.TestCase):
 
 class TestSplitOpts(unittest.TestCase):
 
-  def test_noerror(self):
+  def test_empty(self):
+    def fakegetopt(argv, shortopts, longopts):
+      #pylint: disable=unused-argument
+      return [], ['args']
+    optionsdata = []
+    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
+    optsdict, argvargs = argvparser.splitopts('argvoptsargs')
+    self.assertEqual(optsdict, {})
+    self.assertEqual(argvargs, ['args'])
+
+  def test_someopts(self):
     def fakegetopt(argv, shortopts, longopts):
       #pylint: disable=unused-argument
       return [('--opt', 'optarg')], ['args']
@@ -61,6 +71,17 @@ class TestSplitOpts(unittest.TestCase):
     optsdict, argvargs = argvparser.splitopts('argvoptsargs')
     self.assertEqual(optsdict, {
           'optname': 'optarg'})
+    self.assertEqual(argvargs, ['args'])
+
+  def test_noopts(self):
+    def fakegetopt(argv, shortopts, longopts):
+      #pylint: disable=unused-argument
+      return [], ['args']
+    optionsdata = [
+          ('optname', ['--opt'], 1)]
+    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
+    optsdict, argvargs = argvparser.splitopts('argvoptsargs')
+    self.assertEqual(optsdict, {})
     self.assertEqual(argvargs, ['args'])
 
 class TestSplitArgs(unittest.TestCase):
