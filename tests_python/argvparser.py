@@ -36,17 +36,23 @@ class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
     argvparser = p.ArgvParser(None, None, None)
-    optsdict = argvparser.dictifyopts([], {})
+    opts = []
+    optnames = {}
+    optsdict = argvparser.dictifyopts(opts, optnames)
     self.assertEqual(optsdict, {})
 
   def test_noarg(self):
     argvparser = p.ArgvParser(None, None, None)
-    optsdict = argvparser.dictifyopts([('-f', '')], {'-f': 'foo'})
+    opts = [('-f', '')]
+    optnames = {'-f': 'foo'}
+    optsdict = argvparser.dictifyopts(opts, optnames)
     self.assertEqual(optsdict, {'foo': ''})
 
   def test_yesarg(self):
     argvparser = p.ArgvParser(None, None, None)
-    optsdict = argvparser.dictifyopts([('-f', 'whatfoo')], {'-f': 'foo'})
+    opts = [('-f', 'whatfoo')]
+    optnames = {'-f': 'foo'}
+    optsdict = argvparser.dictifyopts(opts, optnames)
     self.assertEqual(optsdict, {'foo': 'whatfoo'})
 
 class TestSplitOpts(unittest.TestCase):
@@ -58,7 +64,8 @@ class TestSplitOpts(unittest.TestCase):
       return [], ['args']
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    optsdict, argvargs = argvparser.splitopts('argvoptsargs')
+    argvoptsargs = ['this', 'goes', 'straight', 'to', 'fakegetopt']
+    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
     self.assertEqual(optsdict, {})
     self.assertEqual(argvargs, ['args'])
 
@@ -67,7 +74,8 @@ class TestSplitOpts(unittest.TestCase):
       return [('--opt', 'optarg')], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    optsdict, argvargs = argvparser.splitopts('argvoptsargs')
+    argvoptsargs = ['this', 'goes', 'straight', 'to', 'fakegetopt']
+    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
     self.assertEqual(optsdict, {'optname': 'optarg'})
     self.assertEqual(argvargs, ['args'])
 
@@ -76,7 +84,8 @@ class TestSplitOpts(unittest.TestCase):
       return [], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    optsdict, argvargs = argvparser.splitopts('argvoptsargs')
+    argvoptsargs = ['this', 'goes', 'straight', 'to', 'fakegetopt']
+    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
     self.assertEqual(optsdict, {})
     self.assertEqual(argvargs, ['args'])
 
@@ -85,14 +94,16 @@ class TestSplitArgs(unittest.TestCase):
   def test_empty(self):
     argumentsdata = []
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argsdict, argvrest = argvparser.splitargs([])
+    argvargs = []
+    argsdict, argvrest = argvparser.splitargs(argvargs)
     self.assertEqual(argsdict, {})
     self.assertEqual(argvrest, [])
 
   def test_someargs(self):
     argumentsdata = ['foo', 'bar']
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argsdict, argvrest = argvparser.splitargs(['argfoo', 'argbar', 'rest'])
+    argvargs = ['argfoo', 'argbar', 'rest']
+    argsdict, argvrest = argvparser.splitargs(argvargs)
     self.assertEqual(argsdict, {
           'foo': 'argfoo',
           'bar': 'argbar'})
@@ -101,7 +112,8 @@ class TestSplitArgs(unittest.TestCase):
   def test_noargs(self):
     argumentsdata = ['foo', 'bar']
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argsdict, argvrest = argvparser.splitargs([])
+    argvargs = []
+    argsdict, argvrest = argvparser.splitargs(argvargs)
     self.assertEqual(argsdict, {})
     self.assertEqual(argvrest, [])
 
@@ -113,7 +125,8 @@ class TestParse(unittest.TestCase):
       raise getopt.GetoptError('bla option bla bla')
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    parsedargv = argvparser.parse('argv')
+    argv = ['irrelevant', 'because', 'fakegetopt', 'error']
+    parsedargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {'unknown': ['option']})
 
   def test_foo(self):
