@@ -15,3 +15,11 @@ implement command line options
 --tab = [open, closed, all, selected] (default: open)
 --url = [back, forward, all, selected] (default: selected)
 --format = "format string" (default %url%)
+
+----
+implement sessionstorewriter
+put in place of urlwriter
+allurlgen > filters > sessionstorewriter
+why? urlwriter writes urls to stdout (or to file)
+sessionstore writes a new sessionstore.js file
+use case: clear closed windows and tabs and back forward history
