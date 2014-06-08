@@ -1,6 +1,15 @@
 here be todos
 
 ----
+rewrite url generator
+current: windowgen > tabgen > urlgen > urlwriter
+todo: allurlgen > windowfilter > tabfilter > urlfilter > urlwriter
+allurlgen will generate all urls along with all metadata relevant to each url
+each filter will filter out urls
+advantage: all urls with all data are available from first generator
+easy to add custom filter
+
+----
 implement command line options
 --window = [open, closed, all, selected] (default: open)
 --tab = [open, closed, all, selected] (default: open)
