@@ -1,4 +1,5 @@
 {
+    "selectedWindow": 0,
     "windows": [{
         "selected": 1,
         "tabs": [{

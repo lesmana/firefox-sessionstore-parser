@@ -14,6 +14,7 @@ class TestMain(unittest.TestCase):
   def test_yamlequaljson(self):
     # verify that objects from json and yaml are equivalent
     yamlstr = textwrap.dedent('''\
+          selectedWindow: 0
           windows:
             - selected: 1
               tabs:
@@ -25,6 +26,7 @@ class TestMain(unittest.TestCase):
           ''')
     jsonstr = textwrap.dedent('''\
           {
+            "selectedWindow": 0,
             "windows": [{
               "selected": 1,
               "tabs": [{
@@ -42,6 +44,7 @@ class TestMain(unittest.TestCase):
 
   def test_default(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
+          selectedWindow: 0
           windows:
             - selected: 1
               tabs:
