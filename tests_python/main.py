@@ -111,3 +111,36 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'error: cannot read session store from file filename.\n')
+
+  def test_threetabs(self):
+    fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
+          selectedWindow: 0
+          windows:
+            - selected: 3
+              tabs:
+                - index: 1
+                  entries:
+                    - url: http://window1tab1url1
+                - index: 1
+                  entries:
+                    - url: http://window1tab2url1
+                - index: 1
+                  entries:
+                    - url: http://window1tab3url1
+              _closedTabs: []
+          _closedWindows: []
+          ''')))
+    fakefile = StringIO.StringIO(fakefilecontent)
+    def fakeopen(filename):
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', 'filename']
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 0)
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://window1tab1url1
+          http://window1tab2url1
+          http://window1tab3url1
+          '''))
+    self.assertEqual(fakestderr.getvalue(), '')
