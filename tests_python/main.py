@@ -36,7 +36,9 @@ class TestMain(unittest.TestCase):
           ''')
     fromyaml = yaml.load(inyaml)
     fromjson = json.loads(injson)
-    self.assertEqual(fromyaml, fromjson)
+    injsonfromyaml = json.dumps(fromyaml)
+    injsonfromjson = json.dumps(fromjson)
+    self.assertEqual(injsonfromyaml, injsonfromjson)
 
   def test_default(self):
     report = []
