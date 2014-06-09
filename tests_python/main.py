@@ -42,17 +42,16 @@ class TestMain(unittest.TestCase):
 
   def test_default(self):
     report = []
-    fakefilecontent = textwrap.dedent('''\
-          {
-            "windows": [{
-              "selected": 1,
-              "tabs": [{
-                "index": 1,
-                "entries": [{
-                  "url": "http://window1tab1url1"}]}],
-              "_closedTabs": []}],
-            "_closedWindows": []}
-          ''')
+    fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
+          windows:
+            - selected: 1
+              tabs:
+                - index: 1
+                  entries:
+                    - url: http://window1tab1url1
+              _closedTabs: []
+          _closedWindows: []
+          ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(filename):
       report.append(('fakeopen', filename))
