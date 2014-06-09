@@ -13,7 +13,7 @@ class TestMain(unittest.TestCase):
 
   def test_yamlequaljson(self):
     # verify that objects from json and yaml are equivalent
-    inyaml = textwrap.dedent('''\
+    yamlstr = textwrap.dedent('''\
           windows:
             - selected: 1
               tabs:
@@ -23,7 +23,7 @@ class TestMain(unittest.TestCase):
               _closedTabs: []
           _closedWindows: []
           ''')
-    injson = textwrap.dedent('''\
+    jsonstr = textwrap.dedent('''\
           {
             "windows": [{
               "selected": 1,
@@ -34,11 +34,11 @@ class TestMain(unittest.TestCase):
               "_closedTabs": []}],
             "_closedWindows": []}
           ''')
-    fromyaml = yaml.load(inyaml)
-    fromjson = json.loads(injson)
-    injsonfromyaml = json.dumps(fromyaml)
-    injsonfromjson = json.dumps(fromjson)
-    self.assertEqual(injsonfromyaml, injsonfromjson)
+    yamlobj = yaml.load(yamlstr)
+    jsonobj = json.loads(jsonstr)
+    jsonstrfromyamlobj = json.dumps(yamlobj)
+    jsonstrfromjsonobj = json.dumps(jsonobj)
+    self.assertEqual(jsonstrfromyamlobj, jsonstrfromjsonobj)
 
   def test_default(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
