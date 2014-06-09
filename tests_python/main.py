@@ -41,7 +41,6 @@ class TestMain(unittest.TestCase):
     self.assertEqual(injsonfromyaml, injsonfromjson)
 
   def test_default(self):
-    report = []
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
           windows:
             - selected: 1
@@ -54,7 +53,6 @@ class TestMain(unittest.TestCase):
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(filename):
-      report.append(('fakeopen', filename))
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -63,8 +61,6 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
     self.assertEqual(fakestderr.getvalue(), '')
-    self.assertEqual(report, [
-          ('fakeopen', 'filename')])
 
   def test_noargv(self):
     fakestdout = StringIO.StringIO()
@@ -87,9 +83,7 @@ class TestMain(unittest.TestCase):
           'unknown option: --wrong\n')
 
   def test_notfile(self):
-    report = []
     def fakeopen(filename):
-      report.append(('fakeopen', filename))
       raise IOError('ignored error message')
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -99,16 +93,12 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'error: cannot open file filename.\n')
-    self.assertEqual(report, [
-          ('fakeopen', 'filename')])
 
   def test_notjson(self):
-    report = []
     fakefilecontent = textwrap.dedent('''\
           what is this i don't even''')
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(filename):
-      report.append(('fakeopen', filename))
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -118,5 +108,3 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'error: cannot read session store from file filename.\n')
-    self.assertEqual(report, [
-          ('fakeopen', 'filename')])
