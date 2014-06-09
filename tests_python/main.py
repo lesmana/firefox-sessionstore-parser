@@ -12,7 +12,7 @@ import sessionstoreparser as p
 class TestMain(unittest.TestCase):
 
   def test_yamlequaljson(self):
-    ''' for the humans to remember that yaml is a superset of json '''
+    # verify that objects from json and yaml are equivalent
     inyaml = textwrap.dedent('''\
           windows:
             - selected: 1
