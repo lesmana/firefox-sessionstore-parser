@@ -32,7 +32,8 @@ class TestMain(unittest.TestCase):
                 "entries": [{
                   "url": "http://window1tab1url1"}]}],
               "_closedTabs": []}],
-            "_closedWindows": []}''')
+            "_closedWindows": []}
+          ''')
     fromyaml = yaml.load(inyaml)
     fromjson = json.loads(injson)
     self.assertEqual(fromyaml, fromjson)
@@ -48,7 +49,8 @@ class TestMain(unittest.TestCase):
                 "entries": [{
                   "url": "http://window1tab1url1"}]}],
               "_closedTabs": []}],
-            "_closedWindows": []}''')
+            "_closedWindows": []}
+          ''')
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(filename):
       report.append(('fakeopen', filename))
