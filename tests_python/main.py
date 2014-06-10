@@ -176,3 +176,30 @@ class TestMain(unittest.TestCase):
           http://window2tab1url1
           '''))
     self.assertEqual(fakestderr.getvalue(), '')
+
+  def test_history(self):
+    fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
+          selectedWindow: 0
+          windows:
+            - selected: 1
+              tabs:
+                - index: 3
+                  entries:
+                    - url: http://window1tab1url1
+                    - url: http://window1tab1url2
+                    - url: http://window1tab1url3
+              _closedTabs: []
+          _closedWindows: []
+          ''')))
+    fakefile = StringIO.StringIO(fakefilecontent)
+    def fakeopen(filename):
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', 'filename']
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 0)
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://window1tab1url3
+          '''))
+    self.assertEqual(fakestderr.getvalue(), '')
