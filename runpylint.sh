@@ -14,4 +14,4 @@ pylint \
   --reports=n \
   --indent-string='  ' \
   sessionstoreparser.py \
-  tests_python
+  tests
