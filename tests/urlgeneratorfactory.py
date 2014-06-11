@@ -65,7 +65,7 @@ class TestGetTabGenerator(unittest.TestCase):
           ('gettabgeneratorclass', ),
           ('__init__', 'windowgenerator')])
 
-class TestGetUrlGenerator(unittest.TestCase):
+class TestXGetUrlGenerator(unittest.TestCase):
 
   def test_default(self):
     report = []
