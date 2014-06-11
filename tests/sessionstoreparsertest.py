@@ -44,3 +44,26 @@ class TestWriteUrls(unittest.TestCase):
     parser.writeurls(['urls'])
     self.assertEqual(report, [
           ('write', ['urls'])])
+
+class TestSessionStoreParse(unittest.TestCase):
+
+  def test_noerror(self):
+    report = []
+    class FakeJsonReader(object):
+      def read(self, filename):
+        report.append(('read', filename))
+        return {'json': 'object'}
+    class FakeUrlGenerator(object):
+      def generate(self, sessionstore):
+        report.append(('generate', sessionstore))
+        return ['urls']
+    class FakeUrlWriter(object):
+      def write(self, urls):
+        report.append(('write', urls))
+    parser = p.SessionStoreParser(
+          FakeJsonReader(), FakeUrlGenerator(), FakeUrlWriter())
+    parser.parse('filename')
+    self.assertEqual(report, [
+          ('read', 'filename'),
+          ('generate', {'json': 'object'}),
+          ('write', ['urls'])])
