@@ -169,14 +169,11 @@ class JsonReader(object):
     return sessionstore
 
 class UrlGeneratorFactory(object):
-  def __init__(self, classes):
-    self.classes = classes
+  def __init__(self, urlgenerator):
+    self.urlgenerator = urlgenerator
 
   def produce(self):
-    windowgenerator = WindowGenerator()
-    tabgenerator = TabGenerator(windowgenerator)
-    urlgenerator = OpenUrlGenerator(tabgenerator)
-    return urlgenerator
+    return self.urlgenerator
 
 class UrlWriter(object):
   def __init__(self, stdout):
@@ -292,10 +289,10 @@ def secludedmain(openfunc, stdout, stderr, argv):
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
-  urlgeneratorfactory = UrlGeneratorFactory({
-        'windowgenerator': WindowGenerator,
-        'tabgenerator': TabGenerator,
-        'urlgenerator': OpenUrlGenerator})
+  windowgenerator = WindowGenerator()
+  tabgenerator = TabGenerator(windowgenerator)
+  urlgenerator = OpenUrlGenerator(tabgenerator)
+  urlgeneratorfactory = UrlGeneratorFactory(urlgenerator)
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgeneratorfactory, urlwriter)
