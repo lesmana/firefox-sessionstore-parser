@@ -18,16 +18,15 @@ class TabGenerator(object):
     self.windowgenerator = windowgenerator
 
   def generate(self, sessionstore):
-    for window in sessionstore['windows']:
-      for tab in window['tabs']:
-        yield tab
+    pass
 
 class OpenUrlGenerator(object):
   def __init__(self, tabgenerator):
     self.tabgenerator = tabgenerator
 
   def generate(self, sessionstore):
-      for tab in self.tabgenerator.generate(sessionstore):
+    for window in sessionstore['windows']:
+      for tab in window['tabs']:
         openindex = tab['index'] - 1
         openentry = tab['entries'][openindex]
         openurl = openentry['url']
