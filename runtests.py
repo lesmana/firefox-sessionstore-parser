@@ -4,7 +4,6 @@ import unittest
 
 from tests.argvparser import *
 from tests.jsonreader import *
-from tests.urlgeneratorfactory import *
 from tests.urlwriter import *
 from tests.sessionstoreparsertest import *
 from tests.application import *
