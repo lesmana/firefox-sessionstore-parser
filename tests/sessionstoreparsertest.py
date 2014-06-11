@@ -27,8 +27,8 @@ class TestGetUrls(unittest.TestCase):
       def generate(self, sessionstore):
         report.append(('generate', sessionstore))
         return 'urls'
-    parser = p.SessionStoreParser(None, None, None)
-    urls = parser.geturls(FakeUrlGenerator(), 'sessionstore')
+    parser = p.SessionStoreParser(None, FakeUrlGenerator(), None)
+    urls = parser.geturls('sessionstore')
     self.assertEqual(urls, 'urls')
     self.assertEqual(report, [
           ('generate', 'sessionstore')])
