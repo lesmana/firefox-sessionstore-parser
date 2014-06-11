@@ -19,20 +19,6 @@ class TestGetSessionStore(unittest.TestCase):
     self.assertEqual(report, [
           ('read', 'filename')])
 
-class TestGetUrlGenerator(unittest.TestCase):
-
-  def test_noerror(self):
-    report = []
-    class FakeUrlGeneratorFactory(object):
-      def produce(self):
-        report.append(('produce', ))
-        return 'urlgenerator'
-    parser = p.SessionStoreParser(None, FakeUrlGeneratorFactory(), None)
-    urlgenerator = parser.geturlgenerator()
-    self.assertEqual(urlgenerator, 'urlgenerator')
-    self.assertEqual(report, [
-          ('produce', )])
-
 class TestGetUrls(unittest.TestCase):
 
   def test_noerror(self):
