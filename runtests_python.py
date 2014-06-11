@@ -1,12 +1,14 @@
 #! /usr/bin/env python
 
-import os
-import sys
-sys.path.append(os.path.join(os.getcwd(), 'helpers'))
+import unittest
 
-import unittestchooser
-
-import tests
+from tests.argvparser import *
+from tests.jsonreader import *
+from tests.urlgeneratorfactory import *
+from tests.urlwriter import *
+from tests.sessionstoreparsertest import *
+from tests.application import *
+from tests.main import *
 
 if __name__ == '__main__': # pragma: no cover
-  unittestchooser.main()
+  unittest.main()
