@@ -27,11 +27,11 @@ class OpenUrlGenerator(object):
     self.tabgenerator = tabgenerator
 
   def generate(self, sessionstore):
-    for tab in self.tabgenerator.generate(sessionstore):
-      openindex = tab['index'] - 1
-      openentry = tab['entries'][openindex]
-      openurl = openentry['url']
-      yield openurl
+      for tab in self.tabgenerator.generate(sessionstore):
+        openindex = tab['index'] - 1
+        openentry = tab['entries'][openindex]
+        openurl = openentry['url']
+        yield openurl
 
 class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
