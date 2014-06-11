@@ -277,9 +277,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
-  windowgenerator = WindowGenerator()
-  tabgenerator = TabGenerator(windowgenerator)
-  urlgenerator = OpenUrlGenerator(tabgenerator)
+  urlgenerator = OpenUrlGenerator(TabGenerator(WindowGenerator()))
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgenerator, urlwriter)
