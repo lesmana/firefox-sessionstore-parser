@@ -172,30 +172,18 @@ class UrlGeneratorFactory(object):
   def __init__(self, classes):
     self.classes = classes
 
-  def getwindowgeneratorclass(self):
-    windowgeneratorclass = self.classes['windowgenerator']
-    return windowgeneratorclass
-
-  def gettabgeneratorclass(self):
-    tabgeneratorclass = self.classes['tabgenerator']
-    return tabgeneratorclass
-
-  def geturlgeneratorclass(self):
-    urlgeneratorclass = self.classes['urlgenerator']
-    return urlgeneratorclass
-
   def getwindowgenerator(self):
-    windowgeneratorclass = self.getwindowgeneratorclass()
+    windowgeneratorclass = self.classes['windowgenerator']
     windowgenerator = windowgeneratorclass()
     return windowgenerator
 
   def gettabgenerator(self, windowgenerator):
-    tabgeneratorclass = self.gettabgeneratorclass()
+    tabgeneratorclass = self.classes['tabgenerator']
     tabgenerator = tabgeneratorclass(windowgenerator)
     return tabgenerator
 
   def geturlgenerator(self, tabgenerator):
-    urlgeneratorclass = self.geturlgeneratorclass()
+    urlgeneratorclass = self.classes['urlgenerator']
     urlgenerator = urlgeneratorclass(tabgenerator)
     return urlgenerator
 
