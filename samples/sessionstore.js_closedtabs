@@ -1,0 +1,85 @@
+{
+    "_closedWindows": [], 
+    "scratchpads": [], 
+    "selectedWindow": 0, 
+    "session": {
+        "lastUpdate": 1368818768485, 
+        "recentCrashes": 0, 
+        "startTime": 1368818746854, 
+        "state": "stopped"
+    }, 
+    "windows": [
+        {
+            "_closedTabs": [
+                {
+                    "image": "chrome://global/skin/icons/warning-16.png", 
+                    "pos": 0, 
+                    "state": {
+                        "attributes": {
+                            "image": "chrome://global/skin/icons/warning-16.png"
+                        }, 
+                        "entries": [
+                            {
+                                "ID": 0, 
+                                "docIdentifier": 0, 
+                                "docshellID": 5, 
+                                "scroll": "0,0", 
+                                "url": "http://url1/"
+                            }
+                        ], 
+                        "hidden": false, 
+                        "index": 1
+                    }, 
+                    "title": "Problem loading page"
+                }, 
+                {
+                    "image": "chrome://global/skin/icons/warning-16.png", 
+                    "pos": 1, 
+                    "state": {
+                        "attributes": {
+                            "image": "chrome://global/skin/icons/warning-16.png"
+                        }, 
+                        "entries": [
+                            {
+                                "ID": 2, 
+                                "docIdentifier": 2, 
+                                "docshellID": 6, 
+                                "scroll": "0,0", 
+                                "url": "http://url2/"
+                            }
+                        ], 
+                        "hidden": false, 
+                        "index": 1
+                    }, 
+                    "title": "Problem loading page"
+                }
+            ], 
+            "_shouldRestore": true, 
+            "height": 728, 
+            "screenX": 0, 
+            "screenY": 1, 
+            "selected": 1, 
+            "sizemode": "normal", 
+            "tabs": [
+                {
+                    "attributes": {
+                        "image": "chrome://global/skin/icons/warning-16.png"
+                    }, 
+                    "entries": [
+                        {
+                            "ID": 4, 
+                            "docIdentifier": 4, 
+                            "docshellID": 7, 
+                            "scroll": "0,0", 
+                            "url": "http://url3/"
+                        }
+                    ], 
+                    "hidden": false, 
+                    "index": 1
+                }
+            ], 
+            "title": "Problem loading page", 
+            "width": 994
+        }
+    ]
+}
