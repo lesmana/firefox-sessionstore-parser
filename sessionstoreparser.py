@@ -186,10 +186,6 @@ class SessionStoreParser(object):
     sessionstore = self.jsonreader.read(filename)
     return sessionstore
 
-  def geturlgenerator(self):
-    urlgenerator = self.urlgenerator
-    return urlgenerator
-
   def geturls(self, urlgenerator, sessionstore):
     urls = urlgenerator.generate(sessionstore)
     return urls
@@ -199,8 +195,7 @@ class SessionStoreParser(object):
 
   def parse(self, filename):
     sessionstore = self.getsessionstore(filename)
-    urlgenerator = self.geturlgenerator()
-    urls = self.geturls(urlgenerator, sessionstore)
+    urls = self.geturls(self.urlgenerator, sessionstore)
     self.writeurls(urls)
 
 class SessionStoreParserWorker(object):
