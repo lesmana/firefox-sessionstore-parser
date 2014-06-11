@@ -11,15 +11,14 @@ class WindowGenerator(object):
     pass
 
   def generate(self, sessionstore):
-    for window in sessionstore['windows']:
-      yield window
+    pass
 
 class TabGenerator(object):
   def __init__(self, windowgenerator):
     self.windowgenerator = windowgenerator
 
   def generate(self, sessionstore):
-    for window in self.windowgenerator.generate(sessionstore):
+    for window in sessionstore['windows']:
       for tab in window['tabs']:
         yield tab
 
