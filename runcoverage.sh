@@ -2,7 +2,7 @@
 
 export COVERAGE_FILE=coveragedatafile
 
-coverage run --branch --omit="helpers/*,*/yaml/*" runtests_python.py || exit 1
+coverage run --branch --omit="*/yaml/*" runtests.py || exit 1
 
 coverage report --show-missing
 
