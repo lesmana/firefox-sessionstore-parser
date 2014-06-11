@@ -1,4 +1,3 @@
 #! /bin/sh
 
-./runtests_python.py &&
-  ./runtests_shell.sh
+./runtests_python.py
