@@ -173,12 +173,9 @@ class UrlGeneratorFactory(object):
     self.classes = classes
 
   def produce(self):
-    windowgeneratorclass = self.classes['windowgenerator']
-    windowgenerator = windowgeneratorclass()
-    tabgeneratorclass = self.classes['tabgenerator']
-    tabgenerator = tabgeneratorclass(windowgenerator)
-    urlgeneratorclass = self.classes['urlgenerator']
-    urlgenerator = urlgeneratorclass(tabgenerator)
+    windowgenerator = WindowGenerator()
+    tabgenerator = TabGenerator(windowgenerator)
+    urlgenerator = OpenUrlGenerator(tabgenerator)
     return urlgenerator
 
 class UrlWriter(object):
