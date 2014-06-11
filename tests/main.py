@@ -55,7 +55,7 @@ class TestMain(unittest.TestCase):
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -86,7 +86,7 @@ class TestMain(unittest.TestCase):
           'unknown option: --wrong\n')
 
   def test_notfile(self):
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       raise IOError('ignored error message')
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -101,7 +101,7 @@ class TestMain(unittest.TestCase):
     fakefilecontent = textwrap.dedent('''\
           what is this i don't even''')
     fakefile = StringIO.StringIO(fakefilecontent)
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -131,7 +131,7 @@ class TestMain(unittest.TestCase):
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -164,7 +164,7 @@ class TestMain(unittest.TestCase):
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
@@ -192,7 +192,7 @@ class TestMain(unittest.TestCase):
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
-    def fakeopen(filename):
+    def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
