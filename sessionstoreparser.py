@@ -6,18 +6,6 @@ import json
 class Error(Exception):
   pass
 
-class OpenUrlGenerator(object):
-  def __init__(self):
-    pass
-
-  def generate(self, sessionstore):
-    for window in sessionstore['windows']:
-      for tab in window['tabs']:
-        openindex = tab['index'] - 1
-        openentry = tab['entries'][openindex]
-        openurl = openentry['url']
-        yield openurl
-
 class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
@@ -151,6 +139,18 @@ class JsonReader(object):
     with self.openfile(filename) as fileob:
       sessionstore = self.jsonload(fileob, filename)
     return sessionstore
+
+class OpenUrlGenerator(object):
+  def __init__(self):
+    pass
+
+  def generate(self, sessionstore):
+    for window in sessionstore['windows']:
+      for tab in window['tabs']:
+        openindex = tab['index'] - 1
+        openentry = tab['entries'][openindex]
+        openurl = openentry['url']
+        yield openurl
 
 class UrlWriter(object):
   def __init__(self, stdout):
