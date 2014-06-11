@@ -168,13 +168,6 @@ class JsonReader(object):
       sessionstore = self.jsonload(fileob, filename)
     return sessionstore
 
-class UrlGeneratorFactory(object):
-  def __init__(self, urlgenerator):
-    self.urlgenerator = urlgenerator
-
-  def produce(self):
-    return self.urlgenerator
-
 class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
