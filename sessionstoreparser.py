@@ -184,9 +184,9 @@ class UrlWriter(object):
       self.stdout.write(url + '\n')
 
 class SessionStoreParser(object):
-  def __init__(self, jsonreader, urlgeneratorfactory, urlwriter):
+  def __init__(self, jsonreader, urlgenerator, urlwriter):
     self.jsonreader = jsonreader
-    self.urlgeneratorfactory = urlgeneratorfactory
+    self.urlgenerator = urlgenerator
     self.urlwriter = urlwriter
 
   def getsessionstore(self, filename):
@@ -194,7 +194,7 @@ class SessionStoreParser(object):
     return sessionstore
 
   def geturlgenerator(self):
-    urlgenerator = self.urlgeneratorfactory.produce()
+    urlgenerator = self.urlgenerator
     return urlgenerator
 
   def geturls(self, urlgenerator, sessionstore):
@@ -292,10 +292,9 @@ def secludedmain(openfunc, stdout, stderr, argv):
   windowgenerator = WindowGenerator()
   tabgenerator = TabGenerator(windowgenerator)
   urlgenerator = OpenUrlGenerator(tabgenerator)
-  urlgeneratorfactory = UrlGeneratorFactory(urlgenerator)
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
-        jsonreader, urlgeneratorfactory, urlwriter)
+        jsonreader, urlgenerator, urlwriter)
   workerfactory = WorkerFactory(
         sessionstoreparser, SessionStoreParserWorker, stderr)
   app = Application(argvparser, workerfactory, stderr)
