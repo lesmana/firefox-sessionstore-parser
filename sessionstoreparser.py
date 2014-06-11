@@ -6,23 +6,9 @@ import json
 class Error(Exception):
   pass
 
-class WindowGenerator(object):
+class OpenUrlGenerator(object):
   def __init__(self):
     pass
-
-  def generate(self, sessionstore):
-    pass
-
-class TabGenerator(object):
-  def __init__(self, windowgenerator):
-    self.windowgenerator = windowgenerator
-
-  def generate(self, sessionstore):
-    pass
-
-class OpenUrlGenerator(object):
-  def __init__(self, tabgenerator):
-    self.tabgenerator = tabgenerator
 
   def generate(self, sessionstore):
     for window in sessionstore['windows']:
@@ -275,7 +261,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
-  urlgenerator = OpenUrlGenerator(TabGenerator(WindowGenerator()))
+  urlgenerator = OpenUrlGenerator()
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgenerator, urlwriter)
