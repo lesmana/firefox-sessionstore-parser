@@ -146,6 +146,10 @@ class OpenUrlGenerator(object):
 
   def generateplain(self, sessionstore):
     for window in sessionstore['windows']:
+      for url in self.handletab(window):
+        yield url
+
+  def handletab(self, window):
       for tab in window['tabs']:
         openindex = tab['index'] - 1
         openentry = tab['entries'][openindex]
