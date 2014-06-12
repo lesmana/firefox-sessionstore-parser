@@ -144,13 +144,17 @@ class OpenUrlGenerator(object):
   def __init__(self):
     pass
 
+  def handleentry(self, entry):
+    url = entry['url']
+    yield url
+
   def handletab(self, tab):
     openindex = tab['index'] - 1
     entries = tab['entries']
     for index, entry in enumerate(entries):
       if index == openindex:
-        url = entry['url']
-        yield url
+        for url in self.handleentry(entry):
+          yield url
 
   def handlewindow(self, window):
     for tab in window['tabs']:
