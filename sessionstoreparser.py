@@ -147,9 +147,10 @@ class OpenUrlGenerator(object):
   def handletab(self, tab):
     openindex = tab['index'] - 1
     entries = tab['entries']
-    openentry = entries[openindex]
-    openurl = openentry['url']
-    yield openurl
+    for index, entry in enumerate(entries):
+      if index == openindex:
+        url = entry['url']
+        yield url
 
   def handlewindow(self, window):
     for tab in window['tabs']:
