@@ -145,7 +145,8 @@ class OpenUrlGenerator(object):
     pass
 
   def handleentry(self, entry):
-    url = entry['url']
+    plainurl = entry['url']
+    url = {'url': plainurl}
     yield url
 
   def handletab(self, tab):
@@ -167,8 +168,7 @@ class OpenUrlGenerator(object):
         yield url
 
   def generate(self, sessionstore):
-    for plainurl in self.handlesessionstore(sessionstore):
-      url = {'url': plainurl}
+    for url in self.handlesessionstore(sessionstore):
       yield url
 
 class UrlWriter(object):
