@@ -144,21 +144,21 @@ class OpenUrlGenerator(object):
   def __init__(self):
     pass
 
-  def generateplain(self, sessionstore):
-    for window in sessionstore['windows']:
-      for url in self.handletab(window):
-        yield url
+  def handleurl(self, tab):
+    openindex = tab['index'] - 1
+    openentry = tab['entries'][openindex]
+    openurl = openentry['url']
+    yield openurl
 
   def handletab(self, window):
     for tab in window['tabs']:
       for url in self.handleurl(tab):
         yield url
 
-  def handleurl(self, tab):
-    openindex = tab['index'] - 1
-    openentry = tab['entries'][openindex]
-    openurl = openentry['url']
-    yield openurl
+  def generateplain(self, sessionstore):
+    for window in sessionstore['windows']:
+      for url in self.handletab(window):
+        yield url
 
   def generate(self, sessionstore):
     for plainurl in self.generateplain(sessionstore):
