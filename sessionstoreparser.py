@@ -157,8 +157,13 @@ class UrlWriter(object):
     self.stdout = stdout
 
   def write(self, urls):
+    plainurls = urls
+    urls = []
+    for plainurl in plainurls:
+      url = {'url': plainurl}
+      urls.append(url)
     for url in urls:
-      self.stdout.write(url + '\n')
+      self.stdout.write(url['url'] + '\n')
 
 class SessionStoreParser(object):
   def __init__(self, jsonreader, urlgenerator, urlwriter):
