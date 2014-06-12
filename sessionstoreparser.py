@@ -144,7 +144,7 @@ class OpenUrlGenerator(object):
   def __init__(self):
     pass
 
-  def generate(self, sessionstore):
+  def generateplain(self, sessionstore):
     for window in sessionstore['windows']:
       for tab in window['tabs']:
         openindex = tab['index'] - 1
@@ -152,16 +152,16 @@ class OpenUrlGenerator(object):
         openurl = openentry['url']
         yield openurl
 
+  def generate(self, sessionstore):
+    for plainurl in self.generateplain(sessionstore):
+      url = {'url': plainurl}
+      yield url
+
 class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
 
   def write(self, urls):
-    plainurls = urls
-    urls = []
-    for plainurl in plainurls:
-      url = {'url': plainurl}
-      urls.append(url)
     for url in urls:
       self.stdout.write(url['url'] + '\n')
 

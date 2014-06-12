@@ -16,5 +16,7 @@ class TestWrite(unittest.TestCase):
   def test_someurls(self):
     stringio = StringIO.StringIO()
     urlwriter = p.UrlWriter(stringio)
-    urlwriter.write(['url1', 'url2'])
+    url1 = {'url': 'url1'}
+    url2 = {'url': 'url2'}
+    urlwriter.write([url1, url2])
     self.assertEqual(stringio.getvalue(), 'url1\nurl2\n')
