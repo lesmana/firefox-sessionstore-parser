@@ -155,13 +155,13 @@ class OpenUrlGenerator(object):
       for url in self.handleurl(tab):
         yield url
 
-  def generateplain(self, sessionstore):
+  def handlesessionstore(self, sessionstore):
     for window in sessionstore['windows']:
       for url in self.handletab(window):
         yield url
 
   def generate(self, sessionstore):
-    for plainurl in self.generateplain(sessionstore):
+    for plainurl in self.handlesessionstore(sessionstore):
       url = {'url': plainurl}
       yield url
 
