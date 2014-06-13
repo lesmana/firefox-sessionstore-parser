@@ -161,6 +161,11 @@ class OpenUrlGenerator(object):
   def handlewindow(self, window):
     for tab in window['tabs']:
       for url in self.handletab(tab):
+        url['tab'] = 'open'
+        yield url
+    for tab in window['_closedTabs']:
+      for url in self.handletab(tab):
+        url['tab'] = 'closed'
         yield url
 
   def handlesessionstore(self, sessionstore):
@@ -170,6 +175,8 @@ class OpenUrlGenerator(object):
 
   def generate(self, sessionstore):
     for url in self.handlesessionstore(sessionstore):
+      if url['tab'] == 'closed':
+        break
       index = url['urlindex']
       openindex = url['openindex']
       if index == openindex:
