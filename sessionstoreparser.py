@@ -171,11 +171,18 @@ class OpenUrlGenerator(object):
   def handlesessionstore(self, sessionstore):
     for window in sessionstore['windows']:
       for url in self.handlewindow(window):
+        url['window'] = 'open'
+        yield url
+    for window in sessionstore['_closedWindows']:
+      for url in self.handlewindow(window):
+        url['window'] = 'closed'
         yield url
 
   def generate(self, sessionstore):
     for url in self.handlesessionstore(sessionstore):
       if url['tab'] == 'closed':
+        break
+      if url['window'] == 'closed':
         break
       index = url['urlindex']
       openindex = url['openindex']
