@@ -155,6 +155,8 @@ class OpenUrlGenerator(object):
     for index, entry in enumerate(entries):
       if index == openindex:
         for url in self.handleentry(entry):
+          url['urlindex'] = index
+          url['openindex'] = openindex
           yield url
 
   def handlewindow(self, window):
