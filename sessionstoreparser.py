@@ -153,10 +153,10 @@ class OpenUrlGenerator(object):
     openindex = tab['index'] - 1
     entries = tab['entries']
     for index, entry in enumerate(entries):
-        for url in self.handleentry(entry):
-          url['urlindex'] = index
-          url['openindex'] = openindex
-          yield url
+      for url in self.handleentry(entry):
+        url['urlindex'] = index
+        url['openindex'] = openindex
+        yield url
 
   def handlewindow(self, window):
     for tab in window['tabs']:
