@@ -153,7 +153,6 @@ class OpenUrlGenerator(object):
     openindex = tab['index'] - 1
     entries = tab['entries']
     for index, entry in enumerate(entries):
-      if index == openindex:
         for url in self.handleentry(entry):
           url['urlindex'] = index
           url['openindex'] = openindex
@@ -171,7 +170,10 @@ class OpenUrlGenerator(object):
 
   def generate(self, sessionstore):
     for url in self.handlesessionstore(sessionstore):
-      yield url
+      index = url['urlindex']
+      openindex = url['openindex']
+      if index == openindex:
+        yield url
 
 class UrlWriter(object):
   def __init__(self, stdout):
