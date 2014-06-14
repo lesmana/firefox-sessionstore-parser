@@ -14,26 +14,26 @@ class TestMain(unittest.TestCase):
   def test_yamlequaljson(self):
     # verify that objects from json and yaml are equivalent
     yamlstr = textwrap.dedent('''\
-          selectedWindow: 0
           windows:
-            - selected: 1
-              tabs:
-                - index: 1
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window1tab1url1
+                  index: 1
+              selected: 1
               _closedTabs: []
+          selectedWindow: 0
           _closedWindows: []
           ''')
     jsonstr = textwrap.dedent('''\
           {
-            "selectedWindow": 0,
             "windows": [{
-              "selected": 1,
               "tabs": [{
-                "index": 1,
                 "entries": [{
-                  "url": "http://window1tab1url1"}]}],
+                  "url": "http://window1tab1url1"}],
+                "index": 1}],
+              "selected": 1,
               "_closedTabs": []}],
+            "selectedWindow": 0,
             "_closedWindows": []}
           ''')
     yamlobj = yaml.load(yamlstr)
@@ -44,14 +44,14 @@ class TestMain(unittest.TestCase):
 
   def test_default(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
-          selectedWindow: 0
           windows:
-            - selected: 1
-              tabs:
-                - index: 1
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window1tab1url1
+                  index: 1
+              selected: 1
               _closedTabs: []
+          selectedWindow: 0
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
@@ -114,20 +114,20 @@ class TestMain(unittest.TestCase):
 
   def test_threetabs(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
-          selectedWindow: 0
           windows:
-            - selected: 3
-              tabs:
-                - index: 1
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window1tab1url1
-                - index: 1
-                  entries:
+                  index: 1
+                - entries:
                     - url: http://window1tab2url1
-                - index: 1
-                  entries:
+                  index: 1
+                - entries:
                     - url: http://window1tab3url1
+                  index: 1
+              selected: 3
               _closedTabs: []
+          selectedWindow: 0
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
@@ -147,20 +147,20 @@ class TestMain(unittest.TestCase):
 
   def test_twowindows(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
-          selectedWindow: 2
           windows:
-            - selected: 1
-              tabs:
-                - index: 1
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window1tab1url1
+                  index: 1
+              selected: 1
               _closedTabs: []
-            - selected: 1
-              tabs:
-                - index: 1
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window2tab1url1
+                  index: 1
+              selected: 1
               _closedTabs: []
+          selectedWindow: 2
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
@@ -179,16 +179,16 @@ class TestMain(unittest.TestCase):
 
   def test_history(self):
     fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
-          selectedWindow: 0
           windows:
-            - selected: 1
-              tabs:
-                - index: 3
-                  entries:
+            - tabs:
+                - entries:
                     - url: http://window1tab1url1
                     - url: http://window1tab1url2
                     - url: http://window1tab1url3
+                  index: 3
+              selected: 1
               _closedTabs: []
+          selectedWindow: 0
           _closedWindows: []
           ''')))
     fakefile = StringIO.StringIO(fakefilecontent)
