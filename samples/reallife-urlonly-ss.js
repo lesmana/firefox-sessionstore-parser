@@ -325,7 +325,6 @@
           "entries": [
             {
               "url": "http://9gag.com/",
-              "title": "9GAG - Why So Serious?",
             }
           ],
           "index": 1,
@@ -336,7 +335,6 @@
           "entries": [
             {
               "url": "http://9gag.com/gag/ajreO98",
-              "title": "What colour do you see? (It's different for everyone) - 9GAG",
             }
           ],
           "index": 1,
@@ -347,7 +345,6 @@
           "entries": [
             {
               "url": "http://9gag.com/gag/aG94zA7",
-              "title": "Vegeta's Ten Worst Nightmares - 9GAG",
             }
           ],
           "index": 1,
