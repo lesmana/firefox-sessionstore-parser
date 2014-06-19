@@ -180,6 +180,14 @@ class OpenUrlGenerator(object):
 
   def generate(self, sessionstore):
     for url in self.handlesessionstore(sessionstore):
+      yield url
+
+class UrlFilter(object):
+  def __init__(self):
+    pass
+
+  def filter(self, urls):
+    for url in urls:
       if url['tab'] == 'closed':
         break
       if url['window'] == 'closed':
@@ -188,13 +196,6 @@ class OpenUrlGenerator(object):
       openindex = url['openindex']
       if index == openindex:
         yield url
-
-class UrlFilter(object):
-  def __init__(self):
-    pass
-
-  def filter(self, urls):
-    return urls
 
 class UrlWriter(object):
   def __init__(self, stdout):
