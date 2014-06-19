@@ -59,6 +59,7 @@ class TestSessionStoreParse(unittest.TestCase):
         return ['urls']
     class FakeUrlFilter(object):
       def filter(self, urls):
+        report.append(('filter', urls))
         return urls
     class FakeUrlWriter(object):
       def write(self, urls):
@@ -69,4 +70,5 @@ class TestSessionStoreParse(unittest.TestCase):
     self.assertEqual(report, [
           ('read', 'filename'),
           ('generate', {'json': 'object'}),
+          ('filter', ['urls']),
           ('write', ['urls'])])
