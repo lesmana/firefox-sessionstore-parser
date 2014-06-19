@@ -206,18 +206,18 @@ class UrlWriter(object):
       self.stdout.write(url['url'] + '\n')
 
 class SessionStoreParser(object):
-  def __init__(self, jsonreader, urlgenerator, urlfilter, urlwriter):
-    self.jsonreader = jsonreader
-    self.urlgenerator = urlgenerator
+  def __init__(self, sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
+    self.sessionstoreproducer = sessionstoreproducer
+    self.urlproducer = urlproducer
     self.urlfilter = urlfilter
-    self.urlwriter = urlwriter
+    self.urlconsumer = urlconsumer
 
   def getsessionstore(self, filename):
-    sessionstore = self.jsonreader.read(filename)
+    sessionstore = self.sessionstoreproducer.read(filename)
     return sessionstore
 
   def geturls(self, sessionstore):
-    urls = self.urlgenerator.generate(sessionstore)
+    urls = self.urlproducer.generate(sessionstore)
     return urls
 
   def filterurls(self, urls):
@@ -225,7 +225,7 @@ class SessionStoreParser(object):
     return filteredurls
 
   def writeurls(self, urls):
-    self.urlwriter.write(urls)
+    self.urlconsumer.write(urls)
 
   def parse(self, filename):
     sessionstore = self.getsessionstore(filename)
