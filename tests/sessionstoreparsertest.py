@@ -10,7 +10,7 @@ class TestSessionStoreParse(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeSessionStoreProducer(object):
-      def read(self, filename):
+      def produce(self, filename):
         report.append(('read', filename))
         return {'json': 'object'}
     class FakeUrlProducer(object):

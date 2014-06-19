@@ -140,6 +140,9 @@ class JsonReader(object):
       sessionstore = self.jsonload(fileob, filename)
     return sessionstore
 
+  def produce(self, filename):
+    return self.read(filename)
+
 class OpenUrlGenerator(object):
   def __init__(self):
     pass
@@ -213,7 +216,7 @@ class SessionStoreParser(object):
     self.urlconsumer = urlconsumer
 
   def parse(self, filename):
-    sessionstore = self.sessionstoreproducer.read(filename)
+    sessionstore = self.sessionstoreproducer.produce(filename)
     urls = self.urlproducer.generate(sessionstore)
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.write(filteredurls)
