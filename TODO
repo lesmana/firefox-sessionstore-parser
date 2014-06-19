@@ -1,9 +1,6 @@
 here be todos
 
 ----
-inject filename directly to concrete sessionstoreproducer
-
-----
 implement command line options
 --window = [open, closed, all, selected] (default: open)
 --tab = [open, closed, all, selected] (default: open)
