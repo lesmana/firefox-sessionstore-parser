@@ -220,8 +220,8 @@ class SessionStoreParser(object):
     return urls
 
   def filterurls(self, urls):
-    urls = self.urlfilter.filter(urls)
-    return urls
+    filteredurls = self.urlfilter.filter(urls)
+    return filteredurls
 
   def writeurls(self, urls):
     self.urlwriter.write(urls)
@@ -229,8 +229,8 @@ class SessionStoreParser(object):
   def parse(self, filename):
     sessionstore = self.getsessionstore(filename)
     urls = self.geturls(sessionstore)
-    urls = self.filterurls(urls)
-    self.writeurls(urls)
+    filteredurls = self.filterurls(urls)
+    self.writeurls(filteredurls)
 
 class SessionStoreParserWorker(object):
   def __init__(self, sessionstoreparser, filename):
