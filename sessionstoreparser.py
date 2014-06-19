@@ -212,26 +212,11 @@ class SessionStoreParser(object):
     self.urlfilter = urlfilter
     self.urlconsumer = urlconsumer
 
-  def getsessionstore(self, filename):
-    sessionstore = self.sessionstoreproducer.read(filename)
-    return sessionstore
-
-  def geturls(self, sessionstore):
-    urls = self.urlproducer.generate(sessionstore)
-    return urls
-
-  def filterurls(self, urls):
-    filteredurls = self.urlfilter.filter(urls)
-    return filteredurls
-
-  def writeurls(self, urls):
-    self.urlconsumer.write(urls)
-
   def parse(self, filename):
-    sessionstore = self.getsessionstore(filename)
-    urls = self.geturls(sessionstore)
-    filteredurls = self.filterurls(urls)
-    self.writeurls(filteredurls)
+    sessionstore = self.sessionstoreproducer.read(filename)
+    urls = self.urlproducer.generate(sessionstore)
+    filteredurls = self.urlfilter.filter(urls)
+    self.urlconsumer.write(filteredurls)
 
 class SessionStoreParserWorker(object):
   def __init__(self, sessionstoreparser, filename):
