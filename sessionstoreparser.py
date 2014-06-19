@@ -208,6 +208,7 @@ class SessionStoreParser(object):
   def __init__(self, jsonreader, urlgenerator, urlwriter):
     self.jsonreader = jsonreader
     self.urlgenerator = urlgenerator
+    self.urlfilter = UrlFilter()
     self.urlwriter = urlwriter
 
   def getsessionstore(self, filename):
@@ -219,8 +220,7 @@ class SessionStoreParser(object):
     return urls
 
   def filterurls(self, urls):
-    urlfilter = UrlFilter()
-    urls = urlfilter.filter(urls)
+    urls = self.urlfilter.filter(urls)
     return urls
 
   def writeurls(self, urls):
