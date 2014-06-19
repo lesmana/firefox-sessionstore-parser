@@ -271,9 +271,8 @@ class WorkerFactory(object):
       urlwriter = UrlWriter(self.stdout)
       sessionstoreparser = SessionStoreParser(
             jsonreader, urlgenerator, urlfilter, urlwriter)
-      self.sessionstoreparser = sessionstoreparser
       worker = SessionStoreParserWorker(
-            self.sessionstoreparser, filename)
+            sessionstoreparser, filename)
     return worker
 
 class Application(object):
