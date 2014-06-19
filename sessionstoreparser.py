@@ -249,14 +249,16 @@ class HelpWriterWorker(object):
 
 class WorkerFactory(object):
   def __init__(self, openfunc, stdout, stderr):
-    jsonreader = JsonReader(openfunc, json.load)
+    self.openfunc = openfunc
+    self.stdout = stdout
+    self.stderr = stderr
+    jsonreader = JsonReader(self.openfunc, json.load)
     urlgenerator = OpenUrlGenerator()
     urlfilter = UrlFilter()
-    urlwriter = UrlWriter(stdout)
+    urlwriter = UrlWriter(self.stdout)
     sessionstoreparser = SessionStoreParser(
           jsonreader, urlgenerator, urlfilter, urlwriter)
     self.sessionstoreparser = sessionstoreparser
-    self.stderr = stderr
 
   def produce(self, parsedargv):
     if 'unknown' in parsedargv:
