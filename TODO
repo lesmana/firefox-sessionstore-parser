@@ -1,6 +1,19 @@
 here be todos
 
 ----
+instantiate sessionstoreparser and all collaborators in workerfactory
+
+----
+rename sessionstoreparser collaborators
+1. sessionstoreproducer
+2. urlproducer
+3. urlfilter
+4. urlconsumer
+
+----
+inject filename directly to concrete sessionstoreproducer
+
+----
 implement command line options
 --window = [open, closed, all, selected] (default: open)
 --tab = [open, closed, all, selected] (default: open)
