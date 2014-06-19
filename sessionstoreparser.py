@@ -248,7 +248,13 @@ class HelpWriterWorker(object):
     return self.exitstatus
 
 class WorkerFactory(object):
-  def __init__(self, sessionstoreparser, stderr):
+  def __init__(self, openfunc, stdout, stderr):
+    jsonreader = JsonReader(openfunc, json.load)
+    urlgenerator = OpenUrlGenerator()
+    urlfilter = UrlFilter()
+    urlwriter = UrlWriter(stdout)
+    sessionstoreparser = SessionStoreParser(
+          jsonreader, urlgenerator, urlfilter, urlwriter)
     self.sessionstoreparser = sessionstoreparser
     self.stderr = stderr
 
@@ -305,14 +311,8 @@ def secludedmain(openfunc, stdout, stderr, argv):
   optionsdata = []
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-  jsonreader = JsonReader(openfunc, json.load)
-  urlgenerator = OpenUrlGenerator()
-  urlfilter = UrlFilter()
-  urlwriter = UrlWriter(stdout)
-  sessionstoreparser = SessionStoreParser(
-        jsonreader, urlgenerator, urlfilter, urlwriter)
   workerfactory = WorkerFactory(
-        sessionstoreparser, stderr)
+        openfunc, stdout, stderr)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
