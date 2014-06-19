@@ -189,6 +189,13 @@ class OpenUrlGenerator(object):
       if index == openindex:
         yield url
 
+class UrlFilter(object):
+  def __init__(self):
+    pass
+
+  def filter(self, urls):
+    return urls
+
 class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
@@ -212,6 +219,8 @@ class SessionStoreParser(object):
     return urls
 
   def filterurls(self, urls):
+    urlfilter = UrlFilter()
+    urls = urlfilter.filter(urls)
     return urls
 
   def writeurls(self, urls):
