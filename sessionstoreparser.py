@@ -211,6 +211,9 @@ class UrlWriter(object):
     for url in urls:
       self.stdout.write(url['url'] + '\n')
 
+  def consume(self, urls):
+    self.write(urls)
+
 class SessionStoreParser(object):
   def __init__(self, sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
     self.sessionstoreproducer = sessionstoreproducer
@@ -222,7 +225,7 @@ class SessionStoreParser(object):
     sessionstore = self.sessionstoreproducer.produce(filename)
     urls = self.urlproducer.produce(sessionstore)
     filteredurls = self.urlfilter.filter(urls)
-    self.urlconsumer.write(filteredurls)
+    self.urlconsumer.consume(filteredurls)
 
 class SessionStoreParserWorker(object):
   def __init__(self, sessionstoreparser, filename):

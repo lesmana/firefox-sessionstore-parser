@@ -22,7 +22,7 @@ class TestSessionStoreParse(unittest.TestCase):
         report.append(('filter', urls))
         return ['filtered', 'urls']
     class FakeUrlConsumer(object):
-      def write(self, urls):
+      def consume(self, urls):
         report.append(('write', urls))
     parser = p.SessionStoreParser(
           FakeSessionStoreProducer(), FakeUrlProducer(), FakeUrlFilter(), FakeUrlConsumer())
