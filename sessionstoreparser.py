@@ -248,9 +248,9 @@ class HelpWriterWorker(object):
     return self.exitstatus
 
 class WorkerFactory(object):
-  def __init__(self, sessionstoreparser, sessionstoreparserworkerclass, stderr):
+  def __init__(self, sessionstoreparser, stderr):
     self.sessionstoreparser = sessionstoreparser
-    self.sessionstoreparserworkerclass = sessionstoreparserworkerclass
+    self.sessionstoreparserworkerclass = SessionStoreParserWorker
     self.stderr = stderr
 
   def produce(self, parsedargv):
@@ -313,7 +313,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   sessionstoreparser = SessionStoreParser(
         jsonreader, urlgenerator, urlfilter, urlwriter)
   workerfactory = WorkerFactory(
-        sessionstoreparser, SessionStoreParserWorker, stderr)
+        sessionstoreparser, stderr)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
