@@ -140,9 +140,6 @@ class JsonReader(object):
       sessionstore = self.jsonload(fileob, filename)
     return sessionstore
 
-  def produce(self, filename):
-    return self.read(filename)
-
 class SessionStoreProducer(object):
   def __init__(self, jsonreader, filename):
     self.jsonreader = jsonreader
