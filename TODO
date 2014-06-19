@@ -1,9 +1,6 @@
 here be todos
 
 ----
-instantiate sessionstoreparser and all collaborators in workerfactory
-
-----
 inject filename directly to concrete sessionstoreproducer
 
 ----
