@@ -312,8 +312,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
   optionsdata = []
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-  workerfactory = WorkerFactory(
-        openfunc, stdout, stderr)
+  workerfactory = WorkerFactory(openfunc, stdout, stderr)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
