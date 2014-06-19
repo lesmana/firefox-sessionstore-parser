@@ -215,7 +215,8 @@ class UrlWriter(object):
     self.write(urls)
 
 class SessionStoreParser(object):
-  def __init__(self, sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
+  def __init__(self,
+        sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
     self.sessionstoreproducer = sessionstoreproducer
     self.urlproducer = urlproducer
     self.urlfilter = urlfilter

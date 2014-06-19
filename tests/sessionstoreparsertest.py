@@ -25,7 +25,8 @@ class TestSessionStoreParse(unittest.TestCase):
       def consume(self, urls):
         report.append(('consume', urls))
     parser = p.SessionStoreParser(
-          FakeSessionStoreProducer(), FakeUrlProducer(), FakeUrlFilter(), FakeUrlConsumer())
+          FakeSessionStoreProducer(), FakeUrlProducer(),
+          FakeUrlFilter(), FakeUrlConsumer())
     parser.parse('filename')
     self.assertEqual(report, [
           ('produce', 'filename'),
