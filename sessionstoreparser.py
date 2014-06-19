@@ -185,6 +185,9 @@ class OpenUrlGenerator(object):
     for url in self.handlesessionstore(sessionstore):
       yield url
 
+  def produce(self, sessionstore):
+    return self.generate(sessionstore)
+
 class UrlFilter(object):
   def __init__(self):
     pass
@@ -217,7 +220,7 @@ class SessionStoreParser(object):
 
   def parse(self, filename):
     sessionstore = self.sessionstoreproducer.produce(filename)
-    urls = self.urlproducer.generate(sessionstore)
+    urls = self.urlproducer.produce(sessionstore)
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.write(filteredurls)
 

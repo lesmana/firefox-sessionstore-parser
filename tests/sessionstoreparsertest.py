@@ -14,7 +14,7 @@ class TestSessionStoreParse(unittest.TestCase):
         report.append(('read', filename))
         return {'json': 'object'}
     class FakeUrlProducer(object):
-      def generate(self, sessionstore):
+      def produce(self, sessionstore):
         report.append(('generate', sessionstore))
         return ['urls']
     class FakeUrlFilter(object):
