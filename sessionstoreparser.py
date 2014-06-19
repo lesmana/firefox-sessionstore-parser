@@ -252,13 +252,6 @@ class WorkerFactory(object):
     self.openfunc = openfunc
     self.stdout = stdout
     self.stderr = stderr
-    jsonreader = JsonReader(self.openfunc, json.load)
-    urlgenerator = OpenUrlGenerator()
-    urlfilter = UrlFilter()
-    urlwriter = UrlWriter(self.stdout)
-    sessionstoreparser = SessionStoreParser(
-          jsonreader, urlgenerator, urlfilter, urlwriter)
-    self.sessionstoreparser = sessionstoreparser
 
   def produce(self, parsedargv):
     if 'unknown' in parsedargv:
@@ -272,6 +265,13 @@ class WorkerFactory(object):
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = parsedargv['filename']
+      jsonreader = JsonReader(self.openfunc, json.load)
+      urlgenerator = OpenUrlGenerator()
+      urlfilter = UrlFilter()
+      urlwriter = UrlWriter(self.stdout)
+      sessionstoreparser = SessionStoreParser(
+            jsonreader, urlgenerator, urlfilter, urlwriter)
+      self.sessionstoreparser = sessionstoreparser
       worker = SessionStoreParserWorker(
             self.sessionstoreparser, filename)
     return worker
