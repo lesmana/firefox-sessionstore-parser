@@ -205,10 +205,10 @@ class UrlWriter(object):
       self.stdout.write(url['url'] + '\n')
 
 class SessionStoreParser(object):
-  def __init__(self, jsonreader, urlgenerator, urlwriter):
+  def __init__(self, jsonreader, urlgenerator, urlfilter, urlwriter):
     self.jsonreader = jsonreader
     self.urlgenerator = urlgenerator
-    self.urlfilter = UrlFilter()
+    self.urlfilter = urlfilter
     self.urlwriter = urlwriter
 
   def getsessionstore(self, filename):
@@ -312,9 +312,10 @@ def secludedmain(openfunc, stdout, stderr, argv):
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   jsonreader = JsonReader(openfunc, json.load)
   urlgenerator = OpenUrlGenerator()
+  urlfilter = UrlFilter()
   urlwriter = UrlWriter(stdout)
   sessionstoreparser = SessionStoreParser(
-        jsonreader, urlgenerator, urlwriter)
+        jsonreader, urlgenerator, urlfilter, urlwriter)
   workerfactory = WorkerFactory(
         sessionstoreparser, SessionStoreParserWorker, stderr)
   app = Application(argvparser, workerfactory, stderr)
