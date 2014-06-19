@@ -211,12 +211,16 @@ class SessionStoreParser(object):
     urls = self.urlgenerator.generate(sessionstore)
     return urls
 
+  def filterurls(self, urls):
+    return urls
+
   def writeurls(self, urls):
     self.urlwriter.write(urls)
 
   def parse(self, filename):
     sessionstore = self.getsessionstore(filename)
     urls = self.geturls(sessionstore)
+    urls = self.filterurls(urls)
     self.writeurls(urls)
 
 class SessionStoreParserWorker(object):
