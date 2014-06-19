@@ -236,13 +236,8 @@ class SessionStoreParser(object):
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.consume(filteredurls)
 
-class SessionStoreParserWorker(object):
-  def __init__(self, sessionstoreparser, filename):
-    self.sessionstoreparser = sessionstoreparser
-    self.filename = filename
-
   def __call__(self):
-    self.sessionstoreparser.parse()
+    self.parse()
     return 0
 
 class HelpWriterWorker(object):
@@ -280,8 +275,7 @@ class WorkerFactory(object):
       urlwriter = UrlWriter(self.stdout)
       sessionstoreparser = SessionStoreParser(
             sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
-      worker = SessionStoreParserWorker(
-            sessionstoreparser, filename)
+      worker = sessionstoreparser
     return worker
 
 class Application(object):
