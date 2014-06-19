@@ -143,6 +143,14 @@ class JsonReader(object):
   def produce(self, filename):
     return self.read(filename)
 
+class SessionStoreProducer(object):
+  def __init__(self, jsonreader, filename):
+    self.jsonreader = jsonreader
+    self.filename = filename
+
+  def produce(self):
+    return self.jsonreader.read(self.filename)
+
 class OpenUrlGenerator(object):
   def __init__(self):
     pass
@@ -222,8 +230,8 @@ class SessionStoreParser(object):
     self.urlfilter = urlfilter
     self.urlconsumer = urlconsumer
 
-  def parse(self, filename):
-    sessionstore = self.sessionstoreproducer.produce(filename)
+  def parse(self):
+    sessionstore = self.sessionstoreproducer.produce()
     urls = self.urlproducer.produce(sessionstore)
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.consume(filteredurls)
@@ -234,7 +242,7 @@ class SessionStoreParserWorker(object):
     self.filename = filename
 
   def __call__(self):
-    self.sessionstoreparser.parse(self.filename)
+    self.sessionstoreparser.parse()
     return 0
 
 class HelpWriterWorker(object):
@@ -266,11 +274,12 @@ class WorkerFactory(object):
     else:
       filename = parsedargv['filename']
       jsonreader = JsonReader(self.openfunc, json.load)
+      sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
       urlgenerator = OpenUrlGenerator()
       urlfilter = UrlFilter()
       urlwriter = UrlWriter(self.stdout)
       sessionstoreparser = SessionStoreParser(
-            jsonreader, urlgenerator, urlfilter, urlwriter)
+            sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
       worker = SessionStoreParserWorker(
             sessionstoreparser, filename)
     return worker

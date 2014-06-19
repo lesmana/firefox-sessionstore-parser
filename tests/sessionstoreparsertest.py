@@ -10,8 +10,8 @@ class TestSessionStoreParse(unittest.TestCase):
   def test_noerror(self):
     report = []
     class FakeSessionStoreProducer(object):
-      def produce(self, filename):
-        report.append(('produce', filename))
+      def produce(self):
+        report.append(('produce', ))
         return {'json': 'object'}
     class FakeUrlProducer(object):
       def produce(self, sessionstore):
@@ -27,9 +27,9 @@ class TestSessionStoreParse(unittest.TestCase):
     parser = p.SessionStoreParser(
           FakeSessionStoreProducer(), FakeUrlProducer(),
           FakeUrlFilter(), FakeUrlConsumer())
-    parser.parse('filename')
+    parser.parse()
     self.assertEqual(report, [
-          ('produce', 'filename'),
+          ('produce', ),
           ('produce', {'json': 'object'}),
           ('filter', ['urls']),
           ('consume', ['filtered', 'urls'])])
