@@ -250,7 +250,6 @@ class HelpWriterWorker(object):
 class WorkerFactory(object):
   def __init__(self, sessionstoreparser, stderr):
     self.sessionstoreparser = sessionstoreparser
-    self.sessionstoreparserworkerclass = SessionStoreParserWorker
     self.stderr = stderr
 
   def produce(self, parsedargv):
@@ -265,7 +264,7 @@ class WorkerFactory(object):
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
       filename = parsedargv['filename']
-      worker = self.sessionstoreparserworkerclass(
+      worker = SessionStoreParserWorker(
             self.sessionstoreparser, filename)
     return worker
 
