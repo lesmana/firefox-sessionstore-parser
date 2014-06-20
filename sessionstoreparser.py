@@ -268,16 +268,16 @@ class WorkerFactory(object):
     return worker
 
   def sessionstoreparser(self, parsedargv):
-      filename = parsedargv['filename']
-      jsonreader = JsonReader(self.openfunc, json.load)
-      sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
-      urlgenerator = OpenUrlGenerator()
-      urlfilter = UrlFilter()
-      urlwriter = UrlWriter(self.stdout)
-      sessionstoreparser = SessionStoreParser(
-            sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
-      worker = sessionstoreparser
-      return worker
+    filename = parsedargv['filename']
+    jsonreader = JsonReader(self.openfunc, json.load)
+    sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
+    urlgenerator = OpenUrlGenerator()
+    urlfilter = UrlFilter()
+    urlwriter = UrlWriter(self.stdout)
+    sessionstoreparser = SessionStoreParser(
+          sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
+    worker = sessionstoreparser
+    return worker
 
 class Application(object):
 
