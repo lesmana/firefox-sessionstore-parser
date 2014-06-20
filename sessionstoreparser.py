@@ -269,18 +269,34 @@ class WorkerFactory(object):
       return True, None
     return False, worker
 
-  def sessionstoreparser(self, parsedargv):
+  def sessionstoreproducer(self, parsedargv):
     filename = parsedargv['filename']
     jsonreaderclass = self.classes['JsonReader']
     jsonreader = jsonreaderclass(self.openfunc, json.load)
     sessionstoreproducerclass = self.classes['SessionStoreProducer']
     sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
+    return sessionstoreproducer
+
+  def urlproducer(self):
     urlproducerclass = self.classes['UrlProducer']
     urlproducer = urlproducerclass()
+    return urlproducer
+
+  def urlfilter(self):
     urlfilterclass = self.classes['UrlFilter']
     urlfilter = urlfilterclass()
+    return urlfilter
+
+  def urlwriter(self):
     urlwriterclass = self.classes['UrlWriter']
     urlwriter = urlwriterclass(self.stdout)
+    return urlwriter
+
+  def sessionstoreparser(self, parsedargv):
+    sessionstoreproducer = self.sessionstoreproducer(parsedargv)
+    urlproducer = self.urlproducer()
+    urlfilter = self.urlfilter()
+    urlwriter = self.urlwriter()
     sessionstoreparserclass = self.classes['SessionStoreParser']
     sessionstoreparser = sessionstoreparserclass(
           sessionstoreproducer, urlproducer, urlfilter, urlwriter)
