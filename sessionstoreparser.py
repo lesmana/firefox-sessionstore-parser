@@ -265,7 +265,7 @@ class WorkerFactory(object):
     worker = sessionstoreparser
     return worker
 
-  def produce(self, parsedargv):
+  def checkparsedargv(self, parsedargv):
     if 'unknown' in parsedargv:
       exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
@@ -275,6 +275,14 @@ class WorkerFactory(object):
       exitstatus = 2
       message = 'missing argument: filename'
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
+    else:
+      return True, None
+    return False, worker
+
+  def produce(self, parsedargv):
+    ok, worker = self.checkparsedargv(parsedargv)
+    if not ok:
+      pass
     else:
       worker = self.sessionstoreparser(parsedargv)
     return worker
