@@ -264,6 +264,10 @@ class WorkerFactory(object):
       message = 'missing argument: filename'
       worker = HelpWriterWorker(self.stderr, message, exitstatus)
     else:
+      worker = self.sessionstoreparser(parsedargv)
+    return worker
+
+  def sessionstoreparser(self, parsedargv):
       filename = parsedargv['filename']
       jsonreader = JsonReader(self.openfunc, json.load)
       sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
@@ -273,7 +277,7 @@ class WorkerFactory(object):
       sessionstoreparser = SessionStoreParser(
             sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
       worker = sessionstoreparser
-    return worker
+      return worker
 
 class Application(object):
 
