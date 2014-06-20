@@ -302,22 +302,10 @@ class Application(object):
     self.workerfactory = workerfactory
     self.stderr = stderr
 
-  def parseargv(self, argv):
-    parsedargv = self.argvparser.parse(argv)
-    return parsedargv
-
-  def createworker(self, parsedargv):
-    worker = self.workerfactory.produce(parsedargv)
-    return worker
-
-  def dowork(self, worker):
-    exitstatus = worker()
-    return exitstatus
-
   def tryrun(self, argv):
-    parsedargv = self.parseargv(argv)
-    worker = self.createworker(parsedargv)
-    exitstatus = self.dowork(worker)
+    parsedargv = self.argvparser.parse(argv)
+    worker = self.workerfactory.produce(parsedargv)
+    exitstatus = worker()
     return exitstatus
 
   def run(self, argv):
