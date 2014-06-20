@@ -254,27 +254,34 @@ class WorkerFactory(object):
     self.stderr = stderr
 
   def checkparsedargv(self, parsedargv):
+    helpwriterclass = HelpWriterWorker
     if 'unknown' in parsedargv:
       exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
       message = 'unknown option: %s' % (unknownoption)
-      worker = HelpWriterWorker(self.stderr, message, exitstatus)
+      worker = helpwriterclass(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:
       exitstatus = 2
       message = 'missing argument: filename'
-      worker = HelpWriterWorker(self.stderr, message, exitstatus)
+      worker = helpwriterclass(self.stderr, message, exitstatus)
     else:
       return True, None
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
     filename = parsedargv['filename']
-    jsonreader = JsonReader(self.openfunc, json.load)
-    sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
-    urlgenerator = OpenUrlGenerator()
-    urlfilter = UrlFilter()
-    urlwriter = UrlWriter(self.stdout)
-    sessionstoreparser = SessionStoreParser(
+    jsonreaderclass = JsonReader
+    jsonreader = jsonreaderclass(self.openfunc, json.load)
+    sessionstoreproducerclass = SessionStoreProducer
+    sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
+    urlgeneratorclass = OpenUrlGenerator
+    urlgenerator = urlgeneratorclass()
+    urlfilterclass = UrlFilter
+    urlfilter = urlfilterclass()
+    urlwriterclass = UrlWriter
+    urlwriter = urlwriterclass(self.stdout)
+    sessionstoreparserclass = SessionStoreParser
+    sessionstoreparser = sessionstoreparserclass(
           sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
     worker = sessionstoreparser
     return worker
