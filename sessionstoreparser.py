@@ -253,18 +253,6 @@ class WorkerFactory(object):
     self.stdout = stdout
     self.stderr = stderr
 
-  def sessionstoreparser(self, parsedargv):
-    filename = parsedargv['filename']
-    jsonreader = JsonReader(self.openfunc, json.load)
-    sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
-    urlgenerator = OpenUrlGenerator()
-    urlfilter = UrlFilter()
-    urlwriter = UrlWriter(self.stdout)
-    sessionstoreparser = SessionStoreParser(
-          sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
-    worker = sessionstoreparser
-    return worker
-
   def checkparsedargv(self, parsedargv):
     if 'unknown' in parsedargv:
       exitstatus = 2
@@ -278,6 +266,18 @@ class WorkerFactory(object):
     else:
       return True, None
     return False, worker
+
+  def sessionstoreparser(self, parsedargv):
+    filename = parsedargv['filename']
+    jsonreader = JsonReader(self.openfunc, json.load)
+    sessionstoreproducer = SessionStoreProducer(jsonreader, filename)
+    urlgenerator = OpenUrlGenerator()
+    urlfilter = UrlFilter()
+    urlwriter = UrlWriter(self.stdout)
+    sessionstoreparser = SessionStoreParser(
+          sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
+    worker = sessionstoreparser
+    return worker
 
   def produce(self, parsedargv):
     ok, worker = self.checkparsedargv(parsedargv)
