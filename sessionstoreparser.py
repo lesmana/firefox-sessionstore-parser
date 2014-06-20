@@ -249,12 +249,20 @@ class HelpWriterWorker(object):
 
 class WorkerFactory(object):
   def __init__(self, openfunc, stdout, stderr):
+    self.classes = {
+          'HelpWriterWorker': HelpWriterWorker,
+          'JsonReader': JsonReader,
+          'SessionStoreProducer': SessionStoreProducer,
+          'OpenUrlGenerator': OpenUrlGenerator,
+          'UrlFilter': UrlFilter,
+          'UrlWriter': UrlWriter,
+          'SessionStoreParser': SessionStoreParser}
     self.openfunc = openfunc
     self.stdout = stdout
     self.stderr = stderr
 
   def checkparsedargv(self, parsedargv):
-    helpwriterclass = HelpWriterWorker
+    helpwriterclass = self.classes['HelpWriterWorker']
     if 'unknown' in parsedargv:
       exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
@@ -270,17 +278,17 @@ class WorkerFactory(object):
 
   def sessionstoreparser(self, parsedargv):
     filename = parsedargv['filename']
-    jsonreaderclass = JsonReader
+    jsonreaderclass = self.classes['JsonReader']
     jsonreader = jsonreaderclass(self.openfunc, json.load)
-    sessionstoreproducerclass = SessionStoreProducer
+    sessionstoreproducerclass = self.classes['SessionStoreProducer']
     sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
-    urlgeneratorclass = OpenUrlGenerator
+    urlgeneratorclass = self.classes['OpenUrlGenerator']
     urlgenerator = urlgeneratorclass()
-    urlfilterclass = UrlFilter
+    urlfilterclass = self.classes['UrlFilter']
     urlfilter = urlfilterclass()
-    urlwriterclass = UrlWriter
+    urlwriterclass = self.classes['UrlWriter']
     urlwriter = urlwriterclass(self.stdout)
-    sessionstoreparserclass = SessionStoreParser
+    sessionstoreparserclass = self.classes['SessionStoreParser']
     sessionstoreparser = sessionstoreparserclass(
           sessionstoreproducer, urlgenerator, urlfilter, urlwriter)
     worker = sessionstoreparser
