@@ -248,15 +248,8 @@ class HelpWriterWorker(object):
     return self.exitstatus
 
 class WorkerFactory(object):
-  def __init__(self, openfunc, stdout, stderr):
-    self.classes = {
-          'HelpWriterWorker': HelpWriterWorker,
-          'JsonReader': JsonReader,
-          'SessionStoreProducer': SessionStoreProducer,
-          'OpenUrlGenerator': OpenUrlGenerator,
-          'UrlFilter': UrlFilter,
-          'UrlWriter': UrlWriter,
-          'SessionStoreParser': SessionStoreParser}
+  def __init__(self, classes, openfunc, stdout, stderr):
+    self.classes = classes
     self.openfunc = openfunc
     self.stdout = stdout
     self.stderr = stderr
@@ -339,7 +332,15 @@ def secludedmain(openfunc, stdout, stderr, argv):
   optionsdata = []
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-  workerfactory = WorkerFactory(openfunc, stdout, stderr)
+  classes = {
+          'HelpWriterWorker': HelpWriterWorker,
+          'JsonReader': JsonReader,
+          'SessionStoreProducer': SessionStoreProducer,
+          'OpenUrlGenerator': OpenUrlGenerator,
+          'UrlFilter': UrlFilter,
+          'UrlWriter': UrlWriter,
+          'SessionStoreParser': SessionStoreParser}
+  workerfactory = WorkerFactory(classes, openfunc, stdout, stderr)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
