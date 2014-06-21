@@ -1,11 +1,8 @@
 {
-  "selectedWindow": 0,
   "windows": [
     {
-      "selected": 1,
       "tabs": [
         {
-          "index": 3,
           "entries": [
             {
               "url": "http://w1t1b2"
@@ -22,10 +19,10 @@
             {
               "url": "http://w1t1f2"
             }
-          ]
+          ],
+          "index": 3,
         },
         {
-          "index": 3,
           "entries": [
             {
               "url": "http://w1t2b2"
@@ -36,10 +33,10 @@
             {
               "url": "http://w1t2u"
             }
-          ]
+          ],
+          "index": 3,
         },
         {
-          "index": 1,
           "entries": [
             {
               "url": "http://w1t3u"
@@ -50,22 +47,22 @@
             {
               "url": "http://w1t3f2"
             }
-          ]
+          ],
+          "index": 1,
         },
         {
-          "index": 1,
           "entries": [
             {
               "url": "http://w1t4u"
             }
-          ]
+          ],
+          "index": 1,
         }
       ],
+      "selected": 1,
       "_closedTabs": [
         {
-          "title": "window 1 closed tab 1",
           "state": {
-            "index": 2,
             "entries": [
               {
                 "url": "http://w1ct1b1"
@@ -76,13 +73,13 @@
               {
                 "url": "http://w1ct1f1"
               }
-            ]
-          }
+            ],
+            "index": 2,
+          },
+          "title": "window 1 closed tab 1",
         },
         {
-          "title": "window 1 closed tab 2",
           "state": {
-            "index": 3,
             "entries": [
               {
                 "url": "http://w1ct2b2"
@@ -93,27 +90,27 @@
               {
                 "url": "http://w1ct2u"
               }
-            ]
-          }
+            ],
+            "index": 3,
+          },
+          "title": "window 1 closed tab 2",
         },
         {
-          "title": "window 1 closed tab 3",
           "state": {
-            "index": 1,
             "entries": [
               {
                 "url": "http://w1ct3u"
               }
-            ]
-          }
+            ],
+            "index": 1,
+          },
+          "title": "window 1 closed tab 3",
         }
       ]
     },
     {
-      "selected": 2,
       "tabs": [
         {
-          "index": 2,
           "entries": [
             {
               "url": "http://w2t1b1"
@@ -121,22 +118,22 @@
             {
               "url": "http://w2t1u"
             }
-          ]
+          ],
+          "index": 2,
         },
         {
-          "index": 1,
           "entries": [
             {
               "url": "http://w2t2u"
             }
-          ]
+          ],
+          "index": 1,
         }
       ],
+      "selected": 2,
       "_closedTabs": [
         {
-          "title": "window 2 closed tab 1",
           "state": {
-            "index": 1,
             "entries": [
               {
                 "url": "http://w1ct1u"
@@ -144,24 +141,24 @@
               {
                 "url": "http://w1ct1f1"
               }
-            ]
-          }
+            ],
+            "index": 1,
+          },
+          "title": "window 2 closed tab 1",
         }
       ]
     },
     {
-      "selected": 1,
       "tabs": [
         {
-          "index": 1,
           "entries": [
             {
               "url": "http://w3t1u"
             }
-          ]
+          ],
+          "index": 1,
         },
         {
-          "index": 1,
           "entries": [
             {
               "url": "http://w3t2u"
@@ -169,24 +166,24 @@
             {
               "url": "http://w3t2f1"
             }
-          ]
+          ],
+          "index": 1,
         }
       ],
+      "selected": 1,
       "_closedTabs": [
 
       ]
     }
   ],
+  "selectedWindow": 0,
   "_closedWindows": [
     {
-      "title": "closed window 1",
-      "selected": 1,
       "tabs": [
         {
           "attributes": {
 
           },
-          "index": 2,
           "entries": [
             {
               "url": "http://cw1t1b1"
@@ -194,28 +191,28 @@
             {
               "url": "http://cw1t1u"
             }
-          ]
+          ],
+          "index": 2,
         },
         {
           "attributes": {
 
           },
-          "index": 1,
           "entries": [
             {
               "url": "http://cw1t2u"
             }
-          ]
+          ],
+          "index": 1,
         }
       ],
+      "selected": 1,
       "_closedTabs": [
         {
-          "title": "closed window 1 closed tab 1",
           "state": {
             "attributes": {
 
             },
-            "index": 2,
             "entries": [
               {
                 "url": "http://cw1ct1b1"
@@ -223,31 +220,31 @@
               {
                 "url": "http://cw1ct1u"
               }
-            ]
-          }
+            ],
+            "index": 2,
+          },
+          "title": "closed window 1 closed tab 1",
         }
-      ]
+      ],
+      "title": "closed window 1",
     },
     {
-      "title": "closed window 2",
-      "selected": 2,
       "tabs": [
         {
           "attributes": {
 
           },
-          "index": 1,
           "entries": [
             {
               "url": "http://cw2t1u"
             }
-          ]
+          ],
+          "index": 1,
         },
         {
           "attributes": {
 
           },
-          "index": 1,
           "entries": [
             {
               "url": "http://cw2t2u"
@@ -255,23 +252,26 @@
             {
               "url": "http://cw2t2f1"
             }
-          ]
+          ],
+          "index": 1,
         },
         {
           "attributes": {
 
           },
-          "index": 1,
           "entries": [
             {
               "url": "http://cw2t3u"
             }
-          ]
+          ],
+          "index": 1,
         }
       ],
+      "selected": 2,
       "_closedTabs": [
 
-      ]
+      ],
+      "title": "closed window 2",
     }
   ]
 }
