@@ -208,6 +208,14 @@ class OpenUrlFilter(object):
       if index == openindex:
         yield url
 
+class AllUrlFilter(object):
+  def __init__(self):
+    pass
+
+  def filter(self, urls):
+    for url in urls:
+      yield url
+
 class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
@@ -343,6 +351,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
           'SessionStoreProducer': SessionStoreProducer,
           'UrlProducer': UrlProducer,
           'OpenUrlFilter': OpenUrlFilter,
+          'AllUrlFilter': AllUrlFilter,
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
   workerfactory = WorkerFactory(classes, openfunc, stdout, stderr)
