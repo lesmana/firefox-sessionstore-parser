@@ -193,7 +193,7 @@ class UrlProducer(object):
   def produce(self, sessionstore):
     return self.generate(sessionstore)
 
-class UrlFilter(object):
+class OpenUrlFilter(object):
   def __init__(self):
     pass
 
@@ -283,7 +283,7 @@ class WorkerFactory(object):
     return urlproducer
 
   def urlfilter(self, parsedargv):
-    urlfilterclass = self.classes['UrlFilter']
+    urlfilterclass = self.classes['OpenUrlFilter']
     urlfilter = urlfilterclass()
     return urlfilter
 
@@ -342,7 +342,7 @@ def secludedmain(openfunc, stdout, stderr, argv):
           'JsonReader': JsonReader,
           'SessionStoreProducer': SessionStoreProducer,
           'UrlProducer': UrlProducer,
-          'UrlFilter': UrlFilter,
+          'OpenUrlFilter': OpenUrlFilter,
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
   workerfactory = WorkerFactory(classes, openfunc, stdout, stderr)
