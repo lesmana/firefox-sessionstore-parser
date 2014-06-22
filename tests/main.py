@@ -6,42 +6,10 @@ import json
 import os
 import StringIO
 import textwrap
-import yaml
 
 import sessionstoreparser as p
 
 class TestMain(unittest.TestCase):
-
-  def test_yamlequaljson(self):
-    # verify that objects from json and yaml are equivalent
-    yamlstr = textwrap.dedent('''\
-          windows:
-            - tabs:
-                - entries:
-                    - url: http://window1tab1url1
-                  index: 1
-              selected: 1
-              _closedTabs: []
-          selectedWindow: 0
-          _closedWindows: []
-          ''')
-    jsonstr = textwrap.dedent('''\
-          {
-            "windows": [{
-              "tabs": [{
-                "entries": [{
-                  "url": "http://window1tab1url1"}],
-                "index": 1}],
-              "selected": 1,
-              "_closedTabs": []}],
-            "selectedWindow": 0,
-            "_closedWindows": []}
-          ''')
-    yamlobj = yaml.load(yamlstr)
-    jsonobj = json.loads(jsonstr)
-    jsonstrfromyamlobj = json.dumps(yamlobj)
-    jsonstrfromjsonobj = json.dumps(jsonobj)
-    self.assertEqual(jsonstrfromyamlobj, jsonstrfromjsonobj)
 
   def test_default(self):
     fakefilecontent = textwrap.dedent('''\
