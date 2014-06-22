@@ -3,6 +3,7 @@ import unittest
 
 import contextlib
 import json
+import os
 import StringIO
 import textwrap
 import yaml
@@ -201,5 +202,37 @@ class TestMain(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://window1tab1url3
+          '''))
+    self.assertEqual(fakestderr.getvalue(), '')
+
+def gettestdata():
+  filename = os.path.join(os.path.dirname(__file__), 'testdata.js')
+  with open(filename) as testdatafile:
+    testdata = testdatafile.read()
+  return testdata
+
+class TestMainRealData(unittest.TestCase):
+
+  testdata = gettestdata()
+
+  def test_default(self):
+    fakefile = StringIO.StringIO(self.testdata)
+    def fakeopen(dummy_filename):
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', 'filename']
+    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    self.assertEqual(exitstatus, 0)
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://w1t1u3/
+          http://w1t2u2/
+          http://w1t3u1/
+          http://w2t1u3/
+          http://w2t2u2/
+          http://w2t3u1/
+          http://w3t1u3/
+          http://w3t2u2/
+          http://w3t3u1/
           '''))
     self.assertEqual(fakestderr.getvalue(), '')
