@@ -291,7 +291,10 @@ class WorkerFactory(object):
     return urlproducer
 
   def urlfilter(self, parsedargv):
-    urlfilterclass = self.classes['OpenUrlFilter']
+    if 'all' in parsedargv:
+      urlfilterclass = self.classes['AllUrlFilter']
+    else:
+      urlfilterclass = self.classes['OpenUrlFilter']
     urlfilter = urlfilterclass()
     return urlfilter
 
