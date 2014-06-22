@@ -200,9 +200,9 @@ class UrlFilter(object):
   def filter(self, urls):
     for url in urls:
       if url['tab'] == 'closed':
-        break
+        continue
       if url['window'] == 'closed':
-        break
+        continue
       index = url['urlindex']
       openindex = url['openindex']
       if index == openindex:
