@@ -44,17 +44,28 @@ class TestMain(unittest.TestCase):
     self.assertEqual(jsonstrfromyamlobj, jsonstrfromjsonobj)
 
   def test_default(self):
-    fakefilecontent = json.dumps(yaml.load(textwrap.dedent('''\
-          windows:
-            - tabs:
-                - entries:
-                    - url: http://window1tab1url1
-                  index: 1
-              selected: 1
-              _closedTabs: []
-          selectedWindow: 0
-          _closedWindows: []
-          ''')))
+    fakefilecontent = textwrap.dedent('''\
+          {
+            "windows": [
+              {
+                "tabs": [
+                  {
+                    "index": 1,
+                    "entries": [
+                      {
+                        "url": "http://window1tab1url1"
+                      }
+                    ]
+                  }
+                ],
+                "selected": 1,
+                "_closedTabs": []
+              }
+            ],
+            "_closedWindows": [],
+            "selectedWindow": 0
+          }
+          ''')
     fakefile = StringIO.StringIO(fakefilecontent)
     def fakeopen(dummy_filename):
       return contextlib.closing(fakefile)
