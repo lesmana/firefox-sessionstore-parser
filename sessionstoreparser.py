@@ -172,7 +172,7 @@ class UrlProducer(object):
         url['tab'] = 'open'
         yield url
     for tab in window['_closedTabs']:
-      for url in self.handletab(tab):
+      for url in self.handletab(tab['state']):
         url['tab'] = 'closed'
         yield url
 
