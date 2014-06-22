@@ -333,7 +333,8 @@ class Application(object):
       return 1
 
 def secludedmain(openfunc, stdout, stderr, argv):
-  optionsdata = []
+  optionsdata = [
+        ('all', ['--all'], 0)]
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   classes = {
