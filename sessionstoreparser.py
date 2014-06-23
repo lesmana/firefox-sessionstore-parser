@@ -342,12 +342,8 @@ class SessionStoreParserFactory(object):
     return sessionstoreparser
 
 class WorkerFactory(object):
-  def __init__(self, classes, openfunc, stdout, stderr, sessionstoreparserfactory):
-    self.classes = classes
-    self.openfunc = openfunc
-    self.stdout = stdout
-    self.stderr = stderr
-    self.helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
+  def __init__(self, helpprinterfactory, sessionstoreparserfactory):
+    self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
   def checkparsedargv(self, parsedargv):
@@ -408,6 +404,7 @@ def secludedmain(argv, stdout, stderr, openfunc):
           'UrlFilter': UrlFilter,
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
+  helpprinterfactory = HelpPrinterFactory(classes, stderr)
   sessionstoreproducerfactory = SessionStoreProducerFactory(
         classes, stdout, openfunc)
   urlproducerfactory = UrlProducerFactory(classes)
@@ -418,7 +415,7 @@ def secludedmain(argv, stdout, stderr, openfunc):
         urlproducerfactory,
         urlfilterfactory,
         urlconsumerfactory)
-  workerfactory = WorkerFactory(classes, openfunc, stdout, stderr, sessionstoreparserfactory)
+  workerfactory = WorkerFactory(helpprinterfactory, sessionstoreparserfactory)
   app = Application(argvparser, workerfactory, stderr)
   exitstatus = app.run(argv)
   return exitstatus
