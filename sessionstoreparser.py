@@ -307,10 +307,12 @@ class WorkerFactory(object):
 
   def urlfilter(self, parsedargv):
     if 'all' in parsedargv:
-      urlfilterclass = self.classes['AllUrlFilter']
+      predicateclass = self.classes['AllUrlPredicate']
     else:
-      urlfilterclass = self.classes['OpenUrlFilter']
-    urlfilter = urlfilterclass()
+      predicateclass = self.classes['OpenUrlPredicate']
+    predicate = predicateclass()
+    urlfilterclass = self.classes['UrlFilter']
+    urlfilter = urlfilterclass(predicate)
     return urlfilter
 
   def urlconsumer(self, parsedargv):
