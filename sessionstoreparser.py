@@ -342,6 +342,11 @@ class WorkerFactory(object):
     self.urlproducerfactory = UrlProducerFactory(self.classes)
     self.urlfilterfactory = UrlFilterFactory(self.classes)
     self.urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
+    self.sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
+          self.sessionstoreproducerfactory,
+          self.urlproducerfactory,
+          self.urlfilterfactory,
+          self.urlconsumerfactory)
 
   def checkparsedargv(self, parsedargv):
     helpwriterclass = self.classes['HelpWriterWorker']
@@ -359,11 +364,6 @@ class WorkerFactory(object):
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
-    self.sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
-          self.sessionstoreproducerfactory,
-          self.urlproducerfactory,
-          self.urlfilterfactory,
-          self.urlconsumerfactory)
     worker = self.sessionstoreparserfactory.produce(parsedargv)
     return worker
 
