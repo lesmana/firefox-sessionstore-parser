@@ -338,11 +338,11 @@ class WorkerFactory(object):
     self.stdout = stdout
     self.stderr = stderr
     sessionstoreproducerfactory = SessionStoreProducerFactory(
-          self.classes, self.stdout, self.openfunc)
-    urlproducerfactory = UrlProducerFactory(self.classes)
-    urlfilterfactory = UrlFilterFactory(self.classes)
-    urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
-    self.sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
+          classes, stdout, openfunc)
+    urlproducerfactory = UrlProducerFactory(classes)
+    urlfilterfactory = UrlFilterFactory(classes)
+    urlconsumerfactory = UrlConsumerFactory(classes, stdout)
+    self.sessionstoreparserfactory = SessionStoreParserFactory(classes,
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
