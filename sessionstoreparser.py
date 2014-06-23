@@ -262,6 +262,15 @@ class HelpWriterWorker(object):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
+class UrlProducerFactory(object):
+  def __init__(self, classes):
+    self.classes = classes
+
+  def produce(self, parsedargv):
+    urlproducerclass = self.classes['UrlProducer']
+    urlproducer = urlproducerclass()
+    return urlproducer
+
 class UrlFilterFactory(object):
   def __init__(self, classes):
     self.classes = classes
@@ -307,8 +316,8 @@ class WorkerFactory(object):
     return sessionstoreproducer
 
   def urlproducer(self, parsedargv):
-    urlproducerclass = self.classes['UrlProducer']
-    urlproducer = urlproducerclass()
+    urlproducerfactory = UrlProducerFactory(self.classes)
+    urlproducer = urlproducerfactory.produce(parsedargv)
     return urlproducer
 
   def urlfilter(self, parsedargv):
