@@ -197,15 +197,19 @@ class OpenUrlFilter(object):
   def __init__(self):
     pass
 
-  def filter(self, urls):
-    for url in urls:
+  def isgood(self, url):
       if url['tab'] == 'closed':
-        continue
+        return False
       if url['window'] == 'closed':
-        continue
+        return False
       index = url['urlindex']
       openindex = url['openindex']
       if index == openindex:
+        return True
+
+  def filter(self, urls):
+    for url in urls:
+      if self.isgood(url):
         yield url
 
 class AllUrlFilter(object):
