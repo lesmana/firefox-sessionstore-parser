@@ -341,16 +341,14 @@ class WorkerFactory(object):
 
   def checkparsedargv(self, parsedargv):
     if 'unknown' in parsedargv:
-      exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
       message = 'unknown option: %s' % (unknownoption)
     elif 'filename' not in parsedargv:
-      exitstatus = 2
       message = 'missing argument: filename'
     else:
       return True, None
     helpwriterclass = self.classes['HelpWriterWorker']
-    worker = helpwriterclass(self.stderr, message, exitstatus)
+    worker = helpwriterclass(self.stderr, message, 2)
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
