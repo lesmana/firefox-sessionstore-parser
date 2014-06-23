@@ -346,16 +346,16 @@ class WorkerFactory(object):
     elif 'filename' not in parsedargv:
       message = 'missing argument: filename'
     else:
-      return True, None
-    return False, message
+      return False, None
+    return True, message
 
   def sessionstoreparser(self, parsedargv):
     worker = self.sessionstoreparserfactory.produce(parsedargv)
     return worker
 
   def produce(self, parsedargv):
-    good, message = self.checkparsedargv(parsedargv)
-    if not good:
+    errorfound, message = self.checkparsedargv(parsedargv)
+    if errorfound:
       helpwriterclass = self.classes['HelpWriterWorker']
       worker = helpwriterclass(self.stderr, message, 2)
     else:
