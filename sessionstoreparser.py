@@ -385,17 +385,8 @@ class Application(object):
       return 1
 
 class ApplicationFactory(object):
-  def __init__(self):
-    self.classes = {
-            'HelpPrinter': HelpPrinter,
-            'JsonReader': JsonReader,
-            'SessionStoreProducer': SessionStoreProducer,
-            'UrlProducer': UrlProducer,
-            'OpenUrlPredicate': OpenUrlPredicate,
-            'AllUrlPredicate': AllUrlPredicate,
-            'UrlFilter': UrlFilter,
-            'UrlWriter': UrlWriter,
-            'SessionStoreParser': SessionStoreParser}
+  def __init__(self, classes):
+    self.classes = classes
 
   def produce(self, stdout, stderr, openfunc):
     optionsdata = [
@@ -417,7 +408,17 @@ class ApplicationFactory(object):
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  appfactory = ApplicationFactory()
+  classes = {
+          'HelpPrinter': HelpPrinter,
+          'JsonReader': JsonReader,
+          'SessionStoreProducer': SessionStoreProducer,
+          'UrlProducer': UrlProducer,
+          'OpenUrlPredicate': OpenUrlPredicate,
+          'AllUrlPredicate': AllUrlPredicate,
+          'UrlFilter': UrlFilter,
+          'UrlWriter': UrlWriter,
+          'SessionStoreParser': SessionStoreParser}
+  appfactory = ApplicationFactory(classes)
   app = appfactory.produce(stdout, stderr, openfunc)
   exitstatus = app.run(argv)
   return exitstatus
