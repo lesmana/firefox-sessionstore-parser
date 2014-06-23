@@ -285,6 +285,16 @@ class UrlFilterFactory(object):
     urlfilter = urlfilterclass(predicate)
     return urlfilter
 
+class UrlConsumerFactory(object):
+  def __init__(self, classes, stdout):
+    self.classes = classes
+    self.stdout = stdout
+
+  def produce(self, parsedargv):
+    urlconsumerclass = self.classes['UrlWriter']
+    urlconsumer = urlconsumerclass(self.stdout)
+    return urlconsumer
+
 class WorkerFactory(object):
   def __init__(self, classes, openfunc, stdout, stderr):
     self.classes = classes
@@ -326,8 +336,8 @@ class WorkerFactory(object):
     return urlfilter
 
   def urlconsumer(self, parsedargv):
-    urlconsumerclass = self.classes['UrlWriter']
-    urlconsumer = urlconsumerclass(self.stdout)
+    urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
+    urlconsumer = urlconsumerfactory.produce(parsedargv)
     return urlconsumer
 
   def sessionstoreparser(self, parsedargv):
