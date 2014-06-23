@@ -356,16 +356,12 @@ class WorkerFactory(object):
       return False, None
     return True, message
 
-  def sessionstoreparser(self, parsedargv):
-    worker = self.sessionstoreparserfactory.produce(parsedargv)
-    return worker
-
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
       worker = self.helpprinterfactory.produce(message)
     else:
-      worker = self.sessionstoreparser(parsedargv)
+      worker = self.sessionstoreparserfactory.produce(parsedargv)
     return worker
 
 class Application(object):
