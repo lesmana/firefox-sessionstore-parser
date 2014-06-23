@@ -347,18 +347,17 @@ class WorkerFactory(object):
       message = 'missing argument: filename'
     else:
       return True, None
-    helpwriterclass = self.classes['HelpWriterWorker']
-    worker = helpwriterclass(self.stderr, message, 2)
-    return False, worker
+    return False, message
 
   def sessionstoreparser(self, parsedargv):
     worker = self.sessionstoreparserfactory.produce(parsedargv)
     return worker
 
   def produce(self, parsedargv):
-    ok, worker = self.checkparsedargv(parsedargv)
+    ok, message = self.checkparsedargv(parsedargv)
     if not ok:
-      pass
+      helpwriterclass = self.classes['HelpWriterWorker']
+      worker = helpwriterclass(self.stderr, message, 2)
     else:
       worker = self.sessionstoreparser(parsedargv)
     return worker
