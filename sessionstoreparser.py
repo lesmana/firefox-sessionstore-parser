@@ -385,34 +385,34 @@ class Application(object):
       return 1
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  optionsdata = [
-        ('all', ['--all'], 0)]
-  argumentsdata = ['filename']
-  argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-  classes = {
-          'HelpPrinter': HelpPrinter,
-          'JsonReader': JsonReader,
-          'SessionStoreProducer': SessionStoreProducer,
-          'UrlProducer': UrlProducer,
-          'OpenUrlPredicate': OpenUrlPredicate,
-          'AllUrlPredicate': AllUrlPredicate,
-          'UrlFilter': UrlFilter,
-          'UrlWriter': UrlWriter,
-          'SessionStoreParser': SessionStoreParser}
-  helpprinterfactory = HelpPrinterFactory(classes, stderr)
-  sessionstoreproducerfactory = SessionStoreProducerFactory(classes, openfunc)
-  urlproducerfactory = UrlProducerFactory(classes)
-  urlfilterfactory = UrlFilterFactory(classes)
-  urlconsumerfactory = UrlConsumerFactory(classes, stdout)
-  sessionstoreparserfactory = SessionStoreParserFactory(classes,
-        sessionstoreproducerfactory,
-        urlproducerfactory,
-        urlfilterfactory,
-        urlconsumerfactory)
-  workerfactory = WorkerFactory(helpprinterfactory, sessionstoreparserfactory)
-  app = Application(argvparser, workerfactory, stderr)
-  exitstatus = app.run(argv)
-  return exitstatus
+    optionsdata = [
+          ('all', ['--all'], 0)]
+    argumentsdata = ['filename']
+    argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    classes = {
+            'HelpPrinter': HelpPrinter,
+            'JsonReader': JsonReader,
+            'SessionStoreProducer': SessionStoreProducer,
+            'UrlProducer': UrlProducer,
+            'OpenUrlPredicate': OpenUrlPredicate,
+            'AllUrlPredicate': AllUrlPredicate,
+            'UrlFilter': UrlFilter,
+            'UrlWriter': UrlWriter,
+            'SessionStoreParser': SessionStoreParser}
+    helpprinterfactory = HelpPrinterFactory(classes, stderr)
+    sessionstoreproducerfactory = SessionStoreProducerFactory(classes, openfunc)
+    urlproducerfactory = UrlProducerFactory(classes)
+    urlfilterfactory = UrlFilterFactory(classes)
+    urlconsumerfactory = UrlConsumerFactory(classes, stdout)
+    sessionstoreparserfactory = SessionStoreParserFactory(classes,
+          sessionstoreproducerfactory,
+          urlproducerfactory,
+          urlfilterfactory,
+          urlconsumerfactory)
+    workerfactory = WorkerFactory(helpprinterfactory, sessionstoreparserfactory)
+    app = Application(argvparser, workerfactory, stderr)
+    exitstatus = app.run(argv)
+    return exitstatus
 
 def main(): # pragma: no cover
   import sys
