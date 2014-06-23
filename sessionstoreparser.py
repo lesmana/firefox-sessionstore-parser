@@ -393,7 +393,7 @@ class ApplicationFactory(object):
           ('all', ['--all'], 0)]
     argumentsdata = ['filename']
     argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-    classes = {
+    self.classes = {
             'HelpPrinter': HelpPrinter,
             'JsonReader': JsonReader,
             'SessionStoreProducer': SessionStoreProducer,
@@ -403,12 +403,12 @@ class ApplicationFactory(object):
             'UrlFilter': UrlFilter,
             'UrlWriter': UrlWriter,
             'SessionStoreParser': SessionStoreParser}
-    helpprinterfactory = HelpPrinterFactory(classes, stderr)
-    sessionstoreproducerfactory = SessionStoreProducerFactory(classes, openfunc)
-    urlproducerfactory = UrlProducerFactory(classes)
-    urlfilterfactory = UrlFilterFactory(classes)
-    urlconsumerfactory = UrlConsumerFactory(classes, stdout)
-    sessionstoreparserfactory = SessionStoreParserFactory(classes,
+    helpprinterfactory = HelpPrinterFactory(self.classes, stderr)
+    sessionstoreproducerfactory = SessionStoreProducerFactory(self.classes, openfunc)
+    urlproducerfactory = UrlProducerFactory(self.classes)
+    urlfilterfactory = UrlFilterFactory(self.classes)
+    urlconsumerfactory = UrlConsumerFactory(self.classes, stdout)
+    sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
