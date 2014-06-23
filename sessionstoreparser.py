@@ -112,6 +112,16 @@ class ArgvParser(object):
       parsedargv = {'unknown': [unknownoption]}
       return parsedargv
 
+class HelpPrinter(object):
+  def __init__(self, stream, message, exitstatus):
+    self.stream = stream
+    self.message = message
+    self.exitstatus = exitstatus
+
+  def __call__(self):
+    self.stream.write(self.message + '\n')
+    return self.exitstatus
+
 class JsonReaderError(Error):
   pass
 
@@ -251,16 +261,6 @@ class SessionStoreParser(object):
   def __call__(self):
     self.parse()
     return 0
-
-class HelpPrinter(object):
-  def __init__(self, stream, message, exitstatus):
-    self.stream = stream
-    self.message = message
-    self.exitstatus = exitstatus
-
-  def __call__(self):
-    self.stream.write(self.message + '\n')
-    return self.exitstatus
 
 class SessionStoreProducerFactory(object):
   def __init__(self, classes, stdout, openfunc):
