@@ -347,6 +347,7 @@ class WorkerFactory(object):
     self.openfunc = openfunc
     self.stdout = stdout
     self.stderr = stderr
+    self.helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
   def checkparsedargv(self, parsedargv):
@@ -366,7 +367,6 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
-      self.helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
       worker = self.helpprinterfactory.produce(message)
     else:
       worker = self.sessionstoreparser(parsedargv)
