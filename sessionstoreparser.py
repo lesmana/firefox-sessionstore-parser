@@ -326,9 +326,9 @@ class WorkerFactory(object):
     return urlfilter
 
   def urlconsumer(self, parsedargv):
-    urlwriterclass = self.classes['UrlWriter']
-    urlwriter = urlwriterclass(self.stdout)
-    return urlwriter
+    urlconsumerclass = self.classes['UrlWriter']
+    urlconsumer = urlconsumerclass(self.stdout)
+    return urlconsumer
 
   def sessionstoreparser(self, parsedargv):
     sessionstoreproducer = self.sessionstoreproducer(parsedargv)
