@@ -2,7 +2,6 @@
 import unittest
 
 import contextlib
-import json
 import os
 import StringIO
 import textwrap
