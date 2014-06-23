@@ -354,8 +354,8 @@ class WorkerFactory(object):
     return worker
 
   def produce(self, parsedargv):
-    ok, message = self.checkparsedargv(parsedargv)
-    if not ok:
+    good, message = self.checkparsedargv(parsedargv)
+    if not good:
       helpwriterclass = self.classes['HelpWriterWorker']
       worker = helpwriterclass(self.stderr, message, 2)
     else:
