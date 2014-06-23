@@ -208,8 +208,8 @@ class OpenUrlPredicate(object):
       return True
 
 class UrlFilter(object):
-  def __init__(self):
-    self.predicate = OpenUrlPredicate()
+  def __init__(self, predicate):
+    self.predicate = predicate
 
   def filter(self, urls):
     for url in urls:
@@ -218,7 +218,7 @@ class UrlFilter(object):
 
 class OpenUrlFilter(object):
   def __new__(self):
-    return UrlFilter()
+    return UrlFilter(OpenUrlPredicate())
 
 class AllUrlFilter(object):
   def __init__(self):
