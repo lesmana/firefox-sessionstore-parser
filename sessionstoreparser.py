@@ -352,7 +352,7 @@ class Application(object):
       self.stderr.write(str(err) + '\n')
       return 1
 
-def secludedmain(openfunc, stdout, stderr, argv):
+def secludedmain(argv, stdout, stderr, openfunc):
   optionsdata = [
         ('all', ['--all'], 0)]
   argumentsdata = ['filename']
@@ -374,5 +374,5 @@ def secludedmain(openfunc, stdout, stderr, argv):
 
 def main(): # pragma: no cover
   import sys
-  exitstatus = secludedmain(open, sys.stdout, sys.stderr, sys.argv)
+  exitstatus = secludedmain(sys.argv, sys.stdout, sys.stderr, open)
   return exitstatus

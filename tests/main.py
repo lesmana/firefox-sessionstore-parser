@@ -40,7 +40,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
-    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
     self.assertEqual(fakestderr.getvalue(), '')
@@ -49,7 +49,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname']
-    exitstatus = p.secludedmain(None, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
     self.assertEqual(exitstatus, 2)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
@@ -59,7 +59,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--wrong']
-    exitstatus = p.secludedmain(None, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
     self.assertEqual(exitstatus, 2)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
@@ -71,7 +71,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
-    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(exitstatus, 1)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
@@ -86,7 +86,7 @@ class TestMain(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
-    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(exitstatus, 1)
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
@@ -109,7 +109,7 @@ class TestMainRealData(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
-    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://w1t1u3/
@@ -131,7 +131,7 @@ class TestMainRealData(unittest.TestCase):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--all', 'filename']
-    exitstatus = p.secludedmain(fakeopen, fakestdout, fakestderr, fakeargv)
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(exitstatus, 0)
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://w1t1u1b2/
