@@ -359,12 +359,12 @@ class WorkerFactory(object):
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
-    sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
+    self.sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
           self.sessionstoreproducerfactory,
           self.urlproducerfactory,
           self.urlfilterfactory,
           self.urlconsumerfactory)
-    worker = sessionstoreparserfactory.produce(parsedargv)
+    worker = self.sessionstoreparserfactory.produce(parsedargv)
     return worker
 
   def produce(self, parsedargv):
