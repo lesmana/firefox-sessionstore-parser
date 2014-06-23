@@ -262,6 +262,20 @@ class HelpWriterWorker(object):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
+class UrlFilterFactory(object):
+  def __init__(self, classes):
+    self.classes = classes
+
+  def produce(self, parsedargv):
+    if 'all' in parsedargv:
+      predicateclass = self.classes['AllUrlPredicate']
+    else:
+      predicateclass = self.classes['OpenUrlPredicate']
+    predicate = predicateclass()
+    urlfilterclass = self.classes['UrlFilter']
+    urlfilter = urlfilterclass(predicate)
+    return urlfilter
+
 class WorkerFactory(object):
   def __init__(self, classes, openfunc, stdout, stderr):
     self.classes = classes
@@ -298,13 +312,8 @@ class WorkerFactory(object):
     return urlproducer
 
   def urlfilter(self, parsedargv):
-    if 'all' in parsedargv:
-      predicateclass = self.classes['AllUrlPredicate']
-    else:
-      predicateclass = self.classes['OpenUrlPredicate']
-    predicate = predicateclass()
-    urlfilterclass = self.classes['UrlFilter']
-    urlfilter = urlfilterclass(predicate)
+    urlfilterfactory = UrlFilterFactory(self.classes)
+    urlfilter = urlfilterfactory.produce(parsedargv)
     return urlfilter
 
   def urlconsumer(self, parsedargv):
