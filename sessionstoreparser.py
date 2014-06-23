@@ -384,7 +384,11 @@ class Application(object):
       self.stderr.write(str(err) + '\n')
       return 1
 
-def secludedmain(argv, stdout, stderr, openfunc):
+class ApplicationFactory(object):
+  def __init__(self):
+    pass
+
+  def produce(self, stdout, stderr, openfunc):
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = ['filename']
@@ -411,6 +415,11 @@ def secludedmain(argv, stdout, stderr, openfunc):
           urlconsumerfactory)
     workerfactory = WorkerFactory(helpprinterfactory, sessionstoreparserfactory)
     app = Application(argvparser, workerfactory, stderr)
+    return app
+
+def secludedmain(argv, stdout, stderr, openfunc):
+    appfactory = ApplicationFactory()
+    app = appfactory.produce(stdout, stderr, openfunc)
     exitstatus = app.run(argv)
     return exitstatus
 
