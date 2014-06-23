@@ -337,16 +337,16 @@ class WorkerFactory(object):
     self.openfunc = openfunc
     self.stdout = stdout
     self.stderr = stderr
-    self.sessionstoreproducerfactory = SessionStoreProducerFactory(
+    sessionstoreproducerfactory = SessionStoreProducerFactory(
           self.classes, self.stdout, self.openfunc)
-    self.urlproducerfactory = UrlProducerFactory(self.classes)
-    self.urlfilterfactory = UrlFilterFactory(self.classes)
-    self.urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
+    urlproducerfactory = UrlProducerFactory(self.classes)
+    urlfilterfactory = UrlFilterFactory(self.classes)
+    urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
     self.sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
-          self.sessionstoreproducerfactory,
-          self.urlproducerfactory,
-          self.urlfilterfactory,
-          self.urlconsumerfactory)
+          sessionstoreproducerfactory,
+          urlproducerfactory,
+          urlfilterfactory,
+          urlconsumerfactory)
 
   def checkparsedargv(self, parsedargv):
     helpwriterclass = self.classes['HelpWriterWorker']
