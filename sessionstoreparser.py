@@ -273,9 +273,8 @@ class HelpPrinterFactory(object):
     return worker
 
 class SessionStoreProducerFactory(object):
-  def __init__(self, classes, stdout, openfunc):
+  def __init__(self, classes, openfunc):
     self.classes = classes
-    self.stdout = stdout
     self.openfunc = openfunc
 
   def produce(self, parsedargv):
@@ -402,7 +401,7 @@ def secludedmain(argv, stdout, stderr, openfunc):
           'SessionStoreParser': SessionStoreParser}
   helpprinterfactory = HelpPrinterFactory(classes, stderr)
   sessionstoreproducerfactory = SessionStoreProducerFactory(
-        classes, stdout, openfunc)
+        classes, openfunc)
   urlproducerfactory = UrlProducerFactory(classes)
   urlfilterfactory = UrlFilterFactory(classes)
   urlconsumerfactory = UrlConsumerFactory(classes, stdout)
