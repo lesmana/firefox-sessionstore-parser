@@ -252,7 +252,7 @@ class SessionStoreParser(object):
     self.parse()
     return 0
 
-class HelpWriterWorker(object):
+class HelpPrinter(object):
   def __init__(self, stream, message, exitstatus):
     self.stream = stream
     self.message = message
@@ -356,8 +356,8 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
-      helpwriterclass = self.classes['HelpWriterWorker']
-      worker = helpwriterclass(self.stderr, message, 2)
+      helpprinterclass = self.classes['HelpPrinter']
+      worker = helpprinterclass(self.stderr, message, 2)
     else:
       worker = self.sessionstoreparser(parsedargv)
     return worker
@@ -389,7 +389,7 @@ def secludedmain(argv, stdout, stderr, openfunc):
   argumentsdata = ['filename']
   argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
   classes = {
-          'HelpWriterWorker': HelpWriterWorker,
+          'HelpPrinter': HelpPrinter,
           'JsonReader': JsonReader,
           'SessionStoreProducer': SessionStoreProducer,
           'UrlProducer': UrlProducer,
