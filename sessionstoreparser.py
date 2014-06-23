@@ -309,6 +309,28 @@ class UrlConsumerFactory(object):
     urlconsumer = urlconsumerclass(self.stdout)
     return urlconsumer
 
+class SessionStoreParserFactory(object):
+  def __init__(self, classes,
+        sessionstoreproducerfactory,
+        urlproducerfactory,
+        urlfilterfactory,
+        urlconsumerfactory):
+    self.classes = classes
+    self.sessionstoreproducerfactory = sessionstoreproducerfactory
+    self.urlproducerfactory = urlproducerfactory
+    self.urlfilterfactory = urlfilterfactory
+    self.urlconsumerfactory = urlconsumerfactory
+
+  def produce(self, parsedargv):
+    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
+    urlproducer = self.urlproducerfactory.produce(parsedargv)
+    urlfilter = self.urlfilterfactory.produce(parsedargv)
+    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
+    sessionstoreparserclass = self.classes['SessionStoreParser']
+    sessionstoreparser = sessionstoreparserclass(
+          sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
+    return sessionstoreparser
+
 class WorkerFactory(object):
   def __init__(self, classes, openfunc, stdout, stderr):
     self.classes = classes
@@ -337,14 +359,12 @@ class WorkerFactory(object):
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
-    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
-    urlproducer = self.urlproducerfactory.produce(parsedargv)
-    urlfilter = self.urlfilterfactory.produce(parsedargv)
-    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
-    sessionstoreparserclass = self.classes['SessionStoreParser']
-    sessionstoreparser = sessionstoreparserclass(
-          sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
-    worker = sessionstoreparser
+    sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
+          self.sessionstoreproducerfactory,
+          self.urlproducerfactory,
+          self.urlfilterfactory,
+          self.urlconsumerfactory)
+    worker = sessionstoreparserfactory.produce(parsedargv)
     return worker
 
   def produce(self, parsedargv):
