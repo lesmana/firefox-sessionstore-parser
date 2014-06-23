@@ -400,8 +400,7 @@ def secludedmain(argv, stdout, stderr, openfunc):
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
   helpprinterfactory = HelpPrinterFactory(classes, stderr)
-  sessionstoreproducerfactory = SessionStoreProducerFactory(
-        classes, openfunc)
+  sessionstoreproducerfactory = SessionStoreProducerFactory(classes, openfunc)
   urlproducerfactory = UrlProducerFactory(classes)
   urlfilterfactory = UrlFilterFactory(classes)
   urlconsumerfactory = UrlConsumerFactory(classes, stdout)
