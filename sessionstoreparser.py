@@ -391,20 +391,38 @@ class ApplicationFactory(object):
   def produce(self, stdout, stderr, openfunc):
     optionsdata = [
           ('all', ['--all'], 0)]
-    argumentsdata = ['filename']
-    argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-    helpprinterfactory = HelpPrinterFactory(self.classes, stderr)
-    sessionstoreproducerfactory = SessionStoreProducerFactory(self.classes, openfunc)
-    urlproducerfactory = UrlProducerFactory(self.classes)
-    urlfilterfactory = UrlFilterFactory(self.classes)
-    urlconsumerfactory = UrlConsumerFactory(self.classes, stdout)
-    sessionstoreparserfactory = SessionStoreParserFactory(self.classes,
+    argumentsdata = [
+          'filename']
+    argvparser = ArgvParser(
+          getopt.getopt,
+          optionsdata,
+          argumentsdata)
+    helpprinterfactory = HelpPrinterFactory(
+          self.classes,
+          stderr)
+    sessionstoreproducerfactory = SessionStoreProducerFactory(
+          self.classes,
+          openfunc)
+    urlproducerfactory = UrlProducerFactory(
+          self.classes)
+    urlfilterfactory = UrlFilterFactory(
+          self.classes)
+    urlconsumerfactory = UrlConsumerFactory(
+          self.classes,
+          stdout)
+    sessionstoreparserfactory = SessionStoreParserFactory(
+          self.classes,
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
           urlconsumerfactory)
-    workerfactory = WorkerFactory(helpprinterfactory, sessionstoreparserfactory)
-    app = Application(argvparser, workerfactory, stderr)
+    workerfactory = WorkerFactory(
+          helpprinterfactory,
+          sessionstoreparserfactory)
+    app = Application(
+          argvparser,
+          workerfactory,
+          stderr)
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
