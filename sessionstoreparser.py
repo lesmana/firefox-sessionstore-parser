@@ -366,8 +366,8 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
-      helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
-      worker = helpprinterfactory.produce(message)
+      self.helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
+      worker = self.helpprinterfactory.produce(message)
     else:
       worker = self.sessionstoreparser(parsedargv)
     return worker
