@@ -345,13 +345,12 @@ class WorkerFactory(object):
       exitstatus = 2
       unknownoption = parsedargv['unknown'][0]
       message = 'unknown option: %s' % (unknownoption)
-      worker = helpwriterclass(self.stderr, message, exitstatus)
     elif 'filename' not in parsedargv:
       exitstatus = 2
       message = 'missing argument: filename'
-      worker = helpwriterclass(self.stderr, message, exitstatus)
     else:
       return True, None
+    worker = helpwriterclass(self.stderr, message, exitstatus)
     return False, worker
 
   def sessionstoreparser(self, parsedargv):
