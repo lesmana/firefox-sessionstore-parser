@@ -262,6 +262,16 @@ class SessionStoreParser(object):
     self.parse()
     return 0
 
+class HelpPrinterFactory(object):
+  def __init__(self, classes, stderr):
+    self.classes = classes
+    self.stderr = stderr
+
+  def produce(self, message):
+    helpprinterclass = self.classes['HelpPrinter']
+    worker = helpprinterclass(self.stderr, message, 2)
+    return worker
+
 class SessionStoreProducerFactory(object):
   def __init__(self, classes, stdout, openfunc):
     self.classes = classes
@@ -356,8 +366,8 @@ class WorkerFactory(object):
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
-      helpprinterclass = self.classes['HelpPrinter']
-      worker = helpprinterclass(self.stderr, message, 2)
+      helpprinterfactory = HelpPrinterFactory(self.classes, self.stderr)
+      worker = helpprinterfactory.produce(message)
     else:
       worker = self.sessionstoreparser(parsedargv)
     return worker
