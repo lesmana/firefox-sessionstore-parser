@@ -207,7 +207,7 @@ class OpenUrlPredicate(object):
     if index == openindex:
       return True
 
-class OpenUrlFilter(object):
+class UrlFilter(object):
   def __init__(self):
     self.predicate = OpenUrlPredicate()
 
@@ -215,6 +215,10 @@ class OpenUrlFilter(object):
     for url in urls:
       if self.predicate.isgood(url):
         yield url
+
+class OpenUrlFilter(object):
+  def __new__(self):
+    return UrlFilter()
 
 class AllUrlFilter(object):
   def __init__(self):
