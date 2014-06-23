@@ -193,7 +193,7 @@ class UrlProducer(object):
   def produce(self, sessionstore):
     return self.generate(sessionstore)
 
-class OpenUrlFilter(object):
+class OpenUrlPredicate(object):
   def __init__(self):
     pass
 
@@ -207,9 +207,13 @@ class OpenUrlFilter(object):
     if index == openindex:
       return True
 
+class OpenUrlFilter(object):
+  def __init__(self):
+    self.predicate = OpenUrlPredicate()
+
   def filter(self, urls):
     for url in urls:
-      if self.isgood(url):
+      if self.predicate.isgood(url):
         yield url
 
 class AllUrlFilter(object):
