@@ -386,13 +386,6 @@ class Application(object):
 
 class ApplicationFactory(object):
   def __init__(self):
-    pass
-
-  def produce(self, stdout, stderr, openfunc):
-    optionsdata = [
-          ('all', ['--all'], 0)]
-    argumentsdata = ['filename']
-    argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     self.classes = {
             'HelpPrinter': HelpPrinter,
             'JsonReader': JsonReader,
@@ -403,6 +396,12 @@ class ApplicationFactory(object):
             'UrlFilter': UrlFilter,
             'UrlWriter': UrlWriter,
             'SessionStoreParser': SessionStoreParser}
+
+  def produce(self, stdout, stderr, openfunc):
+    optionsdata = [
+          ('all', ['--all'], 0)]
+    argumentsdata = ['filename']
+    argvparser = ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     helpprinterfactory = HelpPrinterFactory(self.classes, stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(self.classes, openfunc)
     urlproducerfactory = UrlProducerFactory(self.classes)
