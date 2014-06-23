@@ -262,6 +262,20 @@ class HelpWriterWorker(object):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
+class SessionStoreProducerFactory(object):
+  def __init__(self, classes, stdout, openfunc):
+    self.classes = classes
+    self.stdout = stdout
+    self.openfunc = openfunc
+
+  def produce(self, parsedargv):
+    filename = parsedargv['filename']
+    jsonreaderclass = self.classes['JsonReader']
+    jsonreader = jsonreaderclass(self.openfunc, json.load)
+    sessionstoreproducerclass = self.classes['SessionStoreProducer']
+    sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
+    return sessionstoreproducer
+
 class UrlProducerFactory(object):
   def __init__(self, classes):
     self.classes = classes
@@ -318,11 +332,9 @@ class WorkerFactory(object):
     return False, worker
 
   def sessionstoreproducer(self, parsedargv):
-    filename = parsedargv['filename']
-    jsonreaderclass = self.classes['JsonReader']
-    jsonreader = jsonreaderclass(self.openfunc, json.load)
-    sessionstoreproducerclass = self.classes['SessionStoreProducer']
-    sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
+    sessionstoreproducerfactory = SessionStoreProducerFactory(
+          self.classes, self.stdout, self.openfunc)
+    sessionstoreproducer = sessionstoreproducerfactory.produce(parsedargv)
     return sessionstoreproducer
 
   def urlproducer(self, parsedargv):
