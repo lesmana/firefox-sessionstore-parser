@@ -332,24 +332,24 @@ class WorkerFactory(object):
     return False, worker
 
   def sessionstoreproducer(self, parsedargv):
-    sessionstoreproducerfactory = SessionStoreProducerFactory(
+    self.sessionstoreproducerfactory = SessionStoreProducerFactory(
           self.classes, self.stdout, self.openfunc)
-    sessionstoreproducer = sessionstoreproducerfactory.produce(parsedargv)
+    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
     return sessionstoreproducer
 
   def urlproducer(self, parsedargv):
-    urlproducerfactory = UrlProducerFactory(self.classes)
-    urlproducer = urlproducerfactory.produce(parsedargv)
+    self.urlproducerfactory = UrlProducerFactory(self.classes)
+    urlproducer = self.urlproducerfactory.produce(parsedargv)
     return urlproducer
 
   def urlfilter(self, parsedargv):
-    urlfilterfactory = UrlFilterFactory(self.classes)
-    urlfilter = urlfilterfactory.produce(parsedargv)
+    self.urlfilterfactory = UrlFilterFactory(self.classes)
+    urlfilter = self.urlfilterfactory.produce(parsedargv)
     return urlfilter
 
   def urlconsumer(self, parsedargv):
-    urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
-    urlconsumer = urlconsumerfactory.produce(parsedargv)
+    self.urlconsumerfactory = UrlConsumerFactory(self.classes, self.stdout)
+    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
     return urlconsumer
 
   def sessionstoreparser(self, parsedargv):
