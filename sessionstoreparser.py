@@ -418,10 +418,10 @@ class ApplicationFactory(object):
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
-    appfactory = ApplicationFactory()
-    app = appfactory.produce(stdout, stderr, openfunc)
-    exitstatus = app.run(argv)
-    return exitstatus
+  appfactory = ApplicationFactory()
+  app = appfactory.produce(stdout, stderr, openfunc)
+  exitstatus = app.run(argv)
+  return exitstatus
 
 def main(): # pragma: no cover
   import sys
