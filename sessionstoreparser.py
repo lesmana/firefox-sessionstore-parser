@@ -223,14 +223,6 @@ class UrlFilter(object):
       if self.predicate.isgood(url):
         yield url
 
-class OpenUrlFilter(object):
-  def __new__(self):
-    return UrlFilter(OpenUrlPredicate())
-
-class AllUrlFilter(object):
-  def __new__(self):
-    return UrlFilter(AllUrlPredicate())
-
 class UrlWriter(object):
   def __init__(self, stdout):
     self.stdout = stdout
@@ -373,8 +365,6 @@ def secludedmain(openfunc, stdout, stderr, argv):
           'OpenUrlPredicate': OpenUrlPredicate,
           'AllUrlPredicate': AllUrlPredicate,
           'UrlFilter': UrlFilter,
-          'OpenUrlFilter': OpenUrlFilter,
-          'AllUrlFilter': AllUrlFilter,
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
   workerfactory = WorkerFactory(classes, openfunc, stdout, stderr)
