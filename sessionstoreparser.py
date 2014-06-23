@@ -263,13 +263,12 @@ class SessionStoreParser(object):
     return 0
 
 class HelpPrinterFactory(object):
-  def __init__(self, classes, stderr):
-    self.classes = classes
+  def __init__(self, helpprinterclass, stderr):
+    self.helpprinterclass = helpprinterclass
     self.stderr = stderr
 
   def produce(self, message):
-    helpprinterclass = self.classes['HelpPrinter']
-    worker = helpprinterclass(self.stderr, message, 2)
+    worker = self.helpprinterclass(self.stderr, message, 2)
     return worker
 
 class SessionStoreProducerFactory(object):
@@ -398,7 +397,7 @@ class ApplicationFactory(object):
           optionsdata,
           argumentsdata)
     helpprinterfactory = HelpPrinterFactory(
-          self.classes,
+          self.classes['HelpPrinter'],
           stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(
           self.classes,
