@@ -336,27 +336,11 @@ class WorkerFactory(object):
       return True, None
     return False, worker
 
-  def sessionstoreproducer(self, parsedargv):
-    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
-    return sessionstoreproducer
-
-  def urlproducer(self, parsedargv):
-    urlproducer = self.urlproducerfactory.produce(parsedargv)
-    return urlproducer
-
-  def urlfilter(self, parsedargv):
-    urlfilter = self.urlfilterfactory.produce(parsedargv)
-    return urlfilter
-
-  def urlconsumer(self, parsedargv):
-    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
-    return urlconsumer
-
   def sessionstoreparser(self, parsedargv):
-    sessionstoreproducer = self.sessionstoreproducer(parsedargv)
-    urlproducer = self.urlproducer(parsedargv)
-    urlfilter = self.urlfilter(parsedargv)
-    urlconsumer = self.urlconsumer(parsedargv)
+    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
+    urlproducer = self.urlproducerfactory.produce(parsedargv)
+    urlfilter = self.urlfilterfactory.produce(parsedargv)
+    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
     sessionstoreparserclass = self.classes['SessionStoreParser']
     sessionstoreparser = sessionstoreparserclass(
           sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
