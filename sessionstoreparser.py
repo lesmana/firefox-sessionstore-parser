@@ -299,6 +299,8 @@ class UrlFilterFactory(object):
   def produce(self, parsedargv):
     if 'all' in parsedargv:
       predicate = AndPredicate([])
+    elif 'allwithhistory' in parsedargv:
+      predicate = AndPredicate([])
     else:
       openwindow = UrlAttributePredicate('window', 'open')
       opentab = UrlAttributePredicate('tab', 'open')
@@ -390,7 +392,8 @@ class ApplicationFactory(object):
 
   def getdefaults(self):
     optionsdata = [
-          ('all', ['--all', '--all-with-history'], 0)]
+          ('all', ['--all'], 0),
+          ('allwithhistory', ['--all-with-history'], 0)]
     argumentsdata = [
           'filename']
     defaults = {
