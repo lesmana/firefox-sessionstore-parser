@@ -212,9 +212,9 @@ class OpenUrlPredicate(object):
     pass
 
   def true(self, url):
-    if not url['tab'] == 'open':
-      return False
     if not url['window'] == 'open':
+      return False
+    if not url['tab'] == 'open':
       return False
     if url['entry'] == 'open':
       return True
