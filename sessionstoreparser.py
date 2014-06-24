@@ -225,25 +225,6 @@ class UrlAttributePredicate(object):
   def true(self, url):
     return url[self.key] == self.value
 
-class OpenUrlPredicate(object):
-  def __init__(self):
-    pass
-
-  def true(self, url):
-    openwindow = UrlAttributePredicate('window', 'open')
-    opentab = UrlAttributePredicate('tab', 'open')
-    selectedentry = UrlAttributePredicate('entry', 'selected')
-    openurl = AndPredicate([openwindow, opentab, selectedentry])
-    if openurl.true(url):
-      return True
-
-class AllUrlPredicate(object):
-  def __init__(self):
-    pass
-
-  def true(self, url):
-    return True
-
 class UrlFilter(object):
   def __init__(self, predicate):
     self.predicate = predicate
