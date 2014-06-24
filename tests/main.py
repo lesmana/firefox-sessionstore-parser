@@ -40,29 +40,29 @@ class TestMain(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
-    self.assertEqual(exitstatus, 0)
-    self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
     self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), 'http://window1tab1url1\n')
+    self.assertEqual(exitstatus, 0)
 
   def test_noargv(self):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
-    self.assertEqual(exitstatus, 2)
-    self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'missing argument: filename\n')
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(exitstatus, 2)
 
   def test_wrongargv(self):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--wrong']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
-    self.assertEqual(exitstatus, 2)
-    self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'unknown option: --wrong\n')
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(exitstatus, 2)
 
   def test_notfile(self):
     def fakeopen(dummy_filename):
@@ -71,10 +71,10 @@ class TestMain(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
-    self.assertEqual(exitstatus, 1)
-    self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'error: cannot open file filename.\n')
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(exitstatus, 1)
 
   def test_notjson(self):
     fakefilecontent = textwrap.dedent('''\
@@ -86,10 +86,10 @@ class TestMain(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
-    self.assertEqual(exitstatus, 1)
-    self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(fakestderr.getvalue(),
           'error: cannot read session store from file filename.\n')
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(exitstatus, 1)
 
 def gettestdata():
   filename = os.path.join(os.path.dirname(__file__), 'testdata.js')
@@ -109,7 +109,7 @@ class TestMainRealData(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
-    self.assertEqual(exitstatus, 0)
+    self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://w1t1u3/
           http://w1t2u2/
@@ -121,7 +121,7 @@ class TestMainRealData(unittest.TestCase):
           http://w3t2u2/
           http://w3t3u1/
           '''))
-    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(exitstatus, 0)
 
   def test_all(self):
     fakefile = StringIO.StringIO(self.testdata)
@@ -131,7 +131,7 @@ class TestMainRealData(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--all', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
-    self.assertEqual(exitstatus, 0)
+    self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://w1t1u1b2/
           http://w1t1u2b1/
@@ -189,4 +189,4 @@ class TestMainRealData(unittest.TestCase):
           http://cw2ct2u1/
           http://cw2ct2u2f1/
           '''))
-    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(exitstatus, 0)
