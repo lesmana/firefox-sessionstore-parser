@@ -390,7 +390,7 @@ class ApplicationFactory(object):
 
   def getdefaults(self):
     optionsdata = [
-          ('all', ['--all'], 0)]
+          ('all', ['--all', '--all-with-history'], 0)]
     argumentsdata = [
           'filename']
     defaults = {
