@@ -174,10 +174,10 @@ class UrlProducer(object):
       for url in self.handleentry(entry):
         if index < openindex:
           url['entry'] = 'back'
-        elif index == openindex:
-          url['entry'] = 'open'
         elif index > openindex:
           url['entry'] = 'forward'
+        else: # index == openindex:
+          url['entry'] = 'open'
         yield url
 
   def handlewindow(self, window):
