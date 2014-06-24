@@ -133,61 +133,29 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://w1t1u1b2/
-          http://w1t1u2b1/
           http://w1t1u3/
-          http://w1t2u1b1/
           http://w1t2u2/
-          http://w1t2u3f1/
           http://w1t3u1/
-          http://w1t3u2f1/
-          http://w1t3u3f2/
-          http://w1ct1u1b1/
           http://w1ct1u2/
           http://w1ct2u1/
-          http://w1ct2u2f1/
-          http://w2t1u1b2/
-          http://w2t1u2b1/
           http://w2t1u3/
-          http://w2t2u1b1/
           http://w2t2u2/
-          http://w2t2u3f1/
           http://w2t3u1/
-          http://w2t3u2f1/
-          http://w2t3u3f2/
-          http://w2ct1u1b1/
           http://w2ct1u2/
           http://w2ct2u1/
-          http://w2ct2u2f1/
-          http://w3t1u1b2/
-          http://w3t1u2b1/
           http://w3t1u3/
-          http://w3t2u1b1/
           http://w3t2u2/
-          http://w3t2u3f1/
           http://w3t3u1/
-          http://w3t3u2f1/
-          http://w3t3u3f2/
-          http://w3ct1u1b1/
           http://w3ct1u2/
           http://w3ct2u1/
-          http://w3ct2u2f1/
-          http://cw1t1u1b1
           http://cw1t1u2
           http://cw1t2u1
-          http://cw1t2u2f1
-          http://cw1ct1u1b1/
           http://cw1ct1u2/
           http://cw1ct2u1/
-          http://cw1ct2u2f1/
-          http://cw2t1u1b1
           http://cw2t1u2
           http://cw2t2u1
-          http://cw2t2u2f1
-          http://cw2ct1u1b1/
           http://cw2ct1u2/
           http://cw2ct2u1/
-          http://cw2ct2u2f1/
           '''))
     self.assertEqual(exitstatus, 0)
 

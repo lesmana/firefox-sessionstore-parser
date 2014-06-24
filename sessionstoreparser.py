@@ -298,7 +298,8 @@ class UrlFilterFactory(object):
 
   def produce(self, parsedargv):
     if 'all' in parsedargv:
-      predicate = AndPredicate([])
+      selectedentry = UrlAttributePredicate('entry', 'selected')
+      predicate = AndPredicate([selectedentry])
     elif 'allwithhistory' in parsedargv:
       predicate = AndPredicate([])
     else:
