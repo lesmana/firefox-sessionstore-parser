@@ -426,6 +426,9 @@ class ApplicationFactory(object):
         sessionstoreparserclass,
         workerfactoryclass,
         applicationclass):
+    #pylint: disable=too-many-arguments
+    #pylint: disable=too-many-locals
+    #pylint: disable=invalid-name
     argvparser = argvparserclass(
           getopt.getopt,
           optionsdata,
