@@ -409,39 +409,23 @@ class ApplicationFactory(object):
           'applicationclass': Application}
     return defaults
 
-  def produce(self, optionsdata, argumentsdata, **classes):
-    argvparserclass = classes.get(
-          'argvparserclass', ArgvParser)
-    helpprinterfactoryclass = classes.get(
-          'helpprinterfactoryclass', HelpPrinterFactory)
-    helpprinterclass = classes.get(
-          'helpprinterclass', HelpPrinter)
-    jsonreaderclass = classes.get(
-          'jsonreaderclass', JsonReader)
-    sessionstoreproducerfactoryclass = classes.get(
-          'sessionstoreproducerfactoryclass', SessionStoreProducerFactory)
-    sessionstoreproducerclass = classes.get(
-          'sessionstoreproducerclass', SessionStoreProducer)
-    urlproducerfactoryclass = classes.get(
-          'urlproducerfactoryclass', UrlProducerFactory)
-    urlproducerclass = classes.get(
-          'urlproducerclass', UrlProducer)
-    urlfilterfactoryclass = classes.get(
-          'urlfilterfactoryclass', UrlFilterFactory)
-    urlfilterclass = classes.get(
-          'urlfilterclass', UrlFilter)
-    urlconsumerfactoryclass = classes.get(
-          'urlconsumerfactoryclass', UrlConsumerFactory)
-    urlwriterclass = classes.get(
-          'urlwriterclass', UrlWriter)
-    sessionstoreparserfactoryclass = classes.get(
-          'sessionstoreparserfactoryclass', SessionStoreParserFactory)
-    sessionstoreparserclass = classes.get(
-          'sessionstoreparserclass', SessionStoreParser)
-    workerfactoryclass = classes.get(
-          'workerfactoryclass', WorkerFactory)
-    applicationclass = classes.get(
-          'applicationclass', Application)
+  def produce(self, optionsdata, argumentsdata,
+        argvparserclass,
+        helpprinterfactoryclass,
+        helpprinterclass,
+        jsonreaderclass,
+        sessionstoreproducerfactoryclass,
+        sessionstoreproducerclass,
+        urlproducerfactoryclass,
+        urlproducerclass,
+        urlfilterfactoryclass,
+        urlfilterclass,
+        urlconsumerfactoryclass,
+        urlwriterclass,
+        sessionstoreparserfactoryclass,
+        sessionstoreparserclass,
+        workerfactoryclass,
+        applicationclass):
     argvparser = argvparserclass(
           getopt.getopt,
           optionsdata,
