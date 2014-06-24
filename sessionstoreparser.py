@@ -383,7 +383,10 @@ class ApplicationFactory(object):
   def __init__(self, classes):
     self.classes = classes
 
-  def produce(self, stdout, stderr, openfunc):
+  def produce(self, xstdout, xstderr, xopenfunc):
+    self.stdout = xstdout
+    self.stderr = xstderr
+    self.openfunc = xopenfunc
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
@@ -394,18 +397,18 @@ class ApplicationFactory(object):
           argumentsdata)
     helpprinterfactory = HelpPrinterFactory(
           self.classes['HelpPrinter'],
-          stderr)
+          self.stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(
           self.classes['JsonReader'],
           self.classes['SessionStoreProducer'],
-          openfunc)
+          self.openfunc)
     urlproducerfactory = UrlProducerFactory(
           self.classes['UrlProducer'])
     urlfilterfactory = UrlFilterFactory(
           self.classes['UrlFilter'])
     urlconsumerfactory = UrlConsumerFactory(
           self.classes['UrlWriter'],
-          stdout)
+          self.stdout)
     sessionstoreparserfactory = SessionStoreParserFactory(
           sessionstoreproducerfactory,
           urlproducerfactory,
@@ -418,7 +421,7 @@ class ApplicationFactory(object):
     app = Application(
           argvparser,
           workerfactory,
-          stderr)
+          self.stderr)
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
