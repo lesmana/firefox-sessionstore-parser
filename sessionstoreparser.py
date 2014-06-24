@@ -380,11 +380,11 @@ class Application(object):
       return 1
 
 class ApplicationFactory(object):
-  def __init__(self, classes, xstdout, xstderr, xopenfunc):
+  def __init__(self, classes, stdout, stderr, openfunc):
     self.classes = classes
-    self.stdout = xstdout
-    self.stderr = xstderr
-    self.openfunc = xopenfunc
+    self.stdout = stdout
+    self.stderr = stderr
+    self.openfunc = openfunc
 
   def produce(self):
     optionsdata = [
