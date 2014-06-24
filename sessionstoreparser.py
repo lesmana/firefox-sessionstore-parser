@@ -396,6 +396,15 @@ class ApplicationFactory(object):
             'UrlFilter': UrlFilter,
             'UrlWriter': UrlWriter,
             'SessionStoreParser': SessionStoreParser}
+    helpprinterclass = classes.get('HelpPrinter', HelpPrinter)
+    jsonreaderclass = classes.get('JsonReader', JsonReader)
+    sessionstoreproducerclass = classes.get('SessionStoreProducer', SessionStoreProducer)
+    urlproducerclass = classes.get('UrlProducer', UrlProducer)
+    openurlpredicateclass = classes.get('OpenUrlPredicate', OpenUrlPredicate)
+    allurlpredicateclass = classes.get('AllUrlPredicate', AllUrlPredicate)
+    urlfilterclass = classes.get('UrlFilter', UrlFilter)
+    urlwriterclass = classes.get('UrlWriter', UrlWriter)
+    sessionstoreparserclass = classes.get('SessionStoreParser', SessionStoreParser)
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
