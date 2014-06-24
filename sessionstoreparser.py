@@ -414,25 +414,25 @@ class ApplicationFactory(object):
           optionsdata,
           argumentsdata)
     helpprinterfactory = HelpPrinterFactory(
-          classes['HelpPrinter'],
+          helpprinterclass,
           self.stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(
-          classes['JsonReader'],
-          classes['SessionStoreProducer'],
+          jsonreaderclass,
+          sessionstoreproducerclass,
           self.openfunc)
     urlproducerfactory = UrlProducerFactory(
-          classes['UrlProducer'])
+          urlproducerclass)
     urlfilterfactory = UrlFilterFactory(
-          classes['UrlFilter'])
+          urlfilterclass)
     urlconsumerfactory = UrlConsumerFactory(
-          classes['UrlWriter'],
+          urlwriterclass,
           self.stdout)
     sessionstoreparserfactory = SessionStoreParserFactory(
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
           urlconsumerfactory,
-          classes['SessionStoreParser'])
+          sessionstoreparserclass)
     workerfactory = WorkerFactory(
           helpprinterfactory,
           sessionstoreparserfactory)
