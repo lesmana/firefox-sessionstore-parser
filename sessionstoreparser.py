@@ -385,8 +385,8 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
-  def defaultclasses(self):
-    defaultclasses = {
+  def produce(self):
+    classes = {
             'HelpPrinter': HelpPrinter,
             'JsonReader': JsonReader,
             'SessionStoreProducer': SessionStoreProducer,
@@ -396,12 +396,6 @@ class ApplicationFactory(object):
             'UrlFilter': UrlFilter,
             'UrlWriter': UrlWriter,
             'SessionStoreParser': SessionStoreParser}
-    return defaultclasses
-
-  def produce(self, customclasses=None):
-    classes = self.defaultclasses()
-    if customclasses is not None:
-      classes.update(customclasses)
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
