@@ -208,9 +208,9 @@ class OpenUrlPredicate(object):
     pass
 
   def isgood(self, url):
-    if url['tab'] == 'closed':
+    if not url['tab'] == 'open':
       return False
-    if url['window'] == 'closed':
+    if not url['window'] == 'open':
       return False
     index = url['urlindex']
     openindex = url['openindex']
