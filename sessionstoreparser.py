@@ -220,14 +220,14 @@ class OpenUrlPredicate(object):
     pass
 
   def true(self, url):
-    openwindowpredicate = UrlAttributePredicate('window', 'open')
-    opentabpredicate = UrlAttributePredicate('tab', 'open')
-    selectedentrypredicate = UrlAttributePredicate('entry', 'selected')
-    if not openwindowpredicate.true(url):
+    openwindow = UrlAttributePredicate('window', 'open')
+    opentab = UrlAttributePredicate('tab', 'open')
+    selectedentry = UrlAttributePredicate('entry', 'selected')
+    if not openwindow.true(url):
       return False
-    if not opentabpredicate.true(url):
+    if not opentab.true(url):
       return False
-    if selectedentrypredicate.true(url):
+    if selectedentry.true(url):
       return True
 
 class AllUrlPredicate(object):
