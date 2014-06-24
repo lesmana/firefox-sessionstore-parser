@@ -385,7 +385,22 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
-  def produce(self, classes):
+  def defaultclasses(self):
+    defaultclasses = {
+            'HelpPrinter': HelpPrinter,
+            'JsonReader': JsonReader,
+            'SessionStoreProducer': SessionStoreProducer,
+            'UrlProducer': UrlProducer,
+            'OpenUrlPredicate': OpenUrlPredicate,
+            'AllUrlPredicate': AllUrlPredicate,
+            'UrlFilter': UrlFilter,
+            'UrlWriter': UrlWriter,
+            'SessionStoreParser': SessionStoreParser}
+    return defaultclasses
+
+  def produce(self, customclasses = {}):
+    classes = self.defaultclasses()
+    classes.update(customclasses)
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
@@ -424,18 +439,8 @@ class ApplicationFactory(object):
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  classes = {
-          'HelpPrinter': HelpPrinter,
-          'JsonReader': JsonReader,
-          'SessionStoreProducer': SessionStoreProducer,
-          'UrlProducer': UrlProducer,
-          'OpenUrlPredicate': OpenUrlPredicate,
-          'AllUrlPredicate': AllUrlPredicate,
-          'UrlFilter': UrlFilter,
-          'UrlWriter': UrlWriter,
-          'SessionStoreParser': SessionStoreParser}
   appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  app = appfactory.produce(classes)
+  app = appfactory.produce()
   exitstatus = app.run(argv)
   return exitstatus
 
