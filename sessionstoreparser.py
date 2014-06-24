@@ -172,8 +172,12 @@ class UrlProducer(object):
     entries = tab['entries']
     for index, entry in enumerate(entries):
       for url in self.handleentry(entry):
-        url['urlindex'] = index
-        url['openindex'] = openindex
+        if index < openindex:
+          url['entry'] = 'back'
+        elif index == openindex:
+          url['entry'] = 'open'
+        elif index > openindex:
+          url['entry'] = 'forward'
         yield url
 
   def handlewindow(self, window):
@@ -212,14 +216,6 @@ class OpenUrlPredicate(object):
       return False
     if not url['window'] == 'open':
       return False
-    index = url['urlindex']
-    openindex = url['openindex']
-    if index < openindex:
-      url['entry'] = 'back'
-    elif index == openindex:
-      url['entry'] = 'open'
-    elif index > openindex:
-      url['entry'] = 'forward'
     if url['entry'] == 'open':
       return True
 
