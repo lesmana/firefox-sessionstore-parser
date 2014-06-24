@@ -380,13 +380,13 @@ class Application(object):
       return 1
 
 class ApplicationFactory(object):
-  def __init__(self, classes):
+  def __init__(self, classes, xstdout, xstderr, xopenfunc):
     self.classes = classes
-
-  def produce(self, xstdout, xstderr, xopenfunc):
     self.stdout = xstdout
     self.stderr = xstderr
     self.openfunc = xopenfunc
+
+  def produce(self):
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
@@ -435,8 +435,8 @@ def secludedmain(argv, stdout, stderr, openfunc):
           'UrlFilter': UrlFilter,
           'UrlWriter': UrlWriter,
           'SessionStoreParser': SessionStoreParser}
-  appfactory = ApplicationFactory(classes)
-  app = appfactory.produce(stdout, stderr, openfunc)
+  appfactory = ApplicationFactory(classes, stdout, stderr, openfunc)
+  app = appfactory.produce()
   exitstatus = app.run(argv)
   return exitstatus
 
