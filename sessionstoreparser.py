@@ -409,13 +409,7 @@ class ApplicationFactory(object):
           'Application': Application}
     return defaults
 
-  def produce(self, optionsdata=None, argumentsdata=None, **classes):
-    if optionsdata is None:
-      optionsdata = [
-            ('all', ['--all'], 0)]
-    if argumentsdata is None:
-      argumentsdata = [
-            'filename']
+  def produce(self, optionsdata, argumentsdata, **classes):
     argvparserclass = classes.get(
           'ArgvParser', ArgvParser)
     helpprinterfactoryclass = classes.get(
