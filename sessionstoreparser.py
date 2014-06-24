@@ -272,16 +272,15 @@ class HelpPrinterFactory(object):
     return worker
 
 class SessionStoreProducerFactory(object):
-  def __init__(self, classes, openfunc):
-    self.classes = classes
+  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc):
+    self.jsonreaderclass = jsonreaderclass
+    self.sessionstoreproducerclass = sessionstoreproducerclass
     self.openfunc = openfunc
 
   def produce(self, parsedargv):
     filename = parsedargv['filename']
-    jsonreaderclass = self.classes['JsonReader']
-    jsonreader = jsonreaderclass(self.openfunc, json.load)
-    sessionstoreproducerclass = self.classes['SessionStoreProducer']
-    sessionstoreproducer = sessionstoreproducerclass(jsonreader, filename)
+    jsonreader = self.jsonreaderclass(self.openfunc, json.load)
+    sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
     return sessionstoreproducer
 
 class UrlProducerFactory(object):
@@ -400,7 +399,8 @@ class ApplicationFactory(object):
           self.classes['HelpPrinter'],
           stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(
-          self.classes,
+          self.classes['JsonReader'],
+          self.classes['SessionStoreProducer'],
           openfunc)
     urlproducerfactory = UrlProducerFactory(
           self.classes)
