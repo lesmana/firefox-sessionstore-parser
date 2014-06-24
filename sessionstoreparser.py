@@ -381,12 +381,13 @@ class Application(object):
 
 class ApplicationFactory(object):
   def __init__(self, classes, stdout, stderr, openfunc):
-    self.classes = classes
+    self.xclasses = classes
     self.stdout = stdout
     self.stderr = stderr
     self.openfunc = openfunc
 
   def produce(self):
+    classes = self.xclasses
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
@@ -396,25 +397,25 @@ class ApplicationFactory(object):
           optionsdata,
           argumentsdata)
     helpprinterfactory = HelpPrinterFactory(
-          self.classes['HelpPrinter'],
+          classes['HelpPrinter'],
           self.stderr)
     sessionstoreproducerfactory = SessionStoreProducerFactory(
-          self.classes['JsonReader'],
-          self.classes['SessionStoreProducer'],
+          classes['JsonReader'],
+          classes['SessionStoreProducer'],
           self.openfunc)
     urlproducerfactory = UrlProducerFactory(
-          self.classes['UrlProducer'])
+          classes['UrlProducer'])
     urlfilterfactory = UrlFilterFactory(
-          self.classes['UrlFilter'])
+          classes['UrlFilter'])
     urlconsumerfactory = UrlConsumerFactory(
-          self.classes['UrlWriter'],
+          classes['UrlWriter'],
           self.stdout)
     sessionstoreparserfactory = SessionStoreParserFactory(
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
           urlconsumerfactory,
-          self.classes['SessionStoreParser'])
+          classes['SessionStoreParser'])
     workerfactory = WorkerFactory(
           helpprinterfactory,
           sessionstoreparserfactory)
