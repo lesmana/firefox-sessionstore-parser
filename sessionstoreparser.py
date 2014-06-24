@@ -207,16 +207,40 @@ class UrlProducer(object):
   def produce(self, sessionstore):
     return self.generate(sessionstore)
 
+class OpenWindowPredicate(object):
+  def __init__(self):
+    pass
+
+  def true(self, url):
+    return url['window'] == 'open'
+
+class OpenTabPredicate(object):
+  def __init__(self):
+    pass
+
+  def true(self, url):
+    return url['tab'] == 'open'
+
+class OpenEntryPredicate(object):
+  def __init__(self):
+    pass
+
+  def true(self, url):
+    return url['entry'] == 'open'
+
 class OpenUrlPredicate(object):
   def __init__(self):
     pass
 
   def true(self, url):
-    if not url['window'] == 'open':
+    openwindowpredicate = OpenWindowPredicate()
+    opentabpredicate = OpenTabPredicate()
+    openentrypredicate = OpenEntryPredicate()
+    if not openwindowpredicate.true(url):
       return False
-    if not url['tab'] == 'open':
+    if not opentabpredicate.true(url):
       return False
-    if url['entry'] == 'open':
+    if openentrypredicate.true(url):
       return True
 
 class AllUrlPredicate(object):
