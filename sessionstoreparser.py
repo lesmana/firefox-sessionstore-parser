@@ -385,6 +385,30 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
+  def getdefaults(self):
+    defaults = {
+          'optionsdata': [
+                ('all', ['--all'], 0)],
+          'argumentsdata': [
+                'filename'],
+          'ArgvParser': ArgvParser,
+          'HelpPrinterFactory': HelpPrinterFactory,
+          'HelpPrinter': HelpPrinter,
+          'JsonReader': JsonReader,
+          'SessionStoreProducerFactory': SessionStoreProducerFactory,
+          'SessionStoreProducer': SessionStoreProducer,
+          'UrlProducerFactory': UrlProducerFactory,
+          'UrlProducer': UrlProducer,
+          'UrlFilterFactory': UrlFilterFactory,
+          'UrlFilter': UrlFilter,
+          'UrlConsumerFactory': UrlConsumerFactory,
+          'UrlWriter': UrlWriter,
+          'SessionStoreParserFactory': SessionStoreParserFactory,
+          'SessionStoreParser': SessionStoreParser,
+          'WorkerFactory': WorkerFactory,
+          'Application': Application}
+    return defaults
+
   def produce(self, optionsdata=None, argumentsdata=None, **classes):
     if optionsdata is None:
       optionsdata = [
@@ -457,9 +481,14 @@ class ApplicationFactory(object):
           self.stderr)
     return app
 
+  def producedefaults(self):
+    defaults = self.getdefaults()
+    app = self.produce(**defaults)
+    return app
+
 def secludedmain(argv, stdout, stderr, openfunc):
   appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  app = appfactory.produce()
+  app = appfactory.producedefaults()
   exitstatus = app.run(argv)
   return exitstatus
 
