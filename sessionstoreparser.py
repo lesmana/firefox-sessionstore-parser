@@ -177,7 +177,7 @@ class UrlProducer(object):
         elif index > openindex:
           url['entry'] = 'forward'
         else: # index == openindex:
-          url['entry'] = 'open'
+          url['entry'] = 'selected'
         yield url
 
   def handlewindow(self, window):
@@ -222,12 +222,12 @@ class OpenUrlPredicate(object):
   def true(self, url):
     openwindowpredicate = UrlAttributePredicate('window', 'open')
     opentabpredicate = UrlAttributePredicate('tab', 'open')
-    openentrypredicate = UrlAttributePredicate('entry', 'open')
+    selectedentrypredicate = UrlAttributePredicate('entry', 'selected')
     if not openwindowpredicate.true(url):
       return False
     if not opentabpredicate.true(url):
       return False
-    if openentrypredicate.true(url):
+    if selectedentrypredicate.true(url):
       return True
 
 class AllUrlPredicate(object):
