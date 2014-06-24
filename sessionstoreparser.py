@@ -385,11 +385,13 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
-  def produce(self, **classes):
-    optionsdata = [
-          ('all', ['--all'], 0)]
-    argumentsdata = [
-          'filename']
+  def produce(self, optionsdata=None, argumentsdata=None, **classes):
+    if optionsdata is None:
+      optionsdata = [
+            ('all', ['--all'], 0)]
+    if argumentsdata is None:
+      argumentsdata = [
+            'filename']
     helpprinterclass = classes.get('HelpPrinter', HelpPrinter)
     jsonreaderclass = classes.get('JsonReader', JsonReader)
     sessionstoreproducerclass = classes.get('SessionStoreProducer', SessionStoreProducer)
