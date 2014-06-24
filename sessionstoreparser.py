@@ -317,10 +317,12 @@ class UrlFilterFactory(object):
 
   def produce(self, parsedargv):
     if 'all' in parsedargv:
-      predicateclass = AllUrlPredicate
+      predicate = AndPredicate([])
     else:
-      predicateclass = OpenUrlPredicate
-    predicate = predicateclass()
+      openwindow = UrlAttributePredicate('window', 'open')
+      opentab = UrlAttributePredicate('tab', 'open')
+      selectedentry = UrlAttributePredicate('entry', 'selected')
+      predicate = AndPredicate([openwindow, opentab, selectedentry])
     urlfilter = self.urlfilterclass(predicate)
     return urlfilter
 
