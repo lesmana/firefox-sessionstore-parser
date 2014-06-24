@@ -389,11 +389,13 @@ class ApplicationFactory(object):
     self.openfunc = openfunc
 
   def getdefaults(self):
+    optionsdata = [
+          ('all', ['--all'], 0)]
+    argumentsdata = [
+          'filename']
     defaults = {
-          'optionsdata': [
-                ('all', ['--all'], 0)],
-          'argumentsdata': [
-                'filename'],
+          'optionsdata': optionsdata,
+          'argumentsdata': argumentsdata,
           'argvparserclass': ArgvParser,
           'helpprinterfactoryclass': HelpPrinterFactory,
           'helpprinterclass': HelpPrinter,
