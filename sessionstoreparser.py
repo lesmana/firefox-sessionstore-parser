@@ -392,48 +392,66 @@ class ApplicationFactory(object):
     if argumentsdata is None:
       argumentsdata = [
             'filename']
+    argvparserclass = classes.get(
+          'ArgvParser', ArgvParser)
+    helpprinterfactoryclass = classes.get(
+          'HelpPrinterFactory', HelpPrinterFactory)
     helpprinterclass = classes.get(
           'HelpPrinter', HelpPrinter)
     jsonreaderclass = classes.get(
           'JsonReader', JsonReader)
+    sessionstoreproducerfactoryclass = classes.get(
+          'SessionStoreProducerFactory', SessionStoreProducerFactory)
     sessionstoreproducerclass = classes.get(
           'SessionStoreProducer', SessionStoreProducer)
+    urlproducerfactoryclass = classes.get(
+          'UrlProducerFactory', UrlProducerFactory)
     urlproducerclass = classes.get(
           'UrlProducer', UrlProducer)
+    urlfilterfactoryclass = classes.get(
+          'UrlFilterFactory', UrlFilterFactory)
     urlfilterclass = classes.get(
           'UrlFilter', UrlFilter)
+    urlconsumerfactoryclass = classes.get(
+          'UrlConsumerFactory', UrlConsumerFactory)
     urlwriterclass = classes.get(
           'UrlWriter', UrlWriter)
+    sessionstoreparserfactoryclass = classes.get(
+          'SessionStoreParserFactory', SessionStoreParserFactory)
     sessionstoreparserclass = classes.get(
           'SessionStoreParser', SessionStoreParser)
-    argvparser = ArgvParser(
+    workerfactoryclass = classes.get(
+          'WorkerFactory', WorkerFactory)
+    applicationclass = classes.get(
+          'Application', Application)
+    argvparser = argvparserclass(
           getopt.getopt,
           optionsdata,
           argumentsdata)
-    helpprinterfactory = HelpPrinterFactory(
+    helpprinterfactory = helpprinterfactoryclass(
           helpprinterclass,
           self.stderr)
-    sessionstoreproducerfactory = SessionStoreProducerFactory(
+    sessionstoreproducerfactory = sessionstoreproducerfactoryclass(
           jsonreaderclass,
           sessionstoreproducerclass,
           self.openfunc)
-    urlproducerfactory = UrlProducerFactory(
+    urlproducerfactory = urlproducerfactoryclass(
           urlproducerclass)
-    urlfilterfactory = UrlFilterFactory(
+    urlfilterfactory = urlfilterfactoryclass(
           urlfilterclass)
-    urlconsumerfactory = UrlConsumerFactory(
+    urlconsumerfactory = urlconsumerfactoryclass(
           urlwriterclass,
           self.stdout)
-    sessionstoreparserfactory = SessionStoreParserFactory(
+    sessionstoreparserfactory = sessionstoreparserfactoryclass(
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
           urlconsumerfactory,
           sessionstoreparserclass)
-    workerfactory = WorkerFactory(
+    workerfactory = workerfactoryclass(
           helpprinterfactory,
           sessionstoreparserfactory)
-    app = Application(
+    app = applicationclass(
           argvparser,
           workerfactory,
           self.stderr)
