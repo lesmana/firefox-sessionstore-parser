@@ -292,17 +292,16 @@ class UrlProducerFactory(object):
     return urlproducer
 
 class UrlFilterFactory(object):
-  def __init__(self, classes):
-    self.classes = classes
+  def __init__(self, urlfilterclass):
+    self.urlfilterclass = urlfilterclass
 
   def produce(self, parsedargv):
     if 'all' in parsedargv:
-      predicateclass = self.classes['AllUrlPredicate']
+      predicateclass = AllUrlPredicate
     else:
-      predicateclass = self.classes['OpenUrlPredicate']
+      predicateclass = OpenUrlPredicate
     predicate = predicateclass()
-    urlfilterclass = self.classes['UrlFilter']
-    urlfilter = urlfilterclass(predicate)
+    urlfilter = self.urlfilterclass(predicate)
     return urlfilter
 
 class UrlConsumerFactory(object):
@@ -404,7 +403,7 @@ class ApplicationFactory(object):
     urlproducerfactory = UrlProducerFactory(
           self.classes['UrlProducer'])
     urlfilterfactory = UrlFilterFactory(
-          self.classes)
+          self.classes['UrlFilter'])
     urlconsumerfactory = UrlConsumerFactory(
           self.classes,
           stdout)
