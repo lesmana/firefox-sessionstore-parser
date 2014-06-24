@@ -254,10 +254,10 @@
           "index": 2,
           "entries": [
             {
-              "url": "http://cw1t1u1b1"
+              "url": "http://cw1t1u1b1/"
             },
             {
-              "url": "http://cw1t1u2"
+              "url": "http://cw1t1u2/"
             }
           ],
           "attributes": {}
@@ -266,10 +266,10 @@
           "index": 1,
           "entries": [
             {
-              "url": "http://cw1t2u1"
+              "url": "http://cw1t2u1/"
             },
             {
-              "url": "http://cw1t2u2f1"
+              "url": "http://cw1t2u2f1/"
             }
           ],
           "attributes": {}
@@ -316,10 +316,10 @@
           "index": 2,
           "entries": [
             {
-              "url": "http://cw2t1u1b1"
+              "url": "http://cw2t1u1b1/"
             },
             {
-              "url": "http://cw2t1u2"
+              "url": "http://cw2t1u2/"
             }
           ],
           "attributes": {}
@@ -328,10 +328,10 @@
           "index": 1,
           "entries": [
             {
-              "url": "http://cw2t2u1"
+              "url": "http://cw2t2u1/"
             },
             {
-              "url": "http://cw2t2u2f1"
+              "url": "http://cw2t2u2f1/"
             }
           ],
           "attributes": {}

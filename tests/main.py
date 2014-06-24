@@ -148,12 +148,12 @@ class TestMainRealData(unittest.TestCase):
           http://w3t3u1/
           http://w3ct1u2/
           http://w3ct2u1/
-          http://cw1t1u2
-          http://cw1t2u1
+          http://cw1t1u2/
+          http://cw1t2u1/
           http://cw1ct1u2/
           http://cw1ct2u1/
-          http://cw2t1u2
-          http://cw2t2u1
+          http://cw2t1u2/
+          http://cw2t2u1/
           http://cw2ct1u2/
           http://cw2ct2u1/
           '''))
@@ -208,18 +208,18 @@ class TestMainRealData(unittest.TestCase):
           http://w3ct1u2/
           http://w3ct2u1/
           http://w3ct2u2f1/
-          http://cw1t1u1b1
-          http://cw1t1u2
-          http://cw1t2u1
-          http://cw1t2u2f1
+          http://cw1t1u1b1/
+          http://cw1t1u2/
+          http://cw1t2u1/
+          http://cw1t2u2f1/
           http://cw1ct1u1b1/
           http://cw1ct1u2/
           http://cw1ct2u1/
           http://cw1ct2u2f1/
-          http://cw2t1u1b1
-          http://cw2t1u2
-          http://cw2t2u1
-          http://cw2t2u2f1
+          http://cw2t1u1b1/
+          http://cw2t1u2/
+          http://cw2t2u1/
+          http://cw2t2u2f1/
           http://cw2ct1u1b1/
           http://cw2ct1u2/
           http://cw2ct2u1/
