@@ -385,17 +385,7 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
-  def produce(self):
-    classes = {
-            'HelpPrinter': HelpPrinter,
-            'JsonReader': JsonReader,
-            'SessionStoreProducer': SessionStoreProducer,
-            'UrlProducer': UrlProducer,
-            'OpenUrlPredicate': OpenUrlPredicate,
-            'AllUrlPredicate': AllUrlPredicate,
-            'UrlFilter': UrlFilter,
-            'UrlWriter': UrlWriter,
-            'SessionStoreParser': SessionStoreParser}
+  def produce(self, **classes):
     helpprinterclass = classes.get('HelpPrinter', HelpPrinter)
     jsonreaderclass = classes.get('JsonReader', JsonReader)
     sessionstoreproducerclass = classes.get('SessionStoreProducer', SessionStoreProducer)
