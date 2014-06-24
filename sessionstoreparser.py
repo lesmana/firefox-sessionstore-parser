@@ -305,13 +305,12 @@ class UrlFilterFactory(object):
     return urlfilter
 
 class UrlConsumerFactory(object):
-  def __init__(self, classes, stdout):
-    self.classes = classes
+  def __init__(self, urlconsumerclass, stdout):
+    self.urlconsumerclass = urlconsumerclass
     self.stdout = stdout
 
   def produce(self, parsedargv):
-    urlconsumerclass = self.classes['UrlWriter']
-    urlconsumer = urlconsumerclass(self.stdout)
+    urlconsumer = self.urlconsumerclass(self.stdout)
     return urlconsumer
 
 class SessionStoreParserFactory(object):
@@ -405,7 +404,7 @@ class ApplicationFactory(object):
     urlfilterfactory = UrlFilterFactory(
           self.classes['UrlFilter'])
     urlconsumerfactory = UrlConsumerFactory(
-          self.classes,
+          self.classes['UrlWriter'],
           stdout)
     sessionstoreparserfactory = SessionStoreParserFactory(
           self.classes,
