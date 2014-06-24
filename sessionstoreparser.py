@@ -284,12 +284,11 @@ class SessionStoreProducerFactory(object):
     return sessionstoreproducer
 
 class UrlProducerFactory(object):
-  def __init__(self, classes):
-    self.classes = classes
+  def __init__(self, urlproducerclass):
+    self.urlproducerclass = urlproducerclass
 
   def produce(self, parsedargv):
-    urlproducerclass = self.classes['UrlProducer']
-    urlproducer = urlproducerclass()
+    urlproducer = self.urlproducerclass()
     return urlproducer
 
 class UrlFilterFactory(object):
@@ -403,7 +402,7 @@ class ApplicationFactory(object):
           self.classes['SessionStoreProducer'],
           openfunc)
     urlproducerfactory = UrlProducerFactory(
-          self.classes)
+          self.classes['UrlProducer'])
     urlfilterfactory = UrlFilterFactory(
           self.classes)
     urlconsumerfactory = UrlConsumerFactory(
