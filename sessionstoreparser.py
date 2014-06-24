@@ -314,24 +314,24 @@ class UrlConsumerFactory(object):
     return urlconsumer
 
 class SessionStoreParserFactory(object):
-  def __init__(self, classes,
+  def __init__(self,
         sessionstoreproducerfactory,
         urlproducerfactory,
         urlfilterfactory,
-        urlconsumerfactory):
-    self.classes = classes
+        urlconsumerfactory,
+        sessionstoreparserclass):
     self.sessionstoreproducerfactory = sessionstoreproducerfactory
     self.urlproducerfactory = urlproducerfactory
     self.urlfilterfactory = urlfilterfactory
     self.urlconsumerfactory = urlconsumerfactory
+    self.sessionstoreparserclass = sessionstoreparserclass
 
   def produce(self, parsedargv):
     sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
     urlproducer = self.urlproducerfactory.produce(parsedargv)
     urlfilter = self.urlfilterfactory.produce(parsedargv)
     urlconsumer = self.urlconsumerfactory.produce(parsedargv)
-    sessionstoreparserclass = self.classes['SessionStoreParser']
-    sessionstoreparser = sessionstoreparserclass(
+    sessionstoreparser = self.sessionstoreparserclass(
           sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
     return sessionstoreparser
 
@@ -407,11 +407,11 @@ class ApplicationFactory(object):
           self.classes['UrlWriter'],
           stdout)
     sessionstoreparserfactory = SessionStoreParserFactory(
-          self.classes,
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
-          urlconsumerfactory)
+          urlconsumerfactory,
+          self.classes['SessionStoreParser'])
     workerfactory = WorkerFactory(
           helpprinterfactory,
           sessionstoreparserfactory)
