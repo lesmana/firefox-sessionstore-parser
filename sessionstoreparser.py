@@ -398,9 +398,10 @@ class ApplicationFactory(object):
             'SessionStoreParser': SessionStoreParser}
     return defaultclasses
 
-  def produce(self, customclasses = {}):
+  def produce(self, customclasses=None):
     classes = self.defaultclasses()
-    classes.update(customclasses)
+    if customclasses is not None:
+      classes.update(customclasses)
     optionsdata = [
           ('all', ['--all'], 0)]
     argumentsdata = [
