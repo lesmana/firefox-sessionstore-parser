@@ -386,6 +386,10 @@ class ApplicationFactory(object):
     self.openfunc = openfunc
 
   def produce(self, **classes):
+    optionsdata = [
+          ('all', ['--all'], 0)]
+    argumentsdata = [
+          'filename']
     helpprinterclass = classes.get('HelpPrinter', HelpPrinter)
     jsonreaderclass = classes.get('JsonReader', JsonReader)
     sessionstoreproducerclass = classes.get('SessionStoreProducer', SessionStoreProducer)
@@ -395,10 +399,6 @@ class ApplicationFactory(object):
     urlfilterclass = classes.get('UrlFilter', UrlFilter)
     urlwriterclass = classes.get('UrlWriter', UrlWriter)
     sessionstoreparserclass = classes.get('SessionStoreParser', SessionStoreParser)
-    optionsdata = [
-          ('all', ['--all'], 0)]
-    argumentsdata = [
-          'filename']
     argvparser = ArgvParser(
           getopt.getopt,
           optionsdata,
