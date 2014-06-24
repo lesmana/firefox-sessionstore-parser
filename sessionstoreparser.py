@@ -392,13 +392,20 @@ class ApplicationFactory(object):
     if argumentsdata is None:
       argumentsdata = [
             'filename']
-    helpprinterclass = classes.get('HelpPrinter', HelpPrinter)
-    jsonreaderclass = classes.get('JsonReader', JsonReader)
-    sessionstoreproducerclass = classes.get('SessionStoreProducer', SessionStoreProducer)
-    urlproducerclass = classes.get('UrlProducer', UrlProducer)
-    urlfilterclass = classes.get('UrlFilter', UrlFilter)
-    urlwriterclass = classes.get('UrlWriter', UrlWriter)
-    sessionstoreparserclass = classes.get('SessionStoreParser', SessionStoreParser)
+    helpprinterclass = classes.get(
+          'HelpPrinter', HelpPrinter)
+    jsonreaderclass = classes.get(
+          'JsonReader', JsonReader)
+    sessionstoreproducerclass = classes.get(
+          'SessionStoreProducer', SessionStoreProducer)
+    urlproducerclass = classes.get(
+          'UrlProducer', UrlProducer)
+    urlfilterclass = classes.get(
+          'UrlFilter', UrlFilter)
+    urlwriterclass = classes.get(
+          'UrlWriter', UrlWriter)
+    sessionstoreparserclass = classes.get(
+          'SessionStoreParser', SessionStoreParser)
     argvparser = ArgvParser(
           getopt.getopt,
           optionsdata,
