@@ -214,7 +214,13 @@ class OpenUrlPredicate(object):
       return False
     index = url['urlindex']
     openindex = url['openindex']
-    if index == openindex:
+    if index < openindex:
+      url['entry'] = 'back'
+    elif index == openindex:
+      url['entry'] = 'open'
+    elif index > openindex:
+      url['entry'] = 'forward'
+    if url['entry'] == 'open':
       return True
 
 class AllUrlPredicate(object):
