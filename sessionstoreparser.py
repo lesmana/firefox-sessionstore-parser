@@ -211,7 +211,7 @@ class OpenUrlPredicate(object):
   def __init__(self):
     pass
 
-  def isgood(self, url):
+  def true(self, url):
     if not url['tab'] == 'open':
       return False
     if not url['window'] == 'open':
@@ -223,7 +223,7 @@ class AllUrlPredicate(object):
   def __init__(self):
     pass
 
-  def isgood(self, url):
+  def true(self, url):
     return True
 
 class UrlFilter(object):
@@ -232,7 +232,7 @@ class UrlFilter(object):
 
   def filter(self, urls):
     for url in urls:
-      if self.predicate.isgood(url):
+      if self.predicate.true(url):
         yield url
 
 class UrlWriter(object):
