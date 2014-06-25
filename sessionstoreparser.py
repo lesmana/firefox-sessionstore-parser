@@ -296,20 +296,6 @@ class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
 
-  def getpredicate(self, windowstate, tabstate, entrystate):
-    predicatelist = []
-    if windowstate != 'all':
-      windowpredicate = UrlAttributePredicate('window', windowstate)
-      predicatelist.append(windowpredicate)
-    if tabstate != 'all':
-      tabpredicate = UrlAttributePredicate('tab', tabstate)
-      predicatelist.append(tabpredicate)
-    if entrystate != 'all':
-      entrypredicate = UrlAttributePredicate('entry', entrystate)
-      predicatelist.append(entrypredicate)
-    predicate = AndPredicate(predicatelist)
-    return predicate
-
   def getstates(self, parsedargv):
     if 'all' in parsedargv:
       windowstate = 'all'
@@ -324,6 +310,20 @@ class UrlFilterFactory(object):
       tabstate = 'open'
       entrystate = 'selected'
     return windowstate, tabstate, entrystate
+
+  def getpredicate(self, windowstate, tabstate, entrystate):
+    predicatelist = []
+    if windowstate != 'all':
+      windowpredicate = UrlAttributePredicate('window', windowstate)
+      predicatelist.append(windowpredicate)
+    if tabstate != 'all':
+      tabpredicate = UrlAttributePredicate('tab', tabstate)
+      predicatelist.append(tabpredicate)
+    if entrystate != 'all':
+      entrypredicate = UrlAttributePredicate('entry', entrystate)
+      predicatelist.append(entrypredicate)
+    predicate = AndPredicate(predicatelist)
+    return predicate
 
   def produce(self, parsedargv):
     windowstate, tabstate, entrystate = self.getstates(parsedargv)
