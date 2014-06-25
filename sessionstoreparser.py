@@ -103,12 +103,12 @@ class ArgvParser(object):
 
   def parse(self, argv):
     try:
-      parsedargv, rest = self.tryparse(argv)
+      parsedargv, restargv = self.tryparse(argv)
     except getopt.GetoptError as err:
       parsedargv = {}
       unknownoption = str(err).split()[1]
-      rest = [unknownoption]
-    return parsedargv, rest
+      restargv = [unknownoption]
+    return parsedargv, restargv
 
 class HelpPrinter(object):
   def __init__(self, stream, message, exitstatus):
@@ -374,9 +374,9 @@ class WorkerFactory(object):
     self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
-  def make(self, parsedargv, rest):
-    if len(rest) != 0:
-      unknownoption = rest[0]
+  def make(self, parsedargv, restargv):
+    if len(restargv) != 0:
+      unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       worker = self.helpprinterfactory.make(message)
     else:
@@ -395,8 +395,8 @@ class Application(object):
     self.stderr = stderr
 
   def tryrun(self, argv):
-    parsedargv, rest = self.argvparser.parse(argv)
-    worker = self.workerfactory.make(parsedargv, rest)
+    parsedargv, restargv = self.argvparser.parse(argv)
+    worker = self.workerfactory.make(parsedargv, restargv)
     exitstatus = worker.work()
     return exitstatus
 
