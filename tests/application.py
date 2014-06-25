@@ -21,10 +21,10 @@ class TestRun(unittest.TestCase):
       def __call__(self):
         report.append(('work', ))
         return 42
-    stderr = StringIO.StringIO()
-    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), stderr)
+    fakestderr = StringIO.StringIO()
+    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), fakestderr)
     exitstatus = app.run(['progname', 'argv'])
-    self.assertEqual(stderr.getvalue(), '')
+    self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(exitstatus, 42)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
@@ -45,10 +45,10 @@ class TestRun(unittest.TestCase):
       def __call__(self):
         report.append(('work', ))
         raise p.Error('generic error')
-    stderr = StringIO.StringIO()
-    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), stderr)
+    fakestderr = StringIO.StringIO()
+    app = p.Application(FakeArgvParser(), FakeWorkerFactory(), fakestderr)
     exitstatus = app.run(['progname', 'argv'])
-    self.assertEqual(stderr.getvalue(), 'generic error\n')
+    self.assertEqual(fakestderr.getvalue(), 'generic error\n')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
