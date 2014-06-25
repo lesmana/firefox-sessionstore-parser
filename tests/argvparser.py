@@ -127,7 +127,7 @@ class TestParse(unittest.TestCase):
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
     parsedargv, rest = argvparser.parse(argv)
-    self.assertEqual(parsedargv, {'unknown': ['option']})
+    self.assertEqual(parsedargv, {})
     self.assertEqual(rest, ['option'])
 
   def test_someargs(self):
@@ -143,6 +143,5 @@ class TestParse(unittest.TestCase):
           'progname': 'progname',
           'bar': '',
           'foo': 'somefoo',
-          'filename': 'filename',
-          'unknown': ['rest']})
+          'filename': 'filename'})
     self.assertEqual(rest, ['rest'])

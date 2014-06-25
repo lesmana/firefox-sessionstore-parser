@@ -107,13 +107,13 @@ class ArgvParser(object):
     try:
       parsedargv = self.tryparse(argv)
       if 'unknown' in parsedargv:
-        rest = parsedargv['unknown']
+        rest = parsedargv.pop('unknown')
       else:
         rest = []
       return parsedargv, rest
     except getopt.GetoptError as err:
       unknownoption = str(err).split()[1]
-      parsedargv = {'unknown': [unknownoption]}
+      parsedargv = {}
       return parsedargv, [unknownoption]
 
 class HelpPrinter(object):
