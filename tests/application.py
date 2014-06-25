@@ -15,7 +15,7 @@ class TestRun(unittest.TestCase):
         return {'parsed': 'argv'}, ['rest']
     class FakeWorkerFactory(object):
       def make(self, parsedargv, rest):
-        report.append(('make', parsedargv))
+        report.append(('make', parsedargv, rest))
         return FakeWorker()
     class FakeWorker(object):
       def __call__(self):
@@ -28,7 +28,7 @@ class TestRun(unittest.TestCase):
     self.assertEqual(exitstatus, 42)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
-          ('make', {'parsed': 'argv'}),
+          ('make', {'parsed': 'argv'}, ['rest']),
           ('work', )])
 
   def test_genericerror(self):
@@ -39,7 +39,7 @@ class TestRun(unittest.TestCase):
         return {'parsed': 'argv'}, ['rest']
     class FakeWorkerFactory(object):
       def make(self, parsedargv, rest):
-        report.append(('make', parsedargv))
+        report.append(('make', parsedargv, rest))
         return FakeWorker()
     class FakeWorker(object):
       def __call__(self):
@@ -52,5 +52,5 @@ class TestRun(unittest.TestCase):
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
-          ('make', {'parsed': 'argv'}),
+          ('make', {'parsed': 'argv'}, ['rest']),
           ('work', )])
