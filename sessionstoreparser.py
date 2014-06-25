@@ -311,18 +311,18 @@ class UrlFilterFactory(object):
     return urlfilter
 
   def getpredicate(self, windowstate, tabstate, entrystate):
-      predicatelist = []
-      if windowstate != 'all':
-        windowpredicate = UrlAttributePredicate('window', windowstate)
-        predicatelist.append(windowpredicate)
-      if tabstate != 'all':
-        tabpredicate = UrlAttributePredicate('tab', tabstate)
-        predicatelist.append(tabpredicate)
-      if entrystate != 'all':
-        entrypredicate = UrlAttributePredicate('entry', entrystate)
-        predicatelist.append(entrypredicate)
-      predicate = AndPredicate(predicatelist)
-      return predicate
+    predicatelist = []
+    if windowstate != 'all':
+      windowpredicate = UrlAttributePredicate('window', windowstate)
+      predicatelist.append(windowpredicate)
+    if tabstate != 'all':
+      tabpredicate = UrlAttributePredicate('tab', tabstate)
+      predicatelist.append(tabpredicate)
+    if entrystate != 'all':
+      entrypredicate = UrlAttributePredicate('entry', entrystate)
+      predicatelist.append(entrypredicate)
+    predicate = AndPredicate(predicatelist)
+    return predicate
 
 class UrlConsumerFactory(object):
   def __init__(self, urlconsumerclass, stdout):
