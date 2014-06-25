@@ -279,7 +279,10 @@ class SessionStoreProducerFactory(object):
     self.openfunc = openfunc
 
   def produce(self, parsedargv):
-    filename = parsedargv['filename']
+    try:
+      filename = parsedargv['filename']
+    except KeyError:
+      raise Error('missing argument: filename')
     jsonreader = self.jsonreaderclass(self.openfunc, json.load)
     sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
     return sessionstoreproducer
@@ -378,16 +381,16 @@ class WorkerFactory(object):
       errorfound = True
       unknownoption = parsedargv['unknown'][0]
       message = 'unknown option: %s' % (unknownoption)
-    elif 'filename' not in parsedargv:
-      errorfound = True
-      message = 'missing argument: filename'
     else:
       errorfound = False
       message = None
     if errorfound:
       worker = self.helpprinterfactory.produce(message)
     else:
-      worker = self.sessionstoreparserfactory.produce(parsedargv)
+      try:
+        worker = self.sessionstoreparserfactory.produce(parsedargv)
+      except Error as err:
+        worker = self.helpprinterfactory.produce(str(err))
     return worker
 
 class Application(object):
