@@ -306,10 +306,14 @@ class UrlFilterFactory(object):
       windowstate = 'open'
       tabstate = 'open'
       urlstate = 'selected'
+      predicatelist = []
       windowpredicate = UrlAttributePredicate('window', windowstate)
+      predicatelist.append(windowpredicate)
       tabpredicate = UrlAttributePredicate('tab', tabstate)
+      predicatelist.append(tabpredicate)
       entrypredicate = UrlAttributePredicate('entry', urlstate)
-      predicate = AndPredicate([windowpredicate, tabpredicate, entrypredicate])
+      predicatelist.append(entrypredicate)
+      predicate = AndPredicate(predicatelist)
     urlfilter = self.urlfilterclass(predicate)
     return urlfilter
 
