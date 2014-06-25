@@ -243,3 +243,22 @@ class TestMainRealData(unittest.TestCase):
           http://cw2-ot2-s0u1/
           '''))
     self.assertEqual(exitstatus, 0)
+
+  def test_closedtabs(self):
+    fakefile = StringIO.StringIO(self.testdata)
+    def fakeopen(dummy_filename):
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--tab=closed', 'filename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://ow1-ct1-s0u2/
+          http://ow1-ct2-s0u1/
+          http://ow2-ct1-s0u2/
+          http://ow2-ct2-s0u1/
+          http://ow3-ct1-s0u2/
+          http://ow3-ct2-s0u1/
+          '''))
+    self.assertEqual(exitstatus, 0)

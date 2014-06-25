@@ -309,6 +309,10 @@ class UrlFilterFactory(object):
       windowstate = parsedargv['window']
       tabstate = 'open'
       entrystate = 'selected'
+    elif 'tab' in parsedargv:
+      windowstate = 'open'
+      tabstate = parsedargv['tab']
+      entrystate = 'selected'
     else:
       windowstate = 'open'
       tabstate = 'open'
@@ -420,7 +424,8 @@ class ApplicationFactory(object):
     optionsdata = [
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
-          ('window', ['--window'], 1)]
+          ('window', ['--window'], 1),
+          ('tab', ['--tab'], 1)]
     argumentsdata = [
           'filename']
     defaults = {
