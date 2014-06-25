@@ -315,17 +315,15 @@ class UrlFilterFactory(object):
       windowstate = 'all'
       tabstate = 'all'
       entrystate = 'selected'
-      predicate = self.getpredicate(windowstate, tabstate, entrystate)
     elif 'allwithhistory' in parsedargv:
       windowstate = 'all'
       tabstate = 'all'
       entrystate = 'all'
-      predicate = self.getpredicate(windowstate, tabstate, entrystate)
     else:
       windowstate = 'open'
       tabstate = 'open'
       entrystate = 'selected'
-      predicate = self.getpredicate(windowstate, tabstate, entrystate)
+    predicate = self.getpredicate(windowstate, tabstate, entrystate)
     urlfilter = self.urlfilterclass(predicate)
     return urlfilter
 
