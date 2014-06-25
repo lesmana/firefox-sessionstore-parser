@@ -376,11 +376,7 @@ class WorkerFactory(object):
     self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
-  def make(self, parsedargv):
-    if 'unknown' in parsedargv:
-      rest = parsedargv['unknown']
-    else:
-      rest = []
+  def make(self, parsedargv, rest):
     if len(rest) != 0:
       unknownoption = rest[0]
       message = 'unknown option: %s' % (unknownoption)
@@ -402,7 +398,11 @@ class Application(object):
 
   def tryrun(self, argv):
     parsedargv = self.argvparser.parse(argv)
-    worker = self.workerfactory.make(parsedargv)
+    if 'unknown' in parsedargv:
+      rest = parsedargv['unknown']
+    else:
+      rest = []
+    worker = self.workerfactory.make(parsedargv, rest)
     exitstatus = worker()
     return exitstatus
 

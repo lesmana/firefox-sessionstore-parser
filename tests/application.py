@@ -14,7 +14,7 @@ class TestRun(unittest.TestCase):
         report.append(('parse', argv))
         return {'parsed': 'argv'}
     class FakeWorkerFactory(object):
-      def make(self, parsedargv):
+      def make(self, parsedargv, rest):
         report.append(('make', parsedargv))
         return FakeWorker()
     class FakeWorker(object):
@@ -38,7 +38,7 @@ class TestRun(unittest.TestCase):
         report.append(('parse', argv))
         return {'parsed': 'argv'}
     class FakeWorkerFactory(object):
-      def make(self, parsedargv):
+      def make(self, parsedargv, rest):
         report.append(('make', parsedargv))
         return FakeWorker()
     class FakeWorker(object):
