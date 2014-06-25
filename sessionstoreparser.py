@@ -112,8 +112,8 @@ class ArgvParser(object):
         rest = []
       return parsedargv, rest
     except getopt.GetoptError as err:
-      unknownoption = str(err).split()[1]
       parsedargv = {}
+      unknownoption = str(err).split()[1]
       return parsedargv, [unknownoption]
 
 class HelpPrinter(object):
