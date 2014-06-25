@@ -262,3 +262,43 @@ class TestMainRealData(unittest.TestCase):
           http://ow3-ct2-s0u1/
           '''))
     self.assertEqual(exitstatus, 0)
+
+  def test_allurls(self):
+    fakefile = StringIO.StringIO(self.testdata)
+    def fakeopen(dummy_filename):
+      return contextlib.closing(fakefile)
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--url=all', 'filename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://ow1-ot1-b2u1/
+          http://ow1-ot1-b1u2/
+          http://ow1-ot1-s0u3/
+          http://ow1-ot2-b1u1/
+          http://ow1-ot2-s0u2/
+          http://ow1-ot2-f1u3/
+          http://ow1-ot3-s0u1/
+          http://ow1-ot3-f1u2/
+          http://ow1-ot3-f2u3/
+          http://ow2-ot1-b2u1/
+          http://ow2-ot1-b1u2/
+          http://ow2-ot1-s0u3/
+          http://ow2-ot2-b1u1/
+          http://ow2-ot2-s0u2/
+          http://ow2-ot2-f1u3/
+          http://ow2-ot3-s0u1/
+          http://ow2-ot3-f1u2/
+          http://ow2-ot3-f2u3/
+          http://ow3-ot1-b2u1/
+          http://ow3-ot1-b1u2/
+          http://ow3-ot1-s0u3/
+          http://ow3-ot2-b1u1/
+          http://ow3-ot2-s0u2/
+          http://ow3-ot2-f1u3/
+          http://ow3-ot3-s0u1/
+          http://ow3-ot3-f1u2/
+          http://ow3-ot3-f2u3/
+          '''))
+    self.assertEqual(exitstatus, 0)

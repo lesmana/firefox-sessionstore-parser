@@ -313,6 +313,8 @@ class UrlFilterFactory(object):
         windowstate = parsedargv['window']
       elif 'tab' in parsedargv:
         tabstate = parsedargv['tab']
+      elif 'entry' in parsedargv:
+        entrystate = parsedargv['entry']
     return windowstate, tabstate, entrystate
 
   def getpredicate(self, windowstate, tabstate, entrystate):
@@ -421,7 +423,8 @@ class ApplicationFactory(object):
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
           ('window', ['--window'], 1),
-          ('tab', ['--tab'], 1)]
+          ('tab', ['--tab'], 1),
+          ('entry', ['--url'], 1)]
     argumentsdata = [
           'filename']
     defaults = {
