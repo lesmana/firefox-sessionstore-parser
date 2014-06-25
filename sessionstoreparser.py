@@ -378,7 +378,11 @@ class WorkerFactory(object):
 
   def produce(self, parsedargv):
     if 'unknown' in parsedargv:
-      unknownoption = parsedargv['unknown'][0]
+      unknown = parsedargv['unknown']
+    else:
+      unknown = []
+    if len(unknown) != 0:
+      unknownoption = unknown[0]
       message = 'unknown option: %s' % (unknownoption)
       worker = self.helpprinterfactory.produce(message)
     else:
