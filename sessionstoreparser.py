@@ -310,7 +310,7 @@ class UrlFilterFactory(object):
     predicate = AndPredicate(predicatelist)
     return predicate
 
-  def produce(self, parsedargv):
+  def getstates(self, parsedargv):
     if 'all' in parsedargv:
       windowstate = 'all'
       tabstate = 'all'
@@ -323,6 +323,10 @@ class UrlFilterFactory(object):
       windowstate = 'open'
       tabstate = 'open'
       entrystate = 'selected'
+    return windowstate, tabstate, entrystate
+
+  def produce(self, parsedargv):
+    windowstate, tabstate, entrystate = self.getstates(parsedargv)
     predicate = self.getpredicate(windowstate, tabstate, entrystate)
     urlfilter = self.urlfilterclass(predicate)
     return urlfilter
