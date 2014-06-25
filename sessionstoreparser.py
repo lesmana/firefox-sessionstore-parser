@@ -305,18 +305,14 @@ class UrlFilterFactory(object):
       windowstate = 'all'
       tabstate = 'all'
       entrystate = 'all'
-    elif 'window' in parsedargv:
-      windowstate = parsedargv['window']
-      tabstate = 'open'
-      entrystate = 'selected'
-    elif 'tab' in parsedargv:
-      windowstate = 'open'
-      tabstate = parsedargv['tab']
-      entrystate = 'selected'
     else:
       windowstate = 'open'
       tabstate = 'open'
       entrystate = 'selected'
+      if 'window' in parsedargv:
+        windowstate = parsedargv['window']
+      elif 'tab' in parsedargv:
+        tabstate = parsedargv['tab']
     return windowstate, tabstate, entrystate
 
   def getpredicate(self, windowstate, tabstate, entrystate):
