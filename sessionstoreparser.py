@@ -12,11 +12,6 @@ class ArgvParser(object):
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
 
-  def splitprogname(self, argv):
-    progname = argv[0]
-    argvoptsargs = argv[1:]
-    return progname, argvoptsargs
-
   def prepareoptstring(self, opt, argcount, argmod):
     strippedopt = opt.lstrip('-')
     if argcount == 0:
@@ -94,7 +89,7 @@ class ArgvParser(object):
     return parsedargv
 
   def tryparse(self, argv):
-    progname, argvoptsargs = self.splitprogname(argv)
+    argvoptsargs = argv[1:]
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvrest = self.splitargs(argvargs)
     parsedargv = self.combine(optsdict, argsdict)
