@@ -72,15 +72,15 @@ class ArgvParser(object):
 
   def splitargs(self, args):
     argsdict = {}
-    argvrest = args
+    restargv = args
     for name in self.argumentsdata:
-      if len(argvrest) > 0:
-        arg = argvrest[0]
-        argvrest = argvrest[1:]
+      if len(restargv) > 0:
+        arg = restargv[0]
+        restargv = restargv[1:]
         argsdict[name] = arg
       else:
         break
-    return argsdict, argvrest
+    return argsdict, restargv
 
   def combine(self, optsdict, argsdict):
     parsedargv = {}
@@ -90,9 +90,9 @@ class ArgvParser(object):
 
   def tryparse(self, argv):
     optsdict, args = self.splitopts(argv)
-    argsdict, argvrest = self.splitargs(args)
+    argsdict, restargv = self.splitargs(args)
     parsedargv = self.combine(optsdict, argsdict)
-    return parsedargv, argvrest
+    return parsedargv, restargv
 
   def parse(self, argv):
     try:
