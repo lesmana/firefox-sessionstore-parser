@@ -385,7 +385,8 @@ class WorkerFactory(object):
       try:
         worker = self.sessionstoreparserfactory.produce(parsedargv)
       except Error as err:
-        worker = self.helpprinterfactory.produce(str(err))
+        message = str(err)
+        worker = self.helpprinterfactory.produce(message)
     return worker
 
 class Application(object):
