@@ -126,8 +126,9 @@ class TestParse(unittest.TestCase):
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
-    parsedargv = argvparser.parse(argv)
+    parsedargv, rest = argvparser.parse(argv)
     self.assertEqual(parsedargv, {'unknown': ['option']})
+    self.assertEqual(rest, ['option'])
 
   def test_someargs(self):
     optionsdata = [
@@ -137,10 +138,11 @@ class TestParse(unittest.TestCase):
     argumentsdata = ['filename']
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
     argv = ['progname', '--bar', '--foo', 'somefoo', 'filename', 'rest']
-    parsedargv = argvparser.parse(argv)
+    parsedargv, rest = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
           'progname': 'progname',
           'bar': '',
           'foo': 'somefoo',
           'filename': 'filename',
           'unknown': ['rest']})
+    self.assertEqual(rest, ['rest'])

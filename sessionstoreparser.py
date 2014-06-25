@@ -106,11 +106,15 @@ class ArgvParser(object):
   def parse(self, argv):
     try:
       parsedargv = self.tryparse(argv)
-      return parsedargv
+      if 'unknown' in parsedargv:
+        rest = parsedargv['unknown']
+      else:
+        rest = []
+      return parsedargv, rest
     except getopt.GetoptError as err:
       unknownoption = str(err).split()[1]
       parsedargv = {'unknown': [unknownoption]}
-      return parsedargv
+      return parsedargv, [unknownoption]
 
 class HelpPrinter(object):
   def __init__(self, stream, message, exitstatus):
@@ -397,11 +401,7 @@ class Application(object):
     self.stderr = stderr
 
   def tryrun(self, argv):
-    parsedargv = self.argvparser.parse(argv)
-    if 'unknown' in parsedargv:
-      rest = parsedargv['unknown']
-    else:
-      rest = []
+    parsedargv, rest = self.argvparser.parse(argv)
     worker = self.workerfactory.make(parsedargv, rest)
     exitstatus = worker()
     return exitstatus
