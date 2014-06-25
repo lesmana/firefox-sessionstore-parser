@@ -64,8 +64,8 @@ class TestSplitOpts(unittest.TestCase):
       return [], ['args']
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argvoptsargs = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
+    argv = ['ignored']
+    optsdict, argvargs = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
     self.assertEqual(argvargs, ['args'])
 
@@ -74,8 +74,8 @@ class TestSplitOpts(unittest.TestCase):
       return [('--opt', 'optarg')], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argvoptsargs = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
+    argv = ['ignored']
+    optsdict, argvargs = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {'optname': 'optarg'})
     self.assertEqual(argvargs, ['args'])
 
@@ -84,8 +84,8 @@ class TestSplitOpts(unittest.TestCase):
       return [], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argvoptsargs = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argvoptsargs)
+    argv = ['ignored']
+    optsdict, argvargs = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
     self.assertEqual(argvargs, ['args'])
 
