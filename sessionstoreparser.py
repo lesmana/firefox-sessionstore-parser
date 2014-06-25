@@ -296,20 +296,6 @@ class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
 
-  def produce(self, parsedargv):
-    if 'all' in parsedargv:
-      entrypredicate = UrlAttributePredicate('entry', 'selected')
-      predicate = AndPredicate([entrypredicate])
-    elif 'allwithhistory' in parsedargv:
-      predicate = AndPredicate([])
-    else:
-      windowstate = 'open'
-      tabstate = 'open'
-      entrystate = 'selected'
-      predicate = self.getpredicate(windowstate, tabstate, entrystate)
-    urlfilter = self.urlfilterclass(predicate)
-    return urlfilter
-
   def getpredicate(self, windowstate, tabstate, entrystate):
     predicatelist = []
     if windowstate != 'all':
@@ -323,6 +309,20 @@ class UrlFilterFactory(object):
       predicatelist.append(entrypredicate)
     predicate = AndPredicate(predicatelist)
     return predicate
+
+  def produce(self, parsedargv):
+    if 'all' in parsedargv:
+      entrypredicate = UrlAttributePredicate('entry', 'selected')
+      predicate = AndPredicate([entrypredicate])
+    elif 'allwithhistory' in parsedargv:
+      predicate = AndPredicate([])
+    else:
+      windowstate = 'open'
+      tabstate = 'open'
+      entrystate = 'selected'
+      predicate = self.getpredicate(windowstate, tabstate, entrystate)
+    urlfilter = self.urlfilterclass(predicate)
+    return urlfilter
 
 class UrlConsumerFactory(object):
   def __init__(self, urlconsumerclass, stdout):
