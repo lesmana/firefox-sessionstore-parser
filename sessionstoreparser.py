@@ -373,7 +373,7 @@ class WorkerFactory(object):
     self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
-  def checkparsedargv(self, parsedargv):
+  def produce(self, parsedargv):
     if 'unknown' in parsedargv:
       errorfound = True
       unknownoption = parsedargv['unknown'][0]
@@ -384,10 +384,6 @@ class WorkerFactory(object):
     else:
       errorfound = False
       message = None
-    return errorfound, message
-
-  def produce(self, parsedargv):
-    errorfound, message = self.checkparsedargv(parsedargv)
     if errorfound:
       worker = self.helpprinterfactory.produce(message)
     else:
