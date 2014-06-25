@@ -12,7 +12,7 @@ class TestRun(unittest.TestCase):
     class FakeArgvParser(object):
       def parse(self, argv):
         report.append(('parse', argv))
-        return {'parsedargv': 'parsedargv'}
+        return {'parsed': 'argv'}
     class FakeWorkerFactory(object):
       def produce(self, parsedargv):
         report.append(('produce', parsedargv))
@@ -28,7 +28,7 @@ class TestRun(unittest.TestCase):
     self.assertEqual(exitstatus, 42)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
-          ('produce', {'parsedargv': 'parsedargv'}),
+          ('produce', {'parsed': 'argv'}),
           ('work', )])
 
   def test_genericerror(self):
@@ -36,7 +36,7 @@ class TestRun(unittest.TestCase):
     class FakeArgvParser(object):
       def parse(self, argv):
         report.append(('parse', argv))
-        return {'parsedargv': 'parsedargv'}
+        return {'parsed': 'argv'}
     class FakeWorkerFactory(object):
       def produce(self, parsedargv):
         report.append(('produce', parsedargv))
@@ -52,5 +52,5 @@ class TestRun(unittest.TestCase):
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
           ('parse', ['progname', 'argv']),
-          ('produce', {'parsedargv': 'parsedargv'}),
+          ('produce', {'parsed': 'argv'}),
           ('work', )])
