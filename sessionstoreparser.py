@@ -87,9 +87,8 @@ class ArgvParser(object):
         break
     return argsdict, argvrest
 
-  def combine(self, progname, optsdict, argsdict):
+  def combine(self, optsdict, argsdict):
     parsedargv = {}
-    parsedargv['progname'] = progname
     parsedargv.update(optsdict)
     parsedargv.update(argsdict)
     return parsedargv
@@ -98,7 +97,7 @@ class ArgvParser(object):
     progname, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvrest = self.splitargs(argvargs)
-    parsedargv = self.combine(progname, optsdict, argsdict)
+    parsedargv = self.combine(optsdict, argsdict)
     return parsedargv, argvrest
 
   def parse(self, argv):
