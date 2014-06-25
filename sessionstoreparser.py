@@ -375,13 +375,16 @@ class WorkerFactory(object):
 
   def checkparsedargv(self, parsedargv):
     if 'unknown' in parsedargv:
+      errorfound = True
       unknownoption = parsedargv['unknown'][0]
       message = 'unknown option: %s' % (unknownoption)
     elif 'filename' not in parsedargv:
+      errorfound = True
       message = 'missing argument: filename'
     else:
-      return False, None
-    return True, message
+      errorfound = False
+      message = None
+    return errorfound, message
 
   def produce(self, parsedargv):
     errorfound, message = self.checkparsedargv(parsedargv)
