@@ -303,9 +303,12 @@ class UrlFilterFactory(object):
     elif 'allwithhistory' in parsedargv:
       predicate = AndPredicate([])
     else:
-      windowpredicate = UrlAttributePredicate('window', 'open')
-      tabpredicate = UrlAttributePredicate('tab', 'open')
-      entrypredicate = UrlAttributePredicate('entry', 'selected')
+      windowstate = 'open'
+      tabstate = 'open'
+      urlstate = 'selected'
+      windowpredicate = UrlAttributePredicate('window', windowstate)
+      tabpredicate = UrlAttributePredicate('tab', tabstate)
+      entrypredicate = UrlAttributePredicate('entry', urlstate)
       predicate = AndPredicate([windowpredicate, tabpredicate, entrypredicate])
     urlfilter = self.urlfilterclass(predicate)
     return urlfilter
