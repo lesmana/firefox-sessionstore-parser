@@ -27,7 +27,7 @@ class TestRun(unittest.TestCase):
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(exitstatus, 42)
     self.assertEqual(report, [
-          ('parse', ['progname', 'argv']),
+          ('parse', ['argv']),
           ('make', {'parsed': 'argv'}, ['rest']),
           ('work', )])
 
@@ -51,6 +51,6 @@ class TestRun(unittest.TestCase):
     self.assertEqual(fakestderr.getvalue(), 'generic error\n')
     self.assertEqual(exitstatus, 1)
     self.assertEqual(report, [
-          ('parse', ['progname', 'argv']),
+          ('parse', ['argv']),
           ('make', {'parsed': 'argv'}, ['rest']),
           ('work', )])

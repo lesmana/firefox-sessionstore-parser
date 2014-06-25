@@ -137,7 +137,7 @@ class TestParse(unittest.TestCase):
           ('bar', ['-b', '--bar'], 0)]
     argumentsdata = ['filename']
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-    argv = ['progname', '--bar', '--foo', 'somefoo', 'filename', 'rest']
+    argv = ['--bar', '--foo', 'somefoo', 'filename', 'rest']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
           'bar': '',

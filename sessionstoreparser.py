@@ -89,7 +89,7 @@ class ArgvParser(object):
     return parsedargv
 
   def tryparse(self, argv):
-    argvoptsargs = argv[1:]
+    argvoptsargs = argv
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvrest = self.splitargs(argvargs)
     parsedargv = self.combine(optsdict, argsdict)
@@ -389,7 +389,7 @@ class Application(object):
     self.stderr = stderr
 
   def tryrun(self, argv):
-    parsedargv, restargv = self.argvparser.parse(argv)
+    parsedargv, restargv = self.argvparser.parse(argv[1:])
     worker = self.workerfactory.make(parsedargv, restargv)
     exitstatus = worker.work()
     return exitstatus
