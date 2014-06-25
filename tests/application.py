@@ -18,7 +18,7 @@ class TestRun(unittest.TestCase):
         report.append(('make', parsedargv, rest))
         return FakeWorker()
     class FakeWorker(object):
-      def __call__(self):
+      def work(self):
         report.append(('work', ))
         return 42
     fakestderr = StringIO.StringIO()
@@ -42,7 +42,7 @@ class TestRun(unittest.TestCase):
         report.append(('make', parsedargv, rest))
         return FakeWorker()
     class FakeWorker(object):
-      def __call__(self):
+      def work(self):
         report.append(('work', ))
         raise p.Error('generic error')
     fakestderr = StringIO.StringIO()

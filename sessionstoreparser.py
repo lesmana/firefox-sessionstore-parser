@@ -116,7 +116,7 @@ class HelpPrinter(object):
     self.message = message
     self.exitstatus = exitstatus
 
-  def __call__(self):
+  def work(self):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
@@ -257,7 +257,7 @@ class SessionStoreParser(object):
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.consume(filteredurls)
 
-  def __call__(self):
+  def work(self):
     self.parse()
     return 0
 
@@ -397,7 +397,7 @@ class Application(object):
   def tryrun(self, argv):
     parsedargv, rest = self.argvparser.parse(argv)
     worker = self.workerfactory.make(parsedargv, rest)
-    exitstatus = worker()
+    exitstatus = worker.work()
     return exitstatus
 
   def run(self, argv):
