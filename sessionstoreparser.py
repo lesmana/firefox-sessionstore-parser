@@ -87,25 +87,19 @@ class ArgvParser(object):
         break
     return argsdict, argvrest
 
-  def combine(self, progname, optsdict, argsdict, argvrest):
+  def combine(self, progname, optsdict, argsdict):
     parsedargv = {}
     parsedargv['progname'] = progname
     parsedargv.update(optsdict)
     parsedargv.update(argsdict)
-    if len(argvrest) > 0:
-      parsedargv['unknown'] = argvrest
     return parsedargv
 
   def tryparse(self, argv):
     progname, argvoptsargs = self.splitprogname(argv)
     optsdict, argvargs = self.splitopts(argvoptsargs)
     argsdict, argvrest = self.splitargs(argvargs)
-    parsedargv = self.combine(progname, optsdict, argsdict, argvrest)
-    if 'unknown' in parsedargv:
-      rest = parsedargv.pop('unknown')
-    else:
-      rest = []
-    return parsedargv, rest
+    parsedargv = self.combine(progname, optsdict, argsdict)
+    return parsedargv, argvrest
 
   def parse(self, argv):
     try:
