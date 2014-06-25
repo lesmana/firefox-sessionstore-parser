@@ -14,9 +14,3 @@ allurlgen > filters > sessionstorewriter
 why? urlwriter writes urls to stdout (or to file)
 sessionstore writes a new sessionstore.js file
 use case: clear closed windows and tabs and back forward history
-
-----
-redesign argvparser
-argvparser should get argv without progname
-unknown should be returned separately
-this behaviour is closer to getopt behaviour
