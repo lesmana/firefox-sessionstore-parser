@@ -268,7 +268,7 @@ class HelpPrinterFactory(object):
     self.helpprinterclass = helpprinterclass
     self.stderr = stderr
 
-  def produce(self, message):
+  def make(self, message):
     worker = self.helpprinterclass(self.stderr, message, 2)
     return worker
 
@@ -278,7 +278,7 @@ class SessionStoreProducerFactory(object):
     self.sessionstoreproducerclass = sessionstoreproducerclass
     self.openfunc = openfunc
 
-  def produce(self, parsedargv):
+  def make(self, parsedargv):
     try:
       filename = parsedargv['filename']
     except KeyError:
@@ -291,7 +291,7 @@ class UrlProducerFactory(object):
   def __init__(self, urlproducerclass):
     self.urlproducerclass = urlproducerclass
 
-  def produce(self, parsedargv):
+  def make(self, parsedargv):
     urlproducer = self.urlproducerclass()
     return urlproducer
 
@@ -334,7 +334,7 @@ class UrlFilterFactory(object):
     predicate = AndPredicate(predicatelist)
     return predicate
 
-  def produce(self, parsedargv):
+  def make(self, parsedargv):
     windowstate, tabstate, entrystate = self.getstates(parsedargv)
     predicate = self.getpredicate(windowstate, tabstate, entrystate)
     urlfilter = self.urlfilterclass(predicate)
@@ -345,7 +345,7 @@ class UrlConsumerFactory(object):
     self.urlconsumerclass = urlconsumerclass
     self.stdout = stdout
 
-  def produce(self, parsedargv):
+  def make(self, parsedargv):
     urlconsumer = self.urlconsumerclass(self.stdout)
     return urlconsumer
 
@@ -362,11 +362,11 @@ class SessionStoreParserFactory(object):
     self.urlconsumerfactory = urlconsumerfactory
     self.sessionstoreparserclass = sessionstoreparserclass
 
-  def produce(self, parsedargv):
-    sessionstoreproducer = self.sessionstoreproducerfactory.produce(parsedargv)
-    urlproducer = self.urlproducerfactory.produce(parsedargv)
-    urlfilter = self.urlfilterfactory.produce(parsedargv)
-    urlconsumer = self.urlconsumerfactory.produce(parsedargv)
+  def make(self, parsedargv):
+    sessionstoreproducer = self.sessionstoreproducerfactory.make(parsedargv)
+    urlproducer = self.urlproducerfactory.make(parsedargv)
+    urlfilter = self.urlfilterfactory.make(parsedargv)
+    urlconsumer = self.urlconsumerfactory.make(parsedargv)
     sessionstoreparser = self.sessionstoreparserclass(
           sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
     return sessionstoreparser
@@ -376,7 +376,7 @@ class WorkerFactory(object):
     self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
-  def produce(self, parsedargv):
+  def make(self, parsedargv):
     if 'unknown' in parsedargv:
       unknown = parsedargv['unknown']
     else:
@@ -384,13 +384,13 @@ class WorkerFactory(object):
     if len(unknown) != 0:
       unknownoption = unknown[0]
       message = 'unknown option: %s' % (unknownoption)
-      worker = self.helpprinterfactory.produce(message)
+      worker = self.helpprinterfactory.make(message)
     else:
       try:
-        worker = self.sessionstoreparserfactory.produce(parsedargv)
+        worker = self.sessionstoreparserfactory.make(parsedargv)
       except Error as err:
         message = str(err)
-        worker = self.helpprinterfactory.produce(message)
+        worker = self.helpprinterfactory.make(message)
     return worker
 
 class Application(object):
@@ -402,7 +402,7 @@ class Application(object):
 
   def tryrun(self, argv):
     parsedargv = self.argvparser.parse(argv)
-    worker = self.workerfactory.produce(parsedargv)
+    worker = self.workerfactory.make(parsedargv)
     exitstatus = worker()
     return exitstatus
 
@@ -450,7 +450,7 @@ class ApplicationFactory(object):
           'applicationclass': Application}
     return defaults
 
-  def produce(self, optionsdata, argumentsdata,
+  def make(self, optionsdata, argumentsdata,
         argvparserclass,
         helpprinterfactoryclass,
         helpprinterclass,
@@ -503,14 +503,14 @@ class ApplicationFactory(object):
           self.stderr)
     return app
 
-  def producedefaults(self):
+  def makedefaults(self):
     defaults = self.getdefaults()
-    app = self.produce(**defaults)
+    app = self.make(**defaults)
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
   appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  app = appfactory.producedefaults()
+  app = appfactory.makedefaults()
   exitstatus = app.run(argv)
   return exitstatus
 
