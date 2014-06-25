@@ -69,10 +69,10 @@ class TestMain(unittest.TestCase):
       raise IOError('ignored error message')
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
-    fakeargv = ['progname', 'filename']
+    fakeargv = ['progname', 'wrongfilename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(),
-          'error: cannot open file filename.\n')
+          'error: cannot open file wrongfilename.\n')
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(exitstatus, 1)
 
