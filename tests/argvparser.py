@@ -65,9 +65,9 @@ class TestSplitOpts(unittest.TestCase):
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argv)
+    optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
-    self.assertEqual(argvargs, ['args'])
+    self.assertEqual(args, ['args'])
 
   def test_someopts(self):
     def fakegetopt(argv, shortopts, longopts):
@@ -75,9 +75,9 @@ class TestSplitOpts(unittest.TestCase):
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argv)
+    optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {'optname': 'optarg'})
-    self.assertEqual(argvargs, ['args'])
+    self.assertEqual(args, ['args'])
 
   def test_noopts(self):
     def fakegetopt(argv, shortopts, longopts):
@@ -85,25 +85,25 @@ class TestSplitOpts(unittest.TestCase):
     optionsdata = [('optname', ['--opt'], 1)]
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
-    optsdict, argvargs = argvparser.splitopts(argv)
+    optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
-    self.assertEqual(argvargs, ['args'])
+    self.assertEqual(args, ['args'])
 
 class TestSplitArgs(unittest.TestCase):
 
   def test_empty(self):
     argumentsdata = []
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argvargs = []
-    argsdict, argvrest = argvparser.splitargs(argvargs)
+    args = []
+    argsdict, argvrest = argvparser.splitargs(args)
     self.assertEqual(argsdict, {})
     self.assertEqual(argvrest, [])
 
   def test_someargs(self):
     argumentsdata = ['foo', 'bar']
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argvargs = ['argfoo', 'argbar', 'rest']
-    argsdict, argvrest = argvparser.splitargs(argvargs)
+    args = ['argfoo', 'argbar', 'rest']
+    argsdict, argvrest = argvparser.splitargs(args)
     self.assertEqual(argsdict, {
           'foo': 'argfoo',
           'bar': 'argbar'})
@@ -112,8 +112,8 @@ class TestSplitArgs(unittest.TestCase):
   def test_noargs(self):
     argumentsdata = ['foo', 'bar']
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    argvargs = []
-    argsdict, argvrest = argvparser.splitargs(argvargs)
+    args = []
+    argsdict, argvrest = argvparser.splitargs(args)
     self.assertEqual(argsdict, {})
     self.assertEqual(argvrest, [])
 
