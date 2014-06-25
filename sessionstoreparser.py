@@ -312,10 +312,15 @@ class UrlFilterFactory(object):
 
   def produce(self, parsedargv):
     if 'all' in parsedargv:
-      entrypredicate = UrlAttributePredicate('entry', 'selected')
-      predicate = AndPredicate([entrypredicate])
+      windowstate = 'all'
+      tabstate = 'all'
+      entrystate = 'selected'
+      predicate = self.getpredicate(windowstate, tabstate, entrystate)
     elif 'allwithhistory' in parsedargv:
-      predicate = AndPredicate([])
+      windowstate = 'all'
+      tabstate = 'all'
+      entrystate = 'all'
+      predicate = self.getpredicate(windowstate, tabstate, entrystate)
     else:
       windowstate = 'open'
       tabstate = 'open'
