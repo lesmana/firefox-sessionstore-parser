@@ -102,9 +102,6 @@ class HelpPrinter(object):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
-class JsonReaderError(Error):
-  pass
-
 class JsonReader(object):
   def __init__(self, openfunc, jsonloadfunc):
     self.openfunc = openfunc
@@ -115,15 +112,14 @@ class JsonReader(object):
       fileob = self.openfunc(filename)
       return fileob
     except IOError:
-      raise JsonReaderError('error: cannot open file %s.' % filename)
+      raise Error('error: cannot open file %s.' % filename)
 
   def jsonload(self, fileob, filename):
     try:
       sessionstore = self.jsonloadfunc(fileob)
       return sessionstore
     except ValueError:
-      raise JsonReaderError(
-            'error: cannot read session store from file %s.' % filename)
+      raise Error('error: cannot read session store from file %s.' % filename)
 
   def read(self, filename):
     with self.openfile(filename) as fileob:

@@ -26,7 +26,7 @@ class TestOpenFile(unittest.TestCase):
     jsonreader = p.JsonReader(openfunc, None)
     try:
       _ = jsonreader.openfile('filename')
-    except p.JsonReaderError as err:
+    except p.Error as err:
       self.assertEqual(str(err), 'error: cannot open file filename.')
     else:
       self.fail('expected exception') # pragma: no cover
@@ -54,7 +54,7 @@ class TestJsonLoad(unittest.TestCase):
     jsonreader = p.JsonReader(None, jsonloadfunc)
     try:
       _ = jsonreader.jsonload('fileob', 'filename')
-    except p.JsonReaderError as err:
+    except p.Error as err:
       self.assertEqual(str(err),
             'error: cannot read session store from file filename.')
     else:
@@ -91,10 +91,10 @@ class TestRead(unittest.TestCase):
     class FakeJsonReader(object):
       def openfile(self, filename):
         report.append(('openfile', filename))
-        raise p.JsonReaderError('silly error')
+        raise p.Error('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
-    except p.JsonReaderError as err:
+    except p.Error as err:
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
@@ -113,10 +113,10 @@ class TestRead(unittest.TestCase):
         return openfilecontext()
       def jsonload(self, fileob, filename):
         report.append(('jsonload', fileob, filename))
-        raise p.JsonReaderError('silly error')
+        raise p.Error('silly error')
     try:
       _ = p.JsonReader.read.__func__(FakeJsonReader(), 'filename')
-    except p.JsonReaderError as err:
+    except p.Error as err:
       self.assertEqual(str(err), 'silly error')
     else:
       self.fail('expected exception') # pragma: no cover
