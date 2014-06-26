@@ -252,39 +252,32 @@ class UrlFilterFactory(object):
     tabstate = ['open']
     entrystate = ['selected']
     if 'all' in parsedargv:
-      windowstate = ['all']
-      tabstate = ['all']
+      windowstate = ['open', 'closed']
+      tabstate = ['open', 'closed']
       entrystate = ['selected']
     if 'allwithhistory' in parsedargv:
-      windowstate = ['all']
-      tabstate = ['all']
-      entrystate = ['all']
+      windowstate = ['open', 'closed']
+      tabstate = ['open', 'closed']
+      entrystate = ['back', 'selected', 'forward']
     if 'window' in parsedargv:
       windowstate = [parsedargv['window']]
     if 'tab' in parsedargv:
       tabstate = [parsedargv['tab']]
     if 'entry' in parsedargv:
       entrystate = [parsedargv['entry']]
+      if entrystate == ['all']:
+        entrystate = ['back', 'selected', 'forward']
     return windowstate, tabstate, entrystate
 
   def getpredicates(self, windowstate, tabstate, entrystate):
     predicatelist = []
-    if windowstate != ['all']:
-      windowattributes = windowstate
-    else:
-      windowattributes = ['open', 'closed']
+    windowattributes = windowstate
     windowpredicate = UrlAttributePredicate('window', windowattributes)
     predicatelist.append(windowpredicate)
-    if tabstate != ['all']:
-      tabattributes = tabstate
-    else:
-      tabattributes = ['open', 'closed']
+    tabattributes = tabstate
     tabpredicate = UrlAttributePredicate('tab', tabattributes)
     predicatelist.append(tabpredicate)
-    if entrystate != ['all']:
-      entryattributes = entrystate
-    else:
-      entryattributes = ['back', 'selected', 'forward']
+    entryattributes = entrystate
     entrypredicate = UrlAttributePredicate('entry', entryattributes)
     predicatelist.append(entrypredicate)
     return predicatelist
