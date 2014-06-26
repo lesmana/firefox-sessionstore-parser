@@ -215,13 +215,6 @@ class UrlProducerFactory(object):
     urlproducer = self.urlproducerclass()
     return urlproducer
 
-class TruePredicate(object):
-  def __init__(self):
-    pass
-
-  def true(self, url):
-    return True
-
 class UrlAttributePredicate(object):
   def __init__(self, key, values):
     self.key = key
