@@ -215,6 +215,13 @@ class UrlProducerFactory(object):
     urlproducer = self.urlproducerclass()
     return urlproducer
 
+class TruePredicate(object):
+  def __init__(self):
+    pass
+
+  def true(self, url):
+    return True
+
 class UrlAttributePredicate(object):
   def __init__(self, key, value):
     self.key = key
@@ -267,12 +274,18 @@ class UrlFilterFactory(object):
     if windowstate != 'all':
       windowpredicate = UrlAttributePredicate('window', windowstate)
       predicatelist.append(windowpredicate)
+    else:
+      predicatelist.append(TruePredicate())
     if tabstate != 'all':
       tabpredicate = UrlAttributePredicate('tab', tabstate)
       predicatelist.append(tabpredicate)
+    else:
+      predicatelist.append(TruePredicate())
     if entrystate != 'all':
       entrypredicate = UrlAttributePredicate('entry', entrystate)
       predicatelist.append(entrypredicate)
+    else:
+      predicatelist.append(TruePredicate())
     return predicatelist
 
   def make(self, parsedargv):
