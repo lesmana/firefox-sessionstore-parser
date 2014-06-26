@@ -269,22 +269,8 @@ class UrlFilterFactory(object):
         entrystate = ['back', 'selected', 'forward']
     return windowstate, tabstate, entrystate
 
-  def getpredicates(self, windowstate, tabstate, entrystate):
-    predicatelist = []
-    windowattributes = windowstate
-    windowpredicate = UrlAttributePredicate('window', windowattributes)
-    predicatelist.append(windowpredicate)
-    tabattributes = tabstate
-    tabpredicate = UrlAttributePredicate('tab', tabattributes)
-    predicatelist.append(tabpredicate)
-    entryattributes = entrystate
-    entrypredicate = UrlAttributePredicate('entry', entryattributes)
-    predicatelist.append(entrypredicate)
-    return predicatelist
-
   def make(self, parsedargv):
     windowstate, tabstate, entrystate = self.getstates(parsedargv)
-    predicates = self.getpredicates(windowstate, tabstate, entrystate)
     urlfilter = self.urlfilterclass(windowstate, tabstate, entrystate)
     return urlfilter
 
