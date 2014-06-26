@@ -215,14 +215,6 @@ class UrlProducerFactory(object):
     urlproducer = self.urlproducerclass()
     return urlproducer
 
-class UrlAttributePredicate(object):
-  def __init__(self, key, values):
-    self.key = key
-    self.values = values
-
-  def true(self, url):
-    return url[self.key] in self.values
-
 class UrlFilter(object):
   def __init__(self, windowstates, tabstates, entrystates):
     self.windowstates = windowstates
