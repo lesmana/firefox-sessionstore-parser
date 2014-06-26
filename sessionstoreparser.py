@@ -187,16 +187,6 @@ class UrlProducer(object):
   def produce(self, sessionstore):
     return self.generate(sessionstore)
 
-class AndPredicate(object):
-  def __init__(self, predicates):
-    self.predicates = predicates
-
-  def true(self, url):
-    for predicate in self.predicates:
-      if not predicate.true(url):
-        return False
-    return True
-
 class UrlAttributePredicate(object):
   def __init__(self, key, value):
     self.key = key
@@ -206,12 +196,18 @@ class UrlAttributePredicate(object):
     return url[self.key] == self.value
 
 class UrlFilter(object):
-  def __init__(self, predicate):
-    self.predicate = predicate
+  def __init__(self, predicates):
+    self.predicates = predicates
+
+  def true(self, url):
+    for predicate in self.predicates:
+      if not predicate.true(url):
+        return False
+    return True
 
   def filter(self, urls):
     for url in urls:
-      if self.predicate.true(url):
+      if self.true(url):
         yield url
 
 class UrlWriter(object):
@@ -299,7 +295,7 @@ class UrlFilterFactory(object):
       entrystate = parsedargv['entry']
     return windowstate, tabstate, entrystate
 
-  def getpredicate(self, windowstate, tabstate, entrystate):
+  def getpredicates(self, windowstate, tabstate, entrystate):
     predicatelist = []
     if windowstate != 'all':
       windowpredicate = UrlAttributePredicate('window', windowstate)
@@ -310,13 +306,12 @@ class UrlFilterFactory(object):
     if entrystate != 'all':
       entrypredicate = UrlAttributePredicate('entry', entrystate)
       predicatelist.append(entrypredicate)
-    predicate = AndPredicate(predicatelist)
-    return predicate
+    return predicatelist
 
   def make(self, parsedargv):
     windowstate, tabstate, entrystate = self.getstates(parsedargv)
-    predicate = self.getpredicate(windowstate, tabstate, entrystate)
-    urlfilter = self.urlfilterclass(predicate)
+    predicates = self.getpredicates(windowstate, tabstate, entrystate)
+    urlfilter = self.urlfilterclass(predicates)
     return urlfilter
 
 class UrlConsumerFactory(object):
