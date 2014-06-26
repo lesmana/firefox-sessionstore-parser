@@ -33,9 +33,9 @@ class TestMain(unittest.TestCase):
             "selectedWindow": 0
           }
           ''')
-    fakefile = StringIO.StringIO(fakefilecontent)
+    fakefile = contextlib.closing(StringIO.StringIO(fakefilecontent))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
@@ -79,9 +79,9 @@ class TestMain(unittest.TestCase):
   def test_notjson(self):
     fakefilecontent = textwrap.dedent('''\
           what is this i don't even''')
-    fakefile = StringIO.StringIO(fakefilecontent)
+    fakefile = contextlib.closing(StringIO.StringIO(fakefilecontent))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
@@ -102,9 +102,9 @@ class TestMainRealData(unittest.TestCase):
   testdata = gettestdata()
 
   def test_default(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', 'filename']
@@ -124,9 +124,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_all(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--all', 'filename']
@@ -160,9 +160,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_allwithhistory(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--all-with-history', 'filename']
@@ -228,9 +228,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_closedwindows(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--window=closed', 'filename']
@@ -245,9 +245,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_closedtabs(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--tab=closed', 'filename']
@@ -264,9 +264,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_allurls(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname', '--url=all', 'filename']
@@ -304,9 +304,9 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_closedwindow_closedtab_allurls(self):
-    fakefile = StringIO.StringIO(self.testdata)
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
-      return contextlib.closing(fakefile)
+      return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname',
