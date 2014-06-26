@@ -280,19 +280,19 @@ class UrlFilterFactory(object):
       windowpredicate = UrlAttributePredicate('window', [windowstate])
       predicatelist.append(windowpredicate)
     else:
-      windowpredicate = TruePredicate()
+      windowpredicate = UrlAttributePredicate('window', ['open', 'closed'])
       predicatelist.append(windowpredicate)
     if tabstate != 'all':
       tabpredicate = UrlAttributePredicate('tab', [tabstate])
       predicatelist.append(tabpredicate)
     else:
-      tabpredicate = TruePredicate()
+      tabpredicate = UrlAttributePredicate('tab', ['open', 'closed'])
       predicatelist.append(tabpredicate)
     if entrystate != 'all':
       entrypredicate = UrlAttributePredicate('entry', [entrystate])
       predicatelist.append(entrypredicate)
     else:
-      entrypredicate = TruePredicate()
+      entrypredicate = UrlAttributePredicate('entry', ['back', 'selected', 'forward'])
       predicatelist.append(entrypredicate)
     return predicatelist
 
