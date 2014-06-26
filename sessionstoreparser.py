@@ -233,12 +233,12 @@ class UrlAttributePredicate(object):
 class UrlFilter(object):
   def __init__(self, predicates):
     self.predicates = predicates
-
-  def true(self, url):
     windowpredicate, tabpredicate, entrypredicate = self.predicates
     self.windowpredicate = windowpredicate
     self.tabpredicate = tabpredicate
     self.entrypredicate = entrypredicate
+
+  def true(self, url):
     if not self.windowpredicate.true(url):
       return False
     if not self.tabpredicate.true(url):
