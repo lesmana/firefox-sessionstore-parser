@@ -31,29 +31,18 @@ class ArgvParser(object):
       shortoptslist.append(optstring)
     return shortoptslist, longopts
 
-  def prepareoptiondata(self, optiondata):
-    shortoptslist = []
-    longopts = []
-    optnames = {}
-    name, opts, argcount = optiondata
-    for opt in opts:
-      shorts, longs = self.prepareopt(opt, argcount)
-      shortoptslist.extend(shorts)
-      longopts.extend(longs)
-      optnames[opt] = name
-    return shortoptslist, longopts, optnames
-
   def prepareoptionsdata(self, optionsdata):
     # no error checking
     # let's assume everyone is sane
     shortoptslist = []
     longopts = []
     optnames = {}
-    for optiondata in optionsdata:
-      shorts, longs, names = self.prepareoptiondata(optiondata)
-      shortoptslist.extend(shorts)
-      longopts.extend(longs)
-      optnames.update(names)
+    for name, opts, argcount in optionsdata:
+      for opt in opts:
+        shorts, longs = self.prepareopt(opt, argcount)
+        shortoptslist.extend(shorts)
+        longopts.extend(longs)
+        optnames[opt] = name
     shortopts = ''.join(shortoptslist)
     return shortopts, longopts, optnames
 
