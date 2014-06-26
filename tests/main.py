@@ -227,7 +227,7 @@ class TestMainRealData(unittest.TestCase):
           '''))
     self.assertEqual(exitstatus, 0)
 
-  def test_closedwindows(self):
+  def test_windowclosed(self):
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
       return fakefile
@@ -244,7 +244,7 @@ class TestMainRealData(unittest.TestCase):
           '''))
     self.assertEqual(exitstatus, 0)
 
-  def test_closedtabs(self):
+  def test_tabclosed(self):
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
       return fakefile
@@ -263,7 +263,7 @@ class TestMainRealData(unittest.TestCase):
           '''))
     self.assertEqual(exitstatus, 0)
 
-  def test_allurls(self):
+  def test_urlall(self):
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
       return fakefile
@@ -303,7 +303,7 @@ class TestMainRealData(unittest.TestCase):
           '''))
     self.assertEqual(exitstatus, 0)
 
-  def test_closedwindow_closedtab_allurls(self):
+  def test_windowclosed_tabclosed_urlall(self):
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
       return fakefile
