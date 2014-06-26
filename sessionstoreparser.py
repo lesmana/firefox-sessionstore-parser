@@ -224,17 +224,17 @@ class UrlAttributePredicate(object):
     return url[self.key] in self.values
 
 class UrlFilter(object):
-  def __init__(self, windowpredicate, tabpredicate, entrypredicate):
-    self.windowpredicate = windowpredicate
-    self.tabpredicate = tabpredicate
-    self.entrypredicate = entrypredicate
+  def __init__(self, windowstates, tabstates, entrystates):
+    self.windowstates = windowstates
+    self.tabstates = tabstates
+    self.entrystates = entrystates
 
   def true(self, url):
-    if url['window'] not in self.windowpredicate.values:
+    if url['window'] not in self.windowstates:
       return False
-    if url['tab'] not in self.tabpredicate.values:
+    if url['tab'] not in self.tabstates:
       return False
-    if url['entry'] not in self.entrypredicate.values:
+    if url['entry'] not in self.entrystates:
       return False
     return True
 
@@ -285,7 +285,7 @@ class UrlFilterFactory(object):
   def make(self, parsedargv):
     windowstate, tabstate, entrystate = self.getstates(parsedargv)
     predicates = self.getpredicates(windowstate, tabstate, entrystate)
-    urlfilter = self.urlfilterclass(*predicates)
+    urlfilter = self.urlfilterclass(windowstate, tabstate, entrystate)
     return urlfilter
 
 class UrlWriter(object):
