@@ -223,9 +223,9 @@ class TruePredicate(object):
     return True
 
 class UrlAttributePredicate(object):
-  def __init__(self, key, value):
+  def __init__(self, key, values):
     self.key = key
-    self.values = [value]
+    self.values = values
 
   def true(self, url):
     return url[self.key] in self.values
@@ -277,17 +277,17 @@ class UrlFilterFactory(object):
   def getpredicates(self, windowstate, tabstate, entrystate):
     predicatelist = []
     if windowstate != 'all':
-      windowpredicate = UrlAttributePredicate('window', windowstate)
+      windowpredicate = UrlAttributePredicate('window', [windowstate])
       predicatelist.append(windowpredicate)
     else:
       predicatelist.append(TruePredicate())
     if tabstate != 'all':
-      tabpredicate = UrlAttributePredicate('tab', tabstate)
+      tabpredicate = UrlAttributePredicate('tab', [tabstate])
       predicatelist.append(tabpredicate)
     else:
       predicatelist.append(TruePredicate())
     if entrystate != 'all':
-      entrypredicate = UrlAttributePredicate('entry', entrystate)
+      entrypredicate = UrlAttributePredicate('entry', [entrystate])
       predicatelist.append(entrypredicate)
     else:
       predicatelist.append(TruePredicate())
