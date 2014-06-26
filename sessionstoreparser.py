@@ -270,23 +270,23 @@ class UrlFilterFactory(object):
   def getpredicates(self, windowstate, tabstate, entrystate):
     predicatelist = []
     if windowstate != 'all':
-      windowpredicate = UrlAttributePredicate('window', [windowstate])
-      predicatelist.append(windowpredicate)
+      windowattributes = [windowstate]
     else:
-      windowpredicate = UrlAttributePredicate('window', ['open', 'closed'])
-      predicatelist.append(windowpredicate)
+      windowattributes = ['open', 'closed']
+    windowpredicate = UrlAttributePredicate('window', windowattributes)
+    predicatelist.append(windowpredicate)
     if tabstate != 'all':
-      tabpredicate = UrlAttributePredicate('tab', [tabstate])
-      predicatelist.append(tabpredicate)
+      tabattributes = [tabstate]
     else:
-      tabpredicate = UrlAttributePredicate('tab', ['open', 'closed'])
-      predicatelist.append(tabpredicate)
+      tabattributes = ['open', 'closed']
+    tabpredicate = UrlAttributePredicate('tab', tabattributes)
+    predicatelist.append(tabpredicate)
     if entrystate != 'all':
-      entrypredicate = UrlAttributePredicate('entry', [entrystate])
-      predicatelist.append(entrypredicate)
+      entryattributes = [entrystate]
     else:
-      entrypredicate = UrlAttributePredicate('entry', ['back', 'selected', 'forward'])
-      predicatelist.append(entrypredicate)
+      entryattributes = ['back', 'selected', 'forward']
+    entrypredicate = UrlAttributePredicate('entry', entryattributes)
+    predicatelist.append(entrypredicate)
     return predicatelist
 
   def make(self, parsedargv):
