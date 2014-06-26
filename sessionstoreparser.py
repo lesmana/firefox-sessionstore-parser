@@ -236,11 +236,14 @@ class UrlFilter(object):
 
   def true(self, url):
     windowpredicate, tabpredicate, entrypredicate = self.predicates
-    if not windowpredicate.true(url):
+    self.windowpredicate = windowpredicate
+    self.tabpredicate = tabpredicate
+    self.entrypredicate = entrypredicate
+    if not self.windowpredicate.true(url):
       return False
-    if not tabpredicate.true(url):
+    if not self.tabpredicate.true(url):
       return False
-    if not entrypredicate.true(url):
+    if not self.entrypredicate.true(url):
       return False
     return True
 
