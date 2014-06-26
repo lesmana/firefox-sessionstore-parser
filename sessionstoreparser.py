@@ -225,10 +225,10 @@ class TruePredicate(object):
 class UrlAttributePredicate(object):
   def __init__(self, key, value):
     self.key = key
-    self.value = value
+    self.values = [value]
 
   def true(self, url):
-    return url[self.key] in [self.value]
+    return url[self.key] in self.values
 
 class UrlFilter(object):
   def __init__(self, windowpredicate, tabpredicate, entrypredicate):
