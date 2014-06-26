@@ -228,7 +228,7 @@ class UrlAttributePredicate(object):
     self.value = value
 
   def true(self, url):
-    return url[self.key] == self.value
+    return url[self.key] in [self.value]
 
 class UrlFilter(object):
   def __init__(self, windowpredicate, tabpredicate, entrypredicate):
