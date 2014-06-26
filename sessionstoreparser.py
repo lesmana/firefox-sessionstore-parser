@@ -102,6 +102,15 @@ class HelpPrinter(object):
     self.stream.write(self.message + '\n')
     return self.exitstatus
 
+class HelpPrinterFactory(object):
+  def __init__(self, helpprinterclass, stderr):
+    self.helpprinterclass = helpprinterclass
+    self.stderr = stderr
+
+  def make(self, message):
+    worker = self.helpprinterclass(self.stderr, message, 2)
+    return worker
+
 class JsonReader(object):
   def __init__(self, openfunc, jsonloadfunc):
     self.openfunc = openfunc
@@ -133,6 +142,21 @@ class SessionStoreProducer(object):
 
   def produce(self):
     return self.jsonreader.read(self.filename)
+
+class SessionStoreProducerFactory(object):
+  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc):
+    self.jsonreaderclass = jsonreaderclass
+    self.sessionstoreproducerclass = sessionstoreproducerclass
+    self.openfunc = openfunc
+
+  def make(self, parsedargv):
+    try:
+      filename = parsedargv['filename']
+    except KeyError:
+      raise Error('missing argument: filename')
+    jsonreader = self.jsonreaderclass(self.openfunc, json.load)
+    sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
+    return sessionstoreproducer
 
 class UrlProducer(object):
   def __init__(self):
@@ -183,6 +207,14 @@ class UrlProducer(object):
   def produce(self, sessionstore):
     return self.generate(sessionstore)
 
+class UrlProducerFactory(object):
+  def __init__(self, urlproducerclass):
+    self.urlproducerclass = urlproducerclass
+
+  def make(self, parsedargv):
+    urlproducer = self.urlproducerclass()
+    return urlproducer
+
 class UrlAttributePredicate(object):
   def __init__(self, key, value):
     self.key = key
@@ -205,67 +237,6 @@ class UrlFilter(object):
     for url in urls:
       if self.true(url):
         yield url
-
-class UrlWriter(object):
-  def __init__(self, stdout):
-    self.stdout = stdout
-
-  def write(self, urls):
-    for url in urls:
-      self.stdout.write(url['url'] + '\n')
-
-  def consume(self, urls):
-    self.write(urls)
-
-class SessionStoreParser(object):
-  def __init__(self,
-        sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
-    self.sessionstoreproducer = sessionstoreproducer
-    self.urlproducer = urlproducer
-    self.urlfilter = urlfilter
-    self.urlconsumer = urlconsumer
-
-  def parse(self):
-    sessionstore = self.sessionstoreproducer.produce()
-    urls = self.urlproducer.produce(sessionstore)
-    filteredurls = self.urlfilter.filter(urls)
-    self.urlconsumer.consume(filteredurls)
-
-  def work(self):
-    self.parse()
-    return 0
-
-class HelpPrinterFactory(object):
-  def __init__(self, helpprinterclass, stderr):
-    self.helpprinterclass = helpprinterclass
-    self.stderr = stderr
-
-  def make(self, message):
-    worker = self.helpprinterclass(self.stderr, message, 2)
-    return worker
-
-class SessionStoreProducerFactory(object):
-  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc):
-    self.jsonreaderclass = jsonreaderclass
-    self.sessionstoreproducerclass = sessionstoreproducerclass
-    self.openfunc = openfunc
-
-  def make(self, parsedargv):
-    try:
-      filename = parsedargv['filename']
-    except KeyError:
-      raise Error('missing argument: filename')
-    jsonreader = self.jsonreaderclass(self.openfunc, json.load)
-    sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
-    return sessionstoreproducer
-
-class UrlProducerFactory(object):
-  def __init__(self, urlproducerclass):
-    self.urlproducerclass = urlproducerclass
-
-  def make(self, parsedargv):
-    urlproducer = self.urlproducerclass()
-    return urlproducer
 
 class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
@@ -310,6 +281,17 @@ class UrlFilterFactory(object):
     urlfilter = self.urlfilterclass(predicates)
     return urlfilter
 
+class UrlWriter(object):
+  def __init__(self, stdout):
+    self.stdout = stdout
+
+  def write(self, urls):
+    for url in urls:
+      self.stdout.write(url['url'] + '\n')
+
+  def consume(self, urls):
+    self.write(urls)
+
 class UrlConsumerFactory(object):
   def __init__(self, urlconsumerclass, stdout):
     self.urlconsumerclass = urlconsumerclass
@@ -318,6 +300,24 @@ class UrlConsumerFactory(object):
   def make(self, parsedargv):
     urlconsumer = self.urlconsumerclass(self.stdout)
     return urlconsumer
+
+class SessionStoreParser(object):
+  def __init__(self,
+        sessionstoreproducer, urlproducer, urlfilter, urlconsumer):
+    self.sessionstoreproducer = sessionstoreproducer
+    self.urlproducer = urlproducer
+    self.urlfilter = urlfilter
+    self.urlconsumer = urlconsumer
+
+  def parse(self):
+    sessionstore = self.sessionstoreproducer.produce()
+    urls = self.urlproducer.produce(sessionstore)
+    filteredurls = self.urlfilter.filter(urls)
+    self.urlconsumer.consume(filteredurls)
+
+  def work(self):
+    self.parse()
+    return 0
 
 class SessionStoreParserFactory(object):
   def __init__(self,
