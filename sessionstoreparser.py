@@ -239,7 +239,7 @@ class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
 
-  def getvalues(self, parsedargv):
+  def getinputs(self, parsedargv):
     windowinput = 'default'
     tabinput = 'default'
     entryinput = 'default'
@@ -257,6 +257,10 @@ class UrlFilterFactory(object):
       tabinput = parsedargv['tab']
     if 'entry' in parsedargv:
       entryinput = parsedargv['entry']
+    return windowinput, tabinput, entryinput
+
+  def getvalues(self, parsedargv):
+    windowinput, tabinput, entryinput = self.getinputs(parsedargv)
 
     if windowinput == 'default':
       windowvalues = ['open']
