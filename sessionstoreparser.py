@@ -263,13 +263,20 @@ class UrlFilterFactory(object):
     valuestable = {
           'window': {
             'default': ['open'],
-            'all': ['open', 'closed']},
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
           'tab': {
             'default': ['open'],
-            'all': ['open', 'closed']},
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
           'entry': {
             'default': ['selected'],
-            'all': ['back', 'selected', 'forward']}}
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
     if input in valuestable[forwhat]:
       values = valuestable[forwhat][input]
     else:
