@@ -238,6 +238,23 @@ class UrlFilter(object):
 class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
+    self.valuestable = {
+          'window': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
+          'tab': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
+          'entry': {
+            'default': ['selected'],
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
 
   def getinputs(self, parsedargv):
     windowinput = 'default'
@@ -260,23 +277,6 @@ class UrlFilterFactory(object):
     return windowinput, tabinput, entryinput
 
   def getvaluesfor(self, forwhat, input):
-    self.valuestable = {
-          'window': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'closed': ['closed']},
-          'tab': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'closed': ['closed']},
-          'entry': {
-            'default': ['selected'],
-            'all': ['back', 'selected', 'forward'],
-            'back': ['back'],
-            'selected': ['selected'],
-            'forward': ['forward']}}
     if input in self.valuestable[forwhat]:
       values = self.valuestable[forwhat][input]
     else:
