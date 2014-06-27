@@ -267,12 +267,10 @@ class UrlFilterFactory(object):
     return windowvalues
 
   def gettabvalues(self, input):
-    if input == 'default':
-      tabvalues = ['open']
-    elif input == 'all':
-      tabvalues = ['open', 'closed']
-    else:
-      tabvalues = [input]
+    values = {
+          'default': ['open'],
+          'all': ['open', 'closed']}
+    tabvalues = values.get(input, [input])
     return tabvalues
 
   def getentryvalues(self, input):
