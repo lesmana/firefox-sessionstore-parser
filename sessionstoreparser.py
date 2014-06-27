@@ -260,7 +260,7 @@ class UrlFilterFactory(object):
     return windowinput, tabinput, entryinput
 
   def getvaluesfor(self, forwhat, input):
-    valuestable = {
+    self.valuestable = {
           'window': {
             'default': ['open'],
             'all': ['open', 'closed'],
@@ -277,8 +277,8 @@ class UrlFilterFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
-    if input in valuestable[forwhat]:
-      values = valuestable[forwhat][input]
+    if input in self.valuestable[forwhat]:
+      values = self.valuestable[forwhat][input]
     else:
       raise Error('illegal value for "%s": "%s"' % (forwhat, input))
     return values
