@@ -64,6 +64,16 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), '')
     self.assertEqual(exitstatus, 2)
 
+  def test_wrongargv2(self):
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--window=wrong', 'irrelevantfilename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
+    self.assertEqual(fakestderr.getvalue(),
+          'illegal value for "window": "wrong"\n')
+    self.assertEqual(fakestdout.getvalue(), '')
+    self.assertEqual(exitstatus, 2)
+
   def test_notfile(self):
     def fakeopen(dummy_filename):
       raise IOError('ignored error message')

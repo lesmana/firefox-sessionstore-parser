@@ -280,7 +280,7 @@ class UrlFilterFactory(object):
     if input in valuestable[forwhat]:
       values = valuestable[forwhat][input]
     else:
-      values = [input]
+      raise Error('illegal value for "%s": "%s"' % (forwhat, input))
     return values
 
   def getvalues(self, parsedargv):
