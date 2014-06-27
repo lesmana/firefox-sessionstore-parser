@@ -268,16 +268,19 @@ class UrlFilterFactory(object):
       windowvalues = [windowinput]
     return windowvalues
 
-  def getvalues(self, parsedargv):
-    windowinput, tabinput, entryinput = self.getinputs(parsedargv)
-    windowvalues = self.getwindowvalues(windowinput)
-
+  def gettabvalues(self, tabinput):
     if tabinput == 'default':
       tabvalues = ['open']
     elif tabinput == 'all':
       tabvalues = ['open', 'closed']
     else:
       tabvalues = [tabinput]
+    return tabvalues
+
+  def getvalues(self, parsedargv):
+    windowinput, tabinput, entryinput = self.getinputs(parsedargv)
+    windowvalues = self.getwindowvalues(windowinput)
+    tabvalues = self.gettabvalues(tabinput)
 
     if entryinput == 'default':
       entryvalues = ['selected']
