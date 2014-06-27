@@ -273,23 +273,11 @@ class UrlFilterFactory(object):
     values = valuestable[forwhat].get(input, [input])
     return values
 
-  def getwindowvalues(self, input):
-    values = self.getvaluesfor('window', input)
-    return values
-
-  def gettabvalues(self, input):
-    values = self.getvaluesfor('tab', input)
-    return values
-
-  def getentryvalues(self, input):
-    values = self.getvaluesfor('entry', input)
-    return values
-
   def getvalues(self, parsedargv):
     windowinput, tabinput, entryinput = self.getinputs(parsedargv)
-    windowvalues = self.getwindowvalues(windowinput)
-    tabvalues = self.gettabvalues(tabinput)
-    entryvalues = self.getentryvalues(entryinput)
+    windowvalues = self.getvaluesfor('window', windowinput)
+    tabvalues = self.getvaluesfor('tab', tabinput)
+    entryvalues = self.getvaluesfor('entry', entryinput)
     return windowvalues, tabvalues, entryvalues
 
   def make(self, parsedargv):
