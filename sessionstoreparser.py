@@ -270,7 +270,10 @@ class UrlFilterFactory(object):
           'entry': {
             'default': ['selected'],
             'all': ['back', 'selected', 'forward']}}
-    values = valuestable[forwhat].get(input, [input])
+    if input in valuestable[forwhat]:
+      values = valuestable[forwhat][input]
+    else:
+      values = [input]
     return values
 
   def getvalues(self, parsedargv):
