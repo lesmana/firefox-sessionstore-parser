@@ -259,31 +259,33 @@ class UrlFilterFactory(object):
       entryinput = parsedargv['entry']
     return windowinput, tabinput, entryinput
 
-  def getwindowvalues(self, input):
-    forwhat = 'window'
+  def getvaluesfor(self, forwhat, input):
     valuestable = {
           'window': {
             'default': ['open'],
-            'all': ['open', 'closed']}}
-    values = valuestable[forwhat].get(input, [input])
-    return values
-
-  def gettabvalues(self, input):
-    forwhat = 'tab'
-    valuestable = {
+            'all': ['open', 'closed']},
           'tab': {
             'default': ['open'],
-            'all': ['open', 'closed']}}
-    values = valuestable[forwhat].get(input, [input])
-    return values
-
-  def getentryvalues(self, input):
-    forwhat = 'entry'
-    valuestable = {
+            'all': ['open', 'closed']},
           'entry': {
             'default': ['selected'],
             'all': ['back', 'selected', 'forward']}}
     values = valuestable[forwhat].get(input, [input])
+    return values
+
+  def getwindowvalues(self, input):
+    forwhat = 'window'
+    values = self.getvaluesfor(forwhat, input)
+    return values
+
+  def gettabvalues(self, input):
+    forwhat = 'tab'
+    values = self.getvaluesfor(forwhat, input)
+    return values
+
+  def getentryvalues(self, input):
+    forwhat = 'entry'
+    values = self.getvaluesfor(forwhat, input)
     return values
 
   def getvalues(self, parsedargv):
