@@ -240,44 +240,44 @@ class UrlFilterFactory(object):
     self.urlfilterclass = urlfilterclass
 
   def getstates(self, parsedargv):
-    windowstate = 'default'
-    tabstate = 'default'
-    entrystate = 'default'
+    windowinput = 'default'
+    tabinput = 'default'
+    entryinput = 'default'
     if 'all' in parsedargv:
-      windowstate = 'all'
-      tabstate = 'all'
-      entrystate = 'default'
+      windowinput = 'all'
+      tabinput = 'all'
+      entryinput = 'default'
     if 'allwithhistory' in parsedargv:
-      windowstate = 'all'
-      tabstate = 'all'
-      entrystate = 'all'
+      windowinput = 'all'
+      tabinput = 'all'
+      entryinput = 'all'
     if 'window' in parsedargv:
-      windowstate = parsedargv['window']
+      windowinput = parsedargv['window']
     if 'tab' in parsedargv:
-      tabstate = parsedargv['tab']
+      tabinput = parsedargv['tab']
     if 'entry' in parsedargv:
-      entrystate = parsedargv['entry']
+      entryinput = parsedargv['entry']
 
-    if windowstate == 'default':
+    if windowinput == 'default':
       windowvalues = ['open']
-    elif windowstate == 'all':
+    elif windowinput == 'all':
       windowvalues = ['open', 'closed']
     else:
-      windowvalues = [windowstate]
+      windowvalues = [windowinput]
 
-    if tabstate == 'default':
+    if tabinput == 'default':
       tabvalues = ['open']
-    elif tabstate == 'all':
+    elif tabinput == 'all':
       tabvalues = ['open', 'closed']
     else:
-      tabvalues = [tabstate]
+      tabvalues = [tabinput]
 
-    if entrystate == 'default':
+    if entryinput == 'default':
       entryvalues = ['selected']
-    elif entrystate == 'all':
+    elif entryinput == 'all':
       entryvalues = ['back', 'selected', 'forward']
     else:
-      entryvalues = [entrystate]
+      entryvalues = [entryinput]
 
     return windowvalues, tabvalues, entryvalues
 
