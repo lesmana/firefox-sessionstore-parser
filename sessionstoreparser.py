@@ -239,7 +239,7 @@ class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
 
-  def getstates(self, parsedargv):
+  def getvalues(self, parsedargv):
     windowinput = 'default'
     tabinput = 'default'
     entryinput = 'default'
@@ -282,8 +282,8 @@ class UrlFilterFactory(object):
     return windowvalues, tabvalues, entryvalues
 
   def make(self, parsedargv):
-    windowstate, tabstate, entrystate = self.getstates(parsedargv)
-    urlfilter = self.urlfilterclass(windowstate, tabstate, entrystate)
+    windowvalues, tabvalues, entryvalues = self.getvalues(parsedargv)
+    urlfilter = self.urlfilterclass(windowvalues, tabvalues, entryvalues)
     return urlfilter
 
 class UrlWriter(object):
