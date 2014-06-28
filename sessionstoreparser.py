@@ -263,7 +263,6 @@ class UrlFilterFactory(object):
     if 'all' in parsedargv:
       windowinput = 'all'
       tabinput = 'all'
-      entryinput = 'default'
     if 'allwithhistory' in parsedargv:
       windowinput = 'all'
       tabinput = 'all'
