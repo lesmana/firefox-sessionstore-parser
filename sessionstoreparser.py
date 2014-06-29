@@ -251,33 +251,46 @@ class UrlFilterFactory(object):
             'selected': ['selected'],
             'forward': ['forward']}}
 
+  def getinputsupdate(self, whatinput, parsedargv):
+    if whatinput == 'all':
+      update = {
+            'window': 'all',
+            'tab': 'all'}
+    if whatinput == 'allwithhistory':
+      update = {
+            'window': 'all',
+            'tab': 'all',
+            'entry': 'all'}
+    if whatinput == 'window':
+      update = {
+            'window': parsedargv['window']}
+    if whatinput == 'tab':
+      update = {
+            'tab': parsedargv['tab']}
+    if whatinput == 'entry':
+      update = {
+            'entry': parsedargv['entry']}
+    return update
+
   def getinputs(self, parsedargv):
     inputs = {
           'window': 'default',
           'tab': 'default',
           'entry': 'default'}
     if 'all' in parsedargv:
-      update = {
-            'window': 'all',
-            'tab': 'all'}
+      update = self.getinputsupdate('all', parsedargv)
       inputs.update(update)
     if 'allwithhistory' in parsedargv:
-      update = {
-            'window': 'all',
-            'tab': 'all',
-            'entry': 'all'}
+      update = self.getinputsupdate('allwithhistory', parsedargv)
       inputs.update(update)
     if 'window' in parsedargv:
-      update = {
-            'window': parsedargv['window']}
+      update = self.getinputsupdate('window', parsedargv)
       inputs.update(update)
     if 'tab' in parsedargv:
-      update = {
-            'tab': parsedargv['tab']}
+      update = self.getinputsupdate('tab', parsedargv)
       inputs.update(update)
     if 'entry' in parsedargv:
-      update = {
-            'entry': parsedargv['entry']}
+      update = self.getinputsupdate('entry', parsedargv)
       inputs.update(update)
     return inputs
 
