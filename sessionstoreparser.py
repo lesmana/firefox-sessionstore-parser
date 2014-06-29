@@ -216,11 +216,8 @@ class UrlProducerFactory(object):
     return urlproducer
 
 class UrlFilter(object):
-  def __init__(self, windowattrs, tabattrs, entryattrs):
-    self.attributes = {
-          'window': windowattrs,
-          'tab': tabattrs,
-          'entry': entryattrs}
+  def __init__(self, attributes):
+    self.attributes = attributes
 
   def attributesmatch(self, url):
     for key, value in self.attributes.items():
@@ -289,7 +286,11 @@ class UrlFilterFactory(object):
 
   def make(self, parsedargv):
     windowvalues, tabvalues, entryvalues = self.getvalues(parsedargv)
-    urlfilter = self.urlfilterclass(windowvalues, tabvalues, entryvalues)
+    attributes = {
+          'window': windowvalues,
+          'tab': tabvalues,
+          'entry': entryvalues}
+    urlfilter = self.urlfilterclass(attributes)
     return urlfilter
 
 class UrlWriter(object):
