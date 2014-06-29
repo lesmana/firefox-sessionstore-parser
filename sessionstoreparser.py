@@ -277,7 +277,7 @@ class UrlFilterFactory(object):
       raise Error('illegal value for "%s": "%s"' % (forwhat, input))
     return values
 
-  def getvalues(self, parsedargv):
+  def getattributes(self, parsedargv):
     windowinput, tabinput, entryinput = self.getinputs(parsedargv)
     windowvalues = self.getvaluesfor('window', windowinput)
     tabvalues = self.getvaluesfor('tab', tabinput)
@@ -289,7 +289,7 @@ class UrlFilterFactory(object):
     return attributes
 
   def make(self, parsedargv):
-    attributes = self.getvalues(parsedargv)
+    attributes = self.getattributes(parsedargv)
     urlfilter = self.urlfilterclass(attributes)
     return urlfilter
 
