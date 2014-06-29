@@ -217,16 +217,17 @@ class UrlProducerFactory(object):
 
 class UrlFilter(object):
   def __init__(self, windowattrs, tabattrs, entryattrs):
-    self.windowattrs = windowattrs
-    self.tabattrs = tabattrs
-    self.entryattrs = entryattrs
+    self.attributes = {
+          'window': windowattrs,
+          'tab': tabattrs,
+          'entry': entryattrs}
 
   def true(self, url):
-    if url['window'] not in self.windowattrs:
+    if url['window'] not in self.attributes['window']:
       return False
-    if url['tab'] not in self.tabattrs:
+    if url['tab'] not in self.attributes['tab']:
       return False
-    if url['entry'] not in self.entryattrs:
+    if url['entry'] not in self.attributes['entry']:
       return False
     return True
 
