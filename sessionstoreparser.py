@@ -252,15 +252,15 @@ class UrlFilterFactory(object):
             'forward': ['forward']}}
 
   def getinputsupdate(self, whatinput):
-    if whatinput == 'all':
-      update = {
+    updatetemplate = {
+          'all': {
             'window': 'all',
-            'tab': 'all'}
-    if whatinput == 'allwithhistory':
-      update = {
+            'tab': 'all'},
+          'allwithhistory': {
             'window': 'all',
             'tab': 'all',
-            'entry': 'all'}
+            'entry': 'all'}}
+    update = updatetemplate[whatinput]
     return update
 
   def getinputs(self, parsedargv):
