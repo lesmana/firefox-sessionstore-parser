@@ -277,26 +277,10 @@ class UrlFilterFactory(object):
           'window': 'default',
           'tab': 'default',
           'entry': 'default'}
-    if 'all' in parsedargv:
-      whatinputs = 'all'
-      update = self.getinputsupdate(whatinputs, parsedargv)
-      inputs.update(update)
-    if 'allwithhistory' in parsedargv:
-      whatinputs = 'allwithhistory'
-      update = self.getinputsupdate(whatinputs, parsedargv)
-      inputs.update(update)
-    if 'window' in parsedargv:
-      whatinputs = 'window'
-      update = self.getinputsupdate(whatinputs, parsedargv)
-      inputs.update(update)
-    if 'tab' in parsedargv:
-      whatinputs = 'tab'
-      update = self.getinputsupdate(whatinputs, parsedargv)
-      inputs.update(update)
-    if 'entry' in parsedargv:
-      whatinputs = 'entry'
-      update = self.getinputsupdate(whatinputs, parsedargv)
-      inputs.update(update)
+    for whatinputs in ['all', 'allwithhistory', 'window', 'tab', 'entry']:
+      if whatinputs in parsedargv:
+        update = self.getinputsupdate(whatinputs, parsedargv)
+        inputs.update(update)
     return inputs
 
   def getvaluesfor(self, forwhat, input):
