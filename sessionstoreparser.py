@@ -281,13 +281,9 @@ class UrlFilterFactory(object):
     return values
 
   def getattributes(self, inputs):
-    windowvalues = self.getvaluesfor('window', inputs['window'])
-    tabvalues = self.getvaluesfor('tab', inputs['tab'])
-    entryvalues = self.getvaluesfor('entry', inputs['entry'])
-    attributes = {
-          'window': windowvalues,
-          'tab': tabvalues,
-          'entry': entryvalues}
+    attributes = {}
+    for name, template in inputs.items():
+      attributes[name] = self.getvaluesfor(name, template)
     return attributes
 
   def make(self, parsedargv):
