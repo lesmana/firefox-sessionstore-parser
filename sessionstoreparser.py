@@ -282,14 +282,14 @@ class UrlFilterFactory(object):
     windowvalues = self.getvaluesfor('window', windowinput)
     tabvalues = self.getvaluesfor('tab', tabinput)
     entryvalues = self.getvaluesfor('entry', entryinput)
-    return windowvalues, tabvalues, entryvalues
-
-  def make(self, parsedargv):
-    windowvalues, tabvalues, entryvalues = self.getvalues(parsedargv)
     attributes = {
           'window': windowvalues,
           'tab': tabvalues,
           'entry': entryvalues}
+    return attributes
+
+  def make(self, parsedargv):
+    attributes = self.getvalues(parsedargv)
     urlfilter = self.urlfilterclass(attributes)
     return urlfilter
 
