@@ -278,19 +278,24 @@ class UrlFilterFactory(object):
           'tab': 'default',
           'entry': 'default'}
     if 'all' in parsedargv:
-      update = self.getinputsupdate('all', parsedargv)
+      whatinputs = 'all'
+      update = self.getinputsupdate(whatinputs, parsedargv)
       inputs.update(update)
     if 'allwithhistory' in parsedargv:
-      update = self.getinputsupdate('allwithhistory', parsedargv)
+      whatinputs = 'allwithhistory'
+      update = self.getinputsupdate(whatinputs, parsedargv)
       inputs.update(update)
     if 'window' in parsedargv:
-      update = self.getinputsupdate('window', parsedargv)
+      whatinputs = 'window'
+      update = self.getinputsupdate(whatinputs, parsedargv)
       inputs.update(update)
     if 'tab' in parsedargv:
-      update = self.getinputsupdate('tab', parsedargv)
+      whatinputs = 'tab'
+      update = self.getinputsupdate(whatinputs, parsedargv)
       inputs.update(update)
     if 'entry' in parsedargv:
-      update = self.getinputsupdate('entry', parsedargv)
+      whatinputs = 'entry'
+      update = self.getinputsupdate(whatinputs, parsedargv)
       inputs.update(update)
     return inputs
 
