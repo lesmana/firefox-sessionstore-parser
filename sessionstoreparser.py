@@ -223,12 +223,9 @@ class UrlFilter(object):
           'entry': entryattrs}
 
   def true(self, url):
-    if url['window'] not in self.attributes['window']:
-      return False
-    if url['tab'] not in self.attributes['tab']:
-      return False
-    if url['entry'] not in self.attributes['entry']:
-      return False
+    for key, value in self.attributes.items():
+      if url[key] not in value:
+        return False
     return True
 
   def filter(self, urls):
