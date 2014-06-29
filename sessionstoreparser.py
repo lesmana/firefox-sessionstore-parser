@@ -273,11 +273,11 @@ class UrlFilterFactory(object):
         inputs[whatinputs] = parsedargv[whatinputs]
     return inputs
 
-  def getvaluesfor(self, forwhat, input):
-    if input in self.valuestable[forwhat]:
-      values = self.valuestable[forwhat][input]
+  def getvaluesfor(self, name, template):
+    if template in self.valuestable[name]:
+      values = self.valuestable[name][template]
     else:
-      raise Error('illegal value for "%s": "%s"' % (forwhat, input))
+      raise Error('illegal value for "%s": "%s"' % (name, template))
     return values
 
   def getattributes(self, inputs):
