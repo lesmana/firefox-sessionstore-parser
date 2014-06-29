@@ -222,7 +222,7 @@ class UrlFilter(object):
           'tab': tabattrs,
           'entry': entryattrs}
 
-  def true(self, url):
+  def attributesmatch(self, url):
     for key, value in self.attributes.items():
       if url[key] not in value:
         return False
@@ -230,7 +230,7 @@ class UrlFilter(object):
 
   def filter(self, urls):
     for url in urls:
-      if self.true(url):
+      if self.attributesmatch(url):
         yield url
 
 class UrlFilterFactory(object):
