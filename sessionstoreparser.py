@@ -268,7 +268,11 @@ class UrlFilterFactory(object):
       tabinput = parsedargv['tab']
     if 'entry' in parsedargv:
       entryinput = parsedargv['entry']
-    return windowinput, tabinput, entryinput
+    inputs = {
+          'window': windowinput,
+          'tab': tabinput,
+          'entry': entryinput}
+    return inputs
 
   def getvaluesfor(self, forwhat, input):
     if input in self.valuestable[forwhat]:
@@ -278,11 +282,7 @@ class UrlFilterFactory(object):
     return values
 
   def getattributes(self, parsedargv):
-    windowinput, tabinput, entryinput = self.getinputs(parsedargv)
-    inputs = {
-          'window': windowinput,
-          'tab': tabinput,
-          'entry': entryinput}
+    inputs = self.getinputs(parsedargv)
     windowvalues = self.getvaluesfor('window', inputs['window'])
     tabvalues = self.getvaluesfor('tab', inputs['tab'])
     entryvalues = self.getvaluesfor('entry', inputs['entry'])
