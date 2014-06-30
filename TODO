@@ -11,3 +11,6 @@ allurlgen > filters > sessionstorewriter
 why? urlwriter writes urls to stdout (or to file)
 sessionstore writes a new sessionstore.js file
 use case: clear closed windows and tabs and back forward history
+
+----
+implement reading from stdin
