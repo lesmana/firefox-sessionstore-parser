@@ -173,31 +173,31 @@ class UrlProducer(object):
     for index, entry in enumerate(entries):
       for url in self.handleentry(entry):
         if index < openindex:
-          url['entry'] = 'back'
+          url['entry'] = set(['back'])
         elif index > openindex:
-          url['entry'] = 'forward'
+          url['entry'] = set(['forward'])
         else: # index == openindex:
-          url['entry'] = 'selected'
+          url['entry'] = set(['selected'])
         yield url
 
   def handlewindow(self, window):
     for tab in window['tabs']:
       for url in self.handletab(tab):
-        url['tab'] = 'open'
+        url['tab'] = set(['open'])
         yield url
     for tab in window['_closedTabs']:
       for url in self.handletab(tab['state']):
-        url['tab'] = 'closed'
+        url['tab'] = set(['closed'])
         yield url
 
   def handlesessionstore(self, sessionstore):
     for window in sessionstore['windows']:
       for url in self.handlewindow(window):
-        url['window'] = 'open'
+        url['window'] = set(['open'])
         yield url
     for window in sessionstore['_closedWindows']:
       for url in self.handlewindow(window):
-        url['window'] = 'closed'
+        url['window'] = set(['closed'])
         yield url
 
   def generate(self, sessionstore):
@@ -221,7 +221,7 @@ class UrlFilter(object):
 
   def attributesmatch(self, url):
     for key, value in self.attributes.items():
-      if set([url[key]]).isdisjoint(value):
+      if url[key].isdisjoint(value):
         return False
     return True
 
