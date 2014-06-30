@@ -231,37 +231,12 @@ class UrlFilter(object):
         yield url
 
 class UrlFilterFactory(object):
-  def __init__(self, urlfilterclass):
+  def __init__(self, urlfilterclass,
+        defaulttemplates, optionstemplates, attributes):
     self.urlfilterclass = urlfilterclass
-    self.defaulttemplates = {
-          'window': 'default',
-          'tab': 'default',
-          'entry': 'default'}
-    self.optionstemplates = {
-          'all': {
-            'window': 'all',
-            'tab': 'all'},
-          'allwithhistory': {
-            'window': 'all',
-            'tab': 'all',
-            'entry': 'all'}}
-    self.attributes = {
-          'window': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'closed': ['closed']},
-          'tab': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'closed': ['closed']},
-          'entry': {
-            'default': ['selected'],
-            'all': ['back', 'selected', 'forward'],
-            'back': ['back'],
-            'selected': ['selected'],
-            'forward': ['forward']}}
+    self.defaulttemplates = defaulttemplates
+    self.optionstemplates = optionstemplates
+    self.attributes = attributes
 
   def gettemplates(self, parsedargv):
     templates = {}
@@ -403,9 +378,41 @@ class ApplicationFactory(object):
           ('entry', ['--url'], 1)]
     argumentsdata = [
           'filename']
+    defaulttemplates = {
+          'window': 'default',
+          'tab': 'default',
+          'entry': 'default'}
+    optionstemplates = {
+          'all': {
+            'window': 'all',
+            'tab': 'all'},
+          'allwithhistory': {
+            'window': 'all',
+            'tab': 'all',
+            'entry': 'all'}}
+    attributes = {
+          'window': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
+          'tab': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'closed': ['closed']},
+          'entry': {
+            'default': ['selected'],
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
     defaults = {
           'optionsdata': optionsdata,
           'argumentsdata': argumentsdata,
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes,
           'argvparserclass': ArgvParser,
           'helpprinterfactoryclass': HelpPrinterFactory,
           'helpprinterclass': HelpPrinter,
@@ -425,6 +432,9 @@ class ApplicationFactory(object):
     return defaults
 
   def make(self, optionsdata, argumentsdata,
+        defaulttemplates,
+        optionstemplates,
+        attributes,
         argvparserclass,
         helpprinterfactoryclass,
         helpprinterclass,
@@ -458,7 +468,10 @@ class ApplicationFactory(object):
     urlproducerfactory = urlproducerfactoryclass(
           urlproducerclass)
     urlfilterfactory = urlfilterfactoryclass(
-          urlfilterclass)
+          urlfilterclass,
+          defaulttemplates,
+          optionstemplates,
+          attributes)
     urlconsumerfactory = urlconsumerfactoryclass(
           urlwriterclass,
           self.stdout)
