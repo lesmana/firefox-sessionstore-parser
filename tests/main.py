@@ -334,3 +334,41 @@ class TestMainRealData(unittest.TestCase):
           http://cw2-ct2-f1u2/
           '''))
     self.assertEqual(exitstatus, 0)
+
+  def test_closed(self):
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
+    def fakeopen(dummy_filename):
+      return fakefile
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--closed', 'filename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://cw1-ct1-s0u2/
+          http://cw1-ct2-s0u1/
+          http://cw2-ct1-s0u2/
+          http://cw2-ct2-s0u1/
+          '''))
+    self.assertEqual(exitstatus, 0)
+
+  def test_closedwithhistory(self):
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
+    def fakeopen(dummy_filename):
+      return fakefile
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--closed-with-history', 'filename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://cw1-ct1-b1u1/
+          http://cw1-ct1-s0u2/
+          http://cw1-ct2-s0u1/
+          http://cw1-ct2-f1u2/
+          http://cw2-ct1-b1u1/
+          http://cw2-ct1-s0u2/
+          http://cw2-ct2-s0u1/
+          http://cw2-ct2-f1u2/
+          '''))
+    self.assertEqual(exitstatus, 0)

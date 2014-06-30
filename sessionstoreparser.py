@@ -373,6 +373,8 @@ class ApplicationFactory(object):
     optionsdata = [
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
+          ('closed', ['--closed'], 0),
+          ('closedwithhistory', ['--closed-with-history'], 0),
           ('window', ['--window'], 1),
           ('tab', ['--tab'], 1),
           ('entry', ['--url'], 1)]
@@ -389,6 +391,13 @@ class ApplicationFactory(object):
           'allwithhistory': {
             'window': 'all',
             'tab': 'all',
+            'entry': 'all'},
+          'closed': {
+            'window': 'closed',
+            'tab': 'closed'},
+          'closedwithhistory': {
+            'window': 'closed',
+            'tab': 'closed',
             'entry': 'all'}}
     attributes = {
           'window': {
