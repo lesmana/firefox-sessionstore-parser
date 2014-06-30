@@ -103,12 +103,12 @@ class HelpPrinter(object):
     return self.exitstatus
 
 class HelpPrinterFactory(object):
-  def __init__(self, helpprinterclass, stderr):
+  def __init__(self, helpprinterclass, stream):
     self.helpprinterclass = helpprinterclass
-    self.stderr = stderr
+    self.stream = stream
 
   def make(self, message):
-    worker = self.helpprinterclass(self.stderr, message, 2)
+    worker = self.helpprinterclass(self.stream, message, 2)
     return worker
 
 class JsonReader(object):
@@ -275,23 +275,23 @@ class UrlFilterFactory(object):
     return urlfilter
 
 class UrlWriter(object):
-  def __init__(self, stdout):
-    self.stdout = stdout
+  def __init__(self, stream):
+    self.stream = stream
 
   def write(self, urls):
     for url in urls:
-      self.stdout.write(url['url'] + '\n')
+      self.stream.write(url['url'] + '\n')
 
   def consume(self, urls):
     self.write(urls)
 
 class UrlConsumerFactory(object):
-  def __init__(self, urlconsumerclass, stdout):
+  def __init__(self, urlconsumerclass, stream):
     self.urlconsumerclass = urlconsumerclass
-    self.stdout = stdout
+    self.stream = stream
 
   def make(self, parsedargv):
-    urlconsumer = self.urlconsumerclass(self.stdout)
+    urlconsumer = self.urlconsumerclass(self.stream)
     return urlconsumer
 
 class SessionStoreParser(object):
