@@ -164,7 +164,11 @@ class UrlProducer(object):
 
   def handleentry(self, entry):
     plainurl = entry['url']
-    url = {'url': plainurl}
+    url = {
+          'window': set(),
+          'tab': set(),
+          'entry': set(),
+          'url': plainurl}
     yield url
 
   def handletab(self, tab):
@@ -173,31 +177,31 @@ class UrlProducer(object):
     for index, entry in enumerate(entries):
       for url in self.handleentry(entry):
         if index < openindex:
-          url['entry'] = set(['back'])
+          url['entry'].add('back')
         elif index > openindex:
-          url['entry'] = set(['forward'])
+          url['entry'].add('forward')
         else: # index == openindex:
-          url['entry'] = set(['selected'])
+          url['entry'].add('selected')
         yield url
 
   def handlewindow(self, window):
     for tab in window['tabs']:
       for url in self.handletab(tab):
-        url['tab'] = set(['open'])
+        url['tab'].add('open')
         yield url
     for tab in window['_closedTabs']:
       for url in self.handletab(tab['state']):
-        url['tab'] = set(['closed'])
+        url['tab'].add('closed')
         yield url
 
   def handlesessionstore(self, sessionstore):
     for window in sessionstore['windows']:
       for url in self.handlewindow(window):
-        url['window'] = set(['open'])
+        url['window'].add('open')
         yield url
     for window in sessionstore['_closedWindows']:
       for url in self.handlewindow(window):
-        url['window'] = set(['closed'])
+        url['window'].add('closed')
         yield url
 
   def generate(self, sessionstore):
