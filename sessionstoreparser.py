@@ -221,7 +221,7 @@ class UrlFilter(object):
 
   def attributesmatch(self, url):
     for key, value in self.attributes.items():
-      if url[key] not in value:
+      if set([url[key]]).isdisjoint(value):
         return False
     return True
 
