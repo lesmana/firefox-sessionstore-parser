@@ -245,7 +245,7 @@ class UrlFilterFactory(object):
             'window': 'all',
             'tab': 'all',
             'entry': 'all'}}
-    self.valuestable = {
+    self.attributes = {
           'window': {
             'default': ['open'],
             'all': ['open', 'closed'],
@@ -277,8 +277,8 @@ class UrlFilterFactory(object):
   def getattributes(self, inputs):
     attributes = {}
     for name, template in inputs.items():
-      if template in self.valuestable[name]:
-        attributes[name] = self.valuestable[name][template]
+      if template in self.attributes[name]:
+        attributes[name] = self.attributes[name][template]
       else:
         raise Error('illegal value for "%s": "%s"' % (name, template))
     return attributes
