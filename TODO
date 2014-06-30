@@ -1,8 +1,13 @@
 here be todos
 
 ----
-implement command line options
---format = "format string" (default %url%)
+implement format string
+--format="format string"
+default: "%url%"
+examples:
+"%url% %title%"
+"[%windownumber%:%tabnumber%:%entrynumber%] %url%"
+"w:%windowstate% t:%tabstate% e:%entrystate% %url%"
 
 ----
 implement sessionstorewriter
