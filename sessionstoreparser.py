@@ -274,17 +274,13 @@ class UrlFilterFactory(object):
         inputs[whatinputs] = parsedargv[whatinputs]
     return inputs
 
-  def getvaluesfor(self, name, template):
-    if template in self.valuestable[name]:
-      values = self.valuestable[name][template]
-    else:
-      raise Error('illegal value for "%s": "%s"' % (name, template))
-    return values
-
   def getattributes(self, inputs):
     attributes = {}
     for name, template in inputs.items():
-      attributes[name] = self.getvaluesfor(name, template)
+      if template in self.valuestable[name]:
+        attributes[name] = self.valuestable[name][template]
+      else:
+        raise Error('illegal value for "%s": "%s"' % (name, template))
     return attributes
 
   def make(self, parsedargv):
