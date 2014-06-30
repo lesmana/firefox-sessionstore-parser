@@ -121,9 +121,9 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://ow1-ot1-s0u3/
-          http://ow1-ot2-s0u2/
-          http://ow1-ot3-s0u1/
+          http://sw1-ot1-s0u3/
+          http://sw1-ot2-s0u2/
+          http://sw1-ot3-s0u1/
           http://ow2-ot1-s0u3/
           http://ow2-ot2-s0u2/
           http://ow2-ot3-s0u1/
@@ -143,11 +143,11 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://ow1-ot1-s0u3/
-          http://ow1-ot2-s0u2/
-          http://ow1-ot3-s0u1/
-          http://ow1-ct1-s0u2/
-          http://ow1-ct2-s0u1/
+          http://sw1-ot1-s0u3/
+          http://sw1-ot2-s0u2/
+          http://sw1-ot3-s0u1/
+          http://sw1-ct1-s0u2/
+          http://sw1-ct2-s0u1/
           http://ow2-ot1-s0u3/
           http://ow2-ot2-s0u2/
           http://ow2-ot3-s0u1/
@@ -179,19 +179,19 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://ow1-ot1-b2u1/
-          http://ow1-ot1-b1u2/
-          http://ow1-ot1-s0u3/
-          http://ow1-ot2-b1u1/
-          http://ow1-ot2-s0u2/
-          http://ow1-ot2-f1u3/
-          http://ow1-ot3-s0u1/
-          http://ow1-ot3-f1u2/
-          http://ow1-ot3-f2u3/
-          http://ow1-ct1-b1u1/
-          http://ow1-ct1-s0u2/
-          http://ow1-ct2-s0u1/
-          http://ow1-ct2-f1u2/
+          http://sw1-ot1-b2u1/
+          http://sw1-ot1-b1u2/
+          http://sw1-ot1-s0u3/
+          http://sw1-ot2-b1u1/
+          http://sw1-ot2-s0u2/
+          http://sw1-ot2-f1u3/
+          http://sw1-ot3-s0u1/
+          http://sw1-ot3-f1u2/
+          http://sw1-ot3-f2u3/
+          http://sw1-ct1-b1u1/
+          http://sw1-ct1-s0u2/
+          http://sw1-ct2-s0u1/
+          http://sw1-ct2-f1u2/
           http://ow2-ot1-b2u1/
           http://ow2-ot1-b1u2/
           http://ow2-ot1-s0u3/
@@ -264,8 +264,8 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://ow1-ct1-s0u2/
-          http://ow1-ct2-s0u1/
+          http://sw1-ct1-s0u2/
+          http://sw1-ct2-s0u1/
           http://ow2-ct1-s0u2/
           http://ow2-ct2-s0u1/
           http://ow3-ct1-s0u2/
@@ -283,15 +283,15 @@ class TestMainRealData(unittest.TestCase):
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
-          http://ow1-ot1-b2u1/
-          http://ow1-ot1-b1u2/
-          http://ow1-ot1-s0u3/
-          http://ow1-ot2-b1u1/
-          http://ow1-ot2-s0u2/
-          http://ow1-ot2-f1u3/
-          http://ow1-ot3-s0u1/
-          http://ow1-ot3-f1u2/
-          http://ow1-ot3-f2u3/
+          http://sw1-ot1-b2u1/
+          http://sw1-ot1-b1u2/
+          http://sw1-ot1-s0u3/
+          http://sw1-ot2-b1u1/
+          http://sw1-ot2-s0u2/
+          http://sw1-ot2-f1u3/
+          http://sw1-ot3-s0u1/
+          http://sw1-ot3-f1u2/
+          http://sw1-ot3-f2u3/
           http://ow2-ot1-b2u1/
           http://ow2-ot1-b1u2/
           http://ow2-ot1-s0u3/

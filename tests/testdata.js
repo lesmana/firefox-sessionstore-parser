@@ -6,13 +6,13 @@
           "index": 3,
           "entries": [
             {
-              "url": "http://ow1-ot1-b2u1/"
+              "url": "http://sw1-ot1-b2u1/"
             },
             {
-              "url": "http://ow1-ot1-b1u2/"
+              "url": "http://sw1-ot1-b1u2/"
             },
             {
-              "url": "http://ow1-ot1-s0u3/"
+              "url": "http://sw1-ot1-s0u3/"
             }
           ],
           "attributes": {}
@@ -21,13 +21,13 @@
           "index": 2,
           "entries": [
             {
-              "url": "http://ow1-ot2-b1u1/"
+              "url": "http://sw1-ot2-b1u1/"
             },
             {
-              "url": "http://ow1-ot2-s0u2/"
+              "url": "http://sw1-ot2-s0u2/"
             },
             {
-              "url": "http://ow1-ot2-f1u3/"
+              "url": "http://sw1-ot2-f1u3/"
             }
           ],
           "attributes": {}
@@ -36,13 +36,13 @@
           "index": 1,
           "entries": [
             {
-              "url": "http://ow1-ot3-s0u1/"
+              "url": "http://sw1-ot3-s0u1/"
             },
             {
-              "url": "http://ow1-ot3-f1u2/"
+              "url": "http://sw1-ot3-f1u2/"
             },
             {
-              "url": "http://ow1-ot3-f2u3/"
+              "url": "http://sw1-ot3-f2u3/"
             }
           ],
           "attributes": {}
@@ -55,30 +55,30 @@
             "index": 2,
             "entries": [
               {
-                "url": "http://ow1-ct1-b1u1/"
+                "url": "http://sw1-ct1-b1u1/"
               },
               {
-                "url": "http://ow1-ct1-s0u2/"
+                "url": "http://sw1-ct1-s0u2/"
               }
             ],
             "attributes": {}
           },
-          "title": "window 1 closed tab 1"
+          "title": "selected window 1 closed tab 1"
         },
         {
           "state": {
             "index": 1,
             "entries": [
               {
-                "url": "http://ow1-ct2-s0u1/"
+                "url": "http://sw1-ct2-s0u1/"
               },
               {
-                "url": "http://ow1-ct2-f1u2/"
+                "url": "http://sw1-ct2-f1u2/"
               }
             ],
             "attributes": {}
           },
-          "title": "window 1 closed tab 2"
+          "title": "selected window 1 closed tab 2"
         }
       ]
     },
@@ -373,5 +373,5 @@
       "title": "closed window 2"
     }
   ],
-  "selectedWindow": 0
+  "selectedWindow": 1
 }
