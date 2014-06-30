@@ -6,10 +6,7 @@ implement command line options
 
 ----
 implement sessionstorewriter
-put in place of urlwriter
-allurlgen > filters > sessionstorewriter
-why? urlwriter writes urls to stdout (or to file)
-sessionstore writes a new sessionstore.js file
+urlconsumer which prints urls in sessionstore format
 use case: clear closed windows and tabs and back forward history
 
 ----
