@@ -237,7 +237,7 @@ class UrlFilterFactory(object):
           'window': 'default',
           'tab': 'default',
           'entry': 'default'}
-    self.updatetemplate = {
+    self.optionstemplates = {
           'all': {
             'window': 'all',
             'tab': 'all'},
@@ -266,7 +266,7 @@ class UrlFilterFactory(object):
   def gettemplates(self, parsedargv):
     templates = {}
     templates.update(self.defaulttemplates)
-    for option, template in self.updatetemplate.items():
+    for option, template in self.optionstemplates.items():
       if option in parsedargv:
         templates.update(template)
     for name in templates:
