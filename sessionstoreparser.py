@@ -233,7 +233,7 @@ class UrlFilter(object):
 class UrlFilterFactory(object):
   def __init__(self, urlfilterclass):
     self.urlfilterclass = urlfilterclass
-    self.defaultinputs = {
+    self.defaulttemplates = {
           'window': 'default',
           'tab': 'default',
           'entry': 'default'}
@@ -263,20 +263,20 @@ class UrlFilterFactory(object):
             'selected': ['selected'],
             'forward': ['forward']}}
 
-  def getinputs(self, parsedargv):
-    inputs = {}
-    inputs.update(self.defaultinputs)
+  def gettemplates(self, parsedargv):
+    templates = {}
+    templates.update(self.defaulttemplates)
     for option, template in self.updatetemplate.items():
       if option in parsedargv:
-        inputs.update(template)
-    for name in inputs:
+        templates.update(template)
+    for name in templates:
       if name in parsedargv:
-        inputs[name] = parsedargv[name]
-    return inputs
+        templates[name] = parsedargv[name]
+    return templates
 
-  def getattributes(self, inputs):
+  def getattributes(self, templates):
     attributes = {}
-    for name, template in inputs.items():
+    for name, template in templates.items():
       if template in self.attributes[name]:
         attributes[name] = self.attributes[name][template]
       else:
@@ -284,8 +284,8 @@ class UrlFilterFactory(object):
     return attributes
 
   def make(self, parsedargv):
-    inputs = self.getinputs(parsedargv)
-    attributes = self.getattributes(inputs)
+    templates = self.gettemplates(parsedargv)
+    attributes = self.getattributes(templates)
     urlfilter = self.urlfilterclass(attributes)
     return urlfilter
 
