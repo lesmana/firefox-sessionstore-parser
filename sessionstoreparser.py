@@ -185,9 +185,12 @@ class UrlProducer(object):
         yield url
 
   def handlewindow(self, window):
-    for tab in window['tabs']:
+    selected = window['selected'] - 1
+    for index, tab in enumerate(window['tabs']):
       for url in self.handletab(tab):
         url['tab'].add('open')
+        if index == selected:
+          url['tab'].add('selected')
         yield url
     for tab in window['_closedTabs']:
       for url in self.handletab(tab['state']):
@@ -195,9 +198,12 @@ class UrlProducer(object):
         yield url
 
   def handlesessionstore(self, sessionstore):
-    for window in sessionstore['windows']:
+    selected = sessionstore['selectedWindow'] - 1
+    for index, window in enumerate(sessionstore['windows']):
       for url in self.handlewindow(window):
         url['window'].add('open')
+        if index == selected:
+          url['window'].add('selected')
         yield url
     for window in sessionstore['_closedWindows']:
       for url in self.handlewindow(window):
@@ -377,6 +383,7 @@ class ApplicationFactory(object):
     optionsdata = [
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
+          ('selected', ['--selected'], 0),
           ('closed', ['--closed'], 0),
           ('closedwithhistory', ['--closed-with-history'], 0),
           ('window', ['--window'], 1),
@@ -396,6 +403,9 @@ class ApplicationFactory(object):
             'window': 'all',
             'tab': 'all',
             'entry': 'all'},
+          'selected': {
+            'window': 'selected',
+            'tab': 'selected'},
           'closed': {
             'window': 'closed',
             'tab': 'closed'},
@@ -408,11 +418,13 @@ class ApplicationFactory(object):
             'default': ['open'],
             'all': ['open', 'closed'],
             'open': ['open'],
+            'selected': ['selected'],
             'closed': ['closed']},
           'tab': {
             'default': ['open'],
             'all': ['open', 'closed'],
             'open': ['open'],
+            'selected': ['selected'],
             'closed': ['closed']},
           'entry': {
             'default': ['selected'],

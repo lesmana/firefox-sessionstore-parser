@@ -335,6 +335,20 @@ class TestMainRealData(unittest.TestCase):
           '''))
     self.assertEqual(exitstatus, 0)
 
+  def test_selected(self):
+    fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
+    def fakeopen(dummy_filename):
+      return fakefile
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '--selected', 'filename']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
+          http://sw1-st3-s0u1/
+          '''))
+    self.assertEqual(exitstatus, 0)
+
   def test_closed(self):
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
