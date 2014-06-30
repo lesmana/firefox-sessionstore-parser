@@ -266,10 +266,9 @@ class UrlFilterFactory(object):
   def getinputs(self, parsedargv):
     inputs = {}
     inputs.update(self.defaultinputs)
-    for whatinputs in ['all', 'allwithhistory']:
+    for whatinputs, template in self.updatetemplate.items():
       if whatinputs in parsedargv:
-        update = self.updatetemplate[whatinputs]
-        inputs.update(update)
+        inputs.update(template)
     for whatinputs in ['window', 'tab', 'entry']:
       if whatinputs in parsedargv:
         inputs[whatinputs] = parsedargv[whatinputs]
