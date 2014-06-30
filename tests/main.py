@@ -123,11 +123,11 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://sw1-ot1-s0u3/
           http://sw1-ot2-s0u2/
-          http://sw1-ot3-s0u1/
+          http://sw1-st3-s0u1/
           http://ow2-ot1-s0u3/
-          http://ow2-ot2-s0u2/
+          http://ow2-st2-s0u2/
           http://ow2-ot3-s0u1/
-          http://ow3-ot1-s0u3/
+          http://ow3-st1-s0u3/
           http://ow3-ot2-s0u2/
           http://ow3-ot3-s0u1/
           '''))
@@ -145,24 +145,24 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://sw1-ot1-s0u3/
           http://sw1-ot2-s0u2/
-          http://sw1-ot3-s0u1/
+          http://sw1-st3-s0u1/
           http://sw1-ct1-s0u2/
           http://sw1-ct2-s0u1/
           http://ow2-ot1-s0u3/
-          http://ow2-ot2-s0u2/
+          http://ow2-st2-s0u2/
           http://ow2-ot3-s0u1/
           http://ow2-ct1-s0u2/
           http://ow2-ct2-s0u1/
-          http://ow3-ot1-s0u3/
+          http://ow3-st1-s0u3/
           http://ow3-ot2-s0u2/
           http://ow3-ot3-s0u1/
           http://ow3-ct1-s0u2/
           http://ow3-ct2-s0u1/
           http://cw1-ot1-s0u2/
-          http://cw1-ot2-s0u1/
+          http://cw1-st2-s0u1/
           http://cw1-ct1-s0u2/
           http://cw1-ct2-s0u1/
-          http://cw2-ot1-s0u2/
+          http://cw2-st1-s0u2/
           http://cw2-ot2-s0u1/
           http://cw2-ct1-s0u2/
           http://cw2-ct2-s0u1/
@@ -185,9 +185,9 @@ class TestMainRealData(unittest.TestCase):
           http://sw1-ot2-b1u1/
           http://sw1-ot2-s0u2/
           http://sw1-ot2-f1u3/
-          http://sw1-ot3-s0u1/
-          http://sw1-ot3-f1u2/
-          http://sw1-ot3-f2u3/
+          http://sw1-st3-s0u1/
+          http://sw1-st3-f1u2/
+          http://sw1-st3-f2u3/
           http://sw1-ct1-b1u1/
           http://sw1-ct1-s0u2/
           http://sw1-ct2-s0u1/
@@ -195,9 +195,9 @@ class TestMainRealData(unittest.TestCase):
           http://ow2-ot1-b2u1/
           http://ow2-ot1-b1u2/
           http://ow2-ot1-s0u3/
-          http://ow2-ot2-b1u1/
-          http://ow2-ot2-s0u2/
-          http://ow2-ot2-f1u3/
+          http://ow2-st2-b1u1/
+          http://ow2-st2-s0u2/
+          http://ow2-st2-f1u3/
           http://ow2-ot3-s0u1/
           http://ow2-ot3-f1u2/
           http://ow2-ot3-f2u3/
@@ -205,9 +205,9 @@ class TestMainRealData(unittest.TestCase):
           http://ow2-ct1-s0u2/
           http://ow2-ct2-s0u1/
           http://ow2-ct2-f1u2/
-          http://ow3-ot1-b2u1/
-          http://ow3-ot1-b1u2/
-          http://ow3-ot1-s0u3/
+          http://ow3-st1-b2u1/
+          http://ow3-st1-b1u2/
+          http://ow3-st1-s0u3/
           http://ow3-ot2-b1u1/
           http://ow3-ot2-s0u2/
           http://ow3-ot2-f1u3/
@@ -220,14 +220,14 @@ class TestMainRealData(unittest.TestCase):
           http://ow3-ct2-f1u2/
           http://cw1-ot1-b1u1/
           http://cw1-ot1-s0u2/
-          http://cw1-ot2-s0u1/
-          http://cw1-ot2-f1u2/
+          http://cw1-st2-s0u1/
+          http://cw1-st2-f1u2/
           http://cw1-ct1-b1u1/
           http://cw1-ct1-s0u2/
           http://cw1-ct2-s0u1/
           http://cw1-ct2-f1u2/
-          http://cw2-ot1-b1u1/
-          http://cw2-ot1-s0u2/
+          http://cw2-st1-b1u1/
+          http://cw2-st1-s0u2/
           http://cw2-ot2-s0u1/
           http://cw2-ot2-f1u2/
           http://cw2-ct1-b1u1/
@@ -248,8 +248,8 @@ class TestMainRealData(unittest.TestCase):
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
           http://cw1-ot1-s0u2/
-          http://cw1-ot2-s0u1/
-          http://cw2-ot1-s0u2/
+          http://cw1-st2-s0u1/
+          http://cw2-st1-s0u2/
           http://cw2-ot2-s0u1/
           '''))
     self.assertEqual(exitstatus, 0)
@@ -289,21 +289,21 @@ class TestMainRealData(unittest.TestCase):
           http://sw1-ot2-b1u1/
           http://sw1-ot2-s0u2/
           http://sw1-ot2-f1u3/
-          http://sw1-ot3-s0u1/
-          http://sw1-ot3-f1u2/
-          http://sw1-ot3-f2u3/
+          http://sw1-st3-s0u1/
+          http://sw1-st3-f1u2/
+          http://sw1-st3-f2u3/
           http://ow2-ot1-b2u1/
           http://ow2-ot1-b1u2/
           http://ow2-ot1-s0u3/
-          http://ow2-ot2-b1u1/
-          http://ow2-ot2-s0u2/
-          http://ow2-ot2-f1u3/
+          http://ow2-st2-b1u1/
+          http://ow2-st2-s0u2/
+          http://ow2-st2-f1u3/
           http://ow2-ot3-s0u1/
           http://ow2-ot3-f1u2/
           http://ow2-ot3-f2u3/
-          http://ow3-ot1-b2u1/
-          http://ow3-ot1-b1u2/
-          http://ow3-ot1-s0u3/
+          http://ow3-st1-b2u1/
+          http://ow3-st1-b1u2/
+          http://ow3-st1-s0u3/
           http://ow3-ot2-b1u1/
           http://ow3-ot2-s0u2/
           http://ow3-ot2-f1u3/
