@@ -2,9 +2,6 @@ here be todos
 
 ----
 implement command line options
---window = [open, closed, all, selected] (default: open)
---tab = [open, closed, all, selected] (default: open)
---url = [back, forward, all, selected] (default: selected)
 --format = "format string" (default %url%)
 
 ----
