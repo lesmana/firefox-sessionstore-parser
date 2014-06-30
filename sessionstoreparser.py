@@ -269,9 +269,9 @@ class UrlFilterFactory(object):
     for option, template in self.updatetemplate.items():
       if option in parsedargv:
         inputs.update(template)
-    for whatinputs in inputs:
-      if whatinputs in parsedargv:
-        inputs[whatinputs] = parsedargv[whatinputs]
+    for name in inputs:
+      if name in parsedargv:
+        inputs[name] = parsedargv[name]
     return inputs
 
   def getattributes(self, inputs):
