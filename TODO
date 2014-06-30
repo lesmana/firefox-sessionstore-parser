@@ -14,3 +14,7 @@ use case: clear closed windows and tabs and back forward history
 
 ----
 implement reading from stdin
+
+----
+make urlfilter factory build filter in order given in argv
+make parsedargv preserve order
