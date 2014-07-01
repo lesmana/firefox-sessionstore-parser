@@ -332,6 +332,8 @@ class Application(object):
       raise ArgvError(message)
     elif len(parsedargv) == 0:
       self.stdout.write('short help\n')
+    elif 'version' in parsedargv:
+      self.stdout.write('version\n')
     else:
       sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
       sessionstoreparser.parse()
@@ -357,6 +359,7 @@ class ApplicationFactory(object):
   def getdefaults(self):
     optionsdata = [
           ('help', ['-h', '--help'], 0),
+          ('version', ['--version'], 0),
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
           ('selected', ['--selected'], 0),
