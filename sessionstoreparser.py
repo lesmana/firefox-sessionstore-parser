@@ -316,9 +316,10 @@ class SessionStoreParserFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvparser, sessionstoreparserfactory, stderr):
+  def __init__(self, argvparser, sessionstoreparserfactory, stdout, stderr):
     self.argvparser = argvparser
     self.sessionstoreparserfactory = sessionstoreparserfactory
+    self.stdout = stdout
     self.stderr = stderr
 
   def tryrun(self, argv):
@@ -470,6 +471,7 @@ class ApplicationFactory(object):
     app = applicationclass(
           argvparser,
           sessionstoreparserfactory,
+          self.stdout,
           self.stderr)
     return app
 
