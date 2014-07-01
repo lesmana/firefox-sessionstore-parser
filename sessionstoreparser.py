@@ -332,17 +332,16 @@ class Application(object):
       raise ArgvError(message)
     else:
       worker = self.sessionstoreparserfactory.make(parsedargv)
-      exitstatus = worker.work()
-    return exitstatus
+      worker.work()
 
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
-    exitstatus = self.make(parsedargv, restargv)
-    return exitstatus
+    self.make(parsedargv, restargv)
 
   def run(self, argv):
     try:
-      exitstatus = self.tryrun(argv)
+      self.tryrun(argv)
+      exitstatus = 0
     except ArgvError as err:
       self.stderr.write(str(err) + '\n')
       exitstatus = 2
