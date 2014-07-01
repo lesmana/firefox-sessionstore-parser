@@ -25,6 +25,11 @@ urlconsumer which prints urls in sessionstore format
 use case: clear closed windows and tabs and back forward history
 
 ----
+implement --summary
+print window, tab, url count
+and maybe other information
+
+----
 implement reading from stdin
 
 ----
