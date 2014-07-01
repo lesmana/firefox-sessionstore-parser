@@ -95,25 +95,6 @@ class ArgvParser(object):
       restargv = [unknownoption]
     return parsedargv, restargv
 
-class HelpPrinter(object):
-  def __init__(self, stream, message, exitstatus):
-    self.stream = stream
-    self.message = message
-    self.exitstatus = exitstatus
-
-  def work(self):
-    self.stream.write(self.message + '\n')
-    return self.exitstatus
-
-class HelpPrinterFactory(object):
-  def __init__(self, helpprinterclass, stream):
-    self.helpprinterclass = helpprinterclass
-    self.stream = stream
-
-  def make(self, message):
-    worker = self.helpprinterclass(self.stream, message, 2)
-    return worker
-
 class JsonReader(object):
   def __init__(self, openfunc, jsonloadfunc):
     self.openfunc = openfunc
@@ -339,7 +320,7 @@ class SessionStoreParserFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvparser, helpprinterfactory, sessionstoreparserfactory, stderr):
+  def __init__(self, argvparser, sessionstoreparserfactory, stderr):
     self.argvparser = argvparser
     self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
@@ -442,8 +423,6 @@ class ApplicationFactory(object):
           'optionstemplates': optionstemplates,
           'attributes': attributes,
           'argvparserclass': ArgvParser,
-          'helpprinterfactoryclass': HelpPrinterFactory,
-          'helpprinterclass': HelpPrinter,
           'jsonreaderclass': JsonReader,
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
           'sessionstoreproducerclass': SessionStoreProducer,
@@ -463,8 +442,6 @@ class ApplicationFactory(object):
         optionstemplates,
         attributes,
         argvparserclass,
-        helpprinterfactoryclass,
-        helpprinterclass,
         jsonreaderclass,
         sessionstoreproducerfactoryclass,
         sessionstoreproducerclass,
@@ -484,9 +461,6 @@ class ApplicationFactory(object):
           getopt.getopt,
           optionsdata,
           argumentsdata)
-    helpprinterfactory = helpprinterfactoryclass(
-          helpprinterclass,
-          self.stderr)
     sessionstoreproducerfactory = sessionstoreproducerfactoryclass(
           jsonreaderclass,
           sessionstoreproducerclass,
@@ -509,7 +483,6 @@ class ApplicationFactory(object):
           sessionstoreparserclass)
     app = applicationclass(
           argvparser,
-          helpprinterfactory,
           sessionstoreparserfactory,
           self.stderr)
     return app
