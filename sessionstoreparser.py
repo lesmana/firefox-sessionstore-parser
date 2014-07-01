@@ -324,7 +324,9 @@ class Application(object):
 
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
-    if len(restargv) != 0:
+    if 'help' in parsedargv:
+      self.stdout.write('help\n')
+    elif len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       raise ArgvError(message)
@@ -352,6 +354,7 @@ class ApplicationFactory(object):
 
   def getdefaults(self):
     optionsdata = [
+          ('help', ['-h', '--help'], 0),
           ('all', ['--all'], 0),
           ('allwithhistory', ['--all-with-history'], 0),
           ('selected', ['--selected'], 0),
