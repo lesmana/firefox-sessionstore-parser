@@ -344,8 +344,7 @@ class Application(object):
     try:
       exitstatus = self.tryrun(argv)
     except ArgvError as err:
-      message = str(err)
-      self.stderr.write(message + '\n')
+      self.stderr.write(str(err) + '\n')
       exitstatus = 2
     except Error as err:
       self.stderr.write(str(err) + '\n')
