@@ -34,4 +34,4 @@ implement reading from stdin
 
 ----
 make urlfilter factory build filter in order given in argv
-make parsedargv preserve order
+for this need to make parsedargv preserve order
