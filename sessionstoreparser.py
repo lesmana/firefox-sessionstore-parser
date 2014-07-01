@@ -345,20 +345,23 @@ class Application(object):
     self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
 
+  def makehelp(self, message):
+    worker = self.helpprinterfactory.make(message)
+    exitstatus = worker.work()
+    return exitstatus
+
   def make(self, parsedargv, restargv):
     if len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
-      worker = self.helpprinterfactory.make(message)
-      exitstatus = worker.work()
+      exitstatus = self.makehelp(message)
     else:
       try:
         worker = self.sessionstoreparserfactory.make(parsedargv)
         exitstatus = worker.work()
       except ArgvError as err:
         message = str(err)
-        worker = self.helpprinterfactory.make(message)
-        exitstatus = worker.work()
+        exitstatus = self.makehelp(message)
     return exitstatus
 
   def tryrun(self, argv):
