@@ -6,7 +6,6 @@ from tests.argvparser import *
 from tests.jsonreader import *
 from tests.urlwriter import *
 from tests.sessionstoreparsertest import *
-from tests.application import *
 from tests.main import *
 
 if __name__ == '__main__': # pragma: no cover
