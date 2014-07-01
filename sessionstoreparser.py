@@ -3,6 +3,12 @@
 import getopt
 import json
 
+VERSION = 'version'
+
+SHORTHELP = 'short help'
+
+HELP = 'help'
+
 class Error(Exception):
   pass
 
@@ -325,15 +331,15 @@ class Application(object):
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
     if 'help' in parsedargv:
-      self.stdout.write('help\n')
+      self.stdout.write(HELP + '\n')
     elif len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       raise ArgvError(message)
     elif len(parsedargv) == 0:
-      self.stdout.write('short help\n')
+      self.stdout.write(SHORTHELP + '\n')
     elif 'version' in parsedargv:
-      self.stdout.write('version\n')
+      self.stdout.write(VERSION + '\n')
     else:
       sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
       sessionstoreparser.parse()
