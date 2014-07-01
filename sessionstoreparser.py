@@ -344,10 +344,10 @@ class WorkerFactory(object):
 
 class Application(object):
 
-  def __init__(self, argvparser, workerfactory, stderr):
+  def __init__(self, argvparser, helpprinterfactory, sessionstoreparserfactory, stderr):
     self.argvparser = argvparser
-    self.helpprinterfactory = workerfactory.helpprinterfactory
-    self.sessionstoreparserfactory = workerfactory.sessionstoreparserfactory
+    self.helpprinterfactory = helpprinterfactory
+    self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
 
   def make(self, parsedargv, restargv):
@@ -517,7 +517,8 @@ class ApplicationFactory(object):
           sessionstoreparserfactory)
     app = applicationclass(
           argvparser,
-          workerfactory,
+          helpprinterfactory,
+          sessionstoreparserfactory,
           self.stderr)
     return app
 
