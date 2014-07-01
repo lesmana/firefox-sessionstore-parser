@@ -332,7 +332,7 @@ class Application(object):
       raise ArgvError(message)
     else:
       sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
-      sessionstoreparser.work()
+      sessionstoreparser.parse()
 
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
