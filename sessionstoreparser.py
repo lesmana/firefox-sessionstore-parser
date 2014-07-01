@@ -331,8 +331,8 @@ class Application(object):
       message = 'unknown option: %s' % (unknownoption)
       raise ArgvError(message)
     else:
-      worker = self.sessionstoreparserfactory.make(parsedargv)
-      worker.work()
+      sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
+      sessionstoreparser.work()
 
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
