@@ -341,13 +341,12 @@ class Application(object):
 
   def __init__(self, argvparser, helpprinterfactory, sessionstoreparserfactory, stderr):
     self.argvparser = argvparser
-    self.helpprinterclass = helpprinterfactory.helpprinterclass
     self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
 
   def makehelp(self, message):
-    worker = self.helpprinterclass(self.stderr, message, 2)
-    exitstatus = worker.work()
+    self.stderr.write(message + '\n')
+    exitstatus = 2
     return exitstatus
 
   def make(self, parsedargv, restargv):
