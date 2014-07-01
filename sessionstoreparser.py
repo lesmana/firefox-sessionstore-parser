@@ -336,12 +336,8 @@ class Application(object):
       message = 'unknown option: %s' % (unknownoption)
       exitstatus = self.makehelp(message)
     else:
-      try:
-        worker = self.sessionstoreparserfactory.make(parsedargv)
-        exitstatus = worker.work()
-      except ArgvError as err:
-        message = str(err)
-        exitstatus = self.makehelp(message)
+      worker = self.sessionstoreparserfactory.make(parsedargv)
+      exitstatus = worker.work()
     return exitstatus
 
   def tryrun(self, argv):
@@ -352,6 +348,10 @@ class Application(object):
   def run(self, argv):
     try:
       exitstatus = self.tryrun(argv)
+      return exitstatus
+    except ArgvError as err:
+      message = str(err)
+      exitstatus = self.makehelp(message)
       return exitstatus
     except Error as err:
       self.stderr.write(str(err) + '\n')
