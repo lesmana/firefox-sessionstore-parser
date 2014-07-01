@@ -342,7 +342,7 @@ class WorkerFactory(object):
     self.helpprinterfactory = helpprinterfactory
     self.sessionstoreparserfactory = sessionstoreparserfactory
 
-  def make2(self, parsedargv, restargv):
+  def make(self, parsedargv, restargv):
     if len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
@@ -356,10 +356,6 @@ class WorkerFactory(object):
         message = str(err)
         worker = self.helpprinterfactory.make(message)
         exitstatus = worker.work()
-    return exitstatus
-
-  def make(self, parsedargv, restargv):
-    exitstatus = self.make2(parsedargv, restargv)
     return exitstatus
 
 class Application(object):
