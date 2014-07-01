@@ -292,10 +292,6 @@ class SessionStoreParser(object):
     filteredurls = self.urlfilter.filter(urls)
     self.urlconsumer.consume(filteredurls)
 
-  def work(self):
-    self.parse()
-    return 0
-
 class SessionStoreParserFactory(object):
   def __init__(self,
         sessionstoreproducerfactory,
