@@ -337,11 +337,6 @@ class SessionStoreParserFactory(object):
           sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
     return sessionstoreparser
 
-class WorkerFactory(object):
-  def __init__(self, helpprinterfactory, sessionstoreparserfactory):
-    self.helpprinterfactory = helpprinterfactory
-    self.sessionstoreparserfactory = sessionstoreparserfactory
-
 class Application(object):
 
   def __init__(self, argvparser, helpprinterfactory, sessionstoreparserfactory, stderr):
@@ -458,7 +453,6 @@ class ApplicationFactory(object):
           'urlwriterclass': UrlWriter,
           'sessionstoreparserfactoryclass': SessionStoreParserFactory,
           'sessionstoreparserclass': SessionStoreParser,
-          'workerfactoryclass': WorkerFactory,
           'applicationclass': Application}
     return defaults
 
@@ -480,7 +474,6 @@ class ApplicationFactory(object):
         urlwriterclass,
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
-        workerfactoryclass,
         applicationclass):
     #pylint: disable=too-many-arguments
     #pylint: disable=too-many-locals
@@ -512,9 +505,6 @@ class ApplicationFactory(object):
           urlfilterfactory,
           urlconsumerfactory,
           sessionstoreparserclass)
-    workerfactory = workerfactoryclass(
-          helpprinterfactory,
-          sessionstoreparserfactory)
     app = applicationclass(
           argvparser,
           helpprinterfactory,
