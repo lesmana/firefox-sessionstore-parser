@@ -334,7 +334,7 @@ class Application(object):
     if len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
-      exitstatus = self.makehelp(message)
+      raise ArgvError(message)
     else:
       worker = self.sessionstoreparserfactory.make(parsedargv)
       exitstatus = worker.work()
