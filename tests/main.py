@@ -49,10 +49,9 @@ class TestMain(unittest.TestCase):
     fakestderr = StringIO.StringIO()
     fakeargv = ['progname']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
-    self.assertEqual(fakestderr.getvalue(),
-          'missing argument: filename\n')
-    self.assertEqual(fakestdout.getvalue(), '')
-    self.assertEqual(exitstatus, 2)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), 'short help\n')
+    self.assertEqual(exitstatus, 0)
 
   def test_wrongargv(self):
     fakestdout = StringIO.StringIO()

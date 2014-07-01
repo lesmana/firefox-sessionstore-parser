@@ -330,6 +330,8 @@ class Application(object):
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       raise ArgvError(message)
+    elif len(parsedargv) == 0:
+      self.stdout.write('short help\n')
     else:
       sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
       sessionstoreparser.parse()
