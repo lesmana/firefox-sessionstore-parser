@@ -53,6 +53,15 @@ class TestMain(unittest.TestCase):
     self.assertEqual(fakestdout.getvalue(), 'short help\n')
     self.assertEqual(exitstatus, 0)
 
+  def test_help(self):
+    fakestdout = StringIO.StringIO()
+    fakestderr = StringIO.StringIO()
+    fakeargv = ['progname', '-h']
+    exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
+    self.assertEqual(fakestderr.getvalue(), '')
+    self.assertEqual(fakestdout.getvalue(), 'help\n')
+    self.assertEqual(exitstatus, 0)
+
   def test_nofilename(self):
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
