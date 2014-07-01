@@ -343,15 +343,14 @@ class Application(object):
   def run(self, argv):
     try:
       exitstatus = self.tryrun(argv)
-      return exitstatus
     except ArgvError as err:
       message = str(err)
       self.stderr.write(message + '\n')
       exitstatus = 2
-      return exitstatus
     except Error as err:
       self.stderr.write(str(err) + '\n')
-      return 1
+      exitstatus = 1
+    return exitstatus
 
 class ApplicationFactory(object):
   def __init__(self, stdout, stderr, openfunc):
