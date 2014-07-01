@@ -347,17 +347,19 @@ class WorkerFactory(object):
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       worker = self.helpprinterfactory.make(message)
+      exitstatus = worker.work()
     else:
       try:
         worker = self.sessionstoreparserfactory.make(parsedargv)
+        exitstatus = worker.work()
       except ArgvError as err:
         message = str(err)
         worker = self.helpprinterfactory.make(message)
-    return worker
+        exitstatus = worker.work()
+    return exitstatus
 
   def make(self, parsedargv, restargv):
-    worker = self.make2(parsedargv, restargv)
-    exitstatus = worker.work()
+    exitstatus = self.make2(parsedargv, restargv)
     return exitstatus
 
 class Application(object):
