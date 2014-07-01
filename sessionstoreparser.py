@@ -325,11 +325,6 @@ class Application(object):
     self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
 
-  def makehelp(self, message):
-    self.stderr.write(message + '\n')
-    exitstatus = 2
-    return exitstatus
-
   def make(self, parsedargv, restargv):
     if len(restargv) != 0:
       unknownoption = restargv[0]
@@ -351,7 +346,8 @@ class Application(object):
       return exitstatus
     except ArgvError as err:
       message = str(err)
-      exitstatus = self.makehelp(message)
+      self.stderr.write(message + '\n')
+      exitstatus = 2
       return exitstatus
     except Error as err:
       self.stderr.write(str(err) + '\n')
