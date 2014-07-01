@@ -6,6 +6,9 @@ import json
 class Error(Exception):
   pass
 
+class ArgvError(Error):
+  pass
+
 class ArgvParser(object):
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
@@ -153,7 +156,7 @@ class SessionStoreProducerFactory(object):
     try:
       filename = parsedargv['filename']
     except KeyError:
-      raise Error('missing argument: filename')
+      raise ArgvError('missing argument: filename')
     jsonreader = self.jsonreaderclass(self.openfunc, json.load)
     sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
     return sessionstoreproducer
@@ -265,7 +268,7 @@ class UrlFilterFactory(object):
       if template in self.attributes[name]:
         attributes[name] = self.attributes[name][template]
       else:
-        raise Error('illegal value for "%s": "%s"' % (name, template))
+        raise ArgvError('illegal value for "%s": "%s"' % (name, template))
     return attributes
 
   def make(self, parsedargv):
@@ -347,7 +350,7 @@ class WorkerFactory(object):
     else:
       try:
         worker = self.sessionstoreparserfactory.make(parsedargv)
-      except Error as err:
+      except ArgvError as err:
         message = str(err)
         worker = self.helpprinterfactory.make(message)
     return worker
