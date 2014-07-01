@@ -1,5 +1,9 @@
 #! /usr/bin/env python
 
+"""
+here be module documentation.
+"""
+
 import getopt
 import json
 
