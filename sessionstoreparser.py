@@ -321,7 +321,8 @@ class Application(object):
     self.sessionstoreparserfactory = sessionstoreparserfactory
     self.stderr = stderr
 
-  def make(self, parsedargv, restargv):
+  def tryrun(self, argv):
+    parsedargv, restargv = self.argvparser.parse(argv[1:])
     if len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
@@ -329,10 +330,6 @@ class Application(object):
     else:
       sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
       sessionstoreparser.parse()
-
-  def tryrun(self, argv):
-    parsedargv, restargv = self.argvparser.parse(argv[1:])
-    self.make(parsedargv, restargv)
 
   def run(self, argv):
     try:
