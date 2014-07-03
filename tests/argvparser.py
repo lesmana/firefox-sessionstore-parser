@@ -124,7 +124,8 @@ class TestParse(unittest.TestCase):
       #pylint: disable=unused-argument
       raise getopt.GetoptError('bla option bla bla')
     optionsdata = []
-    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
+    argumentsdata = []
+    argvparser = p.ArgvParser(fakegetopt, optionsdata, argumentsdata)
     argv = ['ignored']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {})
