@@ -119,6 +119,15 @@ class TestSplitArgs(unittest.TestCase):
 
 class TestParse(unittest.TestCase):
 
+  def test_empty(self):
+    optionsdata = []
+    argumentsdata = []
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argv = []
+    parsedargv, restargv = argvparser.parse(argv)
+    self.assertEqual(parsedargv, {})
+    self.assertEqual(restargv, [])
+
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
       #pylint: disable=unused-argument
