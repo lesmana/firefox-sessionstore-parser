@@ -9,7 +9,7 @@ import textwrap
 import sessionstoreparser as p
 
 def gettestdata():
-  filename = os.path.join(os.path.dirname(__file__), 'testdata.js')
+  filename = os.path.join(os.path.dirname(__file__), 'sessionstore.js')
   with open(filename) as testdatafile:
     testdata = testdatafile.read()
   return testdata
