@@ -4,14 +4,14 @@
 here be module documentation.
 """
 
-import getopt
-import json
-
 VERSION = 'version'
 
 SHORTHELP = 'short help'
 
 HELP = 'help'
+
+import getopt
+import json
 
 class Error(Exception):
   pass
