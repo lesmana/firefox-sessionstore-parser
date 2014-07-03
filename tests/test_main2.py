@@ -14,7 +14,7 @@ def gettestdata():
     testdata = testdatafile.read()
   return testdata
 
-class TestMainRealData(unittest.TestCase):
+class TestMain2(unittest.TestCase):
 
   testdata = gettestdata()
 
