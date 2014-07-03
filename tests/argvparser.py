@@ -102,12 +102,12 @@ class TestSplitArgs(unittest.TestCase):
   def test_someargs(self):
     argumentsdata = ['foo', 'bar']
     argvparser = p.ArgvParser(None, None, argumentsdata)
-    args = ['argfoo', 'argbar', 'rest']
+    args = ['argfoo', 'argbar', 'rest1', 'rest2']
     argsdict, restargv = argvparser.splitargs(args)
     self.assertEqual(argsdict, {
           'foo': 'argfoo',
           'bar': 'argbar'})
-    self.assertEqual(restargv, ['rest'])
+    self.assertEqual(restargv, ['rest1', 'rest2'])
 
   def test_noargs(self):
     argumentsdata = ['foo', 'bar']
@@ -147,10 +147,10 @@ class TestParse(unittest.TestCase):
           ('bar', ['-b', '--bar'], 0)]
     argumentsdata = ['filename']
     argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
-    argv = ['--bar', '--foo', 'somefoo', 'filename', 'rest']
+    argv = ['--bar', '--foo', 'somefoo', 'filename', 'rest1', 'rest2']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {
           'bar': '',
           'foo': 'somefoo',
           'filename': 'filename'})
-    self.assertEqual(restargv, ['rest'])
+    self.assertEqual(restargv, ['rest1', 'rest2'])
