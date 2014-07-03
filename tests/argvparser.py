@@ -61,13 +61,13 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_empty(self):
     def fakegetopt(argv, shortopts, longopts):
-      return [], ['args']
+      return [], []
     optionsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
     argv = ['ignored']
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
-    self.assertEqual(args, ['args'])
+    self.assertEqual(args, [])
 
   def test_someopts(self):
     def fakegetopt(argv, shortopts, longopts):
