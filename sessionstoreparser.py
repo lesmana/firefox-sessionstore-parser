@@ -138,7 +138,8 @@ class SessionStoreProducer(object):
     return self.jsonreader.read(self.filename)
 
 class SessionStoreProducerFactory(object):
-  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc, jsonloadfunc):
+  def __init__(self, jsonreaderclass, sessionstoreproducerclass,
+        openfunc, jsonloadfunc):
     self.jsonreaderclass = jsonreaderclass
     self.sessionstoreproducerclass = sessionstoreproducerclass
     self.openfunc = openfunc
