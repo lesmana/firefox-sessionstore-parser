@@ -138,17 +138,18 @@ class SessionStoreProducer(object):
     return self.jsonreader.read(self.filename)
 
 class SessionStoreProducerFactory(object):
-  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc):
+  def __init__(self, jsonreaderclass, sessionstoreproducerclass, openfunc, jsonloadfunc):
     self.jsonreaderclass = jsonreaderclass
     self.sessionstoreproducerclass = sessionstoreproducerclass
     self.openfunc = openfunc
+    self.jsonloadfunc = jsonloadfunc
 
   def make(self, parsedargv):
     try:
       filename = parsedargv['filename']
     except KeyError:
       raise ArgvError('missing argument: filename')
-    jsonreader = self.jsonreaderclass(self.openfunc, json.load)
+    jsonreader = self.jsonreaderclass(self.openfunc, self.jsonloadfunc)
     sessionstoreproducer = self.sessionstoreproducerclass(jsonreader, filename)
     return sessionstoreproducer
 
@@ -469,7 +470,8 @@ class ApplicationFactory(object):
     sessionstoreproducerfactory = sessionstoreproducerfactoryclass(
           jsonreaderclass,
           sessionstoreproducerclass,
-          self.openfunc)
+          self.openfunc,
+          json.load)
     urlproducerfactory = urlproducerfactoryclass(
           urlproducerclass)
     urlfilterfactory = urlfilterfactoryclass(
