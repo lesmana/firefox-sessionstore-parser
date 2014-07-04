@@ -218,6 +218,7 @@ class UrlProducerFactory(object):
     self.urlproducerclass = urlproducerclass
 
   def make(self, parsedargv):
+    #pylint: disable=unused-argument
     urlproducer = self.urlproducerclass()
     return urlproducer
 
@@ -287,6 +288,7 @@ class UrlConsumerFactory(object):
     self.stream = stream
 
   def make(self, parsedargv):
+    #pylint: disable=unused-argument
     urlconsumer = self.urlconsumerclass(self.stream)
     return urlconsumer
 
@@ -311,6 +313,7 @@ class SessionStoreParserFactory(object):
         urlfilterfactory,
         urlconsumerfactory,
         sessionstoreparserclass):
+    #pylint: disable=too-many-arguments
     self.sessionstoreproducerfactory = sessionstoreproducerfactory
     self.urlproducerfactory = urlproducerfactory
     self.urlfilterfactory = urlfilterfactory

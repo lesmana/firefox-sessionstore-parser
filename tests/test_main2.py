@@ -221,6 +221,7 @@ class TestMain2(unittest.TestCase):
     self.assertEqual(exitstatus, 0)
 
   def test_windowclosed_tabclosed_urlall(self):
+    #pylint: disable=invalid-name
     fakefile = contextlib.closing(StringIO.StringIO(self.testdata))
     def fakeopen(dummy_filename):
       return fakefile
