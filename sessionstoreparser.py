@@ -429,6 +429,8 @@ class ApplicationFactory(object):
           'defaulttemplates': defaulttemplates,
           'optionstemplates': optionstemplates,
           'attributes': attributes,
+          'getoptfunc': getopt.getopt,
+          'jsonloadfunc': json.load,
           'argvparserclass': ArgvParser,
           'jsonreaderclass': JsonReader,
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
@@ -448,6 +450,8 @@ class ApplicationFactory(object):
         defaulttemplates,
         optionstemplates,
         attributes,
+        getoptfunc,
+        jsonloadfunc,
         argvparserclass,
         jsonreaderclass,
         sessionstoreproducerfactoryclass,
@@ -465,14 +469,14 @@ class ApplicationFactory(object):
     #pylint: disable=too-many-locals
     #pylint: disable=invalid-name
     argvparser = argvparserclass(
-          getopt.getopt,
+          getoptfunc,
           optionsdata,
           argumentsdata)
     sessionstoreproducerfactory = sessionstoreproducerfactoryclass(
           jsonreaderclass,
           sessionstoreproducerclass,
           self.openfunc,
-          json.load)
+          jsonloadfunc)
     urlproducerfactory = urlproducerfactoryclass(
           urlproducerclass)
     urlfilterfactory = urlfilterfactoryclass(
