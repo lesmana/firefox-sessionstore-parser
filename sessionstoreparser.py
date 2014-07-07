@@ -6,9 +6,13 @@ here be module documentation.
 
 VERSION = 'version'
 
-SHORTHELP = 'short help'
+SHORTHELP = '''\
+short help
+'''
 
-HELP = 'help'
+HELP = '''\
+help
+'''
 
 import getopt
 import json
@@ -340,13 +344,13 @@ class Application(object):
   def tryrun(self, argv):
     parsedargv, restargv = self.argvparser.parse(argv[1:])
     if 'help' in parsedargv:
-      self.stdout.write(HELP + '\n')
+      self.stdout.write(HELP)
     elif len(restargv) != 0:
       unknownoption = restargv[0]
       message = 'unknown option: %s' % (unknownoption)
       raise ArgvError(message)
     elif len(parsedargv) == 0:
-      self.stdout.write(SHORTHELP + '\n')
+      self.stdout.write(SHORTHELP)
     elif 'version' in parsedargv:
       self.stdout.write(VERSION + '\n')
     else:
