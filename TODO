@@ -11,6 +11,13 @@ implement some method to inject version string from VERSION file
 so only need update version once in VERSION file
 
 ----
+implement option: -t xxx
+where each x is first letter of state of window, tab, and entry respectively
+examples:
+-t oos: open windows, open tabs, selected urls
+-t csa: closed windows, selected tabs, all urls
+
+----
 implement format string
 --format="format string"
 default: "%url%"
