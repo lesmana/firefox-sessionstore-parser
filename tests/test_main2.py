@@ -82,7 +82,7 @@ class TestMain2(unittest.TestCase):
       return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
-    fakeargv = ['progname', '--all-with-history', 'filename']
+    fakeargv = ['progname', '--all', '--url=all', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\
@@ -280,7 +280,7 @@ class TestMain2(unittest.TestCase):
       return fakefile
     fakestdout = StringIO.StringIO()
     fakestderr = StringIO.StringIO()
-    fakeargv = ['progname', '--closed-with-history', 'filename']
+    fakeargv = ['progname', '--closed', '--url=all', 'filename']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, fakeopen)
     self.assertEqual(fakestderr.getvalue(), '')
     self.assertEqual(fakestdout.getvalue(), textwrap.dedent('''\

@@ -21,10 +21,8 @@ for list of options use {commandname} -h
 HELP = USAGE + '''\
 options:
   --all                  selected urls from all tabs from all windows
-  --all-with-history     like above but show all urls
   --selected             selected urls from selected tabs from selected windows
   --closed               selected urls from closed tabs from closed windows
-  --closed-with-history  like above but show all urls
   --window=STATE         open, closed, selected, all; default: open
   --tab=STATE            open, closed, selected, all; default: open
   --url=STATE            back, selected, forward, all; default: selected
@@ -398,10 +396,8 @@ class ApplicationFactory(object):
           ('help', ['-h', '--help'], 0),
           ('version', ['--version'], 0),
           ('all', ['--all'], 0),
-          ('allwithhistory', ['--all-with-history'], 0),
           ('selected', ['--selected'], 0),
           ('closed', ['--closed'], 0),
-          ('closedwithhistory', ['--closed-with-history'], 0),
           ('window', ['--window'], 1),
           ('tab', ['--tab'], 1),
           ('entry', ['--url'], 1)]
@@ -415,20 +411,12 @@ class ApplicationFactory(object):
           'all': {
             'window': 'all',
             'tab': 'all'},
-          'allwithhistory': {
-            'window': 'all',
-            'tab': 'all',
-            'entry': 'all'},
           'selected': {
             'window': 'selected',
             'tab': 'selected'},
           'closed': {
             'window': 'closed',
-            'tab': 'closed'},
-          'closedwithhistory': {
-            'window': 'closed',
-            'tab': 'closed',
-            'entry': 'all'}}
+            'tab': 'closed'}}
     attributes = {
           'window': {
             'default': ['open'],
