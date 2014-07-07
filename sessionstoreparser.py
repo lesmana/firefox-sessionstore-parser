@@ -4,14 +4,32 @@
 here be module documentation.
 """
 
-VERSION = 'version'
+VERSION = '0.9'
 
-SHORTHELP = '''\
-short help
-'''
+COMMANDNAME = 'sessionstoreparser'
 
-HELP = '''\
-help
+USAGE = '''\
+{commandname} {version}
+usage: {commandname} [options] filename
+without options will show selected urls from open tabs from open windows.
+'''.format(commandname=COMMANDNAME, version=VERSION)
+
+SHORTHELP = USAGE + '''\
+for list of options use {commandname} -h
+'''.format(commandname=COMMANDNAME)
+
+HELP = USAGE + '''\
+options:
+  --all                  selected urls from all tabs from all windows
+  --all-with-history     like above but show all urls
+  --selected             selected urls from selected tabs from selected windows
+  --closed               selected urls from closed tabs from closed windows
+  --closed-with-history  like above but show all urls
+  --window=STATE         open, closed, selected, all; default: open
+  --tab=STATE            open, closed, selected, all; default: open
+  --url=STATE            back, selected, forward, all; default: selected
+  -h, --help             print this help
+  --version              print version
 '''
 
 import getopt
