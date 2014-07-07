@@ -49,7 +49,7 @@ class TestMain(unittest.TestCase):
     fakeargv = ['progname']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
     self.assertEqual(fakestderr.getvalue(), '')
-    self.assertEqual(fakestdout.getvalue(), 'short help\n')
+    self.assertEqual(fakestdout.getvalue(), p.SHORTHELP)
     self.assertEqual(exitstatus, 0)
 
   def test_help(self):
@@ -58,7 +58,7 @@ class TestMain(unittest.TestCase):
     fakeargv = ['progname', '-h']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
     self.assertEqual(fakestderr.getvalue(), '')
-    self.assertEqual(fakestdout.getvalue(), 'help\n')
+    self.assertEqual(fakestdout.getvalue(), p.HELP)
     self.assertEqual(exitstatus, 0)
 
   def test_version(self):
@@ -67,7 +67,7 @@ class TestMain(unittest.TestCase):
     fakeargv = ['progname', '--version']
     exitstatus = p.secludedmain(fakeargv, fakestdout, fakestderr, None)
     self.assertEqual(fakestderr.getvalue(), '')
-    self.assertEqual(fakestdout.getvalue(), 'version\n')
+    self.assertEqual(fakestdout.getvalue(), p.VERSION + '\n')
     self.assertEqual(exitstatus, 0)
 
   def test_nofilename(self):
