@@ -460,7 +460,9 @@ class ApplicationFactory(object):
           'applicationclass': Application}
     return defaults
 
-  def make(self, optionsdata, argumentsdata,
+  def make(self,
+        optionsdata,
+        argumentsdata,
         defaulttemplates,
         optionstemplates,
         attributes,
