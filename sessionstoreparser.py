@@ -460,7 +460,7 @@ class ApplicationFactory(object):
           'applicationclass': Application}
     return defaults
 
-  def make(self,
+  def instanceattributer(self,
         optionsdata,
         argumentsdata,
         defaulttemplates,
@@ -503,6 +503,8 @@ class ApplicationFactory(object):
     self.sessionstoreparserclass = sessionstoreparserclass
     self.applicationclass = applicationclass
 
+  def make(self):
+
     argvparser = self.argvparserclass(
           self.getoptfunc,
           self.optionsdata,
@@ -537,7 +539,8 @@ class ApplicationFactory(object):
 
   def makedefaults(self):
     defaults = self.getdefaults()
-    app = self.make(**defaults)
+    self.instanceattributer(**defaults)
+    app = self.make()
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
