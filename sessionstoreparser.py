@@ -538,9 +538,14 @@ class ApplicationFactory(object):
           self.stderr)
     return app
 
+  @classmethod
+  def default(cls, stdout, stderr, openfunc):
+    defaults = cls.getdefaults()
+    ob = cls(stdout, stderr, openfunc, **defaults)
+    return ob
+
 def secludedmain(argv, stdout, stderr, openfunc):
-  defaults = ApplicationFactory.getdefaults()
-  appfactory = ApplicationFactory(stdout, stderr, openfunc, **defaults)
+  appfactory = ApplicationFactory.default(stdout, stderr, openfunc)
   app = appfactory.make()
   exitstatus = app.run(argv)
   return exitstatus
