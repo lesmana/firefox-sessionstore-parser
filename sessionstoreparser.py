@@ -392,75 +392,6 @@ class ApplicationFactory(object):
     self.openfunc = openfunc
     self.instanceattributer(**defaults)
 
-  @staticmethod
-  def getdefaults():
-    optionsdata = [
-          ('help', ['-h', '--help'], 0),
-          ('version', ['--version'], 0),
-          ('all', ['--all'], 0),
-          ('selected', ['--selected'], 0),
-          ('closed', ['--closed'], 0),
-          ('window', ['--window'], 1),
-          ('tab', ['--tab'], 1),
-          ('entry', ['--url'], 1)]
-    argumentsdata = [
-          'filename']
-    defaulttemplates = {
-          'window': 'default',
-          'tab': 'default',
-          'entry': 'default'}
-    optionstemplates = {
-          'all': {
-            'window': 'all',
-            'tab': 'all'},
-          'selected': {
-            'window': 'selected',
-            'tab': 'selected'},
-          'closed': {
-            'window': 'closed',
-            'tab': 'closed'}}
-    attributes = {
-          'window': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'tab': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'entry': {
-            'default': ['selected'],
-            'all': ['back', 'selected', 'forward'],
-            'back': ['back'],
-            'selected': ['selected'],
-            'forward': ['forward']}}
-    defaults = {
-          'optionsdata': optionsdata,
-          'argumentsdata': argumentsdata,
-          'defaulttemplates': defaulttemplates,
-          'optionstemplates': optionstemplates,
-          'attributes': attributes,
-          'getoptfunc': getopt.getopt,
-          'jsonloadfunc': json.load,
-          'argvparserclass': ArgvParser,
-          'jsonreaderclass': JsonReader,
-          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
-          'sessionstoreproducerclass': SessionStoreProducer,
-          'urlproducerfactoryclass': UrlProducerFactory,
-          'urlproducerclass': UrlProducer,
-          'urlfilterfactoryclass': UrlFilterFactory,
-          'urlfilterclass': UrlFilter,
-          'urlconsumerfactoryclass': UrlConsumerFactory,
-          'urlwriterclass': UrlWriter,
-          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
-          'sessionstoreparserclass': SessionStoreParser,
-          'applicationclass': Application}
-    return defaults
-
   def instanceattributer(self,
         optionsdata,
         argumentsdata,
@@ -537,6 +468,75 @@ class ApplicationFactory(object):
           self.stdout,
           self.stderr)
     return app
+
+  @staticmethod
+  def getdefaults():
+    optionsdata = [
+          ('help', ['-h', '--help'], 0),
+          ('version', ['--version'], 0),
+          ('all', ['--all'], 0),
+          ('selected', ['--selected'], 0),
+          ('closed', ['--closed'], 0),
+          ('window', ['--window'], 1),
+          ('tab', ['--tab'], 1),
+          ('entry', ['--url'], 1)]
+    argumentsdata = [
+          'filename']
+    defaulttemplates = {
+          'window': 'default',
+          'tab': 'default',
+          'entry': 'default'}
+    optionstemplates = {
+          'all': {
+            'window': 'all',
+            'tab': 'all'},
+          'selected': {
+            'window': 'selected',
+            'tab': 'selected'},
+          'closed': {
+            'window': 'closed',
+            'tab': 'closed'}}
+    attributes = {
+          'window': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'tab': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'entry': {
+            'default': ['selected'],
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
+    defaults = {
+          'optionsdata': optionsdata,
+          'argumentsdata': argumentsdata,
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes,
+          'getoptfunc': getopt.getopt,
+          'jsonloadfunc': json.load,
+          'argvparserclass': ArgvParser,
+          'jsonreaderclass': JsonReader,
+          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+          'sessionstoreproducerclass': SessionStoreProducer,
+          'urlproducerfactoryclass': UrlProducerFactory,
+          'urlproducerclass': UrlProducer,
+          'urlfilterfactoryclass': UrlFilterFactory,
+          'urlfilterclass': UrlFilter,
+          'urlconsumerfactoryclass': UrlConsumerFactory,
+          'urlwriterclass': UrlWriter,
+          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
+          'sessionstoreparserclass': SessionStoreParser,
+          'applicationclass': Application}
+    return defaults
 
   @classmethod
   def default(cls, stdout, stderr, openfunc):
