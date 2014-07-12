@@ -391,7 +391,8 @@ class ApplicationFactory(object):
     self.stderr = stderr
     self.openfunc = openfunc
 
-  def getdefaults(self):
+  @staticmethod
+  def getdefaults():
     optionsdata = [
           ('help', ['-h', '--help'], 0),
           ('version', ['--version'], 0),
