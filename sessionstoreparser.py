@@ -537,15 +537,11 @@ class ApplicationFactory(object):
           self.stderr)
     return app
 
-  def makedefaults(self):
-    defaults = self.getdefaults()
-    self.instanceattributer(**defaults)
-    app = self.make()
-    return app
-
 def secludedmain(argv, stdout, stderr, openfunc):
   appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  app = appfactory.makedefaults()
+  defaults = appfactory.getdefaults()
+  appfactory.instanceattributer(**defaults)
+  app = appfactory.make()
   exitstatus = app.run(argv)
   return exitstatus
 
