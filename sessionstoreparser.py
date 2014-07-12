@@ -410,7 +410,6 @@ class ApplicationFactory(object):
     self.stdout = stdout
     self.stderr = stderr
     self.openfunc = openfunc
-
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
     self.defaulttemplates = defaulttemplates
@@ -433,7 +432,6 @@ class ApplicationFactory(object):
     self.applicationclass = applicationclass
 
   def make(self):
-
     argvparser = self.argvparserclass(
           self.getoptfunc,
           self.optionsdata,
