@@ -484,6 +484,28 @@ class ApplicationFactory(object):
     #pylint: disable=too-many-arguments
     #pylint: disable=too-many-locals
     #pylint: disable=invalid-name
+
+    self.optionsdata = optionsdata
+    self.argumentsdata = argumentsdata
+    self.defaulttemplates = defaulttemplates
+    self.optionstemplates = optionstemplates
+    self.attributes = attributes
+    self.getoptfunc = getoptfunc
+    self.jsonloadfunc = jsonloadfunc
+    self.argvparserclass = argvparserclass
+    self.jsonreaderclass = jsonreaderclass
+    self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
+    self.sessionstoreproducerclass = sessionstoreproducerclass
+    self.urlproducerfactoryclass = urlproducerfactoryclass
+    self.urlproducerclass = urlproducerclass
+    self.urlfilterfactoryclass = urlfilterfactoryclass
+    self.urlfilterclass = urlfilterclass
+    self.urlconsumerfactoryclass = urlconsumerfactoryclass
+    self.urlwriterclass = urlwriterclass
+    self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
+    self.sessionstoreparserclass = sessionstoreparserclass
+    self.applicationclass = applicationclass
+
     argvparser = argvparserclass(
           getoptfunc,
           optionsdata,
