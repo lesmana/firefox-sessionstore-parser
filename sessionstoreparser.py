@@ -454,12 +454,12 @@ class ApplicationFactory(object):
           urlfilterfactory,
           urlconsumerfactory,
           self.sessionstoreparserclass)
-    app = self.applicationclass(
+    application = self.applicationclass(
           argvparser,
           sessionstoreparserfactory,
           stdout,
           stderr)
-    return app
+    return application
 
   @staticmethod
   def getdefaults():
@@ -537,9 +537,9 @@ class ApplicationFactory(object):
     return instance
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  appfactory = ApplicationFactory.default()
-  app = appfactory.make(stdout, stderr, openfunc)
-  exitstatus = app.run(argv)
+  applicationfactory = ApplicationFactory.default()
+  application = applicationfactory.make(stdout, stderr, openfunc)
+  exitstatus = application.run(argv)
   return exitstatus
 
 def main(): # pragma: no cover
