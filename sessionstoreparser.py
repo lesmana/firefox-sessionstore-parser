@@ -506,32 +506,32 @@ class ApplicationFactory(object):
     self.sessionstoreparserclass = sessionstoreparserclass
     self.applicationclass = applicationclass
 
-    argvparser = argvparserclass(
-          getoptfunc,
-          optionsdata,
-          argumentsdata)
-    sessionstoreproducerfactory = sessionstoreproducerfactoryclass(
-          jsonreaderclass,
-          sessionstoreproducerclass,
+    argvparser = self.argvparserclass(
+          self.getoptfunc,
+          self.optionsdata,
+          self.argumentsdata)
+    sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
+          self.jsonreaderclass,
+          self.sessionstoreproducerclass,
           self.openfunc,
-          jsonloadfunc)
-    urlproducerfactory = urlproducerfactoryclass(
-          urlproducerclass)
-    urlfilterfactory = urlfilterfactoryclass(
-          urlfilterclass,
-          defaulttemplates,
-          optionstemplates,
-          attributes)
-    urlconsumerfactory = urlconsumerfactoryclass(
-          urlwriterclass,
+          self.jsonloadfunc)
+    urlproducerfactory = self.urlproducerfactoryclass(
+          self.urlproducerclass)
+    urlfilterfactory = self.urlfilterfactoryclass(
+          self.urlfilterclass,
+          self.defaulttemplates,
+          self.optionstemplates,
+          self.attributes)
+    urlconsumerfactory = self.urlconsumerfactoryclass(
+          self.urlwriterclass,
           self.stdout)
-    sessionstoreparserfactory = sessionstoreparserfactoryclass(
+    sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
           sessionstoreproducerfactory,
           urlproducerfactory,
           urlfilterfactory,
           urlconsumerfactory,
-          sessionstoreparserclass)
-    app = applicationclass(
+          self.sessionstoreparserclass)
+    app = self.applicationclass(
           argvparser,
           sessionstoreparserfactory,
           self.stdout,
