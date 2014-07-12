@@ -386,7 +386,7 @@ class Application(object):
     return exitstatus
 
 class ApplicationFactory(object):
-  def __init__(self, stdout, stderr, openfunc,
+  def __init__(self,
         optionsdata,
         argumentsdata,
         defaulttemplates,
@@ -407,9 +407,6 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
         applicationclass):
-    self.stdout = stdout
-    self.stderr = stderr
-    self.openfunc = openfunc
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
     self.defaulttemplates = defaulttemplates
@@ -431,7 +428,10 @@ class ApplicationFactory(object):
     self.sessionstoreparserclass = sessionstoreparserclass
     self.applicationclass = applicationclass
 
-  def make(self):
+  def make(self, stdout, stderr, openfunc):
+    self.stdout = stdout
+    self.stderr = stderr
+    self.openfunc = openfunc
     argvparser = self.argvparserclass(
           self.getoptfunc,
           self.optionsdata,
@@ -534,14 +534,14 @@ class ApplicationFactory(object):
     return defaults
 
   @classmethod
-  def default(cls, stdout, stderr, openfunc):
+  def default(cls):
     defaults = cls.getdefaults()
-    instance = cls(stdout, stderr, openfunc, **defaults)
+    instance = cls(**defaults)
     return instance
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  appfactory = ApplicationFactory.default(stdout, stderr, openfunc)
-  app = appfactory.make()
+  appfactory = ApplicationFactory.default()
+  app = appfactory.make(stdout, stderr, openfunc)
   exitstatus = app.run(argv)
   return exitstatus
 
