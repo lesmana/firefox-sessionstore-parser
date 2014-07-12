@@ -429,9 +429,6 @@ class ApplicationFactory(object):
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
-    self.stdout = stdout
-    self.stderr = stderr
-    self.openfunc = openfunc
     argvparser = self.argvparserclass(
           self.getoptfunc,
           self.optionsdata,
@@ -439,7 +436,7 @@ class ApplicationFactory(object):
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
           self.jsonreaderclass,
           self.sessionstoreproducerclass,
-          self.openfunc,
+          openfunc,
           self.jsonloadfunc)
     urlproducerfactory = self.urlproducerfactoryclass(
           self.urlproducerclass)
@@ -450,7 +447,7 @@ class ApplicationFactory(object):
           self.attributes)
     urlconsumerfactory = self.urlconsumerfactoryclass(
           self.urlwriterclass,
-          self.stdout)
+          stdout)
     sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
           sessionstoreproducerfactory,
           urlproducerfactory,
@@ -460,8 +457,8 @@ class ApplicationFactory(object):
     app = self.applicationclass(
           argvparser,
           sessionstoreparserfactory,
-          self.stdout,
-          self.stderr)
+          stdout,
+          stderr)
     return app
 
   @staticmethod
