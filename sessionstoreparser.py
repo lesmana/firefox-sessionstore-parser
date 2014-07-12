@@ -538,8 +538,8 @@ class ApplicationFactory(object):
     return app
 
 def secludedmain(argv, stdout, stderr, openfunc):
+  defaults = ApplicationFactory.getdefaults()
   appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  defaults = appfactory.getdefaults()
   appfactory.instanceattributer(**defaults)
   app = appfactory.make()
   exitstatus = app.run(argv)
