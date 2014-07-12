@@ -481,9 +481,6 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
         applicationclass):
-    #pylint: disable=too-many-arguments
-    #pylint: disable=too-many-locals
-    #pylint: disable=invalid-name
 
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
