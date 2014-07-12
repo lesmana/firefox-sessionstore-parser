@@ -386,10 +386,11 @@ class Application(object):
     return exitstatus
 
 class ApplicationFactory(object):
-  def __init__(self, stdout, stderr, openfunc):
+  def __init__(self, stdout, stderr, openfunc, **defaults):
     self.stdout = stdout
     self.stderr = stderr
     self.openfunc = openfunc
+    self.instanceattributer(**defaults)
 
   @staticmethod
   def getdefaults():
@@ -539,8 +540,7 @@ class ApplicationFactory(object):
 
 def secludedmain(argv, stdout, stderr, openfunc):
   defaults = ApplicationFactory.getdefaults()
-  appfactory = ApplicationFactory(stdout, stderr, openfunc)
-  appfactory.instanceattributer(**defaults)
+  appfactory = ApplicationFactory(stdout, stderr, openfunc, **defaults)
   app = appfactory.make()
   exitstatus = app.run(argv)
   return exitstatus
