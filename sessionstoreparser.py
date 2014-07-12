@@ -386,13 +386,7 @@ class Application(object):
     return exitstatus
 
 class ApplicationFactory(object):
-  def __init__(self, stdout, stderr, openfunc, **defaults):
-    self.stdout = stdout
-    self.stderr = stderr
-    self.openfunc = openfunc
-    self.instanceattributer(**defaults)
-
-  def instanceattributer(self,
+  def __init__(self, stdout, stderr, openfunc,
         optionsdata,
         argumentsdata,
         defaulttemplates,
@@ -413,6 +407,9 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
         applicationclass):
+    self.stdout = stdout
+    self.stderr = stderr
+    self.openfunc = openfunc
 
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
