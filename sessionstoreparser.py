@@ -1,9 +1,5 @@
 #! /usr/bin/env python
 
-"""
-here be module documentation.
-"""
-
 VERSION = '0.9'
 
 COMMANDNAME = 'sessionstoreparser'
