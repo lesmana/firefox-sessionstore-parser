@@ -1,6 +1,6 @@
 sessionstoreparser 0.9
 
-extract urls from the file sessionstoreparser from the browser firefox.
+extract urls from the file sessionstore.js from the browser firefox.
 
 examples
 --------
