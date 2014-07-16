@@ -44,5 +44,8 @@ make urlfilter factory build filter in order given in argv
 for this need to make parsedargv preserve order
 
 ----
+implement html writer
+
+----
 implement tolerant json parser
 which can salvage parts from damaged sessionstore.js file
