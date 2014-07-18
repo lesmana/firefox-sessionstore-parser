@@ -402,6 +402,60 @@ class Application(object):
     return exitstatus
 
 class SessionStoreParserFactoryFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaulttemplates = {
+          'window': 'default',
+          'tab': 'default',
+          'entry': 'default'}
+    optionstemplates = {
+          'all': {
+            'window': 'all',
+            'tab': 'all'},
+          'selected': {
+            'window': 'selected',
+            'tab': 'selected'},
+          'closed': {
+            'window': 'closed',
+            'tab': 'closed'}}
+    attributes = {
+          'window': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'tab': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'entry': {
+            'default': ['selected'],
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
+    defaults = {
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes,
+          'jsonloadfunc': json.load,
+          'jsonreaderclass': JsonReader,
+          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+          'sessionstoreproducerclass': SessionStoreProducer,
+          'urlproducerfactoryclass': UrlProducerFactory,
+          'urlproducerclass': UrlProducer,
+          'urlfilterfactoryclass': UrlFilterFactory,
+          'urlfilterclass': UrlFilter,
+          'urlconsumerfactoryclass': UrlConsumerFactory,
+          'urlwriterclass': UrlWriter,
+          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
+          'sessionstoreparserclass': SessionStoreParser}
+    return defaults
+
   def __init__(self,
         defaulttemplates,
         optionstemplates,
@@ -462,57 +516,12 @@ class ApplicationFactory(object):
 
   @staticmethod
   def getdefaults():
-    defaulttemplates = {
-          'window': 'default',
-          'tab': 'default',
-          'entry': 'default'}
-    optionstemplates = {
-          'all': {
-            'window': 'all',
-            'tab': 'all'},
-          'selected': {
-            'window': 'selected',
-            'tab': 'selected'},
-          'closed': {
-            'window': 'closed',
-            'tab': 'closed'}}
-    attributes = {
-          'window': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'tab': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'entry': {
-            'default': ['selected'],
-            'all': ['back', 'selected', 'forward'],
-            'back': ['back'],
-            'selected': ['selected'],
-            'forward': ['forward']}}
     argvparserdefaults = ArgvParser.getdefaults()
     argvparser = ArgvParser(**argvparserdefaults)
+    sessionstoreparserfactoryfactorydefaults = \
+          SessionStoreParserFactoryFactory.getdefaults()
     sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
-          defaulttemplates,
-          optionstemplates,
-          attributes,
-          json.load,
-          JsonReader,
-          SessionStoreProducerFactory,
-          SessionStoreProducer,
-          UrlProducerFactory,
-          UrlProducer,
-          UrlFilterFactory,
-          UrlFilter,
-          UrlConsumerFactory,
-          UrlWriter,
-          SessionStoreParserFactory,
-          SessionStoreParser)
+          **sessionstoreparserfactoryfactorydefaults)
     defaults = {
           'argvparser': argvparser,
           'sessionstoreparserfactoryfactory': sessionstoreparserfactoryfactory,
