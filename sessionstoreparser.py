@@ -429,15 +429,16 @@ class ApplicationFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
+    argvparser = ArgvParser(
+          getopt.getopt,
+          optionsdata,
+          argumentsdata)
     defaults = {
-          'optionsdata': optionsdata,
-          'argumentsdata': argumentsdata,
           'defaulttemplates': defaulttemplates,
           'optionstemplates': optionstemplates,
           'attributes': attributes,
-          'getoptfunc': getopt.getopt,
           'jsonloadfunc': json.load,
-          'argvparserclass': ArgvParser,
+          'argvparser': argvparser,
           'jsonreaderclass': JsonReader,
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
           'sessionstoreproducerclass': SessionStoreProducer,
@@ -453,14 +454,11 @@ class ApplicationFactory(object):
     return defaults
 
   def __init__(self,
-        optionsdata,
-        argumentsdata,
         defaulttemplates,
         optionstemplates,
         attributes,
-        getoptfunc,
         jsonloadfunc,
-        argvparserclass,
+        argvparser,
         jsonreaderclass,
         sessionstoreproducerfactoryclass,
         sessionstoreproducerclass,
@@ -473,10 +471,7 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
         applicationclass):
-    self.argvparser = argvparserclass(
-          getoptfunc,
-          optionsdata,
-          argumentsdata)
+    self.argvparser = argvparser
     self.defaulttemplates = defaulttemplates
     self.optionstemplates = optionstemplates
     self.attributes = attributes
