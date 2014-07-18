@@ -487,33 +487,33 @@ class SessionStoreParserFactoryFactory(object):
     self.urlwriterclass = urlwriterclass
     self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
     self.sessionstoreparserclass = sessionstoreparserclass
-
-  def make(self, stdout, openfunc):
     self.sessionstoreproducerfactoryparams = {
           'jsonreaderclass': self.jsonreaderclass,
           'sessionstoreproducerclass': self.sessionstoreproducerclass,
           'jsonloadfunc': self.jsonloadfunc}
-    sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
-          openfunc=openfunc,
-          **self.sessionstoreproducerfactoryparams)
     self.urlproducerfactoryparams = {
           'urlproducerclass': self.urlproducerclass}
-    urlproducerfactory = self.urlproducerfactoryclass(
-          **self.urlproducerfactoryparams)
     self.urlfilterfactoryparams = {
           'urlfilterclass': self.urlfilterclass,
           'defaulttemplates': self.defaulttemplates,
           'optionstemplates': self.optionstemplates,
           'attributes': self.attributes}
-    urlfilterfactory = self.urlfilterfactoryclass(
-          **self.urlfilterfactoryparams)
     self.urlconsumerfactoryparams = {
           'urlconsumerclass': self.urlwriterclass}
+    self.sessionstoreparserfactoryparams = {
+          'sessionstoreparserclass': self.sessionstoreparserclass}
+
+  def make(self, stdout, openfunc):
+    sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
+          openfunc=openfunc,
+          **self.sessionstoreproducerfactoryparams)
+    urlproducerfactory = self.urlproducerfactoryclass(
+          **self.urlproducerfactoryparams)
+    urlfilterfactory = self.urlfilterfactoryclass(
+          **self.urlfilterfactoryparams)
     urlconsumerfactory = self.urlconsumerfactoryclass(
           stream=stdout,
           **self.urlconsumerfactoryparams)
-    self.sessionstoreparserfactoryparams = {
-          'sessionstoreparserclass': self.sessionstoreparserclass}
     sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
           sessionstoreproducerfactory=sessionstoreproducerfactory,
           urlproducerfactory=urlproducerfactory,
