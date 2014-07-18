@@ -381,6 +381,63 @@ class Application(object):
       exitstatus = 1
     return exitstatus
 
+class SessionStoreParserFactoryFactory(object):
+  def __init__(self,
+        defaulttemplates,
+        optionstemplates,
+        attributes,
+        jsonloadfunc,
+        jsonreaderclass,
+        sessionstoreproducerfactoryclass,
+        sessionstoreproducerclass,
+        urlproducerfactoryclass,
+        urlproducerclass,
+        urlfilterfactoryclass,
+        urlfilterclass,
+        urlconsumerfactoryclass,
+        urlwriterclass,
+        sessionstoreparserfactoryclass,
+        sessionstoreparserclass):
+    self.defaulttemplates = defaulttemplates
+    self.optionstemplates = optionstemplates
+    self.attributes = attributes
+    self.jsonloadfunc = jsonloadfunc
+    self.jsonreaderclass = jsonreaderclass
+    self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
+    self.sessionstoreproducerclass = sessionstoreproducerclass
+    self.urlproducerfactoryclass = urlproducerfactoryclass
+    self.urlproducerclass = urlproducerclass
+    self.urlfilterfactoryclass = urlfilterfactoryclass
+    self.urlfilterclass = urlfilterclass
+    self.urlconsumerfactoryclass = urlconsumerfactoryclass
+    self.urlwriterclass = urlwriterclass
+    self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
+    self.sessionstoreparserclass = sessionstoreparserclass
+
+  def make(self, stdout, openfunc):
+    sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
+          self.jsonreaderclass,
+          self.sessionstoreproducerclass,
+          openfunc,
+          self.jsonloadfunc)
+    urlproducerfactory = self.urlproducerfactoryclass(
+          self.urlproducerclass)
+    urlfilterfactory = self.urlfilterfactoryclass(
+          self.urlfilterclass,
+          self.defaulttemplates,
+          self.optionstemplates,
+          self.attributes)
+    urlconsumerfactory = self.urlconsumerfactoryclass(
+          self.urlwriterclass,
+          stdout)
+    sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
+          sessionstoreproducerfactory,
+          urlproducerfactory,
+          urlfilterfactory,
+          urlconsumerfactory,
+          self.sessionstoreparserclass)
+    return sessionstoreparserfactory
+
 class ApplicationFactory(object):
 
   @staticmethod
@@ -490,27 +547,24 @@ class ApplicationFactory(object):
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
-    sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
-          self.jsonreaderclass,
-          self.sessionstoreproducerclass,
-          openfunc,
-          self.jsonloadfunc)
-    urlproducerfactory = self.urlproducerfactoryclass(
-          self.urlproducerclass)
-    urlfilterfactory = self.urlfilterfactoryclass(
-          self.urlfilterclass,
+    sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
           self.defaulttemplates,
           self.optionstemplates,
-          self.attributes)
-    urlconsumerfactory = self.urlconsumerfactoryclass(
+          self.attributes,
+          self.jsonloadfunc,
+          self.jsonreaderclass,
+          self.sessionstoreproducerfactoryclass,
+          self.sessionstoreproducerclass,
+          self.urlproducerfactoryclass,
+          self.urlproducerclass,
+          self.urlfilterfactoryclass,
+          self.urlfilterclass,
+          self.urlconsumerfactoryclass,
           self.urlwriterclass,
-          stdout)
-    sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
-          sessionstoreproducerfactory,
-          urlproducerfactory,
-          urlfilterfactory,
-          urlconsumerfactory,
+          self.sessionstoreparserfactoryclass,
           self.sessionstoreparserclass)
+    sessionstoreparserfactory = sessionstoreparserfactoryfactory.make(
+          stdout, openfunc)
     application = self.applicationclass(
           self.argvparser,
           sessionstoreparserfactory,
