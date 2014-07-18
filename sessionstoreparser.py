@@ -174,6 +174,15 @@ class SessionStoreProducer(object):
     return self.jsonreader.read(self.filename)
 
 class SessionStoreProducerFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaults = {
+          'jsonreaderclass': JsonReader,
+          'sessionstoreproducerclass': SessionStoreProducer,
+          'jsonloadfunc': json.load}
+    return defaults
+
   def __init__(self, jsonreaderclass, sessionstoreproducerclass,
         openfunc, jsonloadfunc):
     self.jsonreaderclass = jsonreaderclass
@@ -402,10 +411,7 @@ class SessionStoreParserFactoryFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
-    sessionstoreproducerfactoryparams = {
-          'jsonreaderclass': JsonReader,
-          'sessionstoreproducerclass': SessionStoreProducer,
-          'jsonloadfunc': json.load}
+    sessionstoreproducerfactoryparams = SessionStoreProducerFactory.getdefaults()
     urlproducerfactoryparams = {
           'urlproducerclass': UrlProducer}
     urlfilterfactoryparams = {
