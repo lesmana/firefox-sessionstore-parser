@@ -378,6 +378,13 @@ class UrlWriter(object):
     self.write(urls)
 
 class UrlConsumerFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaults = {
+          'urlconsumerclass': UrlWriter}
+    return defaults
+
   def __init__(self, urlconsumerclass, stream):
     self.urlconsumerclass = urlconsumerclass
     self.stream = stream
@@ -431,8 +438,7 @@ class SessionStoreParserFactoryFactory(object):
     sessionstoreproducerfactoryparams = SessionStoreProducerFactory.getdefaults()
     urlproducerfactoryparams = UrlProducerFactory.getdefaults()
     urlfilterfactoryparams = UrlFilterFactory.getdefaults()
-    urlconsumerfactoryparams = {
-          'urlconsumerclass': UrlWriter}
+    urlconsumerfactoryparams = UrlConsumerFactory.getdefaults()
     sessionstoreparserfactoryparams = {
           'sessionstoreparserclass': SessionStoreParser}
     defaults = {
