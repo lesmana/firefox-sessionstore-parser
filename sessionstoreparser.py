@@ -36,6 +36,26 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
+
+  @staticmethod
+  def getdefaults():
+    optionsdata = [
+          ('help', ['-h', '--help'], 0),
+          ('version', ['--version'], 0),
+          ('all', ['--all'], 0),
+          ('selected', ['--selected'], 0),
+          ('closed', ['--closed'], 0),
+          ('window', ['--window'], 1),
+          ('tab', ['--tab'], 1),
+          ('entry', ['--url'], 1)]
+    argumentsdata = [
+          'filename']
+    defaults = {
+          'getoptfunc': getopt.getopt,
+          'optionsdata': optionsdata,
+          'argumentsdata': argumentsdata}
+    return defaults
+
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
@@ -442,17 +462,6 @@ class ApplicationFactory(object):
 
   @staticmethod
   def getdefaults():
-    optionsdata = [
-          ('help', ['-h', '--help'], 0),
-          ('version', ['--version'], 0),
-          ('all', ['--all'], 0),
-          ('selected', ['--selected'], 0),
-          ('closed', ['--closed'], 0),
-          ('window', ['--window'], 1),
-          ('tab', ['--tab'], 1),
-          ('entry', ['--url'], 1)]
-    argumentsdata = [
-          'filename']
     defaulttemplates = {
           'window': 'default',
           'tab': 'default',
@@ -486,10 +495,8 @@ class ApplicationFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
-    argvparser = ArgvParser(
-          getopt.getopt,
-          optionsdata,
-          argumentsdata)
+    argvparserdefaults = ArgvParser.getdefaults()
+    argvparser = ArgvParser(**argvparserdefaults)
     sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
           defaulttemplates,
           optionstemplates,
