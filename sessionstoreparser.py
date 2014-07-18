@@ -442,22 +442,22 @@ class SessionStoreParserFactoryFactory(object):
 
   @staticmethod
   def getdefaults():
-    sessionstoreproducerfactoryparams = SessionStoreProducerFactory.getdefaults()
-    urlproducerfactoryparams = UrlProducerFactory.getdefaults()
-    urlfilterfactoryparams = UrlFilterFactory.getdefaults()
-    urlconsumerfactoryparams = UrlConsumerFactory.getdefaults()
-    sessionstoreparserfactoryparams = SessionStoreParserFactory.getdefaults()
     defaults = {
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
-          'sessionstoreproducerfactoryparams': sessionstoreproducerfactoryparams,
+          'sessionstoreproducerfactoryparams':
+                SessionStoreProducerFactory.getdefaults(),
           'urlproducerfactoryclass': UrlProducerFactory,
-          'urlproducerfactoryparams': urlproducerfactoryparams,
+          'urlproducerfactoryparams':
+                UrlProducerFactory.getdefaults(),
           'urlfilterfactoryclass': UrlFilterFactory,
-          'urlfilterfactoryparams': urlfilterfactoryparams,
+          'urlfilterfactoryparams':
+                UrlFilterFactory.getdefaults(),
           'urlconsumerfactoryclass': UrlConsumerFactory,
-          'urlconsumerfactoryparams': urlconsumerfactoryparams,
+          'urlconsumerfactoryparams':
+                UrlConsumerFactory.getdefaults(),
           'sessionstoreparserfactoryclass': SessionStoreParserFactory,
-          'sessionstoreparserfactoryparams': sessionstoreparserfactoryparams}
+          'sessionstoreparserfactoryparams':
+                SessionStoreParserFactory.getdefaults()}
     return defaults
 
   def __init__(self,
