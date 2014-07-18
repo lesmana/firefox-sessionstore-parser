@@ -474,6 +474,7 @@ class SessionStoreParserFactoryFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserfactoryparams):
     #pylint: disable=too-many-arguments
+    #pylint: disable=invalid-name
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
     self.sessionstoreproducerfactoryparams = sessionstoreproducerfactoryparams
     self.urlproducerfactoryclass = urlproducerfactoryclass
@@ -561,6 +562,7 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryfactoryparams,
         applicationclass):
     #pylint: disable=too-many-arguments
+    #pylint: disable=invalid-name
     self.argvparserclass = argvparserclass
     self.argvparserparams = argvparserparams
     self.sessionstoreparserfactoryfactoryclass = \
@@ -570,6 +572,7 @@ class ApplicationFactory(object):
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
+    #pylint: disable=invalid-name
     argvparser = self.argvparserclass(**self.argvparserparams)
     sessionstoreparserfactoryfactory = \
           self.sessionstoreparserfactoryfactoryclass(
