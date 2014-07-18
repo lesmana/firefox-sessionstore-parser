@@ -259,6 +259,13 @@ class UrlProducer(object):
     return self.generate(sessionstore)
 
 class UrlProducerFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaults = {
+          'urlproducerclass': UrlProducer}
+    return defaults
+
   def __init__(self, urlproducerclass):
     self.urlproducerclass = urlproducerclass
 
@@ -412,8 +419,7 @@ class SessionStoreParserFactoryFactory(object):
             'selected': ['selected'],
             'forward': ['forward']}}
     sessionstoreproducerfactoryparams = SessionStoreProducerFactory.getdefaults()
-    urlproducerfactoryparams = {
-          'urlproducerclass': UrlProducer}
+    urlproducerfactoryparams = UrlProducerFactory.getdefaults()
     urlfilterfactoryparams = {
           'urlfilterclass': UrlFilter,
           'defaulttemplates': defaulttemplates,
