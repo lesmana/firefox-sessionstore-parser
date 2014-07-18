@@ -473,35 +473,25 @@ class SessionStoreParserFactoryFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass):
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
-    self.jsonreaderclass = jsonreaderclass
-    self.sessionstoreproducerclass = sessionstoreproducerclass
-    self.jsonloadfunc = jsonloadfunc
     self.urlproducerfactoryclass = urlproducerfactoryclass
-    self.urlproducerclass = urlproducerclass
     self.urlfilterfactoryclass = urlfilterfactoryclass
-    self.urlfilterclass = urlfilterclass
-    self.defaulttemplates = defaulttemplates
-    self.optionstemplates = optionstemplates
-    self.attributes = attributes
     self.urlconsumerfactoryclass = urlconsumerfactoryclass
-    self.urlwriterclass = urlwriterclass
     self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
-    self.sessionstoreparserclass = sessionstoreparserclass
     self.sessionstoreproducerfactoryparams = {
-          'jsonreaderclass': self.jsonreaderclass,
-          'sessionstoreproducerclass': self.sessionstoreproducerclass,
-          'jsonloadfunc': self.jsonloadfunc}
+          'jsonreaderclass': jsonreaderclass,
+          'sessionstoreproducerclass': sessionstoreproducerclass,
+          'jsonloadfunc': jsonloadfunc}
     self.urlproducerfactoryparams = {
-          'urlproducerclass': self.urlproducerclass}
+          'urlproducerclass': urlproducerclass}
     self.urlfilterfactoryparams = {
-          'urlfilterclass': self.urlfilterclass,
-          'defaulttemplates': self.defaulttemplates,
-          'optionstemplates': self.optionstemplates,
-          'attributes': self.attributes}
+          'urlfilterclass': urlfilterclass,
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes}
     self.urlconsumerfactoryparams = {
-          'urlconsumerclass': self.urlwriterclass}
+          'urlconsumerclass': urlwriterclass}
     self.sessionstoreparserfactoryparams = {
-          'sessionstoreparserclass': self.sessionstoreparserclass}
+          'sessionstoreparserclass': sessionstoreparserclass}
 
   def make(self, stdout, openfunc):
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
