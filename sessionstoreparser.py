@@ -516,12 +516,12 @@ class ApplicationFactory(object):
 
   @staticmethod
   def getdefaults():
-    argvparserdefaults = ArgvParser.getdefaults()
-    argvparser = ArgvParser(**argvparserdefaults)
-    sessionstoreparserfactoryfactorydefaults = \
+    argvparserparams = ArgvParser.getdefaults()
+    argvparser = ArgvParser(**argvparserparams)
+    sessionstoreparserfactoryfactoryparams = \
           SessionStoreParserFactoryFactory.getdefaults()
     sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
-          **sessionstoreparserfactoryfactorydefaults)
+          **sessionstoreparserfactoryfactoryparams)
     defaults = {
           'argvparser': argvparser,
           'sessionstoreparserfactoryfactory': sessionstoreparserfactoryfactory,
