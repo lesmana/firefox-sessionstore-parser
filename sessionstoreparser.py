@@ -473,14 +473,14 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass,
         applicationclass):
-    self.optionsdata = optionsdata
-    self.argumentsdata = argumentsdata
+    self.argvparser = argvparserclass(
+          getoptfunc,
+          optionsdata,
+          argumentsdata)
     self.defaulttemplates = defaulttemplates
     self.optionstemplates = optionstemplates
     self.attributes = attributes
-    self.getoptfunc = getoptfunc
     self.jsonloadfunc = jsonloadfunc
-    self.argvparserclass = argvparserclass
     self.jsonreaderclass = jsonreaderclass
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
     self.sessionstoreproducerclass = sessionstoreproducerclass
@@ -495,10 +495,6 @@ class ApplicationFactory(object):
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
-    argvparser = self.argvparserclass(
-          self.getoptfunc,
-          self.optionsdata,
-          self.argumentsdata)
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
           self.jsonreaderclass,
           self.sessionstoreproducerclass,
@@ -521,7 +517,7 @@ class ApplicationFactory(object):
           urlconsumerfactory,
           self.sessionstoreparserclass)
     application = self.applicationclass(
-          argvparser,
+          self.argvparser,
           sessionstoreparserfactory,
           stdout,
           stderr)
