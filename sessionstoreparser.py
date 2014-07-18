@@ -365,42 +365,6 @@ class SessionStoreParserFactory(object):
           sessionstoreproducer, urlproducer, urlfilter, urlconsumer)
     return sessionstoreparser
 
-class Application(object):
-
-  def __init__(self, argvparser, sessionstoreparserfactory, stdout, stderr):
-    self.argvparser = argvparser
-    self.sessionstoreparserfactory = sessionstoreparserfactory
-    self.stdout = stdout
-    self.stderr = stderr
-
-  def tryrun(self, argv):
-    parsedargv, restargv = self.argvparser.parse(argv[1:])
-    if 'help' in parsedargv:
-      self.stdout.write(HELP)
-    elif len(restargv) != 0:
-      unknownoption = restargv[0]
-      message = 'unknown option: %s' % (unknownoption)
-      raise ArgvError(message)
-    elif len(parsedargv) == 0:
-      self.stdout.write(SHORTHELP)
-    elif 'version' in parsedargv:
-      self.stdout.write(VERSION + '\n')
-    else:
-      sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
-      sessionstoreparser.parse()
-
-  def run(self, argv):
-    try:
-      self.tryrun(argv)
-      exitstatus = 0
-    except ArgvError as err:
-      self.stderr.write(str(err) + '\n')
-      exitstatus = 2
-    except Error as err:
-      self.stderr.write(str(err) + '\n')
-      exitstatus = 1
-    return exitstatus
-
 class SessionStoreParserFactoryFactory(object):
 
   @staticmethod
@@ -506,6 +470,42 @@ class SessionStoreParserFactoryFactory(object):
           urlconsumerfactory=urlconsumerfactory,
           **self.sessionstoreparserfactoryparams)
     return sessionstoreparserfactory
+
+class Application(object):
+
+  def __init__(self, argvparser, sessionstoreparserfactory, stdout, stderr):
+    self.argvparser = argvparser
+    self.sessionstoreparserfactory = sessionstoreparserfactory
+    self.stdout = stdout
+    self.stderr = stderr
+
+  def tryrun(self, argv):
+    parsedargv, restargv = self.argvparser.parse(argv[1:])
+    if 'help' in parsedargv:
+      self.stdout.write(HELP)
+    elif len(restargv) != 0:
+      unknownoption = restargv[0]
+      message = 'unknown option: %s' % (unknownoption)
+      raise ArgvError(message)
+    elif len(parsedargv) == 0:
+      self.stdout.write(SHORTHELP)
+    elif 'version' in parsedargv:
+      self.stdout.write(VERSION + '\n')
+    else:
+      sessionstoreparser = self.sessionstoreparserfactory.make(parsedargv)
+      sessionstoreparser.parse()
+
+  def run(self, argv):
+    try:
+      self.tryrun(argv)
+      exitstatus = 0
+    except ArgvError as err:
+      self.stderr.write(str(err) + '\n')
+      exitstatus = 2
+    except Error as err:
+      self.stderr.write(str(err) + '\n')
+      exitstatus = 1
+    return exitstatus
 
 class ApplicationFactory(object):
 
