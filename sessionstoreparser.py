@@ -290,6 +290,49 @@ class UrlFilter(object):
         yield url
 
 class UrlFilterFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaulttemplates = {
+          'window': 'default',
+          'tab': 'default',
+          'entry': 'default'}
+    optionstemplates = {
+          'all': {
+            'window': 'all',
+            'tab': 'all'},
+          'selected': {
+            'window': 'selected',
+            'tab': 'selected'},
+          'closed': {
+            'window': 'closed',
+            'tab': 'closed'}}
+    attributes = {
+          'window': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'tab': {
+            'default': ['open'],
+            'all': ['open', 'closed'],
+            'open': ['open'],
+            'selected': ['selected'],
+            'closed': ['closed']},
+          'entry': {
+            'default': ['selected'],
+            'all': ['back', 'selected', 'forward'],
+            'back': ['back'],
+            'selected': ['selected'],
+            'forward': ['forward']}}
+    defaults = {
+          'urlfilterclass': UrlFilter,
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes}
+    return defaults
+
   def __init__(self, urlfilterclass,
         defaulttemplates, optionstemplates, attributes):
     self.urlfilterclass = urlfilterclass
@@ -385,46 +428,9 @@ class SessionStoreParserFactoryFactory(object):
 
   @staticmethod
   def getdefaults():
-    defaulttemplates = {
-          'window': 'default',
-          'tab': 'default',
-          'entry': 'default'}
-    optionstemplates = {
-          'all': {
-            'window': 'all',
-            'tab': 'all'},
-          'selected': {
-            'window': 'selected',
-            'tab': 'selected'},
-          'closed': {
-            'window': 'closed',
-            'tab': 'closed'}}
-    attributes = {
-          'window': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'tab': {
-            'default': ['open'],
-            'all': ['open', 'closed'],
-            'open': ['open'],
-            'selected': ['selected'],
-            'closed': ['closed']},
-          'entry': {
-            'default': ['selected'],
-            'all': ['back', 'selected', 'forward'],
-            'back': ['back'],
-            'selected': ['selected'],
-            'forward': ['forward']}}
     sessionstoreproducerfactoryparams = SessionStoreProducerFactory.getdefaults()
     urlproducerfactoryparams = UrlProducerFactory.getdefaults()
-    urlfilterfactoryparams = {
-          'urlfilterclass': UrlFilter,
-          'defaulttemplates': defaulttemplates,
-          'optionstemplates': optionstemplates,
-          'attributes': attributes}
+    urlfilterfactoryparams = UrlFilterFactory.getdefaults()
     urlconsumerfactoryparams = {
           'urlconsumerclass': UrlWriter}
     sessionstoreparserfactoryparams = {
