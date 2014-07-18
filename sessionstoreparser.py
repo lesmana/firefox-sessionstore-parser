@@ -489,37 +489,37 @@ class SessionStoreParserFactoryFactory(object):
     self.sessionstoreparserclass = sessionstoreparserclass
 
   def make(self, stdout, openfunc):
-    sessionstoreproducerfactoryparams = {
+    self.sessionstoreproducerfactoryparams = {
           'jsonreaderclass': self.jsonreaderclass,
           'sessionstoreproducerclass': self.sessionstoreproducerclass,
           'jsonloadfunc': self.jsonloadfunc}
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
           openfunc=openfunc,
-          **sessionstoreproducerfactoryparams)
-    urlproducerfactoryparams = {
+          **self.sessionstoreproducerfactoryparams)
+    self.urlproducerfactoryparams = {
           'urlproducerclass': self.urlproducerclass}
     urlproducerfactory = self.urlproducerfactoryclass(
-          **urlproducerfactoryparams)
-    urlfilterfactoryparams = {
+          **self.urlproducerfactoryparams)
+    self.urlfilterfactoryparams = {
           'urlfilterclass': self.urlfilterclass,
           'defaulttemplates': self.defaulttemplates,
           'optionstemplates': self.optionstemplates,
           'attributes': self.attributes}
     urlfilterfactory = self.urlfilterfactoryclass(
-          **urlfilterfactoryparams)
-    urlconsumerfactoryparams = {
+          **self.urlfilterfactoryparams)
+    self.urlconsumerfactoryparams = {
           'urlconsumerclass': self.urlwriterclass}
     urlconsumerfactory = self.urlconsumerfactoryclass(
           stream=stdout,
-          **urlconsumerfactoryparams)
-    sessionstoreparserfactoryparams = {
+          **self.urlconsumerfactoryparams)
+    self.sessionstoreparserfactoryparams = {
           'sessionstoreparserclass': self.sessionstoreparserclass}
     sessionstoreparserfactory = self.sessionstoreparserfactoryclass(
           sessionstoreproducerfactory=sessionstoreproducerfactory,
           urlproducerfactory=urlproducerfactory,
           urlfilterfactory=urlfilterfactory,
           urlconsumerfactory=urlconsumerfactory,
-          **sessionstoreparserfactoryparams)
+          **self.sessionstoreparserfactoryparams)
     return sessionstoreparserfactory
 
 class ApplicationFactory(object):
