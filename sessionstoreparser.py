@@ -439,17 +439,17 @@ class SessionStoreParserFactoryFactory(object):
             'selected': ['selected'],
             'forward': ['forward']}}
     defaults = {
-          'defaulttemplates': defaulttemplates,
-          'optionstemplates': optionstemplates,
-          'attributes': attributes,
-          'jsonloadfunc': json.load,
-          'jsonreaderclass': JsonReader,
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+          'jsonreaderclass': JsonReader,
           'sessionstoreproducerclass': SessionStoreProducer,
+          'jsonloadfunc': json.load,
           'urlproducerfactoryclass': UrlProducerFactory,
           'urlproducerclass': UrlProducer,
           'urlfilterfactoryclass': UrlFilterFactory,
           'urlfilterclass': UrlFilter,
+          'defaulttemplates': defaulttemplates,
+          'optionstemplates': optionstemplates,
+          'attributes': attributes,
           'urlconsumerfactoryclass': UrlConsumerFactory,
           'urlwriterclass': UrlWriter,
           'sessionstoreparserfactoryclass': SessionStoreParserFactory,
@@ -457,32 +457,32 @@ class SessionStoreParserFactoryFactory(object):
     return defaults
 
   def __init__(self,
-        defaulttemplates,
-        optionstemplates,
-        attributes,
-        jsonloadfunc,
-        jsonreaderclass,
         sessionstoreproducerfactoryclass,
+        jsonreaderclass,
         sessionstoreproducerclass,
+        jsonloadfunc,
         urlproducerfactoryclass,
         urlproducerclass,
         urlfilterfactoryclass,
         urlfilterclass,
+        defaulttemplates,
+        optionstemplates,
+        attributes,
         urlconsumerfactoryclass,
         urlwriterclass,
         sessionstoreparserfactoryclass,
         sessionstoreparserclass):
-    self.defaulttemplates = defaulttemplates
-    self.optionstemplates = optionstemplates
-    self.attributes = attributes
-    self.jsonloadfunc = jsonloadfunc
-    self.jsonreaderclass = jsonreaderclass
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
+    self.jsonreaderclass = jsonreaderclass
     self.sessionstoreproducerclass = sessionstoreproducerclass
+    self.jsonloadfunc = jsonloadfunc
     self.urlproducerfactoryclass = urlproducerfactoryclass
     self.urlproducerclass = urlproducerclass
     self.urlfilterfactoryclass = urlfilterfactoryclass
     self.urlfilterclass = urlfilterclass
+    self.defaulttemplates = defaulttemplates
+    self.optionstemplates = optionstemplates
+    self.attributes = attributes
     self.urlconsumerfactoryclass = urlconsumerfactoryclass
     self.urlwriterclass = urlwriterclass
     self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
