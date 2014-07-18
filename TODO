@@ -1,12 +1,6 @@
 here be todos
 
 ----
-write documentation
-* readme
-* docstring
-* help
-
-----
 implement some method to inject version string from VERSION file
 so only need update version once in VERSION file
 
