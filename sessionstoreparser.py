@@ -438,60 +438,55 @@ class SessionStoreParserFactoryFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
-    defaults = {
-          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+    sessionstoreproducerfactoryparams = {
           'jsonreaderclass': JsonReader,
           'sessionstoreproducerclass': SessionStoreProducer,
-          'jsonloadfunc': json.load,
-          'urlproducerfactoryclass': UrlProducerFactory,
-          'urlproducerclass': UrlProducer,
-          'urlfilterfactoryclass': UrlFilterFactory,
+          'jsonloadfunc': json.load}
+    urlproducerfactoryparams = {
+          'urlproducerclass': UrlProducer}
+    urlfilterfactoryparams = {
           'urlfilterclass': UrlFilter,
           'defaulttemplates': defaulttemplates,
           'optionstemplates': optionstemplates,
-          'attributes': attributes,
-          'urlconsumerfactoryclass': UrlConsumerFactory,
-          'urlwriterclass': UrlWriter,
-          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
+          'attributes': attributes}
+    urlconsumerfactoryparams = {
+          'urlconsumerclass': UrlWriter}
+    sessionstoreparserfactoryparams = {
           'sessionstoreparserclass': SessionStoreParser}
+    defaults = {
+          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+          'sessionstoreproducerfactoryparams': sessionstoreproducerfactoryparams,
+          'urlproducerfactoryclass': UrlProducerFactory,
+          'urlproducerfactoryparams': urlproducerfactoryparams,
+          'urlfilterfactoryclass': UrlFilterFactory,
+          'urlfilterfactoryparams': urlfilterfactoryparams,
+          'urlconsumerfactoryclass': UrlConsumerFactory,
+          'urlconsumerfactoryparams': urlconsumerfactoryparams,
+          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
+          'sessionstoreparserfactoryparams': sessionstoreparserfactoryparams}
     return defaults
 
   def __init__(self,
         sessionstoreproducerfactoryclass,
-        jsonreaderclass,
-        sessionstoreproducerclass,
-        jsonloadfunc,
+        sessionstoreproducerfactoryparams,
         urlproducerfactoryclass,
-        urlproducerclass,
+        urlproducerfactoryparams,
         urlfilterfactoryclass,
-        urlfilterclass,
-        defaulttemplates,
-        optionstemplates,
-        attributes,
+        urlfilterfactoryparams,
         urlconsumerfactoryclass,
-        urlwriterclass,
+        urlconsumerfactoryparams,
         sessionstoreparserfactoryclass,
-        sessionstoreparserclass):
+        sessionstoreparserfactoryparams):
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
-    self.sessionstoreproducerfactoryparams = {
-          'jsonreaderclass': jsonreaderclass,
-          'sessionstoreproducerclass': sessionstoreproducerclass,
-          'jsonloadfunc': jsonloadfunc}
+    self.sessionstoreproducerfactoryparams = sessionstoreproducerfactoryparams
     self.urlproducerfactoryclass = urlproducerfactoryclass
-    self.urlproducerfactoryparams = {
-          'urlproducerclass': urlproducerclass}
+    self.urlproducerfactoryparams = urlproducerfactoryparams
     self.urlfilterfactoryclass = urlfilterfactoryclass
-    self.urlfilterfactoryparams = {
-          'urlfilterclass': urlfilterclass,
-          'defaulttemplates': defaulttemplates,
-          'optionstemplates': optionstemplates,
-          'attributes': attributes}
+    self.urlfilterfactoryparams = urlfilterfactoryparams
     self.urlconsumerfactoryclass = urlconsumerfactoryclass
-    self.urlconsumerfactoryparams = {
-          'urlconsumerclass': urlwriterclass}
+    self.urlconsumerfactoryparams = urlconsumerfactoryparams
     self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
-    self.sessionstoreparserfactoryparams = {
-          'sessionstoreparserclass': sessionstoreparserclass}
+    self.sessionstoreparserfactoryparams = sessionstoreparserfactoryparams
 
   def make(self, stdout, openfunc):
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
