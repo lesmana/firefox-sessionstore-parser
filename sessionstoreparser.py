@@ -533,16 +533,20 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryfactoryclass,
         sessionstoreparserfactoryfactoryparams,
         applicationclass):
-    self.argvparser = argvparserclass(**argvparserparams)
-    self.sessionstoreparserfactoryfactory = sessionstoreparserfactoryfactoryclass(
-          **sessionstoreparserfactoryfactoryparams)
+    self.argvparserclass = argvparserclass
+    self.argvparserparams = argvparserparams
+    self.sessionstoreparserfactoryfactoryclass = sessionstoreparserfactoryfactoryclass
+    self.sessionstoreparserfactoryfactoryparams = sessionstoreparserfactoryfactoryparams
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
-    sessionstoreparserfactory = self.sessionstoreparserfactoryfactory.make(
+    argvparser = self.argvparserclass(**self.argvparserparams)
+    sessionstoreparserfactoryfactory = self.sessionstoreparserfactoryfactoryclass(
+          **self.sessionstoreparserfactoryfactoryparams)
+    sessionstoreparserfactory = sessionstoreparserfactoryfactory.make(
           stdout, openfunc)
     application = self.applicationclass(
-          self.argvparser,
+          argvparser,
           sessionstoreparserfactory,
           stdout,
           stderr)
