@@ -522,8 +522,10 @@ class ApplicationFactory(object):
     defaults = {
           'argvparserclass': ArgvParser,
           'argvparserparams': argvparserparams,
-          'sessionstoreparserfactoryfactoryclass': SessionStoreParserFactoryFactory,
-          'sessionstoreparserfactoryfactoryparams': sessionstoreparserfactoryfactoryparams,
+          'sessionstoreparserfactoryfactoryclass':
+                SessionStoreParserFactoryFactory,
+          'sessionstoreparserfactoryfactoryparams':
+                sessionstoreparserfactoryfactoryparams,
           'applicationclass': Application}
     return defaults
 
@@ -535,13 +537,16 @@ class ApplicationFactory(object):
         applicationclass):
     self.argvparserclass = argvparserclass
     self.argvparserparams = argvparserparams
-    self.sessionstoreparserfactoryfactoryclass = sessionstoreparserfactoryfactoryclass
-    self.sessionstoreparserfactoryfactoryparams = sessionstoreparserfactoryfactoryparams
+    self.sessionstoreparserfactoryfactoryclass = \
+          sessionstoreparserfactoryfactoryclass
+    self.sessionstoreparserfactoryfactoryparams = \
+          sessionstoreparserfactoryfactoryparams
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
     argvparser = self.argvparserclass(**self.argvparserparams)
-    sessionstoreparserfactoryfactory = self.sessionstoreparserfactoryfactoryclass(
+    sessionstoreparserfactoryfactory = \
+          self.sessionstoreparserfactoryfactoryclass(
           **self.sessionstoreparserfactoryfactoryparams)
     sessionstoreparserfactory = sessionstoreparserfactoryfactory.make(
           stdout, openfunc)
