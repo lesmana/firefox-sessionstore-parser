@@ -526,14 +526,9 @@ class ApplicationFactory(object):
           'applicationclass': Application}
     return defaults
 
-  @classmethod
-  def default(cls):
-    defaults = cls.getdefaults()
-    instance = cls(**defaults)
-    return instance
-
 def secludedmain(argv, stdout, stderr, openfunc):
-  applicationfactory = ApplicationFactory.default()
+  defaults = ApplicationFactory.getdefaults()
+  applicationfactory = ApplicationFactory(**defaults)
   application = applicationfactory.make(stdout, stderr, openfunc)
   exitstatus = application.run(argv)
   return exitstatus
