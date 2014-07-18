@@ -490,61 +490,34 @@ class ApplicationFactory(object):
           getopt.getopt,
           optionsdata,
           argumentsdata)
+    sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
+          defaulttemplates,
+          optionstemplates,
+          attributes,
+          json.load,
+          JsonReader,
+          SessionStoreProducerFactory,
+          SessionStoreProducer,
+          UrlProducerFactory,
+          UrlProducer,
+          UrlFilterFactory,
+          UrlFilter,
+          UrlConsumerFactory,
+          UrlWriter,
+          SessionStoreParserFactory,
+          SessionStoreParser)
     defaults = {
-          'defaulttemplates': defaulttemplates,
-          'optionstemplates': optionstemplates,
-          'attributes': attributes,
-          'jsonloadfunc': json.load,
           'argvparser': argvparser,
-          'jsonreaderclass': JsonReader,
-          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
-          'sessionstoreproducerclass': SessionStoreProducer,
-          'urlproducerfactoryclass': UrlProducerFactory,
-          'urlproducerclass': UrlProducer,
-          'urlfilterfactoryclass': UrlFilterFactory,
-          'urlfilterclass': UrlFilter,
-          'urlconsumerfactoryclass': UrlConsumerFactory,
-          'urlwriterclass': UrlWriter,
-          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
-          'sessionstoreparserclass': SessionStoreParser,
+          'sessionstoreparserfactoryfactory': sessionstoreparserfactoryfactory,
           'applicationclass': Application}
     return defaults
 
   def __init__(self,
-        defaulttemplates,
-        optionstemplates,
-        attributes,
-        jsonloadfunc,
         argvparser,
-        jsonreaderclass,
-        sessionstoreproducerfactoryclass,
-        sessionstoreproducerclass,
-        urlproducerfactoryclass,
-        urlproducerclass,
-        urlfilterfactoryclass,
-        urlfilterclass,
-        urlconsumerfactoryclass,
-        urlwriterclass,
-        sessionstoreparserfactoryclass,
-        sessionstoreparserclass,
+        sessionstoreparserfactoryfactory,
         applicationclass):
     self.argvparser = argvparser
-    self.sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
-          defaulttemplates,
-          optionstemplates,
-          attributes,
-          jsonloadfunc,
-          jsonreaderclass,
-          sessionstoreproducerfactoryclass,
-          sessionstoreproducerclass,
-          urlproducerfactoryclass,
-          urlproducerclass,
-          urlfilterfactoryclass,
-          urlfilterclass,
-          urlconsumerfactoryclass,
-          urlwriterclass,
-          sessionstoreparserfactoryclass,
-          sessionstoreparserclass)
+    self.sessionstoreparserfactoryfactory = sessionstoreparserfactoryfactory
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
