@@ -517,23 +517,25 @@ class ApplicationFactory(object):
   @staticmethod
   def getdefaults():
     argvparserparams = ArgvParser.getdefaults()
-    argvparser = ArgvParser(**argvparserparams)
     sessionstoreparserfactoryfactoryparams = \
           SessionStoreParserFactoryFactory.getdefaults()
-    sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
-          **sessionstoreparserfactoryfactoryparams)
     defaults = {
-          'argvparser': argvparser,
-          'sessionstoreparserfactoryfactory': sessionstoreparserfactoryfactory,
+          'argvparserclass': ArgvParser,
+          'argvparserparams': argvparserparams,
+          'sessionstoreparserfactoryfactoryclass': SessionStoreParserFactoryFactory,
+          'sessionstoreparserfactoryfactoryparams': sessionstoreparserfactoryfactoryparams,
           'applicationclass': Application}
     return defaults
 
   def __init__(self,
-        argvparser,
-        sessionstoreparserfactoryfactory,
+        argvparserclass,
+        argvparserparams,
+        sessionstoreparserfactoryfactoryclass,
+        sessionstoreparserfactoryfactoryparams,
         applicationclass):
-    self.argvparser = argvparser
-    self.sessionstoreparserfactoryfactory = sessionstoreparserfactoryfactory
+    self.argvparser = argvparserclass(**argvparserparams)
+    self.sessionstoreparserfactoryfactory = sessionstoreparserfactoryfactoryclass(
+          **sessionstoreparserfactoryfactoryparams)
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
