@@ -529,41 +529,26 @@ class ApplicationFactory(object):
         sessionstoreparserclass,
         applicationclass):
     self.argvparser = argvparser
-    self.defaulttemplates = defaulttemplates
-    self.optionstemplates = optionstemplates
-    self.attributes = attributes
-    self.jsonloadfunc = jsonloadfunc
-    self.jsonreaderclass = jsonreaderclass
-    self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
-    self.sessionstoreproducerclass = sessionstoreproducerclass
-    self.urlproducerfactoryclass = urlproducerfactoryclass
-    self.urlproducerclass = urlproducerclass
-    self.urlfilterfactoryclass = urlfilterfactoryclass
-    self.urlfilterclass = urlfilterclass
-    self.urlconsumerfactoryclass = urlconsumerfactoryclass
-    self.urlwriterclass = urlwriterclass
-    self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
-    self.sessionstoreparserclass = sessionstoreparserclass
+    self.sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
+          defaulttemplates,
+          optionstemplates,
+          attributes,
+          jsonloadfunc,
+          jsonreaderclass,
+          sessionstoreproducerfactoryclass,
+          sessionstoreproducerclass,
+          urlproducerfactoryclass,
+          urlproducerclass,
+          urlfilterfactoryclass,
+          urlfilterclass,
+          urlconsumerfactoryclass,
+          urlwriterclass,
+          sessionstoreparserfactoryclass,
+          sessionstoreparserclass)
     self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
-    sessionstoreparserfactoryfactory = SessionStoreParserFactoryFactory(
-          self.defaulttemplates,
-          self.optionstemplates,
-          self.attributes,
-          self.jsonloadfunc,
-          self.jsonreaderclass,
-          self.sessionstoreproducerfactoryclass,
-          self.sessionstoreproducerclass,
-          self.urlproducerfactoryclass,
-          self.urlproducerclass,
-          self.urlfilterfactoryclass,
-          self.urlfilterclass,
-          self.urlconsumerfactoryclass,
-          self.urlwriterclass,
-          self.sessionstoreparserfactoryclass,
-          self.sessionstoreparserclass)
-    sessionstoreparserfactory = sessionstoreparserfactoryfactory.make(
+    sessionstoreparserfactory = self.sessionstoreparserfactoryfactory.make(
           stdout, openfunc)
     application = self.applicationclass(
           self.argvparser,
