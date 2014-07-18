@@ -473,23 +473,23 @@ class SessionStoreParserFactoryFactory(object):
         sessionstoreparserfactoryclass,
         sessionstoreparserclass):
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
-    self.urlproducerfactoryclass = urlproducerfactoryclass
-    self.urlfilterfactoryclass = urlfilterfactoryclass
-    self.urlconsumerfactoryclass = urlconsumerfactoryclass
-    self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
     self.sessionstoreproducerfactoryparams = {
           'jsonreaderclass': jsonreaderclass,
           'sessionstoreproducerclass': sessionstoreproducerclass,
           'jsonloadfunc': jsonloadfunc}
+    self.urlproducerfactoryclass = urlproducerfactoryclass
     self.urlproducerfactoryparams = {
           'urlproducerclass': urlproducerclass}
+    self.urlfilterfactoryclass = urlfilterfactoryclass
     self.urlfilterfactoryparams = {
           'urlfilterclass': urlfilterclass,
           'defaulttemplates': defaulttemplates,
           'optionstemplates': optionstemplates,
           'attributes': attributes}
+    self.urlconsumerfactoryclass = urlconsumerfactoryclass
     self.urlconsumerfactoryparams = {
           'urlconsumerclass': urlwriterclass}
+    self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
     self.sessionstoreparserfactoryparams = {
           'sessionstoreparserclass': sessionstoreparserclass}
 
