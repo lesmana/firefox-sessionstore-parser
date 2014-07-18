@@ -440,6 +440,8 @@ class SessionStoreParserFactory(object):
 
 class SessionStoreParserFactoryFactory(object):
 
+  #pylint: disable=too-many-instance-attributes
+
   @staticmethod
   def getdefaults():
     defaults = {
@@ -471,6 +473,7 @@ class SessionStoreParserFactoryFactory(object):
         urlconsumerfactoryparams,
         sessionstoreparserfactoryclass,
         sessionstoreparserfactoryparams):
+    #pylint: disable=too-many-arguments
     self.sessionstoreproducerfactoryclass = sessionstoreproducerfactoryclass
     self.sessionstoreproducerfactoryparams = sessionstoreproducerfactoryparams
     self.urlproducerfactoryclass = urlproducerfactoryclass
@@ -557,6 +560,7 @@ class ApplicationFactory(object):
         sessionstoreparserfactoryfactoryclass,
         sessionstoreparserfactoryfactoryparams,
         applicationclass):
+    #pylint: disable=too-many-arguments
     self.argvparserclass = argvparserclass
     self.argvparserparams = argvparserparams
     self.sessionstoreparserfactoryfactoryclass = \
