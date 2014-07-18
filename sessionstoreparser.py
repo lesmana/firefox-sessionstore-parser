@@ -409,6 +409,13 @@ class SessionStoreParser(object):
     self.urlconsumer.consume(filteredurls)
 
 class SessionStoreParserFactory(object):
+
+  @staticmethod
+  def getdefaults():
+    defaults = {
+          'sessionstoreparserclass': SessionStoreParser}
+    return defaults
+
   def __init__(self,
         sessionstoreproducerfactory,
         urlproducerfactory,
@@ -439,8 +446,7 @@ class SessionStoreParserFactoryFactory(object):
     urlproducerfactoryparams = UrlProducerFactory.getdefaults()
     urlfilterfactoryparams = UrlFilterFactory.getdefaults()
     urlconsumerfactoryparams = UrlConsumerFactory.getdefaults()
-    sessionstoreparserfactoryparams = {
-          'sessionstoreparserclass': SessionStoreParser}
+    sessionstoreparserfactoryparams = SessionStoreParserFactory.getdefaults()
     defaults = {
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
           'sessionstoreproducerfactoryparams': sessionstoreproducerfactoryparams,
