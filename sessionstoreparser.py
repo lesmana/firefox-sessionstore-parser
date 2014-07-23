@@ -573,10 +573,7 @@ class ApplicationFactory(object):
     sspf_factory = self.sspf_factoryclass(**self.sspf_factoryparams)
     sessionstoreparserfactory = sspf_factory.make(stdout, openfunc)
     application = self.applicationclass(
-          argvparser,
-          sessionstoreparserfactory,
-          stdout,
-          stderr)
+          argvparser, sessionstoreparserfactory, stdout, stderr)
     return application
 
 def secludedmain(argv, stdout, stderr, openfunc):
