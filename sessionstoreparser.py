@@ -38,7 +38,7 @@ class ArgvError(Error):
 class ArgvParser(object):
 
   @staticmethod
-  def getdefaults():
+  def getinitparams():
     optionsdata = [
           ('help', ['-h', '--help'], 0),
           ('version', ['--version'], 0),
@@ -50,11 +50,11 @@ class ArgvParser(object):
           ('entry', ['--url'], 1)]
     argumentsdata = [
           'filename']
-    defaults = {
+    initparams = {
           'getoptfunc': getopt.getopt,
           'optionsdata': optionsdata,
           'argumentsdata': argumentsdata}
-    return defaults
+    return initparams
 
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
@@ -176,12 +176,12 @@ class SessionStoreProducer(object):
 class SessionStoreProducerFactory(object):
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'jsonreaderclass': JsonReader,
           'sessionstoreproducerclass': SessionStoreProducer,
           'jsonloadfunc': json.load}
-    return defaults
+    return initparams
 
   def __init__(self, jsonreaderclass, sessionstoreproducerclass,
         openfunc, jsonloadfunc):
@@ -261,10 +261,10 @@ class UrlProducer(object):
 class UrlProducerFactory(object):
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'urlproducerclass': UrlProducer}
-    return defaults
+    return initparams
 
   def __init__(self, urlproducerclass):
     self.urlproducerclass = urlproducerclass
@@ -292,7 +292,7 @@ class UrlFilter(object):
 class UrlFilterFactory(object):
 
   @staticmethod
-  def getdefaults():
+  def getinitparams():
     defaulttemplates = {
           'window': 'default',
           'tab': 'default',
@@ -326,12 +326,12 @@ class UrlFilterFactory(object):
             'back': ['back'],
             'selected': ['selected'],
             'forward': ['forward']}}
-    defaults = {
+    initparams = {
           'urlfilterclass': UrlFilter,
           'defaulttemplates': defaulttemplates,
           'optionstemplates': optionstemplates,
           'attributes': attributes}
-    return defaults
+    return initparams
 
   def __init__(self, urlfilterclass,
         defaulttemplates, optionstemplates, attributes):
@@ -380,10 +380,10 @@ class UrlWriter(object):
 class UrlConsumerFactory(object):
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'urlconsumerclass': UrlWriter}
-    return defaults
+    return initparams
 
   def __init__(self, urlconsumerclass, stream):
     self.urlconsumerclass = urlconsumerclass
@@ -411,10 +411,10 @@ class SessionStoreParser(object):
 class SessionStoreParserFactory(object):
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'sessionstoreparserclass': SessionStoreParser}
-    return defaults
+    return initparams
 
   def __init__(self,
         sessionstoreproducerfactory,
@@ -443,24 +443,24 @@ class SessionStoreParserFactoryFactory(object):
   #pylint: disable=too-many-instance-attributes
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
           'sessionstoreproducerfactoryparams':
-                SessionStoreProducerFactory.getdefaults(),
+                SessionStoreProducerFactory.getinitparams(),
           'urlproducerfactoryclass': UrlProducerFactory,
           'urlproducerfactoryparams':
-                UrlProducerFactory.getdefaults(),
+                UrlProducerFactory.getinitparams(),
           'urlfilterfactoryclass': UrlFilterFactory,
           'urlfilterfactoryparams':
-                UrlFilterFactory.getdefaults(),
+                UrlFilterFactory.getinitparams(),
           'urlconsumerfactoryclass': UrlConsumerFactory,
           'urlconsumerfactoryparams':
-                UrlConsumerFactory.getdefaults(),
+                UrlConsumerFactory.getinitparams(),
           'sessionstoreparserfactoryclass': SessionStoreParserFactory,
           'sessionstoreparserfactoryparams':
-                SessionStoreParserFactory.getdefaults()}
-    return defaults
+                SessionStoreParserFactory.getinitparams()}
+    return initparams
 
   def __init__(self,
         sessionstoreproducerfactoryclass,
@@ -544,16 +544,16 @@ class Application(object):
 class ApplicationFactory(object):
 
   @staticmethod
-  def getdefaults():
-    defaults = {
+  def getinitparams():
+    initparams = {
           'argvparserclass': ArgvParser,
-          'argvparserparams': ArgvParser.getdefaults(),
+          'argvparserparams': ArgvParser.getinitparams(),
           'sessionstoreparserfactoryfactoryclass':
                 SessionStoreParserFactoryFactory,
           'sessionstoreparserfactoryfactoryparams':
-                SessionStoreParserFactoryFactory.getdefaults(),
+                SessionStoreParserFactoryFactory.getinitparams(),
           'applicationclass': Application}
-    return defaults
+    return initparams
 
   def __init__(self,
         argvparserclass,
@@ -577,8 +577,8 @@ class ApplicationFactory(object):
     return application
 
 def secludedmain(argv, stdout, stderr, openfunc):
-  defaults = ApplicationFactory.getdefaults()
-  applicationfactory = ApplicationFactory(**defaults)
+  initparams = ApplicationFactory.getinitparams()
+  applicationfactory = ApplicationFactory(**initparams)
   application = applicationfactory.make(stdout, stderr, openfunc)
   exitstatus = application.run(argv)
   return exitstatus
