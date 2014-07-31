@@ -36,26 +36,6 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
-
-  @staticmethod
-  def getinitparams():
-    optionsdata = [
-          ('help', ['-h', '--help'], 0),
-          ('version', ['--version'], 0),
-          ('all', ['--all'], 0),
-          ('selected', ['--selected'], 0),
-          ('closed', ['--closed'], 0),
-          ('window', ['--window'], 1),
-          ('tab', ['--tab'], 1),
-          ('entry', ['--url'], 1)]
-    argumentsdata = [
-          'filename']
-    initparams = {
-          'getoptfunc': getopt.getopt,
-          'optionsdata': optionsdata,
-          'argumentsdata': argumentsdata}
-    return initparams
-
   def __init__(self, getoptfunc, optionsdata, argumentsdata):
     self.getoptfunc = getoptfunc
     self.optionsdata = optionsdata
@@ -545,9 +525,24 @@ class ApplicationFactory(object):
 
   @staticmethod
   def getinitparams():
+    optionsdata = [
+          ('help', ['-h', '--help'], 0),
+          ('version', ['--version'], 0),
+          ('all', ['--all'], 0),
+          ('selected', ['--selected'], 0),
+          ('closed', ['--closed'], 0),
+          ('window', ['--window'], 1),
+          ('tab', ['--tab'], 1),
+          ('entry', ['--url'], 1)]
+    argumentsdata = [
+          'filename']
+    argvparserparams = {
+          'getoptfunc': getopt.getopt,
+          'optionsdata': optionsdata,
+          'argumentsdata': argumentsdata}
     initparams = {
           'argvparserclass': ArgvParser,
-          'argvparserparams': ArgvParser.getinitparams(),
+          'argvparserparams': argvparserparams,
           'sessionstoreparserfactoryfactoryclass':
                 SessionStoreParserFactoryFactory,
           'sessionstoreparserfactoryfactoryparams':
