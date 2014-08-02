@@ -9,7 +9,7 @@ class TestPrepareOptionsData(unittest.TestCase):
 
   def test_empty(self):
     optionsdata = []
-    argvparser = p.ArgvParser(None, None, None)
+    argvparser = p.ArgvParser(None, None)
     shortopts, longopts, optnames = argvparser.prepareoptionsdata(optionsdata)
     self.assertEqual(shortopts, '')
     self.assertEqual(longopts, [])
@@ -20,7 +20,7 @@ class TestPrepareOptionsData(unittest.TestCase):
           ('foo', ['-f', '--foo'], 0),
           ('bar', ['-b', '--bar'], 1),
           ('help', ['-h', '--help'], 0)]
-    argvparser = p.ArgvParser(None, None, None)
+    argvparser = p.ArgvParser(None, None)
     shortopts, longopts, optnames = argvparser.prepareoptionsdata(optionsdata)
     self.assertEqual(shortopts, 'fb:h')
     self.assertEqual(longopts, ['foo', 'bar=', 'help'])
@@ -35,21 +35,21 @@ class TestPrepareOptionsData(unittest.TestCase):
 class TestDictifyOpts(unittest.TestCase):
 
   def test_empty(self):
-    argvparser = p.ArgvParser(None, None, None)
+    argvparser = p.ArgvParser(None, None)
     opts = []
     optnames = {}
     optsdict = argvparser.dictifyopts(opts, optnames)
     self.assertEqual(optsdict, {})
 
   def test_noarg(self):
-    argvparser = p.ArgvParser(None, None, None)
+    argvparser = p.ArgvParser(None, None)
     opts = [('-f', '')]
     optnames = {'-f': 'foo'}
     optsdict = argvparser.dictifyopts(opts, optnames)
     self.assertEqual(optsdict, {'foo': ''})
 
   def test_yesarg(self):
-    argvparser = p.ArgvParser(None, None, None)
+    argvparser = p.ArgvParser(None, None)
     opts = [('-f', 'whatfoo')]
     optnames = {'-f': 'foo'}
     optsdict = argvparser.dictifyopts(opts, optnames)
@@ -61,7 +61,7 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_empty(self):
     optionsdata = []
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argvparser = p.ArgvParser(optionsdata, None)
     argv = []
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
@@ -69,7 +69,7 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_someopts(self):
     optionsdata = [('optname', ['--opt'], 1)]
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argvparser = p.ArgvParser(optionsdata, None)
     argv = ['--opt', 'optarg', 'args']
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {'optname': 'optarg'})
@@ -77,7 +77,7 @@ class TestSplitOpts(unittest.TestCase):
 
   def test_noopts(self):
     optionsdata = [('optname', ['--opt'], 1)]
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argvparser = p.ArgvParser(optionsdata, None)
     argv = ['args']
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
@@ -87,7 +87,7 @@ class TestSplitArgs(unittest.TestCase):
 
   def test_empty(self):
     argumentsdata = []
-    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argvparser = p.ArgvParser(None, argumentsdata)
     args = []
     argsdict, restargv = argvparser.splitargs(args)
     self.assertEqual(argsdict, {})
@@ -95,7 +95,7 @@ class TestSplitArgs(unittest.TestCase):
 
   def test_someargs(self):
     argumentsdata = ['foo', 'bar']
-    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argvparser = p.ArgvParser(None, argumentsdata)
     args = ['argfoo', 'argbar', 'rest1', 'rest2']
     argsdict, restargv = argvparser.splitargs(args)
     self.assertEqual(argsdict, {
@@ -105,7 +105,7 @@ class TestSplitArgs(unittest.TestCase):
 
   def test_noargs(self):
     argumentsdata = ['foo', 'bar']
-    argvparser = p.ArgvParser(None, None, argumentsdata)
+    argvparser = p.ArgvParser(None, argumentsdata)
     args = []
     argsdict, restargv = argvparser.splitargs(args)
     self.assertEqual(argsdict, {})
@@ -116,7 +116,7 @@ class TestParse(unittest.TestCase):
   def test_empty(self):
     optionsdata = []
     argumentsdata = []
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argvparser = p.ArgvParser(optionsdata, argumentsdata)
     argv = []
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {})
@@ -125,7 +125,7 @@ class TestParse(unittest.TestCase):
   def test_getopterror(self):
     optionsdata = []
     argumentsdata = []
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argvparser = p.ArgvParser(optionsdata, argumentsdata)
     argv = ['--option']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {})
@@ -137,7 +137,7 @@ class TestParse(unittest.TestCase):
           ('foo', ['-f', '--foo'], 1),
           ('bar', ['-b', '--bar'], 0)]
     argumentsdata = ['filename']
-    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argvparser = p.ArgvParser(optionsdata, argumentsdata)
     argv = ['--bar', '--foo', 'somefoo', 'filename', 'rest1', 'rest2']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {

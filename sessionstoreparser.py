@@ -36,8 +36,7 @@ class ArgvError(Error):
   pass
 
 class ArgvParser(object):
-  def __init__(self, getoptfunc, optionsdata, argumentsdata):
-    self.getoptfunc = getoptfunc
+  def __init__(self, optionsdata, argumentsdata):
     self.optionsdata = optionsdata
     self.argumentsdata = argumentsdata
 
@@ -84,7 +83,7 @@ class ArgvParser(object):
 
   def splitopts(self, argv):
     shortopts, longopts, optnames = self.prepareoptionsdata(self.optionsdata)
-    opts, args = self.getoptfunc(argv, shortopts, longopts)
+    opts, args = getopt.getopt(argv, shortopts, longopts)
     optsdict = self.dictifyopts(opts, optnames)
     return optsdict, args
 
@@ -537,7 +536,6 @@ class ApplicationFactory(object):
     argumentsdata = [
           'filename']
     argvparserparams = {
-          'getoptfunc': getopt.getopt,
           'optionsdata': optionsdata,
           'argumentsdata': argumentsdata}
     initparams = {
