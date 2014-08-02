@@ -60,31 +60,25 @@ class TestSplitOpts(unittest.TestCase):
   #pylint: disable=unused-argument
 
   def test_empty(self):
-    def fakegetopt(argv, shortopts, longopts):
-      return [], []
     optionsdata = []
-    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argv = ['ignored']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argv = []
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
     self.assertEqual(args, [])
 
   def test_someopts(self):
-    def fakegetopt(argv, shortopts, longopts):
-      return [('--opt', 'optarg')], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
-    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argv = ['ignored']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argv = ['--opt', 'optarg', 'args']
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {'optname': 'optarg'})
     self.assertEqual(args, ['args'])
 
   def test_noopts(self):
-    def fakegetopt(argv, shortopts, longopts):
-      return [], ['args']
     optionsdata = [('optname', ['--opt'], 1)]
-    argvparser = p.ArgvParser(fakegetopt, optionsdata, None)
-    argv = ['ignored']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, None)
+    argv = ['args']
     optsdict, args = argvparser.splitopts(argv)
     self.assertEqual(optsdict, {})
     self.assertEqual(args, ['args'])
@@ -129,13 +123,10 @@ class TestParse(unittest.TestCase):
     self.assertEqual(restargv, [])
 
   def test_getopterror(self):
-    def fakegetopt(argv, shortopts, longopts):
-      #pylint: disable=unused-argument
-      raise getopt.GetoptError('bla --option bla bla')
     optionsdata = []
     argumentsdata = []
-    argvparser = p.ArgvParser(fakegetopt, optionsdata, argumentsdata)
-    argv = ['ignored']
+    argvparser = p.ArgvParser(getopt.getopt, optionsdata, argumentsdata)
+    argv = ['--option']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {})
     self.assertEqual(restargv, ['--option'])
