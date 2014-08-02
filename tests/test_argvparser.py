@@ -131,14 +131,14 @@ class TestParse(unittest.TestCase):
   def test_getopterror(self):
     def fakegetopt(argv, shortopts, longopts):
       #pylint: disable=unused-argument
-      raise getopt.GetoptError('bla option bla bla')
+      raise getopt.GetoptError('bla --option bla bla')
     optionsdata = []
     argumentsdata = []
     argvparser = p.ArgvParser(fakegetopt, optionsdata, argumentsdata)
     argv = ['ignored']
     parsedargv, restargv = argvparser.parse(argv)
     self.assertEqual(parsedargv, {})
-    self.assertEqual(restargv, ['option'])
+    self.assertEqual(restargv, ['--option'])
 
   def test_someargs(self):
     optionsdata = [
