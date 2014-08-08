@@ -1,6 +1,9 @@
 here be todos
 
 ----
+extract argvparser to own module
+
+----
 implement some method to inject version string from VERSION file
 so only need update version once in VERSION file
 
