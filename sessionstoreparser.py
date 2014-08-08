@@ -153,6 +153,12 @@ class SessionStoreProducer(object):
     return self.jsonreader.read(self.filename)
 
 class SessionStoreProducerFactory(object):
+  def __init__(self, jsonreaderclass, sessionstoreproducerclass,
+        openfunc, jsonloadfunc):
+    self.jsonreaderclass = jsonreaderclass
+    self.sessionstoreproducerclass = sessionstoreproducerclass
+    self.openfunc = openfunc
+    self.jsonloadfunc = jsonloadfunc
 
   @staticmethod
   def getinitparams():
@@ -161,13 +167,6 @@ class SessionStoreProducerFactory(object):
           'sessionstoreproducerclass': SessionStoreProducer,
           'jsonloadfunc': json.load}
     return initparams
-
-  def __init__(self, jsonreaderclass, sessionstoreproducerclass,
-        openfunc, jsonloadfunc):
-    self.jsonreaderclass = jsonreaderclass
-    self.sessionstoreproducerclass = sessionstoreproducerclass
-    self.openfunc = openfunc
-    self.jsonloadfunc = jsonloadfunc
 
   def make(self, parsedargv):
     try:
@@ -238,15 +237,14 @@ class UrlProducer(object):
     return self.generate(sessionstore)
 
 class UrlProducerFactory(object):
+  def __init__(self, urlproducerclass):
+    self.urlproducerclass = urlproducerclass
 
   @staticmethod
   def getinitparams():
     initparams = {
           'urlproducerclass': UrlProducer}
     return initparams
-
-  def __init__(self, urlproducerclass):
-    self.urlproducerclass = urlproducerclass
 
   def make(self, parsedargv):
     #pylint: disable=unused-argument
@@ -269,6 +267,12 @@ class UrlFilter(object):
         yield url
 
 class UrlFilterFactory(object):
+  def __init__(self, urlfilterclass,
+        defaulttemplates, optionstemplates, attributes):
+    self.urlfilterclass = urlfilterclass
+    self.defaulttemplates = defaulttemplates
+    self.optionstemplates = optionstemplates
+    self.attributes = attributes
 
   @staticmethod
   def getinitparams():
@@ -312,13 +316,6 @@ class UrlFilterFactory(object):
           'attributes': attributes}
     return initparams
 
-  def __init__(self, urlfilterclass,
-        defaulttemplates, optionstemplates, attributes):
-    self.urlfilterclass = urlfilterclass
-    self.defaulttemplates = defaulttemplates
-    self.optionstemplates = optionstemplates
-    self.attributes = attributes
-
   def gettemplates(self, parsedargv):
     templates = {}
     templates.update(self.defaulttemplates)
@@ -357,16 +354,15 @@ class UrlWriter(object):
     self.write(urls)
 
 class UrlConsumerFactory(object):
+  def __init__(self, urlconsumerclass, stream):
+    self.urlconsumerclass = urlconsumerclass
+    self.stream = stream
 
   @staticmethod
   def getinitparams():
     initparams = {
           'urlconsumerclass': UrlWriter}
     return initparams
-
-  def __init__(self, urlconsumerclass, stream):
-    self.urlconsumerclass = urlconsumerclass
-    self.stream = stream
 
   def make(self, parsedargv):
     #pylint: disable=unused-argument
@@ -388,13 +384,6 @@ class SessionStoreParser(object):
     self.urlconsumer.consume(filteredurls)
 
 class SessionStoreParserFactory(object):
-
-  @staticmethod
-  def getinitparams():
-    initparams = {
-          'sessionstoreparserclass': SessionStoreParser}
-    return initparams
-
   def __init__(self,
         sessionstoreproducerfactory,
         urlproducerfactory,
@@ -408,6 +397,12 @@ class SessionStoreParserFactory(object):
     self.urlconsumerfactory = urlconsumerfactory
     self.sessionstoreparserclass = sessionstoreparserclass
 
+  @staticmethod
+  def getinitparams():
+    initparams = {
+          'sessionstoreparserclass': SessionStoreParser}
+    return initparams
+
   def make(self, parsedargv):
     sessionstoreproducer = self.sessionstoreproducerfactory.make(parsedargv)
     urlproducer = self.urlproducerfactory.make(parsedargv)
@@ -418,29 +413,7 @@ class SessionStoreParserFactory(object):
     return sessionstoreparser
 
 class SessionStoreParserFactoryFactory(object):
-
   #pylint: disable=too-many-instance-attributes
-
-  @staticmethod
-  def getinitparams():
-    initparams = {
-          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
-          'sessionstoreproducerfactoryparams':
-                SessionStoreProducerFactory.getinitparams(),
-          'urlproducerfactoryclass': UrlProducerFactory,
-          'urlproducerfactoryparams':
-                UrlProducerFactory.getinitparams(),
-          'urlfilterfactoryclass': UrlFilterFactory,
-          'urlfilterfactoryparams':
-                UrlFilterFactory.getinitparams(),
-          'urlconsumerfactoryclass': UrlConsumerFactory,
-          'urlconsumerfactoryparams':
-                UrlConsumerFactory.getinitparams(),
-          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
-          'sessionstoreparserfactoryparams':
-                SessionStoreParserFactory.getinitparams()}
-    return initparams
-
   def __init__(self,
         sessionstoreproducerfactoryclass,
         sessionstoreproducerfactoryparams,
@@ -464,6 +437,26 @@ class SessionStoreParserFactoryFactory(object):
     self.urlconsumerfactoryparams = urlconsumerfactoryparams
     self.sessionstoreparserfactoryclass = sessionstoreparserfactoryclass
     self.sessionstoreparserfactoryparams = sessionstoreparserfactoryparams
+
+  @staticmethod
+  def getinitparams():
+    initparams = {
+          'sessionstoreproducerfactoryclass': SessionStoreProducerFactory,
+          'sessionstoreproducerfactoryparams':
+                SessionStoreProducerFactory.getinitparams(),
+          'urlproducerfactoryclass': UrlProducerFactory,
+          'urlproducerfactoryparams':
+                UrlProducerFactory.getinitparams(),
+          'urlfilterfactoryclass': UrlFilterFactory,
+          'urlfilterfactoryparams':
+                UrlFilterFactory.getinitparams(),
+          'urlconsumerfactoryclass': UrlConsumerFactory,
+          'urlconsumerfactoryparams':
+                UrlConsumerFactory.getinitparams(),
+          'sessionstoreparserfactoryclass': SessionStoreParserFactory,
+          'sessionstoreparserfactoryparams':
+                SessionStoreParserFactory.getinitparams()}
+    return initparams
 
   def make(self, stdout, openfunc):
     sessionstoreproducerfactory = self.sessionstoreproducerfactoryclass(
@@ -521,6 +514,18 @@ class Application(object):
     return exitstatus
 
 class ApplicationFactory(object):
+  def __init__(self,
+        argvparserclass,
+        argvparserparams,
+        sessionstoreparserfactoryfactoryclass,
+        sessionstoreparserfactoryfactoryparams,
+        applicationclass):
+    #pylint: disable=too-many-arguments
+    self.argvparserclass = argvparserclass
+    self.argvparserparams = argvparserparams
+    self.sspf_factoryclass = sessionstoreparserfactoryfactoryclass
+    self.sspf_factoryparams = sessionstoreparserfactoryfactoryparams
+    self.applicationclass = applicationclass
 
   @staticmethod
   def getinitparams():
@@ -547,19 +552,6 @@ class ApplicationFactory(object):
                 SessionStoreParserFactoryFactory.getinitparams(),
           'applicationclass': Application}
     return initparams
-
-  def __init__(self,
-        argvparserclass,
-        argvparserparams,
-        sessionstoreparserfactoryfactoryclass,
-        sessionstoreparserfactoryfactoryparams,
-        applicationclass):
-    #pylint: disable=too-many-arguments
-    self.argvparserclass = argvparserclass
-    self.argvparserparams = argvparserparams
-    self.sspf_factoryclass = sessionstoreparserfactoryfactoryclass
-    self.sspf_factoryparams = sessionstoreparserfactoryfactoryparams
-    self.applicationclass = applicationclass
 
   def make(self, stdout, stderr, openfunc):
     argvparser = self.argvparserclass(**self.argvparserparams)
