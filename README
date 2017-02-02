@@ -1,46 +1,46 @@
 sessionstoreparser 0.9
 
-extract urls from the file sessionstore.js from the browser firefox.
+Extract URLs from the file sessionstore.js from the browser Firefox.
 
-examples
+Examples
 --------
 
-extract selected urls from open tabs from open windows:
+Extract selected URLs from open tabs from open windows:
 
     sessionstoreparser ~/.mozilla/firefox/profile/sessionstore.js
 
-extract selected urls from all tabs from all windows:
+Extract selected URLs from all tabs from all windows:
 
     sessionstoreparser --all ~/.mozilla/firefox/profile/sessionstore.js
 
-extract all urls from all tabs from all windows:
+Extract all URLs from all tabs from all windows:
 
     sessionstoreparser --all --url=all \
       ~/.mozilla/firefox/profile/sessionstore.js
 
-extract all urls from closed tabs from selected window
+Extract all URLs from closed tabs from selected window
 
     sessionstoreparser --url=all --tab=closed --window=selected \
       ~/.mozilla/firefox/profile/sessionstore.js
 
-installation
+Installation
 ------------
 
-1. place symlink to sessionstoreparser in directory listed in PATH.
+1. Place symlink to sessionstoreparser in directory listed in PATH.
 2. ???
 3. PROFIT!!1
 
-copyright
+Copyright
 ---------
 
-everything is copyright 2014 Lesmana Zimmer.
+Everything is copyright 2014 Lesmana Zimmer.
 
-license
+License
 -------
 
 This file is part of Sessionstoreparser.
 
-Sessionstoreparser is free software: you can redistribute it and/or modify
+Sessionstoreparser is free software: You can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
